@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { parse, differenceInDays } from 'date-fns';
-import Joi from 'joi';
-import { useStateContext } from '../../Contexts/StateContext';
-import { useFunctionContext } from '../../Contexts/FunctionContext';
-import { toastOptions } from '../../../Utils/FakeRoutes';
-import { useThemeContext } from '../../Contexts/ThemesContext';
-import { IoArrowBackSharp } from 'react-icons/io5';
+import React, { useState, useEffect } from "react";
+import { parse, differenceInDays } from "date-fns";
+import Joi from "joi";
+import { useStateContext } from "../../Contexts/StateContext";
+import { useFunctionContext } from "../../Contexts/FunctionContext";
+import { toastOptions } from "../../../Utils/FakeRoutes";
+import { useThemeContext } from "../../Contexts/ThemesContext";
+import { IoArrowBackSharp } from "react-icons/io5";
 import {
   Date_Input,
   Input_area,
   Select_inputs,
   Input_text,
   Input_email,
-} from '../../common/ALLINPUTS/AllInputs';
-import Loader from '../../Loader/Loader';
-import { useNavigate, useLocation } from 'react-router';
-import { backEndCallObjNothing } from '../../../services/mainService';
+} from "../../common/ALLINPUTS/AllInputs";
+import Loader from "../../Loader/Loader";
+import { useNavigate, useLocation } from "react-router";
+import { backEndCallObjNothing } from "../../../services/mainService";
 
 function ApplyLeaveForm() {
   const Navigate = useNavigate();
@@ -27,18 +27,18 @@ function ApplyLeaveForm() {
     setEmployeeLeaveApplications,
     setLoadingTerm,
     employeedata,
-    setEmployeedata
+    setEmployeedata,
   } = useStateContext();
   const { checkErrors, employeeDetails } = useFunctionContext();
   const { applicationColor } = useThemeContext();
 
   const [formData, setFormData] = useState({
-    from_date: '',
-    to_date: '',
-    leave_type: '',
-    reason: '',
+    from_date: "",
+    to_date: "",
+    leave_type: "",
+    reason: "",
     // days_taken: '',
-    team_mail_id: ''
+    team_mail_id: "",
   });
 
   // useEffect(() => {
@@ -55,19 +55,22 @@ function ApplyLeaveForm() {
 
   const leaveFormSchema = {
     from_date: Joi.date().required().label("From Date"),
-    to_date:Joi.date().required().label("to date"),
+    to_date: Joi.date().required().label("to date"),
     leave_type: Joi.string().min(10).required().label("Leave Type"),
-    reason: Joi.string().pattern(/[a-zA-Z0-9 ]*/).required().label("Reason"),
+    reason: Joi.string()
+      .pattern(/[a-zA-Z0-9 ]*/)
+      .required()
+      .label("Reason"),
     team_mail_id: Joi.string()
-    .min(5)
-    .max(35)
-    .email({ tlds: { allow: ["com", "net", "org"] } })
-    .required()
-    .messages({
-      "string.pattern.base": '"Email" should not include special characters',
-      "any.required": '"Email" is required',
-    })
-    .label("Email Id"),
+      .min(5)
+      .max(35)
+      .email({ tlds: { allow: ["com", "net", "org"] } })
+      .required()
+      .messages({
+        "string.pattern.base": '"Email" should not include special characters',
+        "any.required": '"Email" is required',
+      })
+      .label("Email Id"),
   };
 
   const onLeaveApply = async (e) => {
@@ -75,18 +78,24 @@ function ApplyLeaveForm() {
     try {
       setLoading(true);
       await checkErrors(leaveFormSchema, formData);
-      const response = await backEndCallObjNothing('/emp/apply_leave', formData);
-      Navigate('/leaveApplications');
+      const response = await backEndCallObjNothing(
+        "/emp/apply_leave",
+        formData
+      );
+      Navigate("/leaveApplications");
       setEmployeeLeaveApplications(response);
       setFormData({
-        from_date: '',
-        to_date: '',
-        leave_type: '',
-        reason: '',
+        from_date: "",
+        to_date: "",
+        leave_type: "",
+        reason: "",
         // days_taken: '',
-        team_mail_id: ''
+        team_mail_id: "",
       });
-      toastOptions.success(response.success, 'Successfully Leave Application Raised');
+      toastOptions.success(
+        response.success,
+        "Successfully Leave Application Raised"
+      );
       setLoading(false);
     } catch (error) {
       toastOptions.error(error?.response?.data?.detail || error.message);
@@ -105,7 +114,10 @@ function ApplyLeaveForm() {
         }}
       >
         <div className="fs-20">
-          <IoArrowBackSharp onClick={() => Navigate('/leaveApplications')} style={{ cursor: 'pointer' }} />
+          <IoArrowBackSharp
+            onClick={() => Navigate("/leaveApplications")}
+            style={{ cursor: "pointer" }}
+          />
         </div>
         <h5
           className="apply-leave-heading"
@@ -122,7 +134,7 @@ function ApplyLeaveForm() {
                   placeholder="Leave Type"
                   options={employeedata.map((leave) => ({
                     leave_typeId: leave.leave_id,
-                    leave_type: leave.leave_name
+                    leave_type: leave.leave_name,
                   }))}
                   value={formData.leave_type}
                   setForm={setFormData}
@@ -179,7 +191,7 @@ function ApplyLeaveForm() {
                   schema={leaveFormSchema.team_mail_id}
                   imp
                 /> */}
-                 <Input_email
+                <Input_email
                   type="email"
                   placeholder="Team Email ID"
                   name="team_mail_id"

@@ -48,6 +48,7 @@ const Headers = () => {
   const { applicationColor } = useThemeContext();
   const [pageTerm, setPageTerm] = useState("");
   const [newss, setNews] = useState(false);
+  const [recentHire, setrecentHire] = useState([]);
   // console.log(pageTerm.join(""));
 
   const navigate = useNavigate();
@@ -146,9 +147,10 @@ const Headers = () => {
       if (employeeDetails?.employee_id) {
         res = await backEndCallObjNothing("/emp_get/universal");
         console.log("res", res);
+        console.log("res", res?.dashborad?.recent_hires);
       } else {
         res = await backEndCallObjNothing("/user_get/universal");
-        console.log("res", res);
+        console.log(res, "response");
       }
       // setOrgDetails(res?.organisation_details);
       // setOrgLogo(res?.organisation_details.images?.logo);
@@ -158,6 +160,8 @@ const Headers = () => {
       setOrgLogo(res?.dashborad?.organisation_details.images?.logo);
       setLocations(res.dashborad?.organisation_details?.locations);
       setTodayAttendance(res.dashborad.today_attendance);
+      setrecentHire(res.dashboard);
+      console.log(recentHire, "recentHire");
 
       let checkInTime = "";
       if (

@@ -14,8 +14,10 @@ const BirthdaysAndNewHires = ({
   loadMoreRef,
   getMoreDataType,
 }) => {
-  const {  applicationColor } = useThemeContext();
-  const { loadingTerm } = useStateContext();
+  const { applicationColor } = useThemeContext();
+  const { loadingTerm, orgDetails } = useStateContext();
+
+  // console.log(orgDetails, "recent hire");
   return (
     <section
       className="lists"

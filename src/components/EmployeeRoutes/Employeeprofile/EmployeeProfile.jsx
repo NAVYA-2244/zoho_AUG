@@ -41,9 +41,9 @@ import Loader from "../../Loader/Loader";
 function EmployeeProfile({ employeesList }) {
   // Getting the Employeedetails to render the routter
   const { setProfilePhoto } = useStateContext();
-  // const [employeedata, setEmployeedata] = useState(null);
+  const [employeedata, setEmployeedata] = useState(null);
 
-  const { employeeDetails, employeedata, setEmployeedata } = useStateContext();
+  const { employeeDetails } = useStateContext();
 
   const gettingEmployeeById = async () => {
     try {
@@ -56,15 +56,14 @@ function EmployeeProfile({ employeesList }) {
       console.error("Error fetching employee data:", error);
     }
   };
+
   const gettingEmployeeProfileId = async () => {
     try {
-      const response = await backEndCallObjNothing("/emp_get/get_profile", 
-       
-      );
-      console.log(response, "rrrrrr");
+      const response = await backEndCallObjNothing("/emp_get/get_profile");
+      console.log(response, "employeeeeeeee");
       setProfilePhoto(response?.profile?.images?.dp);
       setEmployeedata(response); // Update state correctly
-      console.log("profile",response); // Log the response
+      console.log("profile", response); // Log the response
     } catch (error) {
       console.error("Error fetching employee data:", error);
     }
@@ -76,13 +75,15 @@ function EmployeeProfile({ employeesList }) {
     // } else {
     gettingEmployeeProfileId();
     // }
-  });
+  }, []);
   console.log(employeedata, "eeemployee");
   return (
     <div className="single-employee-header">
       {employeedata ? (
         <SingleEmployeeProfile employeeProfileData={employeedata} />
-      ):<Loader></Loader>}
+      ) : (
+        <Loader></Loader>
+      )}
     </div>
   );
 }
