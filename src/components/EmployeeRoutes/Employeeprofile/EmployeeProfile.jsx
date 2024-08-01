@@ -34,10 +34,10 @@ import SingleEmployeeProfile from "../../AdminRoutes/AdminFetchingSingleEmployee
 import AdminSingleEmployeeData from "../../AdminRoutes/AdminFetchingSingleEmployeeData/AdminSingleEmployeeData";
 import { useStateContext } from "../../Contexts/StateContext";
 import { useThemeContext } from "../../Contexts/ThemesContext";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { AiOutlineEdit } from "react-icons/ai";
 import Loader from "../../Loader/Loader";
-
+import { useNavigate } from "react-router-dom";
 function EmployeeProfile({ employeesList }) {
   // Getting the Employeedetails to render the routter
   const { setProfilePhoto } = useStateContext();

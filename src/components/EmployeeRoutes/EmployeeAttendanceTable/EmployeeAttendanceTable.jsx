@@ -554,7 +554,7 @@ const EmployeeAttendanceTable = () => {
     setAttandanceData,
   } = useStateContext();
   const [skip, setSkip] = useState(0);
-  const [limit] = useState(1);
+  const [limit] = useState(10);
   const [hasMoreData, setHasMoreData] = useState(true);
   const { applicationColor } = useThemeContext();
   const [dateState, setDateState] = useState({
@@ -603,14 +603,14 @@ const EmployeeAttendanceTable = () => {
     },
     [loading, limit, hasMoreData]
   );
-  let calculateHours = (minutes) => {
-    let hours = (minutes / 60).toFixed(2);
-    return `${hours} hrs`;
-  };
-  const extractTime = (datetime) => {
-    let parts = datetime.split(" ");
-    return parts[1];
-  };
+  // let calculateHours = (minutes) => {
+  //   let hours = (minutes / 60).toFixed(2);
+  //   return `${hours} hrs`;
+  // };
+  // const extractTime = (datetime) => {
+  //   let parts = datetime.split(" ");
+  //   return parts[1];
+  // };
   const years = Array.from(
     { length: 10 },
     (_, i) => new Date().getFullYear() - i
@@ -739,20 +739,20 @@ const EmployeeAttendanceTable = () => {
                 <td>{new Date(attendance.createdAt).toLocaleDateString()}</td>
                 <td>{attendance.status}</td>
                 {/* <td>{formatTimes(attendance.checkin, "in_time")}</td> */}
-                <td>{extractTime(attendance.checkin[0].in_time)}</td>
+                <td>{attendance.checkin.in_time}</td>
 
                 {/* <td>{formatTimes(attendance.checkout, "out_time")}</td> */}
-                <td>
+                {/* <td>
                   {attendance?.checkout?.length === 0
                     ? ""
                     : extractTime(
                         attendance.checkout[attendance.checkout.length - 1]
                           .out_time
                       )}
-                </td>
+                </td> */}
 
                 <td style={{ textAlign: "center", paddingLeft: "50px" }}>
-                  {calculateHours(attendance.total_working_minutes)}
+                  {attendance.total_working_minutes}
                   {/* {attendance.total_working_minutes || 0} */}
                 </td>
               </tr>

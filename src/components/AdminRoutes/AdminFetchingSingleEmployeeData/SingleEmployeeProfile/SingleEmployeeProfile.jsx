@@ -5,6 +5,8 @@ import TableHead from "../../../Table/TableHead";
 import { useStateContext } from "../../../Contexts/StateContext";
 import Selectinputimg from "../../../EmployeeRoutes/EmployeeAttendance/Selectinputimg";
 import ProfilePhoto from "../../EmployeeForm/ProfilePhoto";
+import { useNavigate } from "react-router-dom";
+import { AiOutlineEdit } from "react-icons/ai";
 let educationDetailsProperties = [
   {
     name: "Institute Name",
@@ -116,6 +118,7 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
   const [isStatusChanged, setIsStatusChanged] = useState(false);
   const [currentTab, setCurrentTab] = useState("profile");
   const { applicationColor } = useThemeContext();
+  const navigate = useNavigate();
   const {
     setLoading,
     setLoadingTerm,
@@ -277,6 +280,7 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
               color: applicationColor.readColor1,
             }}
           >
+
             <div className="user-details-section">
               {currentTab === "attendance" ? (
                 <>
@@ -287,6 +291,14 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
               ) : currentTab === "profile" ? (
                 <div className="row">
                   {/*Basic Information */}
+                  <button
+        className="edit btn btn-sm btn-success-light"
+        onClick={() => navigate(`/admin/update_employee/${employeeProfileData.profile.employee_id}`)}
+      >
+        update profile
+        <AiOutlineEdit/>
+      </button>
+
                   <div className="col-lg-12">
                     <br />
                     <h5 className="profile-heading">My Profile</h5>
