@@ -1,0 +1,56 @@
+@import "../../../App.scss";
+
+.admin-dashboard-wrapper {
+  width: 95%;
+  margin: auto;
+
+  .dashboard-leftside-wrapper {
+    background-color: #0593ff;
+  }
+
+  .leftSide-content-child1 {
+    display: flex;
+    justify-content: space-between;
+    .interview-info-wrapper,
+    .shortlisted-info-wrapper,
+    .hired-info-wrapper {
+      display: flex;
+      width: 200px;
+      background-color: #f6fbff;
+      padding: 6px 14px;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: 9px;
+
+      p {
+        margin: 0;
+      }
+
+      .interview-icon {
+        background-color: aqua;
+        border-radius: 50%;
+        padding: 9px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        svg {
+          font-size: 1.5rem;
+        }
+      }
+    }
+
+    .interview-info p:first-child,
+    .shortlisted-info p:first-child,
+    .hired-info p:first-child {
+      color: #8b8c8e;
+    }
+
+    .interview-info p:nth-child(2),
+    .shortlisted-info p:nth-child(2),
+    .hired-info p:nth-child(2) {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+  }
+}

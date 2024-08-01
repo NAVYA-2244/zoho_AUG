@@ -1,0 +1,252 @@
+@import "../../../App.scss";
+
+.check-in {
+  width: 100%;
+  @include flexColoum();
+  justify-content: flex-start;
+  padding: 10px 10px 10px 10px;
+  // border-radius: 4px;
+  margin-bottom: 20px;
+  min-height: 295px;
+  max-height: 295px;
+  overflow: hidden;
+
+  .check-in-at {
+    width: 100%;
+    h6 {
+      font-size: 0.9rem;
+      font-weight: 450;
+      white-space: nowrap;
+    }
+  }
+  .time {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-top: 2px;
+  }
+
+  .date-section {
+    @include flexrow();
+    width: 100%;
+    justify-content: space-evenly;
+    // padding: 8px;
+    padding: 8px 0px;
+
+    .date {
+      margin-top: 5px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      @include SMmobile {
+        font-size: 12px;
+      }
+    }
+    .calender-date {
+      @include flexrow();
+      gap: 10px;
+      .calender {
+        font-size: 1.2rem;
+      }
+      .date {
+        white-space: nowrap;
+        margin-right: 5px;
+      }
+    }
+    .check-in-ckeckout-buttons {
+      .check-in-button {
+        text-transform: capitalize;
+        @include button();
+        @include flexColoum();
+        width: 100px;
+        border-radius: 4px;
+        justify-content: flex-start;
+        font-size: 0.8rem;
+        padding: 1px 0px;
+        background: $primary-bg-color !important;
+        display: flex;
+        flex-direction: column;
+        @include SMmobile {
+          width: 79px;
+        }
+      }
+      .check-out {
+        background: #ed2b2a;
+      }
+    }
+    .load {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 3px !important;
+      span {
+        width: 15px !important;
+        height: 15px !important;
+      }
+    }
+  }
+  .notes-check-in-card {
+    width: 100%;
+    background-image: radial-gradient(
+      circle 918px at 13.1% 25.5%,
+      rgb(252, 79, 79) 0%,
+      rgb(244, 213, 101) 48.9%
+    );
+    background: #a3d8ff;
+    background: #0097ff;
+    filter: brightness(115%);
+    color: white !important;
+    display: flex;
+    border-radius: 10px;
+    justify-content: space-between;
+    min-height: 210px;
+  }
+  .checkin-checkout {
+    @include flexColoum();
+    width: 100%;
+    padding: 30px 20px;
+    border-radius: 20px 20px 0 0;
+    border-radius: 20px;
+    .checkin-at-clock {
+      .check-in-at {
+        font-size: 0.8rem;
+        font-weight: 400;
+      }
+      @include flexrow();
+      gap: 10px;
+      .clock {
+        transform: translate(-6px, -6px);
+      }
+    }
+    .check-in-time {
+      font-size: 1.7rem;
+      font-weight: 600;
+      @include flexrow();
+      gap: 10px;
+      margin-right: 10px;
+    }
+    .day {
+      font-size: 1rem;
+      font-weight: 300;
+    }
+  }
+}
+
+// notes
+
+.notes-check-in-card {
+  .icon-prefix {
+    display: none;
+  }
+
+  .total-form {
+    width: 400px;
+    width: 100%;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: flex-start;
+
+    .main_label {
+      label {
+        font-size: 1rem;
+        font-weight: 400;
+        padding-left: 4px;
+        text-transform: capitalize;
+      }
+    }
+
+    .main-input {
+      width: 100%;
+      input {
+        width: 100%;
+        padding: 8.5px;
+        border-radius: 7px;
+
+        outline: none;
+        padding-right: 20px;
+      }
+
+      input,
+      select:focus {
+        border: 1px solid rgb(148, 151, 157);
+      }
+    }
+
+    .error-message {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-self: flex-start;
+      background: #ff8080;
+      padding-left: 10px;
+      padding: 3px 10px;
+      font-size: 0.8rem;
+      border-radius: 7px;
+      color: #f0eeee;
+    }
+  }
+
+  .main-labels {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-right: 5px;
+  }
+  .main-area {
+    width: 100%;
+    .length {
+      width: 200%;
+      text-align: right;
+    }
+  }
+  .main_label {
+    display: none;
+  }
+
+  .main-input {
+    // background: white;
+  }
+
+  .total-form {
+    width: 100%;
+    padding: 0px;
+    margin-bottom: 0px;
+    .main-input {
+      input {
+        border: none;
+        background: none;
+        border-radius: 0px 0px 8px 8px;
+      }
+      input::placeholder {
+        color: black;
+        padding-left: 8px;
+      }
+      input:focus {
+        background-color: transparent;
+        box-shadow: 0 0 0 0.2rem transparent;
+      }
+    }
+  }
+}
+
+// Flip clock
+
+@keyframes flip {
+  from {
+    transform: rotateY(0);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+.flip-container {
+  perspective: 1000px;
+}
+
+.flip-clock {
+  display: inline-block;
+  transform-style: preserve-3d;
+  animation: flip 1s infinite;
+}

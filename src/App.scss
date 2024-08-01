@@ -1,0 +1,218 @@
+// root variables
+$fs9: 0.9rem;
+$fw500: 500;
+$primary-bg-color: #7abbfccc;
+$primary-color: #1a2863;
+$secoundary-bg-color: #f9f7ff;
+$default-bg-color: #fff;
+$default-color: #fff;
+$new-card-bg: rgba(255, 255, 255, 0.311);
+
+// Break-points
+$DesktopA: 2560px;
+$DesktopB: 1536px;
+$LaptopA: 1440px;
+$Tmobile: 1410.9px;
+$Nmobile: 1350.9px;
+$Zmobile: 1250.9px;
+$LaptopD: 1200px;
+$LaptopB: 1024px;
+$Amobile: 1000px;
+$LaptopC: 991.9px;
+$AMmobile: 950.9px;
+$TabletA: 890.9px;
+$mobile: 800px;
+$TabletB: 768px;
+$Fmobile: 700px;
+$Bmobile: 600px;
+$SLmobile: 500px;
+$SMmobile: 450px;
+$MobileL: 425.9px;
+$IPhoneA: 414.9px;
+$Smobile: 375.9px;
+$MobileS: 320.9px;
+
+@mixin DesktopA {
+  @media (max-width: $DesktopA) {
+    @content;
+  }
+}
+
+@mixin DesktopB {
+  @media (max-width: $DesktopB) {
+    @content;
+  }
+}
+
+@mixin LaptopA {
+  @media (max-width: $LaptopA) {
+    @content;
+  }
+}
+
+@mixin Tmobile {
+  @media (max-width: $Tmobile) {
+    @content;
+  }
+}
+
+@mixin Nmobile {
+  @media (max-width: $Nmobile) {
+    @content;
+  }
+}
+
+@mixin Zmobile {
+  @media (max-width: $Zmobile) {
+    @content;
+  }
+}
+
+@mixin LaptopD {
+  @media (max-width: $LaptopD) {
+    @content;
+  }
+}
+
+@mixin LaptopB {
+  @media (max-width: $LaptopB) {
+    @content;
+  }
+}
+
+@mixin Amobile {
+  @media (max-width: $Amobile) {
+    @content;
+  }
+}
+
+@mixin LaptopC {
+  @media (max-width: $LaptopC) {
+    @content;
+  }
+}
+
+@mixin AMmobile {
+  @media (max-width: $AMmobile) {
+    @content;
+  }
+}
+
+@mixin TabletA {
+  @media (max-width: $TabletA) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: $mobile) {
+    @content;
+  }
+}
+
+@mixin Fmobile {
+  @media (max-width: $Fmobile) {
+    @content;
+  }
+}
+
+@mixin TabletB {
+  @media (max-width: $TabletB) {
+    @content;
+  }
+}
+
+@mixin Bmobile {
+  @media (max-width: $Bmobile) {
+    @content;
+  }
+}
+
+@mixin SLmobile {
+  @media (max-width: $SLmobile) {
+    @content;
+  }
+}
+
+@mixin SMmobile {
+  @media (max-width: $SMmobile) {
+    @content;
+  }
+}
+
+@mixin MobileL {
+  @media (max-width: $MobileL) {
+    @content;
+  }
+}
+
+@mixin IPhoneA {
+  @media (max-width: $IPhoneA) {
+    @content;
+  }
+}
+
+@mixin Smobile {
+  @media (max-width: $Smobile) {
+    @content;
+  }
+}
+
+@mixin MobileS {
+  @media (max-width: $MobileS) {
+    @content;
+  }
+}
+
+@mixin flexrow() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@mixin flexColoum() {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin button {
+  border: none;
+  outline: none;
+  padding: 9px 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  color: white;
+  cursor: pointer;
+}
+
+// .layout-main {
+//   height: calc(100vh - 5.3rem);
+//   margin-block-end: 0;
+//   margin-block-start: 3.75rem;
+//   margin-inline-start: 0rem;
+//   overflow: hidden auto;
+//   // padding: 2rem 3rem;
+//   // display: flex;
+//   // flex-direction: column;
+//   // transition: margin-inline-start 240ms ease;
+//   // -webkit-transition: margin-inline-start 240ms ease;
+//   // -o-transition: margin-inline-start 240ms ease;
+//   main {
+//     // height: calc(98vh - 5rem);
+//     // height: auto;
+//     // width: 96%;
+//     // margin: 1.2rem auto;
+//     // border-radius: 10px;
+//     // padding: 1rem;
+//   }
+// }
+
+
+input:read-only {
+  filter: brightness(105%);
+}
+
+select:disabled{
+  filter: brightness(105%);
+}

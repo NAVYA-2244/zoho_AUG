@@ -1,0 +1,41 @@
+.admin-accepted-leave-applications {
+  // background: red;
+  width: 95%;
+  margin: auto;
+  min-height: 80vh;
+  max-height: 80vh;
+}
+
+.status {
+  display: flex;
+  gap: 10px;
+  justify-content: right;
+
+  .accept,
+  .reject {
+    border: none;
+    border-radius: 5px;
+    padding: 2px 9px;
+  }
+
+  .accept {
+    background-color: rgba(38, 191, 148, 0.15);
+    color: #26bf94;
+  }
+
+  .reject {
+    background-color: rgb(230, 83, 60, 0.15);
+    color: #e6533c;
+  }
+}
+
+.table-wrapper {
+  border-radius: 10px;
+}
+
+.employee-leave-cards {
+  .leave-card-data {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

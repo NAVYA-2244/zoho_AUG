@@ -1,0 +1,321 @@
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { MdOutlineKey } from "react-icons/md";
+import { MdEmail } from "react-icons/md";
+import cglogo from "../../../cg_logo_mini.png";
+import logolg from "../../../../src/assets/Login/logo-lg.png";
+
+import {
+  InputEmail,
+  InputPassword,
+  Input_email,
+  Input_password,
+  Input_text,
+} from "../../common/ALLINPUTS/AllInputs";
+import Loader from "../../Loader/Loader";
+import { useStateContext } from "../../Contexts/StateContext";
+import { useFunctionContext } from "../../Contexts/FunctionContext";
+import {
+  makeNetworkCall,
+  makeNetworkCall1,
+  settingTokens,
+} from "../../../HttpServices/HttpService";
+import Joi from "joi";
+import { toastOptions } from "../../../Utils/FakeRoutes";
+import { useThemeContext } from "../../Contexts/ThemesContext";
+import { publicIpv4 } from "public-ip";
+import { fullBrowserVersion } from "react-device-detect";
+import {
+  backEndCallNoEnc,
+  backEndCallObjNoEnc,
+  backEndCallObjNothing,
+  loginCall,
+  testBackendcall,
+} from "../../../services/mainService";
+import { FaBullseye } from "react-icons/fa";
+
+const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
+  const [timeLeft, setTimeLeft] = useState(10);
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const { loadingTerm, setLoadingTerm, employeeDetails, loading, setLoading } =
+    useStateContext();
+  const { applicationColor } = useThemeContext();
+
+  const [response, setResponse] = useState({ type: "" });
+  const [otp, setOtp] = useState("");
+  const [loader, setLoader] = useState(false);
+
+  const [isValid, setIsValid] = useState({ email: false, password: false });
+
+  const employeeLoginSchema = {
+    email: Joi.string()
+      .min(10)
+      .max(25)
+      .email({ tlds: { allow: ["com", "net", "org"] } })
+      .required()
+      .label("Email"),
+    password: Joi.string()
+      .min(8)
+      .max(20)
+      .required()
+      .pattern(
+        /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\|\-=])/
+      )
+      .messages({
+        "string.pattern.base":
+          '"Password" Should Contain At Least 1 Capital Letter, 1 Small Letter, 1 Number And 1 Special Character',
+        "any.required": '"Password" is required',
+      })
+      .label("Password"),
+    last_ip: Joi.string(),
+    device_id: Joi.string(),
+    fcm_token: Joi.string(),
+  };
+
+  const { checkErrors } = useFunctionContext();
+
+  // navigation hook
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoader(true);
+    try {
+      const obj = {
+        otp,
+        email: formData.email,
+        code2fa: "",
+        last_ip: await publicIpv4(),
+      };
+
+      const response = await loginCall("/user/login_verify", obj);
+      console.log(response.success, "response")
+      // toastOptions.success(response?.success||"");
+      toastOptions.success("Success");
+      setLoader(false);
+
+      // window.location = "/dashboard";
+      window.location = "/dashboard";
+
+    } catch (e) {
+      setLoader(false);
+
+      toastOptions.error(e?.response?.data || "SomeThing Got Wrong");
+    }
+  };
+
+  const EmployeeLoginSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      setLoadingTerm("login");
+      setLoading(true);
+      await checkErrors(employeeLoginSchema, formData);
+
+      formData.last_ip = await publicIpv4();
+      formData.device_id = fullBrowserVersion;
+      formData.fcm_token = "staging";
+
+      const response = await backEndCallObjNothing(
+        "/user/login",
+        formData,
+        "loginEmployee"
+      );
+      console.log(response, "loginresponse");
+      setResponse(response);
+      setOtpType(response.type);
+
+      // settingTokens.settingEmployeeToken(response.detail);
+      // setLoadingTerm('');
+      // if (
+      //   Object.keys(employeeDetails).length > 0 ||
+      //   localStorage.getItem('zohoEmployeeToken')
+      // ) {
+      //   setTimeout(() => {
+      //     window.location.href = '/';
+      //   }, 0);
+      // }
+
+      toastOptions.success(response?.success || "");
+    } catch (error) {
+      setLoading(false);
+
+      toastOptions.error(error?.response?.data || "SomeThing Got Wrong");
+      setLoadingTerm("");
+    } finally {
+      setLoading(false);
+      setLoadingTerm("");
+    }
+  };
+  const validateField = (name, value) => {
+    const schema = Joi.object(employeeLoginSchema);
+    const { error } = schema.extract(name).validate(value);
+    return !error;
+  };
+
+  useEffect(() => {
+    const emailValid = validateField("email", formData.email);
+    const passwordValid = validateField("password", formData.password);
+    setTimeout(() => {
+      setIsValid({ email: emailValid, password: passwordValid });
+    }, 0);
+  }, [formData]);
+  // console.log(response, "resjun");
+
+  /// otp timer
+  useEffect(() => {
+    if (timeLeft === 0) return;
+
+    const timerId = setInterval(() => {
+      setTimeLeft((prevTimeLeft) => prevTimeLeft - 1);
+    }, 1000);
+
+    return () => clearInterval(timerId);
+  }, [timeLeft]);
+
+  const formatTime = (seconds) => {
+    const minutes = String(Math.floor(seconds / 60)).padStart(2, "0");
+    const remainingSeconds = String(seconds % 60).padStart(2, "0");
+    return `${minutes}:${remainingSeconds}`;
+  };
+
+  const employeeLogin = () => {
+    localStorage.removeItem("zohoEmployeeToken");
+
+    navigate("/loginForm");
+    // window.location.reload("/loginForm");
+  };
+
+  return (
+    <>
+      {/* <h1>Admin  login Form</h1> */}
+
+      <form className="employee-login-form" onSubmit={EmployeeLoginSubmit}>
+        {/* <div className="comapany-logo">
+          <img src={cglogo} alt="logo" />
+        </div> */}
+
+        {response?.type === "OTP" ? (
+          <>
+            <div className="greetings mb-3">
+              <h1 className="welcome mb-1">OTP Verification</h1>
+              <h4 className="details mb-2 fw-semibold">
+                Please enter OTP Send to Your Registered Email
+              </h4>
+              <p className="text-primary mb-4">example@gamil.com</p>
+
+              <div className="main-input">
+                <div className="icon-prefix">
+                  <label htmlFor="otp">OTP</label>
+                </div>
+                <div className="input">
+                  <input
+                    className="form-control"
+                    type="tel"
+                    maxLength={6}
+                    placeholder="Enter your otp"
+                    value={otp}
+                    onChange={(e) => setOtp(e.target.value)}
+                  />
+                </div>
+
+                {timeLeft ? (
+                  <p className="my-4">
+                    OTP Expires in:{" "}
+                    <span id="timer">{formatTime(timeLeft)}</span>
+                  </p>
+                ) : (
+                  <div>
+                    <p className="mb-0 mt-4">Don't receive OTP code?</p>
+                    <button className="btn text-primary p-0 lh-0" type="button">
+                      Resend Code
+                    </button>
+                  </div>
+                )}
+
+                <div className="employee-button">
+                  <button
+                    onClick={(e) => handleLogin(e)}
+                    type="submit"
+                    className="employee-form-button"
+                  >
+                    Verify & Proceed
+                  </button>
+                </div>
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="greetings mb-1">
+              <div className="logo-wrapper mb-4 text-right">
+                <img src={logolg} alt="company-logo" width="100" />
+              </div>
+              <h2 className="welcome mb-2">Welcome to Admin Login</h2>
+              <h4 className="details mb-2">
+                Please enter your account details
+              </h4>
+            </div>
+            <InputEmail
+              type={"email"}
+              placeholder={"Email Address"}
+              name={"email"}
+              value={formData["email"]}
+              setForm={setFormData}
+              schema={employeeLoginSchema.email}
+              imp
+              icon={<MdEmail />}
+            />
+            <InputPassword
+              type={"password"}
+              placeholder={"Password"}
+              name={"password"}
+              value={formData["password"]}
+              setForm={setFormData}
+              id={"password"}
+              schema={employeeLoginSchema.password}
+              imp
+              icon={<MdOutlineKey />}
+            />
+
+            <div className="setPassword-wrapper">
+              <span>Don't have password?</span>
+              <h5
+                className="forgot-password fw-semibold"
+                onClick={() => navigate("/resetpassword")}
+              >
+                Set Password
+              </h5>
+            </div>
+
+            <div className="employee-button">
+              <button
+                className="employee-form-button sign-in"
+                style={{
+                  background: applicationColor.buttonColor,
+                  // color: applicationColor.readColor1,
+                }}
+                disabled={!isValid.email || !isValid.password || loading}
+              >
+                {" "}
+                {loading && loadingTerm === "login" ? (
+                  <Loader />
+                ) : (
+                  "Sign in"
+                )}{" "}
+              </button>
+            </div>
+
+            <div className="employee-login mt-3">
+              <span>for Employee access?</span>{" "}
+              <a className="fw-semibold" onClick={() => employeeLogin()}>
+                Sign in
+              </a>
+            </div>
+          </>
+        )}
+      </form>
+    </>
+  );
+};
+
+export default EmployeeLoginForm;

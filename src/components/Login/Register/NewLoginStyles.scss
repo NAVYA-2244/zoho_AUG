@@ -1,0 +1,169 @@
+@import "../../../App.scss";
+.sign-wrapper {
+  height: 100vh;
+  width: 100vw;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // background-image: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
+  background-image: radial-gradient(
+    circle farthest-corner at 10% 20%,
+    rgba(38, 51, 97, 1) 0%,
+    rgba(65, 143, 222, 1) 79%
+  );
+  // background-image: url("https://i.pinimg.com/564x/ef/54/73/ef54730ed6cfa6d43cf77bbc567bb39a.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  //   margin: auto;
+  .NewLogin-section {
+    width: 58%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 11px;
+    padding: 10px;
+    background-color: #fff;
+    border: 4px solid #fff;
+    box-shadow: 0px 0px 20px 2px rgba(73, 80, 87, 0.1803921569);
+    gap: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    .login-left-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 74%;
+      height: auto;
+      border-radius: 28px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 1.6rem;
+        object-fit: contain;
+      }
+    }
+    .login-right-wrapper {
+      width: 80%;
+      height: 100%;
+      //   background-color: red;
+      // background-image: url("https://i.pinimg.com/474x/af/8d/f5/af8df5f907bf44f01be0ea02f39bbd69.jpg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      .logo-wrapper {
+        text-align: right;
+        // display: none;
+      }
+      .employee-register {
+        a {
+          text-transform: capitalize;
+        }
+      }
+      .employee-login-form {
+        .total-form {
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+}
+.employee-login-form {
+  .total-form {
+    .main-input .input {
+      input {
+        background: #f0f0f0 !important;
+        color: #000 !important;
+        font-size: 13px;
+      }
+      .main-input .input input:hover {
+        background: #eff7ff !important;
+      }
+    }
+  }
+}
+.line-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .vertical-line {
+    position: absolute;
+    height: 0;
+    width: 320px;
+    background-color: #f8f9fa;
+    margin: 0;
+    transform: rotate(89deg);
+  }
+}
+//media queries
+@include LaptopA {
+  .sign-wrapper .NewLogin-section {
+    // width: 63%;
+    // height: auto;
+  }
+}
+@include Zmobile {
+  .sign-wrapper .NewLogin-section {
+    width: 69%;
+  }
+}
+@include LaptopD {
+  .sign-wrapper .NewLogin-section {
+    width: 70%;
+  }
+}
+@include LaptopB {
+  .sign-wrapper .NewLogin-section {
+    width: 80%;
+  }
+}
+@include AMmobile {
+  .sign-wrapper .NewLogin-section {
+    width: 88%;
+  }
+}
+// @include TabletA {
+//   .sign-wrapper .NewLogin-section {
+//     width: 90%;
+//   }
+// }
+@include mobile {
+  .sign-wrapper .NewLogin-section {
+    width: 93%;
+  }
+}
+// @include TabletB {
+//   .sign-wrapper .NewLogin-section {
+//     width: 80%;
+//   }
+// }
+@include Fmobile {
+  .sign-wrapper .NewLogin-section .login-left-wrapper {
+    display: none;
+  }
+  .line-wrapper {
+    display: none;
+  }
+  .sign-wrapper .NewLogin-section {
+    width: 64%;
+    .login-right-wrapper {
+      width: 100%;
+    }
+  }
+}
+
+@include SLmobile {
+  .sign-wrapper .NewLogin-section {
+    width: 80%;
+  }
+}
+@include Smobile {
+  .sign-wrapper .NewLogin-section {
+    width: 90%;
+  }
+}

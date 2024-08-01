@@ -1,0 +1,182 @@
+.main-table {
+  width: 100%;
+  border-collapse: collapse;
+  height: 100%;
+
+  td {
+    // padding: 18px 12px;
+    // font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+    // font-weight: 500;
+
+    padding: 0.75rem;
+    vertical-align: middle;
+    line-height: 1.462;
+    font-size: 0.813rem;
+    font-weight: 500;
+
+    .employee-id {
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .active-badge {
+      background-color: rgba(38, 191, 148, 0.15);
+      color: #26bf94;
+    }
+    .terminated-badge {
+      background-color: rgb(230, 83, 60, 0.15);
+      color: #e6533c;
+    }
+    .resigned-badge {
+      background-color: rgba(245, 184, 73, 0.15);
+      color: #f5b849;
+    }
+    .pending-badge {
+      // background-color: rgb(73, 182, 245, 0.15);
+      // color: #49b6f5;
+      background-color: rgba(254, 155, 70, 0.15);
+      color: #ff7907;
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+
+      button {
+        // background: none;
+        border: none;
+        margin: 0 5px;
+        cursor: pointer;
+
+        &.edit {
+          font-size: 0.9rem;
+          transition: 0.3s;
+          -webkit-transition: 0.3s;
+          -moz-transition: 0.3s;
+          -ms-transition: 0.3s;
+          -o-transition: 0.3s;
+          background-color: rgba(38, 191, 148, 0.15);
+          color: #26bf94;
+        }
+
+        &.delete {
+          background-color: rgb(230, 83, 60, 0.15);
+          font-size: 0.9rem;
+          transition: 0.2s;
+          color: #e6533c;
+          -webkit-transition: 0.2s;
+          -moz-transition: 0.2s;
+          -ms-transition: 0.2s;
+          -o-transition: 0.2s;
+        }
+
+        &:hover {
+          transform: scale(1.2);
+        }
+      }
+    }
+  }
+
+  .profile-wrapr {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    .profile-img {
+      width: 35px;
+      height: 35px;
+      object-fit: cover;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .profile-info {
+      line-height: 15px;
+      p {
+        margin-bottom: 0;
+      }
+      .profile-email {
+        font-size: 13px;
+        text-transform: lowercase;
+        color: gray;
+      }
+    }
+  }
+
+  .main-thead {
+    background-color: #ffffff;
+    height: 50px;
+    top: -2px;
+    background: #ddd;
+
+    tr {
+      border-radius: 20px;
+      text-transform: capitalize;
+
+      .profile-wrapr {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+
+        .profile-img {
+          width: 35px;
+          height: 35px;
+          object-fit: cover;
+          border-radius: 50%;
+        }
+
+        .profile-info {
+          line-height: 15px;
+          p {
+            margin-bottom: 0;
+          }
+          .profile-email {
+            font-size: 13px;
+            text-transform: lowercase;
+            color: gray;
+          }
+        }
+      }
+
+      th {
+        padding: 12px 5px;
+        font-size: 14px;
+        position: relative;
+        white-space: nowrap;
+        text-align: left;
+        /* padding: .75rem; */
+        vertical-align: middle;
+        line-height: 1.462;
+        cursor: pointer;
+
+        .heading {
+          display: flex;
+          align-items: center;
+
+          h6 {
+            margin: 0;
+            font-weight: 600;
+            font-size: 0.86rem;
+            font-family: "MonaSans-Extra-SemiBold";
+            text-transform: none;
+          }
+
+          .icon {
+            margin-left: 0;
+            margin-bottom: 0;
+            font-size: 0.8rem;
+            color: gray;
+          }
+        }
+      }
+
+      td {
+        padding: 0.75rem;
+        vertical-align: middle;
+        line-height: 1.462;
+        font-size: 0.83rem;
+        font-weight: 500;
+      }
+    }
+  }
+}

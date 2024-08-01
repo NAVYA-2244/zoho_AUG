@@ -1,0 +1,389 @@
+@import "../../../../src/App.scss"; // Ensure the correct path
+
+.single_employee_whole_data {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  flex-wrap: nowrap;
+  margin: auto;
+  width: 95%;
+  border-radius: 8px;
+  padding: 0;
+  overflow-x: hidden;
+
+  .single-employee-header {
+    padding: 1.5rem !important;
+    border-radius: 8px;
+  }
+
+  .single-employee-body {
+    border-radius: 8px;
+  }
+  // user-header-section
+
+  .user-header-section {
+    position: relative;
+    height: 285px;
+    width: 100%;
+
+    .header-bg-image img {
+      width: 100%;
+      height: 185px;
+      border-radius: 7px;
+    }
+
+    .user-image-wrapper {
+      transform: translateY(-56px);
+
+      img {
+        border-radius: 50%;
+        border: 3px solid #fff;
+        margin-left: 2rem;
+        max-height: 100px;
+        object-fit: cover;
+      }
+
+      .user-basic-info {
+        display: flex;
+        gap: 2rem;
+        margin-left: 3rem;
+        padding-top: 10px;
+        margin-top: 0.5rem;
+        p {
+          margin: 0;
+        }
+
+        .profile-status-select {
+          word-wrap: normal;
+          background-color: transparent;
+          outline: none;
+          border-radius: 10px;
+          font-size: 14px;
+          color: #fff;
+          text-align: center;
+          padding: 6px 4px;
+
+          option {
+            text-align: left;
+            padding: 6px 4px;
+          }
+        }
+        .status-button {
+          outline: none;
+          border: none;
+          border-radius: 4px;
+          padding: 2px 10px;
+          margin-left: 10px;
+          background-color: #6c63fc;
+          width: 80px;
+          .load {
+            span {
+              span {
+                width: 10px;
+                height: 10px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .user-img-container img {
+    position: relative;
+  }
+
+  .user-basic-info p:nth-child(2) {
+    text-transform: capitalize;
+  }
+
+  .user-basic-info p:nth-child(4) {
+    text-transform: lowercase;
+    // color: #0099ff;
+  }
+
+  .user-details-section {
+    display: flex;
+
+    .profile-form {
+      width: 100%;
+      overflow-y: unset !important;
+      overflow-x: unset !important;
+
+      .basic-row {
+        margin-bottom: 1rem;
+      }
+
+      hr {
+        display: none;
+      }
+    }
+
+    // admin leaves page styles
+    .leaves-wraper {
+      padding: 0 0 1rem;
+      width: 100%;
+    }
+  }
+
+  .tables {
+    width: 100%;
+  }
+
+  .calendar-container {
+    width: 100%;
+  }
+
+  .my-profile {
+    width: 100%;
+    padding: 1.5rem 1rem;
+  }
+}
+
+.single-employee-body {
+  .attendance-wrapper {
+    max-height: 80vh;
+    width: 100%;
+    overflow-y: unset !important;
+    overflow-x: unset !important;
+    scrollbar-width: none;
+    // padding: 1rem 0;
+    margin: 0 auto;
+    border-radius: 10px;
+  }
+
+  .main-content {
+    overflow: unset !important;
+
+    .profile-form {
+      overflow-y: unset !important;
+      overflow-x: unset !important;
+    }
+  }
+}
+
+.attednce-table-calender {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  grid-gap: 10px;
+}
+
+// tab_buttons
+
+.tab-buttons {
+  width: 100%;
+  display: flex;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 1rem;
+  background-color: #121212;
+
+  button {
+    padding: 8px 16px;
+    letter-spacing: 0.3px;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+
+    &.active {
+      background-color: rgb(121, 97, 149, 0.3);
+      color: #8e48e1 !important;
+    }
+  }
+
+  button:hover {
+    // background-color: rgb(121, 97, 149, 0.3);
+    color: #8e48e1 !important;
+  }
+}
+
+// total leaves new styles
+.sick-casual-leaves-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  color: #fff;
+
+  p {
+    margin-bottom: 0;
+  }
+
+  .sick-leaves {
+    display: flex;
+    width: 49%;
+    justify-content: space-evenly;
+    background-color: orange;
+    align-items: center;
+    border-radius: 15px;
+    // padding: 15px 0;
+
+    .sick-div1 {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0 1rem 0 0;
+
+      .leave-icon {
+        font-size: 3rem;
+      }
+    }
+
+    .sick-div2 {
+      gap: 5px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .available,
+    .used {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+
+      .leave-value {
+        color: #4d4def;
+        font-weight: bolder;
+      }
+    }
+  }
+}
+
+// attendence table  calender styles
+.attednce-table-calender {
+  .nav-link:focus-visible {
+    box-shadow: none;
+  }
+
+  .nav-tabs .nav-link:focus,
+  .nav-tabs {
+    box-shadow: none;
+  }
+  .nav-tabs .nav-link:hover {
+    border: none;
+    background-color: lightblue;
+    border-bottom: 1px solid #6c63fc;
+  }
+
+  .nav-tabs {
+    --bs-nav-tabs-border-color: none;
+    gap: 5px;
+  }
+  .nav-link {
+    color: #fff;
+    transition: none;
+  }
+  .nav-link.active {
+    border: none;
+    border-bottom: 1px solid #6c63fc;
+  }
+}
+
+// leaves styles section
+.leaves-wraper {
+  .nav-pills .nav-link {
+    border-radius: unset;
+  }
+  .nav-link:focus-visible {
+    box-shadow: none;
+  }
+
+  .nav-tabs .nav-link:focus,
+  .nav-tabs {
+    box-shadow: none;
+  }
+  .nav-tabs .nav-link:hover {
+    border: none;
+    background-color: rgb(121, 97, 149, 0.15);
+    border-bottom: 1px solid #6c63fc;
+  }
+
+  .nav-tabs {
+    --bs-nav-tabs-border-color: none;
+  }
+  .nav-link {
+    color: #fff;
+    transition: none;
+  }
+  .nav-link.active {
+    border: none;
+    border-bottom: 1px solid #6c63fc;
+  }
+}
+
+// media queries
+
+@include LaptopB {
+  .single_employee_whole_data .user-header-section .header-bg-image img {
+    height: 130px;
+  }
+  .single_employee_whole_data .user-header-section .user-image-wrapper img {
+    width: 80px;
+  }
+
+  .single_employee_whole_data
+    .user-header-section
+    .user-image-wrapper
+    .user-basic-info {
+    gap: 1rem;
+    margin-left: 2rem;
+  }
+  .single_employee_whole_data .user-header-section {
+    height: 195px;
+  }
+}
+
+@include TabletB {
+  .single_employee_whole_data
+    .user-header-section
+    .user-image-wrapper
+    .user-basic-info {
+    gap: 15px;
+  }
+}
+
+@include Bmobile {
+  .single_employee_whole_data {
+    flex-direction: column;
+  }
+  .tab-buttons {
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+  }
+}
+
+@include SLmobile {
+  .single_employee_whole_data {
+    .single-employee-header,
+    .single-employee-body {
+      padding: 0.5rem !important;
+    }
+  }
+
+  .single_employee_whole_data
+    .user-header-section
+    .user-image-wrapper
+    .user-basic-info {
+    gap: 10px;
+    font-size: 12px;
+    margin-left: 16px;
+    align-items: center;
+  }
+  .employeee-email {
+    display: none;
+  }
+}
+
+@include MobileS {
+  .tab-buttons button {
+    padding: 8px 12px;
+  }
+}

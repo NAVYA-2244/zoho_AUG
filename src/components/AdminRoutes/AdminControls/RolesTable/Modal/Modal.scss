@@ -1,0 +1,135 @@
+@import "../../../../../App.scss";
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+  background-color: rgba(0, 0, 0, 0.729);
+  transform: none !important;
+}
+.modal-content {
+  border-radius: 10px;
+  padding: 15px;
+  width: 400px;
+  position: relative;
+  form {
+    max-height: 300px;
+    overflow-y: scroll;
+    padding-bottom: 35px;
+  }
+
+  .modal-button {
+    width: 200px;
+    padding: 5px 0px;
+    width: 100%;
+    // background: red !important;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    justify-items: flex-end;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    button {
+      width: 130px;
+      position: absolute;
+      right: 12px;
+      bottom: 10px;
+    }
+  }
+}
+
+.close {
+  float: right;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  align-items: center;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  justify-content: space-between;
+
+  .icon {
+    font-size: 1.2rem;
+    margin-bottom: 0;
+  }
+
+  .modal-heading {
+    font-size: 1.8rem;
+    margin-top: 10px;
+    font-weight: 400;
+  }
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+// .button{
+//   float: right;
+// }
+button[type="submit"] {
+  border: none;
+  outline: none;
+  padding: 5px 3px;
+  background: rgb(45, 102, 145);
+  border-radius: 4px;
+  color: white;
+  align-self: center;
+  margin: auto;
+  float: right;
+  margin-top: 27px;
+}
+
+// model styles new
+
+.btn-close {
+  --bs-btn-close-color: #9d9d9de4 !important;
+}
+
+.modal-title {
+  font-family: "Urbanist", sans-serif;
+  text-transform: uppercase;
+}
+
+.employee-list-main {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 10px 15px;
+  .employee-child {
+    p {
+      font-family: "Urbanist", sans-serif;
+      font-size: 15px;
+      margin-bottom: 0;
+      text-wrap: nowrap;
+    }
+  }
+}
+
+.modal-actions {
+  display: none;
+  // display: flex;
+  // justify-content: space-around;
+}
+
+// .modal-footer {
+//   display: none;
+// }

@@ -1,0 +1,254 @@
+@import "../../../App.scss";
+
+.header {
+  width: 100%;
+  padding: 10px;
+  padding-left: 20px;
+  height: 70px;
+  // padding-right: 20px;
+  border-radius: 10px;
+  padding-right: 40px;
+  margin-top: 22px;
+  width: 95%;
+  align-self: center;
+  display: flex;
+  justify-content: space-between;
+  // box-shadow: 0 0 2px white;
+
+  .button-closesidebar {
+    transition: 0.7s;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    .close {
+      margin-top: 6px;
+    }
+    .close {
+      font-size: 1.5rem;
+    }
+
+    .take-to-page {
+      // width: 250px;
+      width: clamp(150px, 50%, 400px);
+      border-radius: 20px;
+      display: flex;
+      flex-direction: row;
+      gap: 5px;
+      align-items: center;
+      margin-left: 7px;
+      padding-left: 5px;
+      input {
+        background: transparent;
+        padding: 1px;
+        flex: 1;
+        border: none;
+        outline: none;
+        color: white;
+        max-width: 76%;
+      }
+      label {
+        color: white;
+        height: 100%;
+        padding: 5px;
+        font-size: 1.2rem;
+        transform: translate(1px, -2px);
+        cursor: pointer;
+      }
+    }
+  }
+  .current-page {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    .current-page-name {
+      font-family: "MonaSans-SemiBold", sans-serif;
+      font-size: clamp(1.3rem, 4.5vw, 1.6rem);
+      padding-top: 5px;
+      font-weight: 400;
+      margin-left: 10px;
+      margin-bottom: 5px;
+      line-height: 0 !important;
+      text-transform: capitalize;
+      text-wrap: nowrap;
+    }
+  }
+}
+
+.user-details {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .dropdown-menu {
+    position: absolute;
+    font-size: 0.9rem;
+    margin-top: 0;
+    right: 0;
+    left: auto;
+    top: 3.25rem;
+    animation-name: dropdownAnimation;
+    -webkit-animation-duration: 0.25s;
+    -moz-animation-duration: 0.25s;
+    -ms-animation-duration: 0.25s;
+    -o-animation-duration: 0.25s;
+    animation-duration: 0.25s;
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    -ms-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
+    animation-fill-mode: both;
+    border: none;
+    -webkit-box-shadow: 0px 3px 21px 0px #0003;
+    box-shadow: 0px 3px 21px 0px #0003;
+    z-index: 9999;
+
+    .dropdown-item {
+      font-size: 0.873rem;
+      font-weight: 400;
+      padding: 0.375rem 0.938rem;
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+
+    .dropdown-item:is(.active, :active) {
+      color: #ffffff;
+      text-decoration: none;
+      background-color: #4b49ac;
+    }
+  }
+
+  .user-image {
+    img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: #fff;
+      // margin-right: 10px;
+    }
+  }
+  .details {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: right;
+
+    .email {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    .id {
+      font-size: 0.9rem;
+      font-weight: 400;
+    }
+  }
+}
+
+// .dropdown-menu {
+//   animation: dropdownAnimation 0.3s ease-in-out; /* Apply the animation */
+// }
+
+@keyframes dropdownAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(0px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(50px);
+  }
+}
+
+// @keyframes dropdownAnimation {
+//   0% {
+//     opacity: 0;
+//     transform: translateY(53px) !important;
+//     transform: translate3d(0, -30px, 0);
+//   }
+// }
+
+// media queries
+@include LaptopA {
+  .profile-form .banner-label {
+    width: 25px;
+    height: 25px;
+  }
+}
+@include LaptopB {
+  .profile-form .banner-label {
+    width: 23px;
+    height: 23px;
+  }
+}
+
+@include TabletA {
+  .header {
+    // justify-content: left;
+
+    .button-closesidebar {
+      margin-right: 10px;
+
+      .take-to-page {
+        // width: 250px;
+        padding-right: 5px;
+      }
+    }
+  }
+}
+// @include TabletA {
+//   .user-details {
+//     gap: 0px;
+//   }
+// }
+
+@include Fmobile {
+  .header .button-closesidebar {
+    gap: 6px;
+  }
+  @include Fmobile {
+    .user-details .details .email {
+      font-size: 10px;
+    }
+  }
+}
+
+@include Bmobile {
+  .header {
+    justify-content: space-between;
+    padding: 7px 15px;
+  }
+
+  //   
+
+  // .user-details {
+  //   gap: 26px;
+  // }
+
+  .header .button-closesidebar .take-to-page {
+    // width: 200px;
+    display: none;
+  }
+}
+
+// @include MobileL {
+//   .user-details {
+//     display: none;
+//   }
+// }
+
+@include Smobile {
+  .header {
+    .button-closesidebar {
+      gap: 0;
+    }
+  }
+}
+
+@include MobileS {
+  .header .button-closesidebar .take-to-page {
+    // width: 155px;
+    margin-left: 12px;
+  }
+}

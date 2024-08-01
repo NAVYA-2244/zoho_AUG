@@ -1,0 +1,374 @@
+@import "../../../../App.scss";
+
+.employees-list {
+  width: 100%;
+  margin: auto;
+}
+
+.filters-heading {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  .heading-1 {
+    // font-size: 1.7rem;
+    text-wrap: nowrap;
+    font-size: clamp(16px, 4.5vw, 22px);
+    font-weight: 400;
+    margin-bottom: 0;
+    margin-left: 1.2rem;
+    span {
+      font-weight: 600;
+    }
+  }
+  .filter-button-add-employee {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    button {
+      padding: 8px 35px;
+      width: fit-content;
+      border: none;
+      outline: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(10px, 4.5vw, 14px);
+      color: #5b5b5b;
+      text-wrap: nowrap;
+      font-weight: 400;
+      border-radius: 40px;
+      // max-height: 45px;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .filter {
+      width: fit-content;
+
+      span {
+        transform: translate(-5px, -0.5px);
+      }
+    }
+    .add-employee {
+      padding: 5px 10px;
+      padding: 8px 35px;
+
+      span {
+        font-size: 9px;
+        transform: translate(3px, -2px);
+        transform: translate(-4px, -2.5px);
+      }
+    }
+  }
+}
+
+.admin_all_employees {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  text-transform: capitalize;
+  align-items: flex-start;
+  margin: auto;
+
+  .employee-card {
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    align-items: flex-start;
+    border-radius: 10px;
+    background: #ddd;
+    gap: 10px;
+    width: 292px;
+    overflow: hidden;
+
+    .img-details {
+      flex-direction: column;
+      display: flex;
+      gap: 15px;
+      align-items: flex-start;
+      width: 100%;
+      .dots {
+        font-size: 2rem;
+        display: inline-block;
+        transform: translate(-0px, -25px);
+      }
+
+      .img-options {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+
+        img {
+          border-radius: 50%;
+          width: 55px;
+          height: 55px;
+          object-fit: cover;
+          background: #fff;
+        }
+
+        .dropdown-menu {
+          --bs-dropdown-min-width: 7rem;
+          --bs-dropdown-padding-x: 10px;
+          --bs-dropdown-padding-y: 2px;
+        }
+
+        .dropdown ul {
+          box-shadow: 0px 0px 2px 0px #0099ffa6;
+        }
+      }
+    }
+  }
+}
+
+.employee-card {
+  .email-phone-number {
+    border-radius: 10px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    padding: 5px 10px 0px 10px;
+    h2 {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      line-height: 0px !important;
+      font-size: 0.8rem;
+      font-weight: 400;
+      span {
+        font-size: 1.1rem;
+        margin-top: 2px;
+      }
+    }
+    .email {
+      text-transform: none;
+    }
+  }
+}
+
+.name {
+  font-size: clamp(12px, 4.5vw, 15px);
+  font-weight: 700;
+  line-height: 0px !important;
+}
+.designations {
+  font-size: 1rem !important;
+  font-weight: 500;
+  line-height: 0px !important;
+}
+.no-employeelist {
+  padding: 10px;
+  border-radius: 15px;
+  align-self: center;
+  width: 95%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+  }
+
+  button {
+    padding: 5px 15px;
+    width: 100px;
+    border: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(10px, 4.5vw, 14px);
+    color: #5b5b5b;
+    text-wrap: nowrap;
+    font-weight: 400;
+    border-radius: 40px;
+    // max-height: 45px;
+    gap: 5px;
+    cursor: pointer;
+
+    margin-left: 50px;
+  }
+}
+
+// media queries
+@include LaptopA {
+  .admin_all_employees .employee-card {
+    width: 270px;
+  }
+}
+
+@include Tmobile {
+  .admin_all_employees {
+    .employee-card {
+      width: 264px;
+    }
+  }
+}
+
+@include Nmobile {
+  .charts-section .card-1 {
+    width: 336px;
+  }
+  .admin_all_employees .employee-card {
+    width: 249px;
+  }
+}
+
+@include Zmobile {
+  .admin_all_employees .employee-card {
+    width: 225px;
+  }
+}
+
+@include LaptopD {
+  .admin_all_employees .employee-card {
+    width: 213px;
+  }
+}
+
+@include LaptopB {
+  .admin_all_employees .employee-card {
+    width: 232px;
+  }
+}
+
+@include Amobile {
+  .charts-section .card-1 {
+    width: 343px;
+  }
+  .admin_all_employees .employee-card {
+    width: 226px;
+  }
+}
+
+@include LaptopC {
+  .charts-section .card-1 {
+    width: 464px;
+  }
+}
+
+@include AMmobile {
+  .charts-section .card-1 {
+    width: 444px;
+  }
+  .admin_all_employees .employee-card {
+    width: 293px;
+  }
+}
+
+@include TabletA {
+  .charts-section .card-1 {
+    width: 415px;
+  }
+  .admin_all_employees .employee-card {
+    width: 274px;
+  }
+}
+
+@include mobile {
+  .charts-section .card-1 {
+    width: 373px;
+  }
+  .admin_all_employees .employee-card {
+    width: 245px;
+  }
+}
+
+@include TabletB {
+  .charts-section .card-1 {
+    width: 358px;
+  }
+
+  .admin_all_employees .employee-card {
+    width: 236px;
+  }
+}
+
+@include Fmobile {
+  .charts-section .card-1 {
+    width: 100%;
+  }
+  .admin_all_employees .employee-card {
+    width: 49%;
+  }
+}
+
+@include SLmobile {
+  .admin_all_employees .employee-card {
+    width: 48%;
+  }
+}
+
+@include MobileS {
+  .admin_all_employees .employee-card {
+    width: 100%;
+  }
+  .main-pie-chart {
+    height: 49vh;
+  }
+  .charts-section {
+    width: 100%;
+  }
+
+  .recharts-wrapper {
+    height: 91% !important;
+    top: 4%;
+  }
+}
+
+//375px
+@include Smobile {
+  .admin_all_employees .employee-card .img-details {
+    font-size: 13px;
+  }
+}
+
+.query_data {
+  width: 95%;
+  margin: auto;
+  display: flex;
+  justify-content: flex-start;
+  .tables {
+    margin: auto;
+    max-width: 100%;
+  }
+}
+
+.no-dashboard-data {
+  width: 95%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 300;
+    text-align: center;
+
+    .query-status {
+      font-weight: 600;
+      font-size: 1.5rem;
+      text-transform: capitalize;
+    }
+  }
+}
+
+@include MobileS {
+  .filters-heading .heading-1 {
+    margin-left: 4px;
+  }
+  .filters-heading .filter-button-add-employee {
+    gap: 3px;
+  }
+}

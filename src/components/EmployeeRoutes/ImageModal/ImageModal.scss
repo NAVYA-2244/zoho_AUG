@@ -1,0 +1,11 @@
+.image-modal {
+  img {
+    border-radius: 50%;
+    min-height: 300px;
+    min-width: 300px;
+    max-height: 300px;
+    max-width: 300px;
+    object-fit: cover;
+    padding:"10px";
+  }
+}

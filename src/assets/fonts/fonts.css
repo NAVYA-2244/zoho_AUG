@@ -1,0 +1,41 @@
+
+
+
+
+
+@font-face {
+  font-family: 'MonaSans-Light';
+  src: url('./MonaSans-Light.otf') format('opentype');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'MonaSans-Regular';
+  src: url('./MonaSans-Regular.otf') format('opentype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'MonaSans-SemiBold';
+  src: url('./MonaSans-SemiBold.otf') format('opentype');
+  font-weight: 500;
+}
+
+
+@font-face {
+  font-family: 'MonaSans-Extra-SemiBold';
+  src: url('./MonaSans-SemiBold.otf') format('opentype');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'MonaSans-Bold';
+  src: url('./MonaSans-Bold.otf') format('opentype');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'MonaSans-ExtraBold';
+  src: url('./MonaSans-ExtraBold.otf') format('opentype');
+  font-weight: 800;
+}

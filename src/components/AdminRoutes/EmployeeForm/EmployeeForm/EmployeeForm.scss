@@ -1,0 +1,225 @@
+@import "../../../../App.scss";
+
+.Employyee_add_form {
+  background: transparent;
+  justify-content: flex-start;
+  padding: 10px 0px 10px 0px;
+  // border: 2px solid rgb(186, 186, 186);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  hr {
+    border: none;
+    border: 0.9px solid rgb(148, 148, 151);
+    margin-bottom: 30px;
+  }
+
+  .profile-form .basic-row {
+    width: 97%;
+    border-radius: 0.5rem;
+    padding: 1rem;
+  }
+
+  .profile-form .basic-row .main_label label {
+    margin-top: 20px;
+  }
+}
+
+.parent-class {
+  width: 80vw;
+  scrollbar-width: none;
+  position: relative;
+  max-height: 76vh;
+  overflow-y: scroll;
+
+  .add-edit-button {
+    bottom: 0;
+    position: fixed;
+    right: 70px;
+    bottom: 55px;
+
+    button {
+      background: rgb(24, 78, 149);
+      padding: 8px 10px;
+      width: 150px;
+      border-radius: 3px;
+      color: white;
+    }
+  }
+}
+
+.child-class {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  transition: transform 1s ease-in-out;
+  -webkit-transition: transform 1s ease-in-out;
+  -moz-transition: transform 1s ease-in-out;
+  -ms-transition: transform 1s ease-in-out;
+  -o-transition: transform 1s ease-in-out;
+}
+
+.child-class .form-section {
+  min-width: 80vw;
+  // @include flexrow();
+  gap: 30px;
+  justify-content: flex-start;
+  padding: 10px;
+  align-items: flex-start;
+}
+.heading-form {
+  width: 98%;
+  margin: auto;
+  font-size: 1.4rem;
+  font-weight: 500 !important;
+  font-family: "MonaSans-SemiBold", sans-serif;
+  padding: 0.4rem 0;
+  opacity: 0.7;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+}
+
+.main-labels {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding-right: 5px;
+}
+.main-area {
+  width: 100%;
+  .length {
+    width: 200%;
+    text-align: right;
+  }
+  textarea {
+    width: 100%;
+    padding: 5px 0 10px 10px;
+    border-radius: 8px;
+    resize: none;
+    height: 80px;
+    // border-color: rgb(225, 228, 236);
+    border: none;
+    outline: none;
+    background-color: #f7f7f5;
+    line-height: 1.6;
+    font-weight: normal;
+    font-size: 0.9rem;
+  }
+
+  textarea:focus {
+    background-color: #d4d4d4;
+    // box-shadow: 0 0 0 0.2rem #ffffff73;
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.862);
+  }
+}
+.triangle-right {
+  width: 0;
+  height: 0;
+  border-top: 50px solid transparent;
+  border-bottom: 50px solid transparent;
+  border-left: 100px solid yellow;
+}
+
+// employee form new styles - 21 June 2024
+.profile-form {
+  .heading-button {
+    display: flex;
+    width: 99%;
+    justify-content: space-between;
+  }
+  .additional-btns {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0;
+
+    .add-button,
+    .remove-button {
+      border: none;
+      padding: 2px 15px;
+      text-transform: capitalize;
+      border-radius: 5px;
+      font-size: 13px;
+      width: 100px;
+      max-height: 30px;
+    }
+
+    .remove-button {
+      background-color: #dc3545;
+      color: #fff;
+    }
+
+    .add-button {
+      background-color: #6c63fc;
+      color: #fff;
+    }
+  }
+}
+
+@include Bmobile {
+}
+@include SMmobile {
+  .heading-form {
+    font-size: 1.2rem;
+  }
+  .profile-form .additional-btns .add-button,
+  .profile-form .additional-btns .remove-button {
+    width: 72px;
+    font-size: 10px;
+    margin-right: 6px;
+  }
+}
+
+@include Smobile {
+  .heading-form {
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 500 !important;
+    font-family: "Myriad Pro", sans-serif;
+    padding: 0.4rem 1rem;
+    opacity: 0.7;
+    white-space: nowrap;
+  }
+  .profile-form .additional-btns .add-button,
+  .profile-form .additional-btns .remove-button {
+    width: 71px;
+    margin-right: 6px;
+    font-size: 9px;
+  }
+}
+@include MobileS {
+  .parent-class .add-edit-button {
+    position: fixed;
+    right: 92px;
+    // bottom: 66px;
+  }
+
+  .heading-form {
+    width: 100%;
+    font-size: 15px;
+    font-weight: 500 !important;
+    font-family: "Myriad Pro", sans-serif;
+    padding: 0.4rem 1rem;
+    opacity: 0.7;
+    white-space: nowrap;
+  }
+
+  .profile-form .additional-btns .add-button,
+  .profile-form .additional-btns .remove-button {
+    border: none;
+    padding: 2px 10px;
+    text-transform: capitalize;
+    border-radius: 5px;
+    font-size: 8px;
+    width: 50px;
+    max-height: 30px;
+    white-space: nowrap;
+    transform: translateX(14px);
+    -webkit-transform: translateX(14px);
+    -moz-transform: translateX(14px);
+    -ms-transform: translateX(14px);
+    -o-transform: translateX(14px);
+  }
+}

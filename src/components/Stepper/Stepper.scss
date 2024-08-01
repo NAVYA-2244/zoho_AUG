@@ -1,0 +1,164 @@
+@import "../../App.scss";
+
+.main-parent {
+  // width: 100vw;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stepper {
+  display: flex;
+  position: relative;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  //   background: rgb(204, 154, 154);
+
+  .step-starting {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.description-step {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+
+  h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    button {
+      border: none;
+      outline: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      padding: 2px;
+      background: white;
+      color: white;
+      font-size: 1rem;
+      border-radius: 50%;
+      margin: 0;
+      cursor: pointer;
+      z-index: 3;
+
+      // @include Amobile {
+      //   width: 30px;
+      //   height: 30px;
+      // }
+      // @include Fmobile {
+      //   width: 30px;
+      //   height: 30px;
+      // }
+      @include Bmobile {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+    }
+
+    .icon {
+      width: 95%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 95%;
+      background: rgb(245, 108, 86);
+      border-radius: 50%;
+      transition: background 0.5s;
+    }
+  }
+
+  .line {
+    display: block;
+    width: 75px;
+    height: 1.5px;
+    background: white;
+    position: relative;
+    z-index: 1;
+    @include Amobile {
+      width: 60px;
+      height: 2.5px;
+    }
+    @include Fmobile {
+      width: 40px;
+    }
+    @include Fmobile {
+      width: 35px;
+    }
+    @include Bmobile {
+      width: 30px;
+    }
+  }
+}
+
+.desc {
+  font-weight: 400;
+  font-size: 1rem;
+
+  // @include Amobile {
+  // }
+  // @include Fmobile {
+  //   font-size: 0.7rem;
+  //   transform: translateX(-15px);
+  // }
+  // @include Bmobile {
+  //   transform: translateX(-4px);
+  //   font-size: 0.5rem;
+  // }
+  // @include Smobile {
+  //   display: none;
+  // }
+}
+
+.kinder {
+  margin-right: 22px;
+}
+
+.line1 {
+  position: absolute;
+  display: block;
+  height: 3px;
+  background: #ff5722;
+  top: 23px;
+  left: 50px;
+  z-index: 2;
+  transition: width 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  @include Amobile {
+    margin-right: 30px;
+    background: blue;
+    top: 22px;
+    height: 4px;
+    left: 50px;
+  }
+  @include Bmobile {
+    top: 18px;
+    height: 4px;
+    left: 40px;
+  }
+
+  span {
+    display: block;
+    margin-right: -15.5px;
+    margin-top: -2px;
+    font-size: 1.2rem;
+    color: rgb(255, 42, 0);
+    @include Amobile {
+      font-size: 1rem;
+    }
+    @include Fmobile {
+      font-size: 0.8rem;
+    }
+  }
+}

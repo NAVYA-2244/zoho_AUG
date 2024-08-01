@@ -1,0 +1,641 @@
+@import "../../../App.scss";
+
+.admin-dashboard {
+  width: 95%;
+  height: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  hr {
+    margin: 20px auto;
+    width: 100%;
+  }
+}
+
+.main-dashboard {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+
+  .flex-card {
+    width: 73%;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+
+    .dashboard-heading {
+      font-size: 1.2rem;
+      font-weight: 100;
+    }
+    .adminDashboard-card-wrapper {
+      padding-left: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+
+      .adminDashboard-card {
+        padding: 15px;
+        flex-direction: column;
+        display: flex;
+        gap: 19px;
+        background: green;
+        border-radius: 10px;
+
+        .adminLeaveApplications {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          background-color: #242424;
+          padding: 14px 20px;
+          border-radius: 10px;
+
+          .design-card {
+            .icon-length {
+              display: flex;
+              flex-direction: column;
+              // gap: 8px;
+
+              .status {
+                font-size: 15px;
+              }
+
+              .status-value {
+                font-size: 2rem;
+                font-weight: 700;
+              }
+            }
+
+            p {
+              margin: 0;
+            }
+          }
+
+          .line {
+            font-size: 42px;
+            font-weight: lighter;
+            color: #d3d3d378;
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+.adminLeaveApplications .line:nth-last-child(1) {
+  display: none;
+}
+
+// totalmaleFemaleEmployees.scss new styles
+.adminDashboard-card {
+  padding: 0rem 1rem 1rem 0;
+  border-radius: 10px;
+
+  .totalMaleFemaleEmployees {
+    display: flex;
+    justify-content: space-between;
+
+    .design-card {
+      width: 31%;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: space-between;
+      padding: 15px 20px;
+
+      .icon-length {
+        .status {
+          font-size: 15px;
+        }
+      }
+
+      p,
+      h2 {
+        margin: 0;
+      }
+
+      .status-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #0297ff;
+        background-color: #f6fbff;
+        font-size: 18px;
+        padding: 10px;
+        border-radius: 50%;
+      }
+    }
+  }
+}
+
+// today-attendance pie chart
+.today-attendance {
+  flex: 1;
+  // padding-right: 0;
+
+  .employeesAttendancePieChart {
+    // background: blue;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 5px;
+    border-radius: 10px;
+    position: relative;
+
+    .recharts-pie-label-line {
+      display: none !important;
+    }
+
+    .recharts-legend-item-text {
+      display: flex;
+    }
+    .recharts-legend-item {
+      margin-right: 25px !important;
+      display: none !important;
+    }
+
+    .recharts-wrapper {
+      width: 100% !important;
+      height: 100% !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: translateX(7px);
+      transform: translate(8px, -83px);
+
+      .recharts-surface {
+        width: 100%;
+        height: 70% !important;
+      }
+    }
+    .pie-chart {
+      height: 250px;
+      width: 300px;
+      // padding: 30px;
+    }
+
+    .leave-card {
+      .status-heading {
+        // display: none;
+      }
+      .icon-1 {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        justify-content: center;
+      }
+      .icon {
+        background: rgb(81, 161, 255);
+        color: white;
+        width: 20px;
+        padding: 15px;
+        border-radius: 8px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    .leave-application-status {
+      transform: translateY(-52px) !important;
+    }
+
+    .total {
+      font-size: 0.8rem;
+      align-items: center;
+      position: absolute;
+      top: 28.5%;
+      left: 42%;
+      transform: translate(1px, 1px);
+      gap: 0;
+      display: flex;
+      flex-direction: column-reverse;
+      .totalNo {
+        font-size: 1.6rem;
+      }
+    }
+  }
+}
+
+.allEmployees-list-wrapper {
+  background-color: #001f3f;
+  border-radius: 10px;
+  width: 26%;
+  height: 100%;
+  padding: 1rem 1.2rem;
+  overflow: hidden;
+
+  .add-employee-btn-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    // padding-top: 10px;
+    margin-top: 1rem;
+
+    .add-employee {
+      padding: 8px 35px;
+      width: -moz-fit-content;
+      width: fit-content;
+      border: none;
+      outline: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(10px, 4.5vw, 14px);
+      color: #5b5b5b;
+      text-wrap: nowrap;
+      font-weight: 400;
+      border-radius: 40px;
+      gap: 5px;
+      cursor: pointer;
+    }
+  }
+
+  .allEmployees {
+    // padding: 1rem;
+    background-color: #003366;
+    border-radius: 10px;
+
+    .allEmployees-header {
+      display: flex;
+      justify-content: space-between;
+
+      .filter {
+        width: fit-content;
+        padding: 4px 18px;
+        border: none;
+        outline: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: clamp(10px, 4.5vw, 14px);
+        // border: 1px solid;
+        color: #5b5b5b;
+        text-wrap: nowrap;
+        font-weight: 400;
+        border-radius: 40px;
+        font-size: 12px;
+        gap: 5px;
+        cursor: pointer;
+      }
+    }
+
+    .all-employees-data {
+      max-height: 27.5rem;
+      padding-bottom: 2rem;
+      overflow: hidden scroll;
+
+      .employee-data {
+        display: flex;
+        // align-items: center;
+        justify-content: space-between;
+        border-bottom: 0.5px solid lightgray;
+        padding: 10px 0;
+
+        .emp-action {
+          .dropdown {
+            transform: translateY(-14px);
+
+            .dropdown-menu {
+              --bs-dropdown-min-width: 7rem;
+              padding: 4px 10px;
+
+              li {
+                font-size: 14px;
+              }
+            }
+
+            a {
+              font-size: 29px;
+            }
+          }
+        }
+
+        .employee-profile {
+          display: flex;
+          gap: 10px;
+          align-items: center;
+
+          .emp-name {
+            padding-bottom: 2px;
+          }
+
+          .emp-role {
+            font-size: 12px;
+
+            .emp-designation {
+              color: #0dcaf0;
+            }
+          }
+        }
+
+        p {
+          margin: 0;
+        }
+
+        img {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          border: 3px solid #fff;
+        }
+      }
+    }
+  }
+}
+
+// Media Screen
+
+@include LaptopB {
+  .allEmployees-list-wrapper {
+    width: 100%;
+  }
+  .main-dashboard .flex-card {
+    width: 100%;
+  }
+  .main-dashboard .flex-card .adminDashboard-card-wrapper .adminDashboard-card {
+    padding: 15px;
+    flex-direction: column;
+    display: flex;
+    gap: 19px;
+    background: green;
+    border-radius: 10px;
+    width: 386px;
+  }
+}
+@include LaptopC {
+  .today-attendance
+    .employeesAttendancePieChart
+    .recharts-wrapper
+    .recharts-surface {
+    transform: translateX(42px);
+    -webkit-transform: translateX(42px);
+    -moz-transform: translateX(42px);
+    -ms-transform: translateX(42px);
+    -o-transform: translateX(42px);
+  }
+  .adminDashboard-card .totalMaleFemaleEmployees .design-card .status-icon {
+    font-size: 10px;
+  }
+  .main-dashboard
+    .flex-card
+    .adminDashboard-card-wrapper
+    .adminDashboard-card
+    .adminLeaveApplications {
+    width: 422px;
+  }
+}
+
+@include AMmobile {
+  .today-attendance
+    .employeesAttendancePieChart
+    .recharts-wrapper
+    .recharts-surface {
+    transform: translateX(23px);
+    -webkit-transform: translateX(23px);
+    -moz-transform: translateX(23px);
+    -ms-transform: translateX(23px);
+    -o-transform: translateX(23px);
+  }
+  .adminDashboard-card .totalMaleFemaleEmployees .design-card .status-icon {
+    font-size: 10px;
+  }
+  .main-dashboard
+    .flex-card
+    .adminDashboard-card-wrapper
+    .adminDashboard-card
+    .adminLeaveApplications {
+    width: 405px;
+  }
+}
+@include TabletA {
+  .today-attendance
+    .employeesAttendancePieChart
+    .recharts-wrapper
+    .recharts-surface {
+    transform: translateX(23px);
+    -webkit-transform: translateX(23px);
+    -moz-transform: translateX(23px);
+    -ms-transform: translateX(23px);
+    -o-transform: translateX(23px);
+  }
+  .adminDashboard-card .totalMaleFemaleEmployees .design-card .status-icon {
+    font-size: 10px;
+  }
+}
+@include mobile {
+  .today-attendance
+    .employeesAttendancePieChart
+    .recharts-wrapper
+    .recharts-surface {
+    transform: translateX(23px);
+    -webkit-transform: translateX(23px);
+    -moz-transform: translateX(23px);
+    -ms-transform: translateX(23px);
+    -o-transform: translateX(23px);
+  }
+  .adminDashboard-card .totalMaleFemaleEmployees .design-card .status-icon {
+    font-size: 10px;
+  }
+}
+@include TabletB {
+  .today-attendance
+    .employeesAttendancePieChart
+    .recharts-wrapper
+    .recharts-surface {
+    transform: translateX(20px);
+    -webkit-transform: translateX(20px);
+    -moz-transform: translateX(20px);
+    -ms-transform: translateX(20px);
+    -o-transform: translateX(20px);
+  }
+}
+
+@include Bmobile {
+  .allEmployees-list-wrapper {
+    display: none;
+  }
+  .main-dashboard .flex-card .adminDashboard-card-wrapper .adminDashboard-card {
+    width: 100%;
+  }
+  .today-attendance
+    .employeesAttendancePieChart
+    .recharts-wrapper
+    .recharts-surface {
+    transform: translateX(103px);
+    -webkit-transform: translateX(103px);
+    -moz-transform: translateX(103px);
+    -ms-transform: translateX(103px);
+    -o-transform: translateX(103px);
+  }
+}
+@include SLmobile {
+  .allEmployees-list-wrapper {
+    display: none !important;
+  }
+  .admin_all_employees .employee-card {
+    width: 100%;
+  }
+  .main-dashboard
+    .flex-card
+    .adminDashboard-card-wrapper
+    .adminDashboard-card
+    .adminLeaveApplications {
+    width: 420px;
+  }
+}
+
+@include SMmobile {
+  .allEmployees-list-wrapper {
+    display: none !important;
+  }
+  .main-dashboard
+    .flex-card
+    .adminDashboard-card-wrapper
+    .adminDashboard-card
+    .adminLeaveApplications {
+    width: 402px;
+  }
+}
+@include MobileL {
+  .allEmployees-list-wrapper {
+    display: none;
+  }
+  .today-attendance
+    .employeesAttendancePieChart
+    .recharts-wrapper
+    .recharts-surface {
+    height: 65%;
+  }
+  .today-attendance
+    .employeesAttendancePieChart
+    .recharts-wrapper
+    .recharts-surface {
+    width: 100% !important;
+    transform: translateX(26px);
+    -webkit-transform: translateX(26px);
+    -moz-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    -o-transform: translateX(26px);
+  }
+  .main-dashboard .flex-card {
+    width: 100%;
+    margin-right: 10px;
+  }
+  .adminDashboard-card .totalMaleFemaleEmployees .design-card .status-icon {
+    font-size: 10px;
+  }
+  .filters-heading .heading-1 {
+    font-size: 12px;
+  }
+
+  .adminDashboard-card .totalMaleFemaleEmployees .design-card {
+    width: calc(100% - 2px);
+  }
+  .admin_all_employees .employee-card {
+    width: 100%;
+  }
+  .main-dashboard
+    .flex-card
+    .adminDashboard-card-wrapper
+    .adminDashboard-card
+    .adminLeaveApplications {
+    width: 373px;
+  }
+}
+@include IPhoneA {
+  .adminDashboard-card .totalMaleFemaleEmployees {
+    width: 390px;
+  }
+}
+@include Smobile {
+  .filters-heading .filter-button-add-employee .add-employee {
+    padding: 0px;
+  }
+
+  .adminDashboard-card .totalMaleFemaleEmployees .design-card .status-icon {
+    padding: 5px;
+  }
+  .adminDashboard-card .totalMaleFemaleEmployees .design-card p,
+  .adminDashboard-card .totalMaleFemaleEmployees .design-card h2,
+  .main-dashboard
+    .flex-card
+    .adminDashboard-card-wrapper
+    .adminDashboard-card
+    .adminLeaveApplications
+    .design-card
+    .icon-length
+    .status-value {
+    font-size: 18px;
+  }
+  .main-dashboard
+    .flex-card
+    .adminDashboard-card-wrapper
+    .adminDashboard-card
+    .adminLeaveApplications
+    .design-card
+    .icon-length
+    .status {
+    font-size: 12px;
+  }
+
+  .adminDashboard-card .totalMaleFemaleEmployees {
+    width: 34%;
+  }
+  .main-dashboard
+    .flex-card
+    .adminDashboard-card-wrapper
+    .adminDashboard-card
+    .adminLeaveApplications {
+    width: 323px;
+  }
+
+  .today-attendance
+    .employeesAttendancePieChart
+    .recharts-wrapper
+    .recharts-surface {
+    width: 100% !important;
+    transform: translateX(-4px);
+    -webkit-transform: translateX(-4px);
+    -moz-transform: translateX(-4px);
+    -ms-transform: translateX(-4px);
+    -o-transform: translateX(-4px);
+  }
+  .today-attendance .employeesAttendancePieChart .leave-application-status {
+    gap: 11px;
+    font-size: 10px;
+  }
+  .admin_all_employees .employee-card {
+    width: 100%;
+  }
+  .adminDashboard-card .totalMaleFemaleEmployees {
+    width: 100%;
+    gap: 3px;
+  }
+}
+@include MobileS {
+  .today-attendance
+    .employeesAttendancePieChart
+    .recharts-wrapper
+    .recharts-surface {
+    width: 60% !important;
+    margin-right: 41px;
+    font-size: 0px;
+  }
+  .today-attendance .employeesAttendancePieChart .leave-application-status {
+    font-size: 16px;
+  }
+
+  .main-dashboard
+    .flex-card
+    .adminDashboard-card-wrapper
+    .adminDashboard-card
+    .adminLeaveApplications {
+    width: 286px;
+  }
+  .adminDashboard-card .totalMaleFemaleEmployees .design-card .status-icon {
+    padding: 2px;
+  }
+}

@@ -1,0 +1,233 @@
+@import "../../../../App.scss";
+
+.roles-table {
+  // display: flex;
+  // flex-direction: column;
+  // gap: 10px;
+  // align-items: flex-start;
+  width: 95%;
+  // height: 216px;
+  // overflow-y: scroll;
+  margin: auto auto;
+  margin-top: 20px;
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 10px;
+
+  .roles {
+    width: 100%;
+    overflow-y: scroll;
+
+    .role-name span {
+      text-wrap: nowrap;
+      // font-weight: 100;
+      font-size: 0.8rem;
+    }
+
+    .item {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      border-top: 0.8px solid rgba(147, 142, 142, 0.4);
+      padding: 12px 0;
+      width: 100%;
+      text-transform: capitalize;
+      align-items: center;
+      justify-content: space-between;
+      // padding-left: 15px;
+    }
+  }
+}
+
+.roles-departments {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 95%;
+  margin: auto;
+
+  .roles-actions {
+    display: none;
+  }
+}
+
+.edit-button {
+  display: flex;
+  gap: 10px;
+  justify-content: end;
+
+  .load {
+    span {
+      width: 15px !important;
+      height: 15px !important;
+    }
+  }
+
+  .roles-edit-delete.edit {
+    background: #6c63fc !important;
+  }
+
+  .roles-edit-delete.delete {
+    background: #f86550 !important;
+  }
+
+  button {
+    width: fit-content;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    text-transform: capitalize;
+    padding: 4px 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 1rem;
+    font-weight: 400;
+    color: white;
+
+    span {
+      font-size: 1rem;
+      display: flex;
+      margin-bottom: 0px;
+    }
+  }
+}
+
+.roles-heading {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .heading {
+    font-size: clamp(15px, 4.5vw, 19px);
+    margin-bottom: 0;
+    font-weight: 500;
+    padding: 0px;
+  }
+
+  .action-add {
+    border-radius: 50px;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 1.2rem;
+    padding: 0px 9px;
+    width: fit-content;
+    color: white;
+
+    .add-role {
+      display: none;
+    }
+
+    span {
+      font-size: 1rem;
+      margin-right: 10px;
+    }
+  }
+}
+
+.item {
+  .role-name {
+    span {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.nav-link {
+  color: #6c757d;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  color: #6c63fc !important;
+  background-color: rgb(108, 99, 252, 0.1);
+}
+
+.nav-link:focus,
+.nav-link:hover {
+  color: #6c63fc !important;
+}
+
+///Media-screen
+
+@include LaptopB {
+  .roles-table .roles .role-name span {
+    font-size: 0.7rem;
+  }
+}
+@include TabletB {
+  .roles-table .roles .role-name span {
+    font-size: 0.6rem;
+  }
+}
+@include MobileL {
+  .item .edit-button .roles-actions {
+    display: none;
+  }
+
+  .roles-departments {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    width: 95%;
+    margin: auto;
+  }
+}
+@include Smobile {
+  .roles-departments {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    width: 95%;
+    margin: auto;
+  }
+}
+
+@include MobileS {
+  .edit-button {
+    width: 190px;
+  }
+  .item .edit-button .roles-actions {
+    display: none;
+  }
+
+  .roles-departments {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    width: 95%;
+    margin: auto;
+  }
+}
+
+.role-name {
+  .name {
+    color: #6c63fc;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+}
+.roles-department {
+  .categorys {
+    // width: 76vw;
+    // margin-left: 2rem;
+    overflow: auto hidden;
+    .nav-link {
+      text-wrap: nowrap;
+    }
+  }
+  .nav-item {
+    .nav-link {
+      color: #716e75;
+      &.active {
+        background-color: #6c63fc !important;
+        color: #fff !important;
+      }
+    }
+  }
+}
+
+.roles-dropdown {
+  svg {
+    color: #b9b4b4;
+    font-size: 1.5rem;
+  }
+}

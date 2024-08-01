@@ -1,0 +1,133 @@
+.chat-page {
+  border-radius: 10px;
+  width: 95%;
+  height: auto;
+  margin: auto;
+  //   max-height: 99%;
+  .chat-body {
+    height: 62vh;
+    overflow-y: auto;
+  }
+  ul {
+    padding-left: 0;
+    list-style: none;
+  }
+  .recent-users {
+    height: 55vh;
+    margin-bottom: 0;
+    overflow: hidden auto;
+    li {
+      .user-delete {
+        display: none;
+      }
+      &:hover {
+        .user-delete {
+          display: block;
+        }
+        background: #f6f7fa;
+      }
+      padding: 10px;
+    }
+  }
+  .allchannels {
+    height: 46vh;
+    margin-bottom: 0;
+    overflow: hidden auto;
+    li {
+      .user-delete {
+        display: none;
+      }
+      &:hover {
+        .user-delete {
+          display: block;
+        }
+        background: #f6f7fa;
+      }
+      padding: 10px;
+    }
+  }
+
+  /* src/App.css */
+
+  text-align: left;
+
+  .border {
+    border: 1px solid #ccc;
+  }
+
+  .chat-header,
+  .chat-footer {
+    border-bottom: 1px solid #ccc;
+  }
+
+  .messages {
+    padding: 10px;
+  }
+
+  .message {
+    margin-bottom: 1.5rem;
+  }
+
+  .message.me {
+    text-align: left;
+  }
+  .message-details {
+    .user-name {
+      color: #6c63fc;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+    .user-text {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #6c757d;
+    }
+  }
+  .channels-search {
+    position: relative;
+    svg {
+      position: absolute;
+      top: 9px;
+      left: 12px;
+      font-size: 18px;
+    }
+    .form-control {
+      font-size: 13px;
+      padding-left: 40px;
+    }
+  }
+  .add-channels {
+    cursor: pointer;
+    background: #d0d7dc;
+    font-size: 1rem;
+    padding: 3px;
+    border-radius: 50%;
+    line-height: 0px;
+  }
+  .welcom-chat {
+    height: 77.4vh;
+    overflow-y: auto;
+  }
+  .chat-info {
+    position: absolute;
+    left: 40px;
+    top: 92px;
+    font-size: 2.5rem;
+    font-weight: 600;
+    width: 36%;
+  }
+  .messages {
+    width: 76vw;
+    overflow-x: auto;
+    .nav-item {
+      .nav-link {
+        display: inline-flex;
+        align-items: center;
+      }
+    }
+  }
+  .create-channel-info {
+    letter-spacing: 0.5px;
+    line-height: 20px;
+  }
+}

@@ -1,0 +1,27 @@
+.employee_profile_edit {
+  position: fixed;
+  right: 5vw;
+}
+
+.employee_profile {
+  transform: translate(0, -6px);
+
+  button {
+    width: fit-content;
+    border-radius: 4px;
+    border: none;
+    padding: 0.2rem 1.5rem;
+    outline: none;
+    /* margin-bottom: 5px; */
+    /* margin-right: 35px; */
+    /* float: right; */
+  }
+}
+
+@include MobileS {
+  .employee_profile_edit {
+    position: fixed;
+    right: 5vw;
+    top: 2vw;
+  }
+}

@@ -1,0 +1,366 @@
+@import "../../../../../src/App.scss"; // Ensure the correct path
+
+.employeee-profile {
+  display: flex;
+  flex-direction: column;
+  width: 94.5%;
+  margin: auto;
+  gap: 10px;
+  text-transform: capitalize;
+  .card-1 {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .card-heading {
+      font-size: 1.2rem;
+      font-weight: 400;
+    }
+  }
+
+  .basic-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    span {
+      color: gray;
+      padding: 5px;
+      border-bottom: 1px solid gray;
+    }
+  }
+}
+
+.nav-tabs {
+  gap: 10px !important;
+}
+
+.card-1 {
+  .identity-info {
+    text-transform: uppercase;
+  }
+
+  .info-card {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: flex-start;
+    .detail {
+      display: flex;
+      gap: 5rem;
+      color: gray;
+      font-size: 1rem;
+      padding: 10px 0;
+
+      p {
+        width: 200px;
+        word-wrap: break-word;
+        margin: 0;
+        text-transform: capitalize;
+      }
+    }
+
+    .detail:last-child {
+      // border: 1px solid transparent !important;
+    }
+  }
+}
+
+.flex-card {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  .main-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 50%;
+
+    .card-1 {
+      .info-card {
+        // height: 100%;
+        justify-content: space-evenly;
+      }
+
+      img {
+        border-radius: 50%;
+        border: 2px solid #fff;
+      }
+
+      .change-image-btn {
+        background: #184e95;
+      }
+      .remove-image-btn {
+        background: #dc3545;
+      }
+
+      .change-image-btn:hover {
+        background: #2a74d3;
+      }
+      .remove-image-btn:hover {
+        background: #ff5062;
+      }
+
+      .change-image-btn,
+      .remove-image-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 17px;
+        height: 29px;
+        width: fit-content;
+        border: none;
+        border-radius: 20px;
+        color: #fff;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .lable {
+        line-height: 22px;
+        font-size: 17px;
+        color: #fff;
+        font-family: sans-serif;
+        letter-spacing: 1px;
+      }
+
+      // user-image-styles
+      .user-image {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1.4rem;
+
+        .user-designation-text {
+          font-size: 14px;
+          color: lightgray;
+        }
+      }
+    }
+
+    .card-2 {
+      height: auto;
+      display: flex;
+      .info-card {
+        // height: 100%;
+        display: flex;
+        justify-content: space-evenly;
+      }
+    }
+  }
+}
+
+// myProfile styles
+
+.admin-myProfile {
+  overflow-y: unset !important;
+  overflow-x: unset !important;
+}
+
+.my-profile {
+  border-radius: 5px;
+  background-color: #fff;
+  // padding: 1.2rem 1rem;
+  // max-height: 80vh;
+  height: auto;
+  width: 95%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  margin: 0 auto;
+  border-radius: 10px;
+
+  .my-profile-wrapper {
+    margin: 1rem 0;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid rgba(180, 179, 179, 0.35);
+    padding: 1rem;
+    border-radius: 5px;
+
+    .my-profile-edit {
+      padding: 3px 9px;
+      border: 1px solid rgba(180, 179, 179, 0.35);
+      color: #929698;
+      background-color: transparent;
+      border-radius: 5px;
+    }
+  }
+
+  .profile-img-wraper {
+    align-items: center;
+    gap: 1rem;
+    img {
+      border-radius: 50%;
+    }
+  }
+}
+
+// personal info
+.info-wrapper {
+  margin: 1rem 0;
+  border: 1px solid rgba(180, 179, 179, 0.35);
+  padding: 1rem;
+  border-radius: 5px;
+
+  .info-details {
+    justify-content: space-around;
+    padding: 1rem 0;
+
+    .info-div-right {
+      gap: 20px;
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+    }
+
+    .info-div-left {
+      gap: 20px;
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+    }
+    .detail {
+      gap: 5px;
+      display: flex;
+      flex-direction: column;
+    }
+    p {
+      margin: 0;
+    }
+
+    p:last-child {
+      color: #6c63fc;
+    }
+  }
+}
+
+.detail p:nth-child(2) {
+  color: #6c63fc;
+}
+
+.profile-moreData {
+  width: 100%;
+  display: flex;
+  // justify-content: flex-start;
+  // align-items: flex-start;
+  margin: auto;
+  gap: 15px;
+
+  .profile-moreRight {
+    flex: 1;
+  }
+
+  .profile-moreLeft {
+    flex: 1;
+  }
+}
+
+// media-queries
+@include DesktopB {
+  .profile-moreRight .info-wrapper {
+    width: 97%;
+  }
+  .user-profile-page .user-info-wrapper {
+    width: 100%;
+  }
+}
+@include LaptopA {
+  .profile-moreRight .info-wrapper {
+    width: 95%;
+  }
+  .user-profile-page .user-info-wrapper {
+    width: 100%;
+  }
+}
+@include Tmobile {
+  .profile-moreRight .info-wrapper {
+    width: 96%;
+  }
+}
+@include Nmobile {
+  .profile-moreRight .info-wrapper {
+    width: 78%;
+  }
+}
+@include Zmobile {
+  .profile-moreRight .info-wrapper {
+    width: 58%;
+  }
+}
+@include LaptopD {
+  .profile-moreRight .info-wrapper {
+    width: 52%;
+  }
+}
+@include LaptopB {
+  .profile-moreData {
+    flex-direction: column;
+  }
+  .profile-moreRight .info-wrapper {
+    width: 100%;
+  }
+}
+@include LaptopC {
+  .my-profile {
+    width: 100%;
+  }
+}
+@include SMmobile {
+  .my-profile .my-profile-wrapper {
+    flex-direction: column;
+    text-wrap: nowrap;
+  }
+}
+@include TabletB {
+  .profile-moreRight .info-wrapper {
+    width: 100%;
+  }
+}
+@include MobileL {
+  .profile-moreRight .info-wrapper {
+    width: 100%;
+  }
+}
+
+@include Smobile {
+  .profile-moreRight .info-wrapper {
+    width: 100%;
+  }
+
+  .card-1 .info-card {
+    .detail {
+      gap: 2rem;
+    }
+  }
+
+  .info-wrapper .info-details .detail {
+    font-size: 14px;
+  }
+
+  .card-1 .info-card .detail {
+    font-size: 14px;
+  }
+  .my-profile.admin-myProfile,
+  .info-wrapper.user-info-wrapper {
+    h5 {
+      font-size: 17px;
+      margin-top: 10px;
+    }
+  }
+
+  .my-profile .profile-img-wraper {
+    font-size: 14px;
+  }
+}
+
+@include MobileS {
+  .info-wrapper .info-details {
+    gap: 6px;
+  }
+  .profile-heading {
+    margin-bottom: 10px;
+  }
+}

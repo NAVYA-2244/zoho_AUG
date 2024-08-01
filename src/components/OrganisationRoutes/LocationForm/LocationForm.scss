@@ -1,0 +1,42 @@
+.form-cards {
+  width: 95%;
+  padding: 20px;
+  height: 100%;
+  // background: red !important;
+  border-radius: 10px;
+  margin: auto;
+
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    .single_card {
+      width: 32.5% !important;
+    }
+  }
+
+  .back-button {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    // justify-content: space-between;
+    // justify-content: flex-start !important;
+    width: 100%;
+    padding: 5px;
+    padding-bottom: 15px;
+    .locationform_heading {
+      h2 {
+        font-size: 1.4rem !important;
+        transform: translateY(6px);
+        font-family: "MonaSans-Extra-SemiBold";
+      }
+    }
+
+    span {
+      font-size: 2rem;
+      cursor: pointer;
+    }
+  }
+}

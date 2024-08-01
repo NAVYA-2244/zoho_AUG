@@ -1,0 +1,185 @@
+@import "../../../App.scss";
+
+.company-details {
+  width: 95%;
+  // margin: 0px auto;
+  // height: 100%;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+  overflow-y: scroll;
+  margin: auto;
+  border-radius: 10px;
+
+  .org-name {
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .org-textarea {
+    padding: 10px;
+  }
+
+  .company-logo-image {
+    padding: 15px;
+    border-radius: 20px;
+    z-index: 100;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 20px;
+    gap: 10px;
+  }
+
+  .names {
+    margin-bottom: 10px;
+
+    span {
+      font-size: 0.95rem;
+    }
+  }
+
+  .org-logo {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 10px;
+
+    input[type="file"] {
+      display: none;
+    }
+
+    label {
+      width: 100%;
+      height: 100%;
+
+      img {
+        width: 100%;
+        object-fit: cover;
+        margin-bottom: 10px;
+        padding: 5px;
+        border-radius: 10px;
+        object-fit: contain;
+      }
+    }
+
+    .delete-editbuttons {
+      display: flex;
+      gap: 10px;
+      justify-content: right;
+
+      label {
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 25px;
+        height: 25px;
+        border: none;
+        border-radius: 4px;
+        outline: none;
+        cursor: pointer;
+      }
+
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 25px;
+        height: 25px;
+        border: none;
+        border-radius: 4px;
+        outline: none;
+        cursor: pointer;
+      }
+
+      .delete {
+        color: red;
+      }
+    }
+  }
+
+  .total-form {
+    margin-bottom: 0px !important;
+  }
+
+  .orgDetailsSubmit {
+    button {
+      background-color: #6c63fc !important;
+      color: #fff;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+    }
+  }
+}
+
+.delete-editbuttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.delete-editbuttons label,
+.delete-editbuttons button {
+  margin-right: 10px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+}
+
+.social-icons a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  gap: 5px;
+}
+
+.social-icons a:hover {
+  color: #0073e6;
+  /* Change to your preferred hover color */
+}
+
+.social-icon {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.social-icon svg {
+  font-size: 16px;
+}
+
+.company-profile-logo {
+  width: 110px;
+  height: 110px;
+  vertical-align: middle;
+  margin-right: 174px;
+}
+
+.logo-icon {
+  height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  h2 {
+    max-height: 300px;
+    font-size: 24rem;
+    transform: translateY(-110px);
+    z-index: -1;
+  }
+}

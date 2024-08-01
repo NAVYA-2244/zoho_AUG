@@ -1,0 +1,37 @@
+@import "../../../App.scss";
+
+.colors {
+  display: flex;
+  gap: 10px;
+  margin-right: 30px;
+  .color-box {
+    font-size: 1.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+}
+
+@include LaptopB {
+  .colors {
+    margin-right: 0px;
+    margin-left: 5px;
+    gap: 8px;
+  }
+}
+
+@include Fmobile {
+  .colors {
+    gap: 6px;
+    margin-right: 0 !important;
+  }
+}
+.theme-changer-icon {
+  transition: 0.2s ease all;
+  font-size: 21px;
+  margin-right: 10px;
+  line-height: 0;
+  cursor: pointer;
+  &:hover {
+    transform: rotate(25deg);
+  }
+}

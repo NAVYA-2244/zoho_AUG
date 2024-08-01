@@ -1,0 +1,235 @@
+@import "../../../App.scss";
+
+.row {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: auto;
+}
+
+.row > * {
+  // padding-right: 0px !important;
+  // padding-left: 0px !important;
+  // margin-top: var(--bs-gutter-y);
+}
+// section {
+//   margin-bottom: 1rem;
+// }
+.width {
+  max-height: 300px;
+}
+.main_content {
+  padding: 0rem 1.5rem;
+}
+.dashboard {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.main_content {
+}
+
+.row-1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  height: 100%;
+  padding: 5px;
+  .d_card {
+    width: 393px;
+    max-height: 295px;
+    border-radius: 15px;
+  }
+  .d_card-2 {
+    width: 320px;
+    height: 295px;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    border-radius: 15px;
+  }
+
+  // .d_card-3 {
+  // }
+  .bar-card {
+    // flex: 1;
+    width: 72%;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+
+    .recharts-responsive-container {
+      padding: 12px 0px;
+      transform: translateX(-26px);
+      min-height: 295px;
+      max-height: 295px !important;
+    }
+  }
+}
+
+// .row-2 {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   gap: 10px;
+//   height: 100%;
+//   padding: 5px;
+//   flex-wrap: wrap;
+
+//   .d_card {
+//     width: 280px;
+//     border-radius: 4px;
+//     border-radius: 15px;
+//   }
+//   .d_card1 {
+//     width: 300px;
+//   }
+
+//   .bar-card {
+//     flex: 1;
+//     width: 510px;
+//     border-radius: 4px;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     border-radius: 15px;
+
+//     .recharts-responsive-container {
+//       padding: 12px 0px;
+//       transform: translateX(-26px);
+//       min-height: 295px;
+//       max-height: 295px !important;
+//     }
+//   }
+// }
+
+// media queries
+@include LaptopA {
+  .row-1 {
+    .d_card {
+      width: 363px;
+    }
+    .bar-card {
+      width: 70%;
+    }
+  }
+}
+
+@include LaptopD {
+  .row-1 {
+    padding: 0px;
+
+    .d_card,
+    .d_card-2 {
+      width: 438px;
+      max-height: 295px;
+    }
+
+    .bar-card {
+      width: 100%;
+    }
+  }
+}
+
+@include LaptopB {
+  .row-1 {
+    .d_card,
+    .d_card-2 {
+      width: 350px;
+    }
+    .bar-card {
+      width: 100%;
+    }
+  }
+}
+
+@include LaptopC {
+  .row-1 {
+    .d_card,
+    .d_card-2 {
+      width: 306px;
+    }
+    .bar-card {
+      width: 66%;
+    }
+  }
+}
+
+@include AMmobile {
+  .row-1 {
+    .d_card,
+    .d_card-2 {
+      width: 443px;
+    }
+    .bar-card {
+      width: 100%;
+    }
+  }
+}
+
+// 800px
+@include mobile {
+  .row-1 {
+    .d_card,
+    .d_card-2 {
+      width: 371px;
+    }
+    .bar-card {
+      width: 100%;
+    }
+  }
+}
+
+//768px
+@include TabletB {
+  .row-1 {
+    .d_card,
+    .d_card-2 {
+      width: 355px;
+    }
+    .bar-card {
+      width: 100%;
+    }
+  }
+}
+
+@include Fmobile {
+  .row-1 {
+    .d_card,
+    .d_card-2 {
+      width: 319px;
+    }
+    .bar-card {
+      width: 100%;
+    }
+  }
+}
+
+@include Bmobile {
+  .row-1 {
+    .d_card,
+    .d_card-2 {
+      width: 509px;
+    }
+    .bar-card {
+      width: 92%;
+    }
+  }
+}
+
+@include SLmobile {
+  .row-1 {
+    .bar-card {
+      width: 100%;
+    }
+  }
+}
+.recharts-responsive-container .recharts-wrapper svg .recharts-surface {
+  width: "";
+}

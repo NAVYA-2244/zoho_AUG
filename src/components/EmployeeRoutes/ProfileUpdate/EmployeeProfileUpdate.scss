@@ -1,0 +1,23 @@
+@import '../../../App.scss';
+
+.profile-form {
+  overflow-y: scroll;
+  max-height: 80vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 95%;
+  margin: 0 auto;
+  border-radius: 10px;
+  scrollbar-width: none;
+}
+
+.profile-form .basic-row {
+  width: 100%;
+  border-radius: 0.5rem;
+  padding: 1rem;
+
+}
+
+.profile-form .basic-row .main_label label {
+  margin-top: 20px;
+}

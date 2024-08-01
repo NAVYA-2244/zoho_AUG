@@ -1,0 +1,104 @@
+.folders,
+.files {
+  width: 95%;
+  margin: auto;
+  // padding: 5px 20px;
+  padding: 0;
+  border-radius: 10px;
+  max-height: 79vh;
+  min-height: 79vh;
+  overflow-y: scroll;
+
+  .all-folders,
+  .allfiles {
+    display: flex;
+    row-gap: 10px;
+    margin-top: 1rem;
+    .tables {
+      width: 100%;
+    }
+
+    .folder,
+    .file {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      align-items: center;
+      text-transform: capitalize;
+
+      .folder-icon,
+      .file-icon {
+        // font-size: 5rem;
+        margin-bottom: 0px;
+        cursor: pointer;
+      }
+      .folder-name,
+      .file-name {
+        font-size: 1rem;
+        // font-family: "MonaSans-SemiBold";
+        letter-spacing: 0.5px;
+      }
+    }
+  }
+}
+
+.folder-icon {
+  svg {
+    width: 55px;
+    height: 55px;
+  }
+}
+
+.allfiles {
+  .file {
+    gap: 15px !important;
+  }
+  .file-icon {
+    position: relative;
+    .edit {
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      color: white;
+      color: black;
+      right: 4px;
+      bottom: -6px;
+    }
+    .download {
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      color: white;
+      color: black;
+      left: 4px;
+      bottom: -6px;
+    }
+  }
+}
+
+.files {
+  position: relative;
+  padding: 50px 10px;
+  .addFileButton {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    width: 100px;
+    padding: 4px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+  }
+}

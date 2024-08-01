@@ -1,0 +1,111 @@
+@import "../../../../App.scss";
+
+.leaves-dashboard-card {
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  // align-items: center;
+  // padding: 12px;
+  min-height: auto;
+
+  .heading {
+    padding-top: 5px;
+    font-weight: 300;
+    text-align: left;
+    transform: translate(10px, -14px);
+  }
+}
+
+.leave-application-status {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+
+  .leave-card {
+    width: 90px;
+    border-radius: 10px;
+    display: flex;
+
+    flex-direction: column;
+    padding: 10px;
+    gap: 7px;
+    .status-heading {
+      line-height: 1.3rem;
+      font-size: 0.9rem;
+      font-weight: 400;
+    }
+    .icon {
+      span {
+        margin-bottom: 5px;
+      }
+    }
+    .length {
+      font-weight: 600;
+      line-height: 10px;
+    }
+  }
+}
+.employee-status {
+  justify-content: space-evenly;
+}
+
+// media queries
+@include Zmobile {
+  .leave-application-status {
+    gap: 8px;
+  }
+}
+
+@include LaptopD {
+  .leave-application-status {
+    gap: 5px;
+    justify-content: space-evenly;
+  }
+}
+
+@include LaptopB {
+  .leaves-dashboard-card {
+    gap: 0;
+  }
+  .leave-status-maleFemale .leaves-dashboard-card .heading {
+    margin-bottom: 0rem;
+  }
+
+  .leave-status-maleFemale .heading {
+    margin-bottom: 0rem;
+  }
+}
+
+@include Amobile {
+  .attendance-cards .admin-leave-applications {
+    justify-content: start;
+  }
+}
+
+@include LaptopC {
+  .leave-status-maleFemale .heading {
+    margin-bottom: 0.5rem;
+  }
+  .attendance-cards .admin-leave-applications {
+    justify-content: end;
+  }
+  .leaves-dashboard-card .recharts-wrapper {
+    width: 92% !important;
+  }
+  .leave-status-maleFemale .leave-application-status {
+    margin-top: 1rem;
+  }
+}
+
+@include TabletA {
+  .leave-status-maleFemale .bar-chart .leave-application-status {
+    justify-content: left;
+  }
+
+  .leaves-dashboard-card .admin-leave-applications .leave-card {
+    min-width: 85px !important;
+  }
+}

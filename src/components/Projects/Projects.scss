@@ -1,0 +1,117 @@
+.projects-page {
+  .projects-search {
+    position: relative;
+    svg {
+      position: absolute;
+      top: 9px;
+      left: 12px;
+      font-size: 18px;
+    }
+    .form-control {
+      font-size: 13px;
+      padding-left: 40px;
+    }
+  }
+  .default-task-users {
+    border-radius: 50%;
+    font-size: 1rem;
+    width: 35px;
+    display: block;
+    height: 35px;
+    text-align: center;
+    line-height: 27px;
+    cursor: pointer;
+  }
+  .task-user {
+    background: #6c63fc;
+    color: #fff;
+  }
+  .avatar-list {
+    padding: 0;
+    .avatar {
+      margin-right: -0.65rem !important;
+      border: 2px solid rgb(255, 255, 255);
+      vertical-align: middle;
+      transition: transform ease 0.2s;
+      &:hover {
+        z-index: 5;
+        transform: translateY(-0.188rem);
+      }
+    }
+  }
+  .add-task-user {
+    background-color: #413f64;
+    color: #fff;
+  }
+  .add-issue {
+    .create-issue {
+      // display: none;
+      // transition: 0.2 ease all;
+      cursor: pointer;
+    }
+    &:hover {
+      .create-issue {
+        padding: 10px;
+        &:hover {
+          background-color: #e3e2e8;
+        }
+      }
+    }
+  }
+  textarea {
+    width: 100%;
+    border: 0;
+    resize: none;
+  }
+  .issues-list {
+    min-height: 84px;
+  }
+  .issue-item {
+    cursor: pointer;
+    padding: 0.7rem;
+    .assigned-person {
+      svg {
+        font-size: 1.5rem !important;
+      }
+    }
+    .assigning {
+      svg {
+        font-size: 2rem !important;
+      }
+    }
+    .btn-group {
+      svg {
+        font-size: 1.1rem;
+      }
+    }
+    .task {
+      .edit-summery {
+        display: none;
+      }
+      &:hover {
+        .task-description {
+          text-decoration: underline;
+          text-decoration-color: #6c63fc;
+        }
+        .edit-summery {
+          display: inline-block;
+        }
+      }
+    }
+  }
+  .task-create-btn {
+    padding: 1px 8px;
+    font-size: 12px;
+  }
+  .modal {
+    &.edit-modal {
+      background-color: rgba(9, 30, 66, 0.5) !important;
+      display: none;
+      .modal-content {
+        border-radius: 0.25rem !important;
+        width: 100%;
+        border: 0;
+      }
+    }
+  }
+}

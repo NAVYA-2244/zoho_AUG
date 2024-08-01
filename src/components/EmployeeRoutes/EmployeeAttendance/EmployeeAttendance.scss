@@ -1,0 +1,145 @@
+@import "../../../App.scss";
+
+.h5,
+h5 {
+  font-size: 17px;
+}
+
+.employee-search {
+  width: 300px;
+  z-index: 999;
+}
+
+.tab-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-item img {
+  margin-right: 10px;
+  transform: translateY(-4px) !important;
+  -webkit-transform: translateY(-4px) !important;
+  -moz-transform: translateY(-4px) !important;
+  -ms-transform: translateY(-4px) !important;
+  -o-transform: translateY(-4px) !important;
+}
+
+.select-container {
+  margin-right: auto;
+}
+
+.tabs-container {
+  display: flex;
+  gap: 10px;
+}
+
+.tabs-container button {
+  padding: 10px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.tabs-container button.active {
+  font-weight: bold;
+  color: blue;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.user-image {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.dropdown-header {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-header img {
+  margin-right: 10px;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+}
+
+.email,
+.id {
+  font-size: 12px;
+  // color: #555;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 9999;
+  display: none;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  font-size: 14px;
+  color: #333;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+}
+
+.dropdown-toggle[aria-expanded="true"] + .dropdown-menu {
+  display: block;
+  z-index: 9999;
+}
+
+.dropdown-header input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.dropdown-content {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: #f5f5f5;
+}
+
+.dropdown-item img {
+  margin-right: 10px;
+  transform: translateY(-4px) !important;
+  -webkit-transform: translateY(-4px) !important;
+  -moz-transform: translateY(-4px) !important;
+  -ms-transform: translateY(-4px) !important;
+  -o-transform: translateY(-4px) !important;
+}
+
+.employye-image {
+  width: 300px;
+}
+
+.calendar-container {
+  .nav-link.active {
+    color: #6c63fc !important;
+  }
+}

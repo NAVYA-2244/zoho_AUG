@@ -1,0 +1,130 @@
+@import "../../../App.scss";
+
+.employee_attendace_table {
+  padding: 15px;
+  width: 95%;
+  margin: auto;
+  height: 100%;
+
+  .year-month-day-selects {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    gap: 10px;
+
+    button {
+      min-width: 100px;
+      padding: 4px;
+      border-radius: 6px;
+      border: none;
+      outline: none;
+      color: white;
+      margin-top: 5px;
+    }
+  }
+
+  .tables {
+    min-width: 100%;
+  }
+}
+
+.table-filteration {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+
+  .year-month-day-selects {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+
+.custom-date-input::-webkit-calendar-picker-indicator {
+  background-color: rgb(130, 129, 129);
+  border-radius: 4px;
+}
+
+//media-screen
+@include Smobile {
+  .employee_attendace_table .year-month-day-selects {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 10px;
+  }
+}
+
+.total-form {
+  width: 100%;
+  margin-bottom: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: flex-start;
+  margin-bottom: 25px;
+  position: relative;
+
+  .main_label {
+    label {
+      font-size: 1rem;
+      font-size: 0.9rem;
+
+      font-weight: 400;
+      padding-left: 4px;
+      // color: black;
+      // text-transform: capitalize;
+    }
+  }
+
+  .main-input {
+    width: 100%;
+
+    input,
+    select {
+      width: 100%;
+      padding: 8.5px;
+      border-radius: 7px;
+      border-color: rgb(225, 228, 236);
+      outline: none;
+      padding-right: 20px;
+      border: 0px solid #e5eaef;
+      font-weight: normal;
+      font-size: 0.9rem;
+      padding: 9px;
+      min-height: 40px;
+      max-height: 40px;
+    }
+
+    select {
+      // text-transform: lowercase !important;
+    }
+
+    input:focus {
+      border: 1px solid #ffffff73 !important;
+    }
+  }
+
+  .error-message {
+    // display: flex;
+    /* width: 100%; */
+    justify-content: space-between;
+    /* align-self: flex-start; */
+    padding-left: 10px;
+    padding: 3px 5px;
+    font-size: 0.8rem;
+    /* border-radius: 7px; */
+    position: absolute;
+    color: #ff8080;
+    transform: translate(0, 18px);
+    bottom: 0;
+  }
+}
+
+@include MobileL {
+  .employee_attendace_table .year-month-day-selects {
+    width: 100%;
+  }
+}
