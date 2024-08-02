@@ -9,7 +9,7 @@ import {
   // isManagerRouter,
   // isSuperAdminRouter,
   // isTeamLeadRouter,
-} from './Utils/Routers';DASH
+} from './Utils/Routers';
 // import AdminProjects from "./components/AdminRoutes/Management/AdminProjects";
 
 const App = () => {
