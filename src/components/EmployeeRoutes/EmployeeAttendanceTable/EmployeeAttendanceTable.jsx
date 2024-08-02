@@ -561,7 +561,7 @@ const EmployeeAttendanceTable = () => {
   const [dateState, setDateState] = useState({
     year: "",
     month_date: "",
-    week_date:""
+    week_date: "",
   });
 
   const observer = useRef();
@@ -574,11 +574,13 @@ const EmployeeAttendanceTable = () => {
         limit,
       });
 
-      if (response.attendance.length < limit) {
-        setHasMoreData(false);
-      }
+      // if (response.attendance.length < limit) {
+      //   setHasMoreData(false);
+      // }
 
-      setAttandanceData((prev) => (reset ? response.attendance : [...prev, ...response.attendance]));
+      setAttandanceData((prev) =>
+        reset ? response.attendance : [...prev, ...response.attendance]
+      );
     } catch (error) {
       console.error("Error fetching attendance data", error);
     } finally {
@@ -587,45 +589,49 @@ const EmployeeAttendanceTable = () => {
   };
 
   useEffect(() => {
-    if (hasMoreData) {
-      fetchAttendanceData();
-    }
-  }, [skip, hasMoreData]);
+    // if (hasMoreData) {
+    fetchAttendanceData();
+    // }
+  }, [skip]);
 
-  const loadMoreRef = useCallback(
-    (node) => {
-      if (loading) return;
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasMoreData) {
-          setSkip((prevSkip) => prevSkip + limit);
-        }
-      });
-      if (node) observer.current.observe(node);
-    },
-    [loading, limit, hasMoreData]
+  // const loadMoreRef = useCallback(
+  //   (node) => {
+  //     if (loading) return;
+  //     if (observer.current) observer.current.disconnect();
+  //     observer.current = new IntersectionObserver((entries) => {
+  //       if (entries[0].isIntersecting && hasMoreData) {
+  //         setSkip((prevSkip) => prevSkip + limit);
+  //       }
+  //     });
+  //     if (node) observer.current.observe(node);
+  //   },
+  //   [loading, limit, hasMoreData]
+  // );
+
+  const years = Array.from(
+    { length: 10 },
+    (_, i) => new Date().getFullYear() - i
   );
-
-  const years = Array.from({ length: 10 }, (_, i) => new Date().getFullYear() - i);
   const months = Array.from({ length: 12 }, (_, i) => i + 1);
   const currentDate = new Date();
-  const firstDayOfWeek = currentDate.getDate() - ((currentDate.getDay() + 6) % 7); // Monday as the first day of the week
-  
+  const firstDayOfWeek =
+    currentDate.getDate() - ((currentDate.getDay() + 6) % 7); // Monday as the first day of the week
+
   const weekDates = Array.from({ length: 7 }, (_, i) => {
     const date = new Date(currentDate);
     date.setDate(firstDayOfWeek + i);
-    return date.toLocaleDateString('en-US'); // You can format the date as needed
+    return date.toLocaleDateString("en-US"); // You can format the date as needed
   });
-  
+
   console.log(weekDates); // ["Monday's date", "Tuesday's date", "Wednesday's date", ...]
-  
+
   useEffect(() => {
     if (attendanceData) {
       attendanceData.forEach((entry) => {
         const checkinTimes = entry.checkin.map((e) => e.in_time);
         const checkoutTimes = entry.checkout.map((e) => e.out_time);
-        console.log(checkinTimes, "checkin times");
-        console.log(checkoutTimes, "checkout");
+        // console.log(checkinTimes, "checkin times");
+        // console.log(checkoutTimes, "checkout");
       });
     }
   }, [attendanceData]);
@@ -661,7 +667,7 @@ const EmployeeAttendanceTable = () => {
         "/emp_get/get_attendance_by_filter"
       );
       setAttandanceData(detail.totalAttendance);
-      setHasMoreData(false); // Ensure no more data is fetched after specific search
+      // setHasMoreData(false); // Ensure no more data is fetched after specific search
     } catch (error) {
       console.error("Error fetching specific data", error);
     } finally {
@@ -673,9 +679,32 @@ const EmployeeAttendanceTable = () => {
   // Function to format check-in and check-out times
   const formatTimes = (timesArray, timeType) => {
     if (timesArray && timesArray.length > 0) {
-      return timesArray.map((entry) => entry[timeType]).join(", ");
+      // return timesArray.map((entry) => entry[timeType]).join(", ");
+      if (timeType === "in_time") {
+        return extractTime(timesArray[0][timeType]);
+      } else {
+        return extractTime(timesArray[timesArray.length - 1][timeType]);
+      }
     }
-    return "N/A";
+    return "-";
+  };
+
+  const extractTime = (datetime) => {
+    let parts = datetime.split(" ");
+    return parts[1];
+  };
+
+  let calculateHours = (minutes) => {
+    let hours = (minutes / 60).toFixed(2);
+    return hours !== "NaN" ? `${hours} hrs` : "-";
+  };
+
+  const findCheckin = (time) => {
+    if (time.checkin.length > 0 && time.checkout.length > 0) {
+      return "Present";
+    } else if (time.checkin.length > 0 && time.checkout.length === 0) {
+      return "Checkin";
+    } else if (time.status === "leave") return "Absent";
   };
 
   return (
@@ -744,22 +773,29 @@ const EmployeeAttendanceTable = () => {
         <table className="main-table">
           <TableHead tableHeadProperties={tableHeadProperties} />
           <tbody>
+            {console.log(attendanceData, "attendance data in table")}
             {attendanceData.length > 0 &&
-              attendanceData.map((attendance) => (
-                <tr key={attendance.employee_id}>
+              attendanceData.map((attendance, index) => (
+                <tr key={index}>
                   <td>{attendance.employee_id}</td>
                   <td>{new Date(attendance.createdAt).toLocaleDateString()}</td>
-                  <td>{attendance.status}</td>
+                  <td>{findCheckin(attendance)}</td>
                   <td>{formatTimes(attendance.checkin, "in_time")}</td>
                   <td>{formatTimes(attendance.checkout, "out_time")}</td>
-                  <td style={{ textAlign: "center", paddingLeft: "50px" }}>
-                    {attendance.total_working_minutes}
+                  <td
+                    style={{
+                      textAlign: "center",
+                      textTransform: "lowercase",
+                    }}
+                  >
+                    {calculateHours(attendance.total_working_minutes)}
+                    {/* {attendance.total_working_minutes} */}
                   </td>
                 </tr>
               ))}
           </tbody>
         </table>
-        <div ref={loadMoreRef} style={{ height: "20px" }} />
+        {/* <div ref={loadMoreRef} style={{ height: "20px" }} /> */}
         {loading && <Loader />}
       </section>
     </main>
