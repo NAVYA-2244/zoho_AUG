@@ -43,13 +43,12 @@ const Headers = () => {
     setCheckIn,
     todayAttendance,
     setTodayAttendance,
+    setrecentHire,
   } = useStateContext();
   const { checkingDataThere } = useFunctionContext();
   const { applicationColor } = useThemeContext();
   const [pageTerm, setPageTerm] = useState("");
   const [newss, setNews] = useState(false);
-  const [recentHire, setrecentHire] = useState([]);
-  // console.log(pageTerm.join(""));
 
   const navigate = useNavigate();
 
@@ -160,8 +159,7 @@ const Headers = () => {
       setOrgLogo(res?.dashborad?.organisation_details.images?.logo);
       setLocations(res.dashborad?.organisation_details?.locations);
       setTodayAttendance(res.dashborad.today_attendance);
-      setrecentHire(res.dashboard);
-      console.log(recentHire, "recentHire");
+      setrecentHire(res?.dashborad?.recent_hires);
 
       let checkInTime = "";
       if (

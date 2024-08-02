@@ -54,6 +54,7 @@ export const StateContextProvider = ({ children }) => {
   const [location, setLocation] = useState({ lat: null, lng: null });
   const [orgLogo, setOrgLogo] = useState({});
   const [orgDetails, setOrgDetails] = useState({});
+  const [recentHire, setrecentHire] = useState([]);
 
   // All States for modals
   const [attendanceModal, setAttendanceModal] = useState(false);
@@ -61,10 +62,10 @@ export const StateContextProvider = ({ children }) => {
     heading: "Edit Attendance",
     types: ["time", "text", "time", "text"],
     fields: [],
-    onClose: () => { },
+    onClose: () => {},
     editingItem: {},
     placeholders: [],
-    handleSubmit: () => { },
+    handleSubmit: () => {},
     schema: {},
     edit: false,
   });
@@ -73,10 +74,10 @@ export const StateContextProvider = ({ children }) => {
     heading: "",
     types: [],
     fields: [],
-    onClose: () => { },
+    onClose: () => {},
     editingItem: {},
     placeholders: [],
-    handleSubmit: () => { },
+    handleSubmit: () => {},
     schema: {},
     fileId: "",
   });
@@ -99,6 +100,8 @@ export const StateContextProvider = ({ children }) => {
         setEmployeeDetails,
         employeeData,
         setEmployeeData,
+        recentHire,
+        setrecentHire,
         checkInTime,
         setCheckInTime,
         checkOutTime,
@@ -173,7 +176,7 @@ export const StateContextProvider = ({ children }) => {
         profilePhoto,
         setProfilePhoto,
         employeedata,
-        setEmployeedata
+        setEmployeedata,
       }}
     >
       {children}

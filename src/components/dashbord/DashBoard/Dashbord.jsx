@@ -16,11 +16,9 @@ import { useFunctionContext } from "../../Contexts/FunctionContext";
 
 const Dashbord = () => {
   const { applicationColor } = useThemeContext(); //applicalion color to apply the colors based on white theme or dark theme
-
   // Below Just JSX and Reusable components
   return (
     <main className="main_content">
-      {/* <Headers /> */}
       <section className="row-1">
         <div
           className="d_card"
@@ -28,7 +26,6 @@ const Dashbord = () => {
         >
           <CheckIn />
         </div>
-
         <OnlyBirthDaysAndNewHires />
 
         <div
@@ -212,23 +209,25 @@ export const OnlyBirthDaysAndNewHires = () => {
     <>
       <div className="d_card" style={{ background: applicationColor.cardItem }}>
         <BirthdaysAndNewHires
-          data={todayBirthdays}
-          heading={"Today Birthdays"}
-          img={randomPic}
-          loadMoreRef={birthdayListRef}
-          getMoreDataType="getMoreBirthdayList"
+        // data={todayBirthdays}
+        // heading={"Today Birthdays"}
+        // img={randomPic}
+        // loadMoreRef={birthdayListRef}
+        // getMoreDataType="getMoreBirthdayList"
         />
       </div>
 
-      <div className="d_card" style={{ background: applicationColor.cardItem }}>
+      {/* <div className="d_card" style={{ background: applicationColor.cardItem }}>
         <BirthdaysAndNewHires
-          data={newHires}
-          heading={"New Hires"}
-          img={randomPic}
-          loadMoreRef={newHiresRef}
-          getMoreDataType="getMoreNewHires"
+        // data={newHires}
+        // heading={"New Hires"}
+        // img={randomPic}
+        // loadMoreRef={newHiresRef}
+        // getMoreDataType="getMoreNewHires"
         />
-      </div>
+      </div> */}
+
+      <h1></h1>
     </>
   );
 };

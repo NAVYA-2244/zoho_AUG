@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useThemeContext } from "../../Contexts/ThemesContext";
 import { useNavigate } from "react-router-dom";
- const GetAllEmployeeData = () => {
+const GetAllEmployeeData = () => {
   const [adminEmployeeData] = useState([]);
   const { applicationColor } = useThemeContext();
   const navigate = useNavigate();
@@ -77,5 +77,4 @@ import { useNavigate } from "react-router-dom";
   );
 };
 
-
-export default GetAllEmployeeData; 
+export default GetAllEmployeeData;
