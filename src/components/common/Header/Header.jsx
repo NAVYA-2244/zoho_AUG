@@ -44,6 +44,7 @@ const Headers = () => {
     todayAttendance,
     setTodayAttendance,
     setrecentHire,
+    setBirthdays,
   } = useStateContext();
   const { checkingDataThere } = useFunctionContext();
   const { applicationColor } = useThemeContext();
@@ -144,8 +145,8 @@ const Headers = () => {
     try {
       let res;
       // if (employeeDetails?.employee_id) {
-        res = await backEndCallObjNothing("/emp_get/universal");
-        console.log("res", res);
+      res = await backEndCallObjNothing("/emp_get/universal");
+      console.log("res", res);
       //   console.log("res", res?.dashborad?.recent_hires);
       // } else {
       //   res = await backEndCallObjNothing("/user_get/universal");
@@ -160,7 +161,11 @@ const Headers = () => {
       setLocations(res.dashborad?.organisation_details?.locations);
       setTodayAttendance(res.dashborad.today_attendance);
       setrecentHire(res?.dashborad?.recent_hires);
+      setBirthdays(res?.dashboard.birthdays);
       console.log("res?.dashborad?.recent_hires", res?.dashborad?.recent_hires);
+      {
+        console.log(res.dashboard.birthdays, "poiuy");
+      }
 
       let checkInTime = "";
       if (

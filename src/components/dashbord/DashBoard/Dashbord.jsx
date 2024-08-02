@@ -14,6 +14,7 @@ import EmployeeTodos from "../EmployeeTodos/EmployeeTodos";
 import { makeNetworkCall } from "../../../HttpServices/HttpService";
 import { useFunctionContext } from "../../Contexts/FunctionContext";
 import { toastOptions } from "../../../Utils/FakeRoutes";
+import Birthday from "../BirthdaysAndNewHires/Birthday";
 
 const Dashbord = () => {
   const { applicationColor } = useThemeContext(); //applicalion color to apply the colors based on white theme or dark theme
@@ -62,7 +63,8 @@ export default Dashbord;
 export const OnlyBirthDaysAndNewHires = () => {
   const [newHires, setNewHires] = useState([]);
   const [todayBirthdays, setTodayBirthdays] = useState([]);
-  const { setLoading, loading, setLoadingTerm ,setrecentHire,} = useStateContext();
+  const { setLoading, loading, setLoadingTerm, setrecentHire } =
+    useStateContext();
   const { fetchMoreData } = useFunctionContext();
   const { applicationColor } = useThemeContext();
   const birthdayListObserver = useRef();
@@ -84,7 +86,7 @@ export const OnlyBirthDaysAndNewHires = () => {
         "getOrgData1",
         "headers"
       );
-console.log("setrecentHire",setrecentHire)
+      console.log("setrecentHire", setrecentHire);
       if (response.detail.birthdays.length > 0) {
         setTodayBirthdays((prevList) => {
           return [...prevList, ...response.detail.birthdays];
@@ -120,7 +122,14 @@ console.log("setrecentHire",setrecentHire)
             setBirthdayListSkip((prevSkip) => prevSkip + 1);
             if (birthdaylistSkip) {
               await fetchMoreBirthdaysList();
-              await fetchMoreData("getMoreBirthdayList",birthdaylistSkip,"birthdays",setTodayBirthdays,setBirthdayDataExist,5)
+              await fetchMoreData(
+                "getMoreBirthdayList",
+                birthdaylistSkip,
+                "birthdays",
+                setTodayBirthdays,
+                setBirthdayDataExist,
+                5
+              );
             }
             toastOptions.success(birthdaylistSkip);
           }
@@ -209,22 +218,29 @@ console.log("setrecentHire",setrecentHire)
   return (
     <>
       <div className="d_card" style={{ background: applicationColor.cardItem }}>
-        <BirthdaysAndNewHires
+        {/* <BirthdaysAndNewHires
         data={todayBirthdays}
         heading={"Today Birthdays"}
         img={randomPic}
         // loadMoreRef={birthdayListRef}
-        getMoreDataType="getMoreBirthdayList"
+        getMoreDataType="getMoreBirthdayList" */}
+        {/* /> */}
+        <Birthday
+          img={randomPic}
+          data={todayBirthdays}
+          loadMoreRef={birthdayListRef}
+          getMoreDataType="getMoreBirthdayList"
+          heading={"Today Birthdays"}
         />
       </div>
 
       <div className="d_card" style={{ background: applicationColor.cardItem }}>
         <BirthdaysAndNewHires
-        data={newHires}
-        heading={"New Hires"}
-        img={randomPic}
-        // loadMoreRef={newHiresRef}
-        getMoreDataType="getMoreNewHires"
+          data={newHires}
+          heading={"New Hires"}
+          img={randomPic}
+          // loadMoreRef={newHiresRef}
+          getMoreDataType="getMoreNewHires"
         />
       </div>
 

@@ -55,6 +55,7 @@ export const StateContextProvider = ({ children }) => {
   const [orgLogo, setOrgLogo] = useState({});
   const [orgDetails, setOrgDetails] = useState({});
   const [recentHire, setrecentHire] = useState([]);
+  const [Birthdays, setBirthdays] = useState({});
 
   // All States for modals
   const [attendanceModal, setAttendanceModal] = useState(false);
@@ -88,6 +89,7 @@ export const StateContextProvider = ({ children }) => {
   const [files, setFiles] = useState([]);
   const [editingFile, setEditingFile] = useState({});
   const [employeedata, setEmployeedata] = useState(null);
+
   return (
     <StateContext.Provider
       value={{
@@ -143,7 +145,8 @@ export const StateContextProvider = ({ children }) => {
         setAttendanceModalData,
         todayAttendance,
         setTodayAttendance,
-
+        Birthdays,
+        setBirthdays,
         location,
         setLocation,
         checkInModal,
