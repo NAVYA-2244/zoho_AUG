@@ -160,6 +160,7 @@ const Headers = () => {
       setLocations(res.dashborad?.organisation_details?.locations);
       setTodayAttendance(res.dashborad.today_attendance);
       setrecentHire(res?.dashborad?.recent_hires);
+      console.log("res?.dashborad?.recent_hires",res?.dashborad?.recent_hires)
 
       let checkInTime = "";
       if (

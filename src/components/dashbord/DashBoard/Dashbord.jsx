@@ -13,6 +13,7 @@ import { useThemeContext } from "../../Contexts/ThemesContext";
 import EmployeeTodos from "../EmployeeTodos/EmployeeTodos";
 import { makeNetworkCall } from "../../../HttpServices/HttpService";
 import { useFunctionContext } from "../../Contexts/FunctionContext";
+import { toastOptions } from "../../../Utils/FakeRoutes";
 
 const Dashbord = () => {
   const { applicationColor } = useThemeContext(); //applicalion color to apply the colors based on white theme or dark theme
@@ -61,7 +62,7 @@ export default Dashbord;
 export const OnlyBirthDaysAndNewHires = () => {
   const [newHires, setNewHires] = useState([]);
   const [todayBirthdays, setTodayBirthdays] = useState([]);
-  const { setLoading, loading, setLoadingTerm } = useStateContext();
+  const { setLoading, loading, setLoadingTerm ,setrecentHire,} = useStateContext();
   const { fetchMoreData } = useFunctionContext();
   const { applicationColor } = useThemeContext();
   const birthdayListObserver = useRef();
@@ -83,7 +84,7 @@ export const OnlyBirthDaysAndNewHires = () => {
         "getOrgData1",
         "headers"
       );
-
+console.log("setrecentHire",setrecentHire)
       if (response.detail.birthdays.length > 0) {
         setTodayBirthdays((prevList) => {
           return [...prevList, ...response.detail.birthdays];
@@ -119,9 +120,9 @@ export const OnlyBirthDaysAndNewHires = () => {
             setBirthdayListSkip((prevSkip) => prevSkip + 1);
             if (birthdaylistSkip) {
               await fetchMoreBirthdaysList();
-              // await fetchMoreData("getMoreBirthdayList",birthdaylistSkip,"birthdays",setTodayBirthdays,setBirthdayDataExist,5)
+              await fetchMoreData("getMoreBirthdayList",birthdaylistSkip,"birthdays",setTodayBirthdays,setBirthdayDataExist,5)
             }
-            // toastOptions.success(birthdaylistSkip);
+            toastOptions.success(birthdaylistSkip);
           }
         }
       );
@@ -139,93 +140,93 @@ export const OnlyBirthDaysAndNewHires = () => {
   );
 
   //This funtion will make the network when the last item in   newHires list come into the view
-  const fetchMoreNewHiresList = async () => {
-    try {
-      setLoading(true);
-      setLoadingTerm("getMoreNewHires");
-      const response = await makeNetworkCall(
-        {
-          employeesSearch: "",
-          newHiresFilters: { skip: newHiresSkip * 5, limit: 5 },
-        },
-        "getOrgData1",
-        "headers"
-      );
+  // const fetchMoreNewHiresList = async () => {
+  //   try {
+  //     setLoading(true);
+  //     setLoadingTerm("getMoreNewHires");
+  //     const response = await makeNetworkCall(
+  //       {
+  //         employeesSearch: "",
+  //         newHiresFilters: { skip: newHiresSkip * 5, limit: 5 },
+  //       },
+  //       "getOrgData1",
+  //       "headers"
+  //     );
 
-      if (response.detail.newHires.length > 0) {
-        setNewHires((prevList) => {
-          return [...prevList, ...response.detail.newHires];
-        });
-      } else {
-        setNewHiresExist(true);
-      }
+  //     if (response.detail.newHires.length > 0) {
+  //       setNewHires((prevList) => {
+  //         return [...prevList, ...response.detail.newHires];
+  //       });
+  //     } else {
+  //       setNewHiresExist(true);
+  //     }
 
-      setLoading(false);
-      setLoadingTerm("");
-    } catch (error) {
-      setLoading(false);
-      setLoadingTerm("");
-    } finally {
-      setLoading(false);
-      setLoadingTerm("");
-    }
-  };
+  //     setLoading(false);
+  //     setLoadingTerm("");
+  //   } catch (error) {
+  //     setLoading(false);
+  //     setLoadingTerm("");
+  //   } finally {
+  //     setLoading(false);
+  //     setLoadingTerm("");
+  //   }
+  // };
 
   // This call back function will responsible to obeserve the last item in the newHires Array and make the network call based on some condtions
-  const newHiresRef = useCallback(
-    (node) => {
-      if (loading) return;
-      if (newHiresListObserver.current)
-        newHiresListObserver.current.disconnect();
-      newHiresListObserver.current = new IntersectionObserver(
-        async (entries) => {
-          if (
-            entries[0].isIntersecting &&
-            !newHiresExist &&
-            newHires.length >= 5
-          ) {
-            setNewHiresSkip((prevSkip) => prevSkip + 1);
-            if (newHiresSkip) {
-              await fetchMoreNewHiresList();
-            }
-          }
-        }
-      );
+  // const newHiresRef = useCallback(
+  //   (node) => {
+  //     if (loading) return;
+  //     if (newHiresListObserver.current)
+  //       newHiresListObserver.current.disconnect();
+  //     newHiresListObserver.current = new IntersectionObserver(
+  //       async (entries) => {
+  //         if (
+  //           entries[0].isIntersecting &&
+  //           !newHiresExist &&
+  //           newHires.length >= 5
+  //         ) {
+  //           setNewHiresSkip((prevSkip) => prevSkip + 1);
+  //           if (newHiresSkip) {
+  //             await fetchMoreNewHiresList();
+  //           }
+  //         }
+  //       }
+  //     );
 
-      if (node) newHiresListObserver.current.observe(node);
-    },
-    [
-      newHiresExist,
-      newHires,
-      setNewHires,
-      newHiresSkip,
-      loading,
-      newHiresSkip,
-      setNewHiresSkip,
-    ]
-  );
+  //     if (node) newHiresListObserver.current.observe(node);
+  //   },
+  //   [
+  //     newHiresExist,
+  //     newHires,
+  //     setNewHires,
+  //     newHiresSkip,
+  //     loading,
+  //     newHiresSkip,
+  //     setNewHiresSkip,
+  //   ]
+  // );
 
   return (
     <>
       <div className="d_card" style={{ background: applicationColor.cardItem }}>
         <BirthdaysAndNewHires
-        // data={todayBirthdays}
-        // heading={"Today Birthdays"}
-        // img={randomPic}
+        data={todayBirthdays}
+        heading={"Today Birthdays"}
+        img={randomPic}
         // loadMoreRef={birthdayListRef}
-        // getMoreDataType="getMoreBirthdayList"
+        getMoreDataType="getMoreBirthdayList"
         />
       </div>
 
-      {/* <div className="d_card" style={{ background: applicationColor.cardItem }}>
+      <div className="d_card" style={{ background: applicationColor.cardItem }}>
         <BirthdaysAndNewHires
-        // data={newHires}
-        // heading={"New Hires"}
-        // img={randomPic}
+        data={newHires}
+        heading={"New Hires"}
+        img={randomPic}
         // loadMoreRef={newHiresRef}
-        // getMoreDataType="getMoreNewHires"
+        getMoreDataType="getMoreNewHires"
         />
-      </div> */}
+      </div>
 
       <h1></h1>
     </>
