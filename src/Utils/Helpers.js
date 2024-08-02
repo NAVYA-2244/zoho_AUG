@@ -16,84 +16,84 @@ export function flatternObject(obj) {
   return result;
 }
 
-// export async function getCurrentLocation() {
-//   try {
-//     const permissionStatus = await navigator.permissions.query({
-//       name: "geolocation",
-//     });
+export async function getCurrentLocation() {
+  try {
+    const permissionStatus = await navigator.permissions.query({
+      name: "geolocation",
+    });
 
-//     if (permissionStatus.state === "granted") {
-//       const position = await new Promise((resolve, reject) => {
-//         navigator.geolocation.getCurrentPosition(resolve, reject);
-//       });
-//       return {
-//         latitude: position.coords.latitude,
-//         longitude: position.coords.longitude,
-//       }
+    if (permissionStatus.state === "granted") {
+      const position = await new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+      });
+      return {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      }
 
-//     } else if (permissionStatus.state === "prompt") {
-//       const position = await new Promise((resolve, reject) => {
-//         navigator.geolocation.getCurrentPosition(resolve, reject);
-//       });
-//       return {
-//         latitude: position.coords.latitude,
-//         longitude: position.coords.longitude,
-//       };
-//     } else {
-//       throw new Error("Geolocation permission not granted.");
-//     }
-//   } catch (err) {
-//     throw new Error("Geolocation permission not granted.");
-//   }
-// }
-
-export function getCurrentLocation() {
-  return new Promise((resolve, reject) => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-
-          // Ensure valid latitude and longitude values
-          if (
-            latitude >= -90 && latitude <= 90 &&
-            longitude >= -180 && longitude <= 180
-          ) {
-            resolve({ latitude, longitude });
-          } else {
-            reject(new Error("Received invalid latitude or longitude values."));
-          }
-        },
-        (error) => {
-          console.error("Error retrieving location:", error);
-          switch (error.code) {
-            case error.PERMISSION_DENIED:
-              reject(new Error("User denied the request for Geolocation."));
-              break;
-            case error.POSITION_UNAVAILABLE:
-              reject(new Error("Location information is unavailable."));
-              break;
-            case error.TIMEOUT:
-              reject(new Error("The request to get user location timed out."));
-              break;
-            case error.UNKNOWN_ERROR:
-              reject(new Error("An unknown error occurred."));
-              break;
-            default:
-              reject(new Error("Failed to retrieve location. Please check your permissions."));
-          }
-        },
-        {
-          enableHighAccuracy: true, // Use high accuracy if available
-          timeout: 15000, // Timeout after 15 seconds
-          maximumAge: 0 // Do not use a cached position
-        }
-      );
+    } else if (permissionStatus.state === "prompt") {
+      const position = await new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+      });
+      return {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      };
     } else {
-      reject(new Error("Geolocation is not supported by this browser."));
+      throw new Error("Geolocation permission not granted.");
     }
-  });
+  } catch (err) {
+    throw new Error("Geolocation permission not granted.");
+  }
 }
+
+// export function getCurrentLocation() {
+//   return new Promise((resolve, reject) => {
+//     if (navigator.geolocation) {
+//       navigator.geolocation.getCurrentPosition(
+//         (position) => {
+//           const { latitude, longitude } = position.coords;
+
+//           // Ensure valid latitude and longitude values
+//           if (
+//             latitude >= -90 && latitude <= 90 &&
+//             longitude >= -180 && longitude <= 180
+//           ) {
+//             resolve({ latitude, longitude });
+//           } else {
+//             reject(new Error("Received invalid latitude or longitude values."));
+//           }
+//         },
+//         (error) => {
+//           console.error("Error retrieving location:", error);
+//           switch (error.code) {
+//             case error.PERMISSION_DENIED:
+//               reject(new Error("User denied the request for Geolocation."));
+//               break;
+//             case error.POSITION_UNAVAILABLE:
+//               reject(new Error("Location information is unavailable."));
+//               break;
+//             case error.TIMEOUT:
+//               reject(new Error("The request to get user location timed out."));
+//               break;
+//             case error.UNKNOWN_ERROR:
+//               reject(new Error("An unknown error occurred."));
+//               break;
+//             default:
+//               reject(new Error("Failed to retrieve location. Please check your permissions."));
+//           }
+//         },
+//         {
+//           enableHighAccuracy: true, // Use high accuracy if available
+//           timeout: 15000, // Timeout after 15 seconds
+//           maximumAge: 0 // Do not use a cached position
+//         }
+//       );
+//     } else {
+//       reject(new Error("Geolocation is not supported by this browser."));
+//     }
+//   });
+// }
 
 
 

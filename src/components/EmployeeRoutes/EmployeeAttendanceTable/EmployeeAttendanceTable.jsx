@@ -564,31 +564,31 @@ const EmployeeAttendanceTable = () => {
 
   const observer = useRef();
 
-  useEffect(() => {
-    const fetchingData = async () => {
-      try {
-        setLoading(true);
-        let response = await backEndCallObjNothing("/emp_get/get_attendance", {
-          skip,
-          limit,
-        });
+  const fetchAttendanceData = async (reset = false) => {
+    try {
+      setLoading(true);
+      const response = await backEndCallObjNothing("/emp_get/get_attendance", {
+        skip,
+        limit,
+      });
 
-        if (response.attendance.length === 0) {
-          setHasMoreData(false);
-        } else {
-          setAttandanceData((prev) => [...prev, ...response.attendance]);
-        }
-        setLoading(false);
-      } catch (error) {
-        setLoading(false);
-        console.error("Error fetching attendance data", error);
+      if (response.attendance.length < limit) {
+        setHasMoreData(false);
       }
-    };
 
-    if (hasMoreData) {
-      fetchingData();
+      setAttandanceData((prev) => (reset ? response.attendance : [...prev, ...response.attendance]));
+    } catch (error) {
+      console.error("Error fetching attendance data", error);
+    } finally {
+      setLoading(false);
     }
-  }, [skip, limit, setLoading, setAttandanceData, hasMoreData]);
+  };
+
+  useEffect(() => {
+    if (hasMoreData) {
+      fetchAttendanceData();
+    }
+  }, [skip, hasMoreData]);
 
   const loadMoreRef = useCallback(
     (node) => {
@@ -603,18 +603,8 @@ const EmployeeAttendanceTable = () => {
     },
     [loading, limit, hasMoreData]
   );
-  // let calculateHours = (minutes) => {
-  //   let hours = (minutes / 60).toFixed(2);
-  //   return `${hours} hrs`;
-  // };
-  // const extractTime = (datetime) => {
-  //   let parts = datetime.split(" ");
-  //   return parts[1];
-  // };
-  const years = Array.from(
-    { length: 10 },
-    (_, i) => new Date().getFullYear() - i
-  );
+
+  const years = Array.from({ length: 10 }, (_, i) => new Date().getFullYear() - i);
   const months = Array.from({ length: 12 }, (_, i) => i + 1);
 
   useEffect(() => {
@@ -647,7 +637,7 @@ const EmployeeAttendanceTable = () => {
     setLoading(true);
     setLoadingTerm("attendanceFromTo");
     try {
-      const { detail } = await makeNetworkCall(
+      const { detail } = await backEndCallObjNothing(
         {
           totalAttendanceFilters: {
             year: Number(dateState.selectedYear),
@@ -656,10 +646,10 @@ const EmployeeAttendanceTable = () => {
             toDate: "",
           },
         },
-        "getEmployeeData",
-        "headers"
+        "/emp_get/get_attendance_by_filter"
       );
       setAttandanceData(detail.totalAttendance);
+      setHasMoreData(false); // Ensure no more data is fetched after specific search
     } catch (error) {
       console.error("Error fetching specific data", error);
     } finally {
@@ -691,7 +681,7 @@ const EmployeeAttendanceTable = () => {
               placeholder={"Select year"}
               value={dateState.selectedYear}
               setForm={setDateState}
-              options={[...years]}
+              options={years}
             />
           </div>
           <div className="col-lg-4 col-md-6">
@@ -700,7 +690,7 @@ const EmployeeAttendanceTable = () => {
               placeholder={"Select Month"}
               value={dateState.selectedMonth}
               setForm={setDateState}
-              options={[...months]}
+              options={months}
             />
           </div>
           <div className="col-lg-4 col-md-6 pe-0">
@@ -733,30 +723,19 @@ const EmployeeAttendanceTable = () => {
         <table className="main-table">
           <TableHead tableHeadProperties={tableHeadProperties} />
           <tbody>
-            { attendanceData.length > 0 && attendanceData .map((attendance) => (
-              <tr key={attendance.employee_id}>
-                <td>{attendance.employee_id}</td>
-                <td>{new Date(attendance.createdAt).toLocaleDateString()}</td>
-                <td>{attendance.status}</td>
-                {/* <td>{formatTimes(attendance.checkin, "in_time")}</td> */}
-                <td>{attendance.checkin.in_time}</td>
-
-                {/* <td>{formatTimes(attendance.checkout, "out_time")}</td> */}
-                {/* <td>
-                  {attendance?.checkout?.length === 0
-                    ? ""
-                    : extractTime(
-                        attendance.checkout[attendance.checkout.length - 1]
-                          .out_time
-                      )}
-                </td> */}
-
-                <td style={{ textAlign: "center", paddingLeft: "50px" }}>
-                  {attendance.total_working_minutes}
-                  {/* {attendance.total_working_minutes || 0} */}
-                </td>
-              </tr>
-            ))}
+            {attendanceData.length > 0 &&
+              attendanceData.map((attendance) => (
+                <tr key={attendance.employee_id}>
+                  <td>{attendance.employee_id}</td>
+                  <td>{new Date(attendance.createdAt).toLocaleDateString()}</td>
+                  <td>{attendance.status}</td>
+                  <td>{formatTimes(attendance.checkin, "in_time")}</td>
+                  <td>{formatTimes(attendance.checkout, "out_time")}</td>
+                  <td style={{ textAlign: "center", paddingLeft: "50px" }}>
+                    {attendance.total_working_minutes}
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
         <div ref={loadMoreRef} style={{ height: "20px" }} />
