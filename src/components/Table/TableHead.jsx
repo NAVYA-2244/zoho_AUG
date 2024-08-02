@@ -16,7 +16,7 @@ const TableHead = ({
   const [sort, setSort] = useState({ property: null, direction: "asc" });
   const { applicationColor } = useThemeContext();
 
-  console.log({ tableHeadProperties });
+  // console.log({ tableHeadProperties });
   const handleSorting = (property) => {
     if (sort.property === property) {
       setSort({

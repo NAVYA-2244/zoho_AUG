@@ -334,12 +334,11 @@ const CheckIn = () => {
   };
 
   const handleCheckOut = async () => {
-    console.log("chekout")
     try {
       setLoading(true);
       setLoadingTerm("checkIn_checkOut");
       const Co_Ordinates = await getCurrentLocation();
-      console.log("chekouttime",Co_Ordinates);
+      console.log(Co_Ordinates);
       const { ip } = await getIpAddress();
       const data = {
         type: "checkout",

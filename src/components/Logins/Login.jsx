@@ -118,7 +118,7 @@ const Login = () => {
           }}
         >
           User Login
-        </button>
+        </button> 
         <button
           onClick={() => setFormType("admin")}
           style={{

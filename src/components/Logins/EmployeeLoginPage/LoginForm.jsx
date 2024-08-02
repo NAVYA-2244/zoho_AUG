@@ -119,8 +119,9 @@ const LoginForm = () => {
         email: formData.email,
       };
       await checkErrors(ResendOTPSchema, obj);
+      
       const response = await backEndCallObjNothing("/emp/resend_otp", obj);
-      toastOptions.success("OTP Resent Successfully");
+      // toastOptions.success(response.success||"OTP Resent Successfully");
       setLoader(false);
       // Reset timer
       setTimeLeft(120); // Reset timer to 120 seconds after successful resend
@@ -246,7 +247,7 @@ const LoginForm = () => {
                     ) : (
                       <div>
                         <p className="mb-0 mt-4">Didn't receive OTP code?</p>
-                        <button className="btn text-primary p-0 lh-0">
+                        <button className="btn text-primary p-0 lh-0"onClick={handleResendOTP}>
                           Resend Code
                         </button>
                       </div>
@@ -261,7 +262,11 @@ const LoginForm = () => {
                       >
                         Verify & Proceed
                       </button>
+
                     </div>
+
+
+                    
                   </div>
                 </div>
               ) : (

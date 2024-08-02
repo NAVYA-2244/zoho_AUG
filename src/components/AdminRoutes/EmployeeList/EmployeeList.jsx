@@ -167,7 +167,7 @@ const EmployeeList = () => {
       setLoadingTerm("getExtraEmployees");
 
       setLoading(false);
-      console.log(employeesList, "employeelist");
+      
       setLoadingTerm("");
     } catch (error) {
       setLoading(false);
@@ -178,7 +178,7 @@ const EmployeeList = () => {
       setLoadingTerm("");
     }
   };
-
+  
   // This callback is responseible to observe the last item in the employeelist and based omn some conditions will make some netwrok call
   const gettingMoreDataRef = useCallback(
     (node) => {

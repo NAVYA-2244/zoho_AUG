@@ -543,6 +543,7 @@ import { useThemeContext } from "../../Contexts/ThemesContext";
 import { makeNetworkCall } from "../../../HttpServices/HttpService";
 import Loader from "../../Loader/Loader";
 import { backEndCallObjNothing } from "../../../services/mainService";
+import { weekdays } from "moment-timezone";
 
 const EmployeeAttendanceTable = () => {
   const {
@@ -558,8 +559,9 @@ const EmployeeAttendanceTable = () => {
   const [hasMoreData, setHasMoreData] = useState(true);
   const { applicationColor } = useThemeContext();
   const [dateState, setDateState] = useState({
-    selectedYear: "",
-    selectedMonth: "",
+    year: "",
+    month_date: "",
+    week_date:""
   });
 
   const observer = useRef();
@@ -606,7 +608,17 @@ const EmployeeAttendanceTable = () => {
 
   const years = Array.from({ length: 10 }, (_, i) => new Date().getFullYear() - i);
   const months = Array.from({ length: 12 }, (_, i) => i + 1);
-
+  const currentDate = new Date();
+  const firstDayOfWeek = currentDate.getDate() - ((currentDate.getDay() + 6) % 7); // Monday as the first day of the week
+  
+  const weekDates = Array.from({ length: 7 }, (_, i) => {
+    const date = new Date(currentDate);
+    date.setDate(firstDayOfWeek + i);
+    return date.toLocaleDateString('en-US'); // You can format the date as needed
+  });
+  
+  console.log(weekDates); // ["Monday's date", "Tuesday's date", "Wednesday's date", ...]
+  
   useEffect(() => {
     if (attendanceData) {
       attendanceData.forEach((entry) => {
@@ -677,9 +689,9 @@ const EmployeeAttendanceTable = () => {
         <div className="row">
           <div className="col-lg-4 col-md-6 ps-0">
             <Select_inputs
-              name={"selectedYear"}
+              name={"year"}
               placeholder={"Select year"}
-              value={dateState.selectedYear}
+              value={dateState.year}
               setForm={setDateState}
               options={years}
             />
@@ -688,12 +700,21 @@ const EmployeeAttendanceTable = () => {
             <Select_inputs
               name={"selectedMonth"}
               placeholder={"Select Month"}
-              value={dateState.selectedMonth}
+              value={dateState.month_date}
               setForm={setDateState}
               options={months}
             />
           </div>
-          <div className="col-lg-4 col-md-6 pe-0">
+          <div className="col-lg-4 col-md-6">
+            <Select_inputs
+              name={"week_date"}
+              placeholder={"Select week"}
+              value={dateState.week_date}
+              setForm={setDateState}
+              options={weekDates}
+            />
+          </div>
+          {/* <div className="col-lg-4 col-md-6 pe-0">
             <Select_inputs
               name={"EmployeeId"}
               placeholder={"EmployeeId"}
@@ -701,7 +722,7 @@ const EmployeeAttendanceTable = () => {
               setForm={setDateState}
               // options={[...EmployeeId]}
             />
-          </div>
+          </div> */}
         </div>
 
         {dateState.selectedMonth && dateState.selectedYear ? (

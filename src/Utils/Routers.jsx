@@ -158,10 +158,10 @@ export const isEmployeeRouter = [
   //   element: <Login />,
   // },
 
-  {
-    path: "/login",
-    element: <NewLogin />,
-  },
+  // {
+  //   path: "/login",
+  //   element: <NewLogin />,
+  // },
   {
     path: "/loginForm",
     element: <LoginForm />,
