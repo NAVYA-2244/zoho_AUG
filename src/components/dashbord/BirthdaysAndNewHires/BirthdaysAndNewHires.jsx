@@ -13,10 +13,13 @@ const BirthdaysAndNewHires = ({
   img,
   loadMoreRef,
   getMoreDataType,
+  setrecentHire,
 }) => {
   const { applicationColor } = useThemeContext();
   const { loadingTerm, orgDetails } = useStateContext();
-
+  {
+    console.log(setrecentHire, "iuytfg");
+  }
   // console.log(orgDetails, "recent hire");
   return (
     <section
