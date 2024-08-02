@@ -290,6 +290,14 @@ export const isSuperAdminRouter = [
         ),
       },
       {
+        path: "/profile_Edit",
+        element: (
+          <IsSuperAdminRoute>
+            <SingleEmployeeProfileEdit />
+          </IsSuperAdminRoute>
+        ),
+      },
+      {
         path: "/admin/employee_list",
         element: (
           <IsSuperAdminRoute>

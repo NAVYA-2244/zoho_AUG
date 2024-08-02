@@ -3,9 +3,9 @@ import "./SingelEmployeeProfile.scss";
 import { useThemeContext } from "../../../Contexts/ThemesContext";
 import TableHead from "../../../Table/TableHead";
 import { useStateContext } from "../../../Contexts/StateContext";
+import { useNavigate } from "react-router";
 import Selectinputimg from "../../../EmployeeRoutes/EmployeeAttendance/Selectinputimg";
 import ProfilePhoto from "../../EmployeeForm/ProfilePhoto";
-import { useNavigate } from "react-router-dom";
 import { AiOutlineEdit } from "react-icons/ai";
 let educationDetailsProperties = [
   {
@@ -154,6 +154,10 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
     setIsStatusChanged(true);
   };
 
+  const handleEdit = () => {
+    console.log("hi");
+    navigate("/profile_Edit", { state: { employeeProfileData } });
+  };
   const {
     basic_info,
     contact_details,
@@ -280,7 +284,6 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
               color: applicationColor.readColor1,
             }}
           >
-
             <div className="user-details-section">
               {currentTab === "attendance" ? (
                 <>
@@ -292,16 +295,23 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
                 <div className="row">
                   {/*Basic Information */}
                   <button
-        className="edit btn btn-sm btn-success-light"
-        onClick={() => navigate(`/admin/update_employee/${employeeProfileData.profile.employee_id}`)}
-      >
-        update profile
-        <AiOutlineEdit/>
-      </button>
+                    className="edit btn btn-sm btn-success-light"
+                    onClick={() =>
+                      navigate(
+                        `/admin/update_employee/${employeeProfileData.profile.employee_id}`
+                      )
+                    }
+                  >
+                    update profile
+                    <AiOutlineEdit />
+                  </button>
 
                   <div className="col-lg-12">
                     <br />
                     <h5 className="profile-heading">My Profile</h5>
+                    <button className="btn btn-primary" onClick={handleEdit}>
+                      Edit
+                    </button>
                     <section className="info-wrapper user-info-wrapper">
                       <div className="head-wrapper">
                         <h5>Basic Information</h5>

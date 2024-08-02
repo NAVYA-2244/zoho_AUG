@@ -258,11 +258,11 @@ const LocationForm = () => {
             <button
               className="dropdown-item d-flex align-items-center justify-content-end"
               type="button"
-            // onClick={handleAddItems}
-            // disabled={loading}
-            // style={{
-            //   color: applicationColor.readColor1,
-            // }}
+              // onClick={handleAddItems}
+              // disabled={loading}
+              // style={{
+              //   color: applicationColor.readColor1,
+              // }}
             >
               <span className="add-role me-1">Add</span>
               <RiAddCircleFill />
