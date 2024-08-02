@@ -16,6 +16,7 @@ import AllEmployeeLists, {
   ReUsableEmployeeCard,
 } from "../AdminDashboard/AllEmployeesLists/AllEmployeeLists";
 import { backEndCallObjNothing } from "../../../services/mainService";
+import TodayAttendanceCardView from "./TodayAttendanceCardView";
 
 const TodaysEmployeesAttendance = () => {
   const { applicationColor } = useThemeContext();
@@ -302,16 +303,13 @@ const TodaysEmployeesAttendance = () => {
           </div>
         ) : (
           <div
-            className="admin_all_employees"
+            className="admin_all_employees-cardView"
             style={{
-              background: applicationColor.cardBg2,
+              background: applicationColor.cardBg1,
               color: applicationColor.readColor1,
-              padding: "20px",
-              borderRadius: "10px",
-              gap: "0",
             }}
           >
-            {todayAttendance?.length !== 0 ? (
+            {/* {todayAttendance?.length !== 0 ? (
               todayAttendance?.map((attendance) =>
                 attendance.map((item) => (
                   <div
@@ -366,7 +364,9 @@ const TodaysEmployeesAttendance = () => {
               <tr>
                 <td>No Data</td>
               </tr>
-            )}
+            )} */}
+
+            <TodayAttendanceCardView todayAttendance={todayAttendance} />
           </div>
         )}
       </main>

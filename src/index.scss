@@ -330,9 +330,9 @@ input[type="date"] {
 .today-attendance {
   border-radius: 10px;
   width: 95%;
-  height: auto;
+  height: 78vh;
   margin: auto;
-  max-height: 99%;
+  max-height: 100%;
 
   .today-attendance-wrapper {
     display: flex;
@@ -572,5 +572,133 @@ input[type="date"] {
     display: flex;
     justify-content: space-between;
     text-wrap: nowrap;
+  }
+}
+
+// all employee attendance - cardview (for Admin)
+
+.admin_all_employees-cardView {
+  height: 63vh;
+  overflow: hidden scroll;
+}
+
+.late-checkin-data {
+  width: 100%;
+  padding: 0.7rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  border-radius: 10px;
+
+  p {
+    margin: 0;
+  }
+
+  .late-checkin-heading {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-left: 6px;
+    font-size: 1.2rem;
+
+    .count {
+      // border: 1px solid gray;
+      border-radius: 50%;
+      padding: 5px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    .late-count {
+      background-color: #009dff2f;
+      color: #3700ff;
+    }
+    .leave-count {
+      background-color: rgba(255, 0, 0, 0.185);
+      color: red;
+    }
+    .checkin-count {
+      background-color: #00c9ab3a;
+      color: green;
+    }
+  }
+
+  .late-checkin-info {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+
+    .late-checkin-individual:hover {
+      // background-color: #eaeded;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+    }
+
+    .late-checkin-individual {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 22px;
+      border: 1px solid #c9c9c9;
+      padding: 15px;
+      border-radius: 8px;
+      width: 200px;
+      width: fit-content;
+
+      .individual-names {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        // background-color: #6c63fc33;
+        // padding: 5px;
+        // border-radius: 8px;
+
+        .status {
+          border-radius: 11px;
+          padding: 10px;
+          font-size: 13px;
+          align-items: center;
+          display: flex;
+          justify-content: center;
+          height: 20px;
+        }
+
+        .in-status {
+          background-color: #00c9ab3a;
+          color: green;
+        }
+        .out-status {
+          background-color: rgba(255, 0, 0, 0.185);
+          color: red;
+        }
+
+        .late-status {
+          background-color: #009dff2f;
+          color: #3700ff;
+        }
+
+        .individual-name {
+          font-size: 16px;
+          font-weight: bold;
+          margin-bottom: 8px;
+        }
+
+        .individual-id {
+          font-size: 13px;
+          font-weight: bold;
+        }
+
+        img {
+          width: 45px;
+          border-radius: 50px;
+        }
+      }
+
+      .time,
+      .late-time {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        row-gap: 10px;
+      }
+    }
   }
 }
