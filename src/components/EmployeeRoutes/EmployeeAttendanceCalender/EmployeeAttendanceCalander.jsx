@@ -3,7 +3,6 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Calendar, momentLocalizer, Views } from "react-big-calendar";
 import moment from "moment";
 import { backEndCallObjNothing } from "../../../services/mainService";
-import { toastOptions } from "../../../Utils/FakeRoutes";
 
 const localizer = momentLocalizer(moment);
 
@@ -15,44 +14,48 @@ const EmployeeAttendanceCalendar = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
 
+  // Function to fetch attendance data from the backend
+  const fetchAttendance = async () => {
+    try {
+      const response = await backEndCallObjNothing("/emp_get/get_attendance", {
+        skip,
+        limit,
+      });
+      setEmployeeAttendance(response.attendance);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  // Fetch attendance data whenever `skip` or `limit` changes
   useEffect(() => {
-    const fetchingData = async () => {
-      try {
-        let response = await backEndCallObjNothing("/emp_get/get_attendance", {
-          skip,
-          limit,
-        });
-        console.log(response, "response");
-        setEmployeeAttendance(response.attendance);
-      } catch (error) {
-        // Handle error, toast message, etc.
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchingData();
+    fetchAttendance();
   }, [skip, limit]);
 
-  console.log("empoyeeAttendence from calender", { employeeAttendance });
-
+  // Format the fetched attendance data into events for the calendar
   useEffect(() => {
-    // Format employeeAttendance data into calendarEvents
     const formattedEvents = employeeAttendance.flatMap((employee) => {
       if (employee.checkin.length > 0) {
-        const firstCheckin = employee.checkin[0].in_time;
-        console.log(firstCheckin, "firstcheckin");
-
+        const firstCheckin = new Date(employee.checkin[0].in_time);
         const lastCheckout =
           employee.checkout.length > 0
-            ? employee.checkout[employee.checkout.length - 1].out_time
+            ? new Date(employee.checkout[employee.checkout.length - 1].out_time)
             : null;
 
-        // If there is no corresponding checkout, mark as absent
+        // Ignore events for today
+        const today = moment().startOf("day").toDate();
+        const checkinDate = moment(firstCheckin).startOf("day").toDate();
+        if (checkinDate.getTime() === today.getTime()) {
+          return [];
+        }
+
+        // Determine if the employee was present or absent
         if (!lastCheckout) {
           return [
             {
               title: "Absent",
               start: firstCheckin,
-              end: firstCheckin, // Display check-in time as end time as well
+              end: firstCheckin,
             },
           ];
         } else {
@@ -65,20 +68,40 @@ const EmployeeAttendanceCalendar = () => {
           ];
         }
       }
-      return []; // No check-ins for this employee
+      return [];
     });
 
     setCalendarEvents(formattedEvents);
   }, [employeeAttendance]);
 
+  // Handle event selection to show the modal with event details
   const handleSelectEvent = (event) => {
     setSelectedEvent(event);
     setShowModal(true);
   };
 
+  // Close the modal
   const handleCloseModal = () => {
     setShowModal(false);
     setSelectedEvent(null);
+  };
+
+  // Highlight today's date in the calendar
+  const dayPropGetter = (date) => {
+    const today = moment().startOf("day").toDate();
+    const currentDate = moment(date).startOf("day").toDate();
+
+    if (currentDate.getTime() === today.getTime()) {
+      return { className: "today-highlight" };
+    }
+    return {};
+  };
+
+  // Alert when the calendar view is changed to week view
+  const handleViewChange = (view) => {
+    if (view === Views.WEEK) {
+      alert("You have switched to the week view.");
+    }
   };
 
   return (
@@ -89,12 +112,12 @@ const EmployeeAttendanceCalendar = () => {
         startAccessor="start"
         endAccessor="end"
         style={{ height: 500 }}
-        views={[Views.MONTH, Views.WEEK, Views.DAY]}
+        views={[Views.MONTH, Views.DAY]}
         defaultView={Views.MONTH}
         onSelectEvent={handleSelectEvent}
+        onView={handleViewChange}
+        dayPropGetter={dayPropGetter}
       />
-
-      {/* Modal for displaying event details */}
       {selectedEvent && (
         <div
           className={`modal fade ${showModal ? "show d-block" : ""}`}
@@ -136,14 +159,6 @@ const EmployeeAttendanceCalendar = () => {
                   </p>
                 </div>
               </div>
-
-              {/* <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={handleCloseModal}
-              >
-                Close
-              </button> */}
             </div>
           </div>
         </div>
@@ -151,5 +166,4 @@ const EmployeeAttendanceCalendar = () => {
     </>
   );
 };
-
 export default EmployeeAttendanceCalendar;

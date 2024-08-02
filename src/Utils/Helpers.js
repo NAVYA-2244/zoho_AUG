@@ -29,8 +29,7 @@ export async function getCurrentLocation() {
       return {
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,
-      }
-
+      };
     } else if (permissionStatus.state === "prompt") {
       const position = await new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject);
@@ -95,8 +94,6 @@ export async function getCurrentLocation() {
 //   });
 // }
 
-
-
 // const GOOGLE_API_KEY = "AIzaSyBtyw25OjqTrQjs0yMOWygoI4OGbkjpl-Y"; // Replace with your actual Google API key
 
 // export async function getCurrentLocation() {
@@ -115,7 +112,6 @@ export async function getCurrentLocation() {
 //     throw new Error("Failed to retrieve location. Please check your network and API key.");
 //   }
 // }
-
 
 // const IP_INFO_API_KEY = 'http://ipinfo.io/192.168.0.198?token=40e1b04cfd6fa8'; // Replace with your actual IPinfo API key
 
@@ -172,8 +168,8 @@ function newConvertTo24HourFormat(time12) {
 //   return format(date, "HH:mm:ss");
 // };
 export const formatTime = (timeString) => {
-  if (!timeString || typeof timeString !== 'string') {
-    return '00:00:00'; // Return a default value if input is invalid
+  if (!timeString || typeof timeString !== "string") {
+    return "00:00:00"; // Return a default value if input is invalid
   }
 
   try {
