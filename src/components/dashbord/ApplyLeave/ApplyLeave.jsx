@@ -34,7 +34,7 @@ const ApplyLeave = () => {
   } = useStateContext();
 
   const { checkErrors, employeeDetails } = useFunctionContext();
-  const { applicationColor, } = useThemeContext();
+  const { applicationColor } = useThemeContext();
 
   const [formData, setFormData] = useState({
     fromDate: "",
@@ -54,10 +54,8 @@ const ApplyLeave = () => {
         ...prevFormData,
         daysTaken: daysTaken.toString(),
       }));
-
     }
   }, [formData.fromDate, formData.toDate]);
-
 
   const leaveForm = {
     leaveType: Joi.string().required().label("Leave type"),
@@ -200,15 +198,17 @@ const ApplyLeave = () => {
                     property={"leaveType"}
                     valueProperty={"leaveTypeId"}
                   />
+
                   <Date_Input
                     type={"date"}
-                    value={formData["fromDate"]}
-                    name={"fromDate"}
-                    placeholder={"From Date"}
+                    value={formData["toDate"]}
+                    name={"toDate"}
+                    placeholder={"To Date"}
                     setForm={setFormData}
-                    schema={leaveForm["fromDate"]}
+                    schema={leaveForm["toDate"]}
                     imp={true}
                   />
+
                   <Input_area
                     value={formData["reason"]}
                     name={"reason"}
@@ -231,15 +231,17 @@ const ApplyLeave = () => {
                     options={["pavan@gmail.com"]}
                     imp={true}
                   /> */}
+
                   <Date_Input
                     type={"date"}
-                    value={formData["toDate"]}
-                    name={"toDate"}
-                    placeholder={"To Date"}
+                    value={formData["fromDate"]}
+                    name={"fromDate"}
+                    placeholder={"From Date"}
                     setForm={setFormData}
-                    schema={leaveForm["toDate"]}
+                    schema={leaveForm["fromDate"]}
                     imp={true}
                   />
+
                   <Input_text
                     value={
                       formData["daysTaken"] > 0 ? formData["daysTaken"] : ""

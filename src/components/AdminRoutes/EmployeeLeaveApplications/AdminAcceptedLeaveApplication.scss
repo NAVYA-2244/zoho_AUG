@@ -1,9 +1,10 @@
 .admin-accepted-leave-applications {
-  // background: red;
   width: 95%;
   margin: auto;
   min-height: 80vh;
   max-height: 80vh;
+  padding: 1rem;
+  border-radius: 10px;
 }
 
 .status {
@@ -37,5 +38,74 @@
   .leave-card-data {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+// Admin leave Applications
+.employee-leaves-heading {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  font-weight: bold;
+  color: #666666;
+  // color: #4f4f4f;
+}
+
+.leave-applications-btn {
+  button {
+    padding: 5px 10px;
+    background-color: #6c63fc;
+    font-size: 13px;
+    // float: none;
+  }
+}
+
+.admin-leave-filters {
+  label {
+    padding-left: 4px;
+    padding-bottom: 9px;
+    font-weight: bold;
+    font-size: 13px;
+  }
+
+  input,
+  select {
+    font-size: 13px;
+  }
+}
+
+// admin leaves table
+.admin-employee-leaves-table {
+  .admin-leaves-table-head {
+    th {
+      padding: 1rem;
+      text-wrap: nowrap;
+      border: 1px solid #eff0f6;
+    }
+  }
+
+  .admin-leaves-table-body {
+    text-align: center;
+
+    .leave-actions {
+      display: flex;
+      justify-content: center;
+
+      .actions-btn {
+        padding: 5px 10px;
+        border: none;
+        border-radius: 22px;
+        display: flex;
+      }
+
+      .approve {
+        background-color: #0080002b;
+        color: #025302;
+      }
+
+      .reject {
+        background-color: #dc35452b;
+        color: #dc3545;
+      }
+    }
   }
 }
