@@ -30,7 +30,18 @@ const Sidebar = () => {
   } = useStateContext();
 
   const settingsiderbar = () => {
-    return superAdminSidebar;
+    if (employeeDetails.collection === "USER") {
+      return superAdminSidebar;
+    }
+    //  else if (employeeDetails.collection === "EMPLOYEE") {
+    //   return employeeSidebar
+    // };
+    // } else if (employeeDetails.adminType === "3") {
+    //   return teamLeadSidebar;
+    // }
+    else {
+      return employeeSidebar;
+    }
   };
   const [menu, setMenu] = useState(settingsiderbar);
 
@@ -208,7 +219,11 @@ const Sidebar = () => {
       >
         <section className="logo">
           <h2 className="logo-name">codegene</h2>
-          {orgLogo ? <img src={orgLogo} alt="company logo" onClick={toggleSidebar} /> : <h2>No - logo</h2>}
+          {orgLogo ? (
+            <img src={orgLogo} alt="company logo" onClick={toggleSidebar} />
+          ) : (
+            <h2>No - logo</h2>
+          )}
         </section>
         <div className="closing">
           <span onClick={() => setIsOpen(!isOpen)}>
