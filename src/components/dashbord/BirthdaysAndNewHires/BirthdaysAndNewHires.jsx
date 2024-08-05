@@ -7,7 +7,7 @@ import { useThemeContext } from "../../Contexts/ThemesContext";
 import Loader from "../../Loader/Loader";
 import { useStateContext } from "../../Contexts/StateContext";
 import { HiOutlineMail } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 
 const BirthdaysAndNewHires = ({
@@ -27,6 +27,7 @@ const BirthdaysAndNewHires = ({
     console.log(recentHire, "oiuyt");
   }
   const recentHiresToDisplay = recentHire?.slice(0, 5) || [];
+
   // console.log(orgDetails, "recent hire");
   return (
     // <section
@@ -170,7 +171,6 @@ const BirthdaysAndNewHires = ({
               background: applicationColor.cardBg2,
             }}
           >
-            {console.log({ recentHiresToDisplay }, "iugf")}
             <div className="person-img">
               <img
                 src="https://img.freepik.com/free-photo/portrait-man-having-great-time_23-2149443790.jpg?size=626&ext=jpg&ga=GA1.1.2082370165.1717027200&semt=ais_user"
@@ -201,7 +201,10 @@ const BirthdaysAndNewHires = ({
               </Link>
 
               <ul className="dropdown-menu user-dropdown">
-                <Link to={"/admin/profile"} className="dropdown-item">
+                <Link
+                  className="dropdown-item"
+                  to={`/admin/employee/${item?.employee_id}`}
+                >
                   <CgProfile />
                   Profile
                 </Link>

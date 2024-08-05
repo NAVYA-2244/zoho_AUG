@@ -1502,8 +1502,9 @@ const EmployeeAttendanceTable = () => {
       const response = await backEndCallObjNothing("/emp_get/get_attendance", {
         skip,
         limit,
+        ...dateState, // Include filters in the request
       });
-      console.log("attandece total", response);
+      console.log("attendance total", response);
       setAttandanceData((prev) =>
         reset ? response.attendance : [...prev, ...response.attendance]
       );
@@ -1516,7 +1517,7 @@ const EmployeeAttendanceTable = () => {
 
   useEffect(() => {
     fetchAttendanceData();
-  }, [skip]);
+  }, [skip, dateState]); // Fetch data on filter change
 
   const getWeeksInMonth = (year, month) => {
     const date = new Date(year, month, 0);
@@ -1565,6 +1566,7 @@ const EmployeeAttendanceTable = () => {
     setLoading(true);
     setLoadingTerm("attendanceFromTo");
     try {
+      console.log("hiiii");
       const data = {
         year: dateState.year,
         month_date: dateState.month_date,
@@ -1673,7 +1675,7 @@ const EmployeeAttendanceTable = () => {
             {loading && loadingTerm === "attendanceFromTo" ? (
               <Loader />
             ) : (
-              "Submit"
+              "Filter"
             )}
           </button>
         ) : (

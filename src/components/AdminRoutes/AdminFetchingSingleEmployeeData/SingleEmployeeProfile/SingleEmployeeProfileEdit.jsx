@@ -178,7 +178,7 @@ const SingleEmployeeProfileEdit = () => {
       .label("Date of Completion"),
 
     name: Joi.string()
-      .min(10)
+      .min(3)
       .max(50)
       .allow("")
       .optional()
