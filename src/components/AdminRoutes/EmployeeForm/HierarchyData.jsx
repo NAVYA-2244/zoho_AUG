@@ -76,7 +76,7 @@ const HierarchyData = ({ formData, setFormData }) => {
             schema={schema.work_phone_number}
             inputRef={(el) => (refs.current.work_phone_number = el)}
             imp={true}
-          // readOnly={isAdmin}
+            // readOnly={isAdmin}
           />
         </div>
         <div className="col-lg-4 col-md-4 col-sm-6">
@@ -89,7 +89,7 @@ const HierarchyData = ({ formData, setFormData }) => {
             schema={schema.personal_mobile_number}
             inputRef={(el) => (refs.current.personal_mobile_number = el)}
             imp
-          // readOnly={isAdmin}
+            // readOnly={isAdmin}
           />
         </div>
         <div className="col-lg-4 col-md-4 col-sm-6">
@@ -118,7 +118,6 @@ const HierarchyData = ({ formData, setFormData }) => {
             imp
           />
         </div>
-
 
         <div className="col-lg-4 col-md-4 col-sm-6">
           <Input_area
@@ -308,7 +307,7 @@ const HierarchyData = ({ formData, setFormData }) => {
                   schema={schema?.job_description}
                   length={250}
                   fieldName="work_experience"
-                // readOnly={isAdmin}
+                  // readOnly={isAdmin}
                 />
               </div>
 
@@ -329,7 +328,6 @@ const HierarchyData = ({ formData, setFormData }) => {
           );
         })}
       </section>
-
     </>
   );
 };

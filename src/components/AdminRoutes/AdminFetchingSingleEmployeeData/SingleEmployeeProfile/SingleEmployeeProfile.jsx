@@ -294,17 +294,6 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
               ) : currentTab === "profile" ? (
                 <div className="row">
                   {/*Basic Information */}
-                  {/* <button
-                    className="edit btn btn-sm btn-success-light"
-                    onClick={() =>
-                      navigate(
-                        `/admin/update_employee/${employeeProfileData.profile.employee_id}`
-                      )
-                    }
-                  >
-                    update profile
-                    <AiOutlineEdit />
-                  </button> */}
 
                   <div className="col-lg-12">
                     <br />

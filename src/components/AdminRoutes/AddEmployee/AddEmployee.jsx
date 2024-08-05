@@ -22,22 +22,17 @@ const AddEmployee = () => {
   const { checkErrors } = useFunctionContext();
 
   const handleSubmit = async (formData, setFormData) => {
-    // const extractYear = (dateString) => {
-    //   if (typeof dateString === "string") {
-    //     const date = new Date(dateString);
-    //     return date.getFullYear();
-    //   } else {
-    //     // Handle the case where dateString is not a valid string
-    //     console.error("Invalid date string:", dateString);
-    //     return null; // Or some default value if preferred
-    //   }
-    // };
-    // const formatEducationalDetails = (details) => {
-    //   return details.map((detail) => ({
-    //     ...detail,
-    //     year_of_completion: extractYear(detail.year_of_completion), // Extract and keep only the year
-    //   }));
-    // };
+    // console.log(formData.educational_details, "del");
+    console.log(
+      Array.isArray(formData?.dependent_details) &&
+        formData.dependent_details.length > 0 &&
+        formData.dependent_details.some((detail) =>
+          Object.values(detail).some((value) => value && value.length > 0)
+        )
+        ? formData.dependent_details
+        : [],
+      "work"
+    );
 
     try {
       // console.log(formData, "formData");
@@ -83,28 +78,32 @@ const AddEmployee = () => {
         seating_location: formData?.seating_location,
         permanent_address: formData?.permanent_address,
         present_address: formData?.present_address,
-        work_experience: Object.values(formData?.work_experience || {}).every(
-          (item) => item.length > 0
-        )
-          ? formData.work_experience
-          : formData.work_experience,
+        work_experience:
+          Array.isArray(formData?.work_experience) &&
+          formData.work_experience.length > 0 &&
+          formData.work_experience.some((detail) =>
+            Object.values(detail).some((value) => value && value.length > 0)
+          )
+            ? formData.work_experience
+            : [],
 
-        educational_details: Object.values(
-          formData?.educational_details || {}
-        ).every((item) => item.length > 0)
-          ? formData.educational_details
-          : formData.educational_details,
-        // educational_details: formatEducationalDetails(
-        //   Object.values(formData?.educational_details || {})
-        // ).every((item) => item.length > 0)
-        //   ? formatEducationalDetails(formData.educational_details)
-        //   : formatEducationalDetails(formData.educational_details),
+        educational_details:
+          Array.isArray(formData?.educational_details) &&
+          formData.educational_details.length > 0 &&
+          formData.educational_details.some((detail) =>
+            Object.values(detail).some((value) => value && value.length > 0)
+          )
+            ? formData.educational_details
+            : [],
 
-        dependent_details: Object.values(
-          formData?.dependent_details || {}
-        ).every((item) => item.length > 0)
-          ? formData.dependent_details
-          : formData.dependent_details,
+        dependent_details:
+          Array.isArray(formData?.dependent_details) &&
+          formData.dependent_details.length > 0 &&
+          formData.dependent_details.some((detail) =>
+            Object.values(detail).some((value) => value && value.length > 0)
+          )
+            ? formData.dependent_details
+            : [],
       };
 
       data.organisation_id = orgDetails?.organisation_id;
