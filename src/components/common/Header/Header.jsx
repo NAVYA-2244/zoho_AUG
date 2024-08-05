@@ -159,7 +159,7 @@ const Headers = () => {
       setOrgDetails(res?.dashborad?.organisation_details);
       setOrgLogo(res?.dashborad?.organisation_details.images?.logo);
       setLocations(res.dashborad?.organisation_details?.locations);
-      setTodayAttendance(res.dashborad.today_attendance);
+      setTodayAttendance(res.dashborad?.today_attendance);
       setrecentHire(res?.dashborad?.recent_hires);
       setBirthdays(res?.dashboard.birthdays);
       console.log("res?.dashborad?.recent_hires", res?.dashborad?.recent_hires);

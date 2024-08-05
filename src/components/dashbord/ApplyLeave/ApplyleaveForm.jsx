@@ -40,6 +40,21 @@ function ApplyLeaveForm() {
     // days_taken: '',
     team_mail_id: "",
   });
+  useEffect(() => {
+    const gettingEmployeeById = async () => {
+      try {
+        const response = await backEndCallObjNothing("/emp_get/get_profile", {
+          employee_id: employeeDetails?.employee_id || "",
+        });
+        console.log("response", response);
+        setEmployeedata(response.profile.leaves);
+        // setSelectedEmployeeData(response.profile.leaves);
+      } catch (error) {
+        console.error("Error fetching employee data:", error);
+      }
+    };
+    gettingEmployeeById();
+  }, [employeeDetails]);
 
   // useEffect(() => {
   //   if (formData.from_date && formData.to_date) {
@@ -98,7 +113,8 @@ function ApplyLeaveForm() {
       );
       setLoading(false);
     } catch (error) {
-      toastOptions.error(error?.response?.data?.detail || error.message);
+      console.log(error);
+      toastOptions.error(error?.response?.data || error.message);
       setLoading(false);
       setLoadingTerm("");
     }
@@ -132,7 +148,7 @@ function ApplyLeaveForm() {
                 <Select_inputs
                   name="leave_type"
                   placeholder="Leave Type"
-                  options={employeedata.map((leave) => ({
+                  options={employeedata?.map((leave) => ({
                     leave_typeId: leave.leave_id,
                     leave_type: leave.leave_name,
                   }))}

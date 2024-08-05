@@ -27,7 +27,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    status: "Pending",
+    status:"Pending",
     from_date: "",
     to_date: "",
     employee_id: "",
@@ -38,6 +38,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
   const fetchLeaveApplications = useCallback(async () => {
     setLoading(true);
     try {
+      console.log("formData.status",formData.status)
       const response = await backEndCallObjNothing(
         "/user_get/leave_applications_list",
         {
@@ -51,11 +52,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
       if (response.data.length < limit) {
         setHasMore(false);
       }
-      setFormData({
-        from_date: "",
-        to_date: "",
-        employee_id: "",
-      });
+      
 
       setAdminGettingLeaveApplications((prev) => [...response.data]);
     } catch (error) {
@@ -84,6 +81,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
   // );
 
   const handleFormChange = (e) => {
+    console.log(e,"e")
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,

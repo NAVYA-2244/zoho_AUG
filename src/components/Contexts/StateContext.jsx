@@ -49,6 +49,7 @@ export const StateContextProvider = ({ children }) => {
   const [singleEmployeeProfile, setSingleEmployeeProfile] = useState({});
 
   const [todayAttendance, setTodayAttendance] = useState([]);
+  const [todayAttendanceAdmin,setTodayAttendanceAdmin] = useState([]);
 
   // State to manage the latitude and longitude
   const [location, setLocation] = useState({ lat: null, lng: null });
@@ -180,6 +181,8 @@ export const StateContextProvider = ({ children }) => {
         setProfilePhoto,
         employeedata,
         setEmployeedata,
+        todayAttendanceAdmin,
+        setTodayAttendanceAdmin
       }}
     >
       {children}

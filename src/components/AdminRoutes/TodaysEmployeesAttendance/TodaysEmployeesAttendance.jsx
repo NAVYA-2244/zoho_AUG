@@ -26,8 +26,8 @@ const TodaysEmployeesAttendance = () => {
     loading,
     setLoadingTerm,
     loadingTerm,
-    todayAttendance,
-    setTodayAttendance,
+    todayAttendanceAdmin,
+    setTodayAttendanceAdmin,
   } = useStateContext();
   const [skip, setSkip] = useState(0);
   const [form, setForm] = useState({ dateTime: "" });
@@ -55,6 +55,9 @@ const TodaysEmployeesAttendance = () => {
 
     // { name: "Employee Name", property: "employeeName", type: "string" },
     { name: "Date", property: "createdAt", type: "string" },
+    { name: "Employee Name", property: "createdAt", type: "string" },
+    { name: "Email", property: "createdAt", type: "string" },
+
     {
       name: "Status",
       property: "status",
@@ -87,128 +90,49 @@ const TodaysEmployeesAttendance = () => {
     },
   ];
 
-  // const getAttendanceByDate = async () => {
-  //   try {
-  //     setLoading(true);
-  //     setLoadingTerm("gettingAttendanceByDate");
-  //     let { detail } = await makeNetworkCall(
-  //       {
-  //         totalAttendanceFilters: {
-  //           dateTime: form.dateTime,
-  //           skip: 0,
-  //           limit: 10,
-  //         },
-  //       },
-
-  //       "getAdminData1",
-  //       "headers"
-  //     );
-
-  //     setTodayAttendance(detail.totalAttendance || []);
-  //     if (detail.totalAttendance.length === 0) {
-  //       toastOptions.error("No Attendance avilable with the date");
-  //     }
-  //     setLoading(false);
-  //     setLoadingTerm("");
-  //   } catch (error) {
-  //     toastOptions.error("Some Thing went wrong");
-  //     setLoading(false);
-  //     setLoadingTerm("");
-  //   } finally {
-  //     setLoading(false);
-  //     setLoadingTerm("");
-  //   }
-  // };
-
-  // const fetchingMoreData = async () => {
-  //   try {
-  //     setLoading(true);
-  //     setLoadingTerm("getMoreTodayAttendance");
-  //     const response = await backEndCallObjNothing(
-  //       {
-  //         totalAttendanceFilters: {
-  //           dateTime: "",
-  //           skip: skip * 10,
-  //           limit: 10,
-  //         },
-  //       },
-  //       "getAdminData1",
-  //       "headers"
-  //     );
-  //     if (response.detail.totalAttendance.length > 0) {
-  //       setTodayAttendance((prevList) => {
-  //         return [...prevList, ...response.detail.totalAttendance];
-  //       });
-  //     } else {
-  //       settodayAttendanceExist(true);
-  //     }
-  //     setLoading(false);
-
-  //     setLoadingTerm("");
-  //   } catch (error) {
-  //     setLoading(false);
-  //     console.log("error while fetching more data", error);
-  //     setLoadingTerm("");
-  //   } finally {
-  //     setLoading(false);
-  //     setLoadingTerm("");
-  //   }
-  // };
-
-  // This callback is responseible to observe the last item in the employeelist and based omn some conditions will make some netwrok call
-  // const gettingMoreTodayAttendanceRef = useCallback(
-  //   (node) => {
-  //     if (loading) return;
-  //     if (todayAttendanceObserver.current)
-  //       todayAttendanceObserver.current.disconnect();
-  //     todayAttendanceObserver.current = new IntersectionObserver(
-  //       async (entries) => {
-  //         if (
-  //           entries[0].isIntersecting &&
-  //           !todayAttendanceExist &&
-  //           todayAttendance.length >= 10
-  //         ) {
-  //           setSkip((prevSkip) => prevSkip + 1); // Update skip directly without await
-  //           if (skip) {
-  //             fetchingMoreData();
-  //           }
-  //         }
-  //       }
-  //     );
-
-  //     if (node) todayAttendanceObserver.current.observe(node);
-  //   },
-  //   [
-  //     loading,
-  //     todayAttendance,
-  //     setTodayAttendance,
-  //     todayAttendanceExist,
-  //     skip,
-  //     setSkip,
-  //   ]
-  // );
-
+  
   const handleTabChange = (tabname) => {
     setCurrentTab(tabname);
   };
 
-  // const formatTimes = (timesArray, timeType) => {
-  //   if (timesArray && timesArray.length > 0) {
-  //     return timesArray.map((entry) => entry[timeType]).join(", ");
-  //   }
-  //   return "N/A";
+  
+  // let calculateHours = (minutes) => {
+  //   let hours = (minutes / 60).toFixed(2);
+  //   return `${hours} hrs`;
   // };
 
-  let calculateHours = (minutes) => {
-    let hours = (minutes / 60).toFixed(2);
-    return `${hours} hrs`;
+  // const extractTime = (datetime) => {
+  //   let parts = datetime.split(" ");
+  //   return parts[1];
+  // };
+  const fetchAttendanceData = async (date) => {
+    try {
+      setLoading(true);
+      const response = await backEndCallObjNothing("/user_get/today_attendance", {
+        skip: 0, // Example skip value, adjust as needed
+        date: date || form.dateTime,
+      });
+      console.log("todayAttendance",response)
+      setTodayAttendanceAdmin(response.today_attendance);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching attendance data:", error);
+      setLoading(false);
+    }
   };
 
-  const extractTime = (datetime) => {
-    let parts = datetime.split(" ");
-    return parts[1];
+  useEffect(() => {
+    fetchAttendanceData();
+  }, []);
+
+  const handleDateChange = (event) => {
+    setForm({ ...form, dateTime: event.target.value });
+    fetchAttendanceData(event.target.value);
   };
 
+  const lateCheckins = todayAttendanceAdmin?.filter(employee => employee.grace_time > 0) || [];
+  const onLeave = todayAttendanceAdmin?.filter(employee => employee.status === 'leave') || [];
+  const allCheckins = todayAttendanceAdmin || [];
   return (
     <>
       <main
@@ -219,36 +143,7 @@ const TodaysEmployeesAttendance = () => {
         }}
       >
         <div className="today-attendance-wrapper">
-          <div className="date-input">
-            <Date_Input
-              name={"dateTime"}
-              value={form.dateTime}
-              setForm={setForm}
-              min={
-                new Date(
-                  new Date().getFullYear() - 55,
-                  new Date().getMonth(),
-                  new Date().getDate()
-                )
-                  .toISOString()
-                  .split("T")[0]
-              }
-              max={new Date().toISOString().split("T")[0]}
-            />
-            {/* {form.dateTime && (
-              <button
-                disabled={loadingTerm === "gettingAttendanceByDate"}
-                onClick={getAttendanceByDate}
-              >
-                {" "}
-                {loading && loadingTerm === "gettingAttendanceByDate" ? (
-                  <Loader />
-                ) : (
-                  "Submit"
-                )}{" "}
-              </button>
-            )} */}
-          </div>
+       
           <div className="tabs">
             {tabs.map((tab) => (
               <button key={tab.name} onClick={() => handleTabChange(tab.name)}>
@@ -257,8 +152,36 @@ const TodaysEmployeesAttendance = () => {
             ))}
           </div>
         </div>
+
         {currentTab === "table-view" ? (
+          
           <div className="tables">
+             <div className="date-input">
+          <Date_Input
+            name="dateTime"
+            value={form.dateTime}
+            onChange={handleDateChange}
+            setForm={setForm}
+            min={
+              new Date(
+                new Date().getFullYear() - 55,
+                new Date().getMonth(),
+                new Date().getDate()
+              )
+                .toISOString()
+                .split("T")[0]
+            }
+            max={new Date().toISOString().split("T")[0]}
+          />
+          {form.dateTime && (
+            <button
+              disabled={loadingTerm === "gettingAttendanceByDate"}
+              onClick={() => fetchAttendanceData(form.dateTime)}
+            >
+              {loading && loadingTerm === "gettingAttendanceByDate" ? "Loading..." : "Submit"}
+            </button>
+          )}
+        </div>
             <table className="main-table table-bordered table-responsive mt-4">
               <TableHead
                 tableHeadProperties={employeeeAttedanceTableProperties}
@@ -267,38 +190,53 @@ const TodaysEmployeesAttendance = () => {
                 // loadMoreRef={gettingMoreTodayAttendanceRef}
                 // getExtraDataType="getMoreTodayAttendance"
               />
-              <tbody>
+             {/* <tbody>
                 {todayAttendance?.length !== 0 ? (
-                  todayAttendance?.map((attendance) =>
-                    attendance.map((item) => (
-                      <tr key={item.employee_id}>
-                        <td>{item.employee_id}</td>
-                        <td>{item.createdAt}</td>
-                        <td>{item.status}</td>
-                        <td>{extractTime(item.checkin[0].in_time)}</td>
-                        <td>
-                          {extractTime(
-                            item.checkout[item.checkout.length - 1].out_time
-                          )}
-                        </td>
-                        <td
-                          style={{
-                            textTransform: "lowercase",
-                          }}
-                        >
-                          {item.total_working_minutes === undefined
-                            ? "-"
-                            : calculateHours(item.total_working_minutes)}
-                        </td>
-                      </tr>
-                    ))
-                  )
+                  todayAttendance.map((attendance) => (
+                    <tr key={attendance.employee_id}>
+                      <td>{attendance.employee_id}</td>
+                      <td>{attendance.createdAt}</td>
+                      <td>{attendance.status}</td>
+                      <td>{attendance.checkin[0]?.in_time}</td>
+                      <td>{attendance.checkout[attendance.checkout.length - 1]?.out_time}</td>
+                      <td>{attendance.total_working_minutes === undefined ? "-" : (attendance.total_working_minutes / 60).toFixed(2) + " hrs"}</td>
+                    </tr>
+                  ))
                 ) : (
                   <tr>
-                    <td>No Data</td>
+                    <td colSpan={todayAttendance.length}>No Data</td>
                   </tr>
                 )}
-              </tbody>
+              </tbody> */}
+              <tbody>
+  {todayAttendanceAdmin?.length !== 0 ? (
+    todayAttendanceAdmin.map((attendance) => {
+      const checkInAvailable = attendance.checkin.length > 0;
+      const checkOutAvailable = attendance.checkout.length > 0;
+      const status = checkInAvailable && checkOutAvailable ? "Present" : "Absent";
+
+      return (
+        <tr key={attendance.employee_id}>
+           <td>{attendance.employee_id}</td>
+           <td>{attendance.createdAt}</td>
+          <td>{attendance.employee_name}</td>
+          <td>{attendance.email}</td>
+         
+          <td>{status}</td>
+          <td>{checkInAvailable ? attendance.checkin[0].in_time : '-'}</td>
+          <td>{checkOutAvailable ? attendance.checkout[attendance.checkout.length - 1].out_time : '-'}</td>
+          {/* <td>{attendance.total_working_minutes}</td> */}
+          <td>{attendance.total_working_minutes !== undefined ? (attendance.total_working_minutes / 60).toFixed(2) + " hrs" : '-'}</td>
+        </tr>
+      );
+    })
+  ) : (
+    <tr>
+      <td colSpan={6}>No Data</td>
+    </tr>
+  )}
+</tbody>
+
             </table>
           </div>
         ) : (
@@ -366,7 +304,7 @@ const TodaysEmployeesAttendance = () => {
               </tr>
             )} */}
 
-            <TodayAttendanceCardView todayAttendance={todayAttendance} />
+            <TodayAttendanceCardView todayAttendanceAdmin={todayAttendanceAdmin} />
           </div>
         )}
       </main>
@@ -387,10 +325,10 @@ export const UpdateTodayAttendance = ({ attendanceItem }) => {
     setAttendanceModal,
     setLoading,
     setLoadingTerm,
-    todayAttendance,
-    setTodayAttendance,
+    todayAttendanceAdmin,
+    setTodayAttendanceAdmin,
   } = useStateContext();
-  console.log(todayAttendance, " todayAttendance");
+  console.log(todayAttendanceAdmin, " todayAttendance");
   const [editingItem, setEditingItem] = useState({});
 
   useEffect(() => {
@@ -422,7 +360,7 @@ export const UpdateTodayAttendance = ({ attendanceItem }) => {
 
       const response = await makeNetworkCall({}, "getAdminData", "headers");
       console.log({ response });
-      setTodayAttendance(response.detail.totalAttendance);
+      setTodayAttendanceAdmin(response.detail.totalAttendance);
       toastOptions.success(
         typeof detail === "object" ? "Attendance Updated Successfully" : detail
       );
