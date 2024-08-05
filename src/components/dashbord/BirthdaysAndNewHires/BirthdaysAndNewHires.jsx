@@ -279,6 +279,9 @@ import { MdOutlineWork } from "react-icons/md";
 import { useThemeContext } from "../../Contexts/ThemesContext";
 import Loader from "../../Loader/Loader";
 import { useStateContext } from "../../Contexts/StateContext";
+import { HiOutlineMail } from "react-icons/hi";
+import { Link } from "react-router-dom";
+import { CgProfile } from "react-icons/cg";
 const BirthdaysAndNewHires = ({
   data,
   heading,
@@ -421,43 +424,70 @@ const BirthdaysAndNewHires = ({
     //   </section>
     //   <span>{loadingTerm === getMoreDataType ? <Loader /> : null}</span>
     // </section>
-    <section className="list-array">
+    <section
+      className="list-array"
+      style={{
+        color: applicationColor.readColor1,
+      }}
+    >
       <h5 className="heading">{heading}</h5>
       {recentHiresToDisplay.length > 0 ? (
         recentHiresToDisplay.map((item) => (
           <section
             className="list-card"
             key={item.employee_id}
-            style={{ background: applicationColor.cardBg2 }}
+            style={{
+              background: applicationColor.cardBg2,
+            }}
           >
-            {console.log(recentHiresToDisplay, "iugf")}
+            {console.log({ recentHiresToDisplay }, "iugf")}
             <div className="person-img">
               <img
                 src="https://img.freepik.com/free-photo/portrait-man-having-great-time_23-2149443790.jpg?size=626&ext=jpg&ga=GA1.1.2082370165.1717027200&semt=ais_user"
                 alt={item.basic_info?.firstName || "User"}
               />
             </div>
-            <div className="id_name">
-              <span>
-                <span className="name">
-                  {item.basic_info.first_name || "Unknown"}
+            <div className="new-hires-info">
+              <p className="fw-semibold">
+                {item.basic_info.first_name || "Unknown"} -{" "}
+                {item.employee_id || "Unknown"}
+              </p>
+              <p className="d-flex align-items-center text-muted">
+                <span className="pe-1">
+                  <HiOutlineMail />
                 </span>
-              </span>
+                {item.basic_info.email || "Unknown"}
+              </p>
             </div>
-            <div className="person-data">
-              <div className="id_name">
-                <span>
-                  <span className="name">
-                    {item.organisation_id || "Unknown"}
-                  </span>
-                </span>
-              </div>
+            {/* <div className="new-hire-dropdown">...</div> */}
+            <div className="dropdown new-hire-dropdown">
+              <Link
+                className="user-image fs-4"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                ...
+              </Link>
+
+              <ul className="dropdown-menu user-dropdown">
+                <Link to={"/admin/profile"} className="dropdown-item">
+                  <CgProfile />
+                  Profile
+                </Link>
+              </ul>
             </div>
           </section>
         ))
       ) : (
-        <div className="no-items">
-          <img src={img} alt="No items" />
+        // <div className="no-items">
+        //   <img src={img} alt="No items" />
+        // </div>
+        <div className="no-items shimmer">
+          <div className="shimmer-item"></div>
+          <div className="shimmer-item"></div>
+          <div className="shimmer-item"></div>
+          <div className="shimmer-item"></div>
         </div>
       )}
     </section>
