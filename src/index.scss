@@ -333,6 +333,7 @@ input[type="date"] {
   height: 78vh;
   margin: auto;
   max-height: 100%;
+  overflow: scroll;
 
   .today-attendance-wrapper {
     display: flex;
@@ -578,7 +579,7 @@ input[type="date"] {
 // all employee attendance - cardview (for Admin)
 
 .admin_all_employees-cardView {
-  height: 63vh;
+  height: 100%;
   overflow: hidden scroll;
 }
 

@@ -258,6 +258,12 @@
   }
 }
 
+// employee-profile edit styles
+.profile-edit-wrapper {
+  width: 95%;
+  margin: auto;
+}
+
 // media-queries
 @include DesktopB {
   .profile-moreRight .info-wrapper {

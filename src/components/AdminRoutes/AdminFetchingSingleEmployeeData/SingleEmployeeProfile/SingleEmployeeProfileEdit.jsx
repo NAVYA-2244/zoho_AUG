@@ -16,11 +16,14 @@ import Joi from "joi";
 import { formatDate } from "date-fns";
 import toast from "react-hot-toast";
 import { toastOptions } from "../../../../Utils/FakeRoutes";
+import { useThemeContext } from "../../../Contexts/ThemesContext";
 
 const SingleEmployeeProfileEdit = () => {
   const location = useLocation();
   const { setLoadingTerm, setLoading } = useStateContext();
   const { checkErrors } = useFunctionContext();
+  const { applicationColor } = useThemeContext();
+
   const { employeeProfileData } = location.state || {};
   const eighteenYearsAgo = new Date();
   eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18);
@@ -424,167 +427,206 @@ const SingleEmployeeProfileEdit = () => {
   };
 
   return (
-    <>
-      <h1>Edit Profile</h1>
+    <div
+      className="profile-edit-wrapper"
+      style={{
+        background: applicationColor.cardItem,
+        color: applicationColor.readColor1,
+        // border:`0.3px solid ${applicationColor.readColor2} `
+      }}
+    >
+      {/* <div className="p-3">
+        <h5>Edit Profile</h5>
+      </div> */}
       <form className="profile-form" onSubmit={handleSubmit}>
-        <div className="col-lg-4 col-md-4 col-sm-6">
-          <Input_text
-            type="text"
-            name="organisation_id"
-            placeholder="Organization ID"
-            onChange={handleChange}
-            setForm={setFormData}
-            // schema={schema.organisation_id}
-            value={formData.organisation_id}
-          />
-          <Input_text
-            type="text"
-            name="employee_id"
-            placeholder="Employee ID"
-            onChange={handleChange}
-            setForm={setFormData}
-            value={formData.employee_id}
-            // schema={schema.employee_id}
-          />
-          <Input_text
-            type="text"
-            name="nick_name"
-            placeholder="Nick Name"
-            onChange={handleChange}
-            setForm={setFormData}
-            value={formData.nick_name}
-            // schema={schema.nick_name}
-          />
-          <Input_text
-            type="text"
-            name="expertise"
-            placeholder="Expertise"
-            setForm={setFormData}
-            onChange={handleChange}
-            value={formData.expertise}
-            // schema={schema.expertise}
-          />
-          <Select_inputs
-            name={"marital_status"}
-            placeholder={"Marital Status"}
-            value={formData.marital_status}
-            schema={schema.marital_status}
-            setForm={setFormData}
-            options={["unmarried", "married"]}
-            onChange={handleChange}
-          />
-          <Input_area
-            type={"textarea"}
-            name={"about_me"}
-            placeholder={"About Me"}
-            value={formData.about_me}
-            setForm={setFormData}
-            length={250}
-            onChange={handleChange}
-          />
-          <Input_text
-            type="tel"
-            name="aadhaar"
-            placeholder="Aadhaar Number"
-            onChange={handleChange}
-            setForm={setFormData}
-            value={formData.aadhaar}
-          />
-          <Input_text
-            name="pan"
-            placeholder="PAN Number"
-            setForm={setFormData}
-            onChange={handleChange}
-            value={formData.pan}
-          />
-          <Input_text
-            type="tel"
-            name="passport"
-            placeholder="Passport"
-            onChange={handleChange}
-            setForm={setFormData}
-            value={formData.passport}
-          />
-          <Input_text
-            type="tel"
-            name="uan"
-            placeholder="UAN"
-            setForm={setFormData}
-            onChange={handleChange}
-            value={formData.uan}
-          />
-          <Input_text
-            type="tel"
-            name="work_phone_number"
-            placeholder="Work Phone Number"
-            onChange={handleChange}
-            setForm={setFormData}
-            value={formData.work_phone_number}
-          />
-          <Input_text
-            type={"tel"}
-            name={"personal_mobile_number"}
-            placeholder={"Personal Mobile Number"}
-            value={formData.personal_mobile_number}
-            setForm={setFormData}
-            onChange={handleChange}
-          />
-          <Input_text
-            type={"text"}
-            name={"institute_name"}
-            placeholder={"Institute Name"}
-            value={formData.institute_name}
-            setForm={setFormData}
-          />
-          <Input_text
-            type={"text"}
-            name={"degree"}
-            placeholder={"Degree"}
-            value={formData.degree}
-            setForm={setFormData}
-          />{" "}
-          <Input_text
-            type={"text"}
-            name={"specialization"}
-            placeholder={"Specialization"}
-            value={formData.specialization}
-            setForm={setFormData}
-          />{" "}
-          <Input_text
-            type={"tel"}
-            name={"year_of_completion"}
-            placeholder={"Date of Completion"}
-            value={formData.year_of_completion}
-            setForm={setFormData}
-            // min={
-            //   new Date(
-            //     new Date().getFullYear() - 55,
-            //     new Date().getMonth(),
-            //     new Date().getDate()
-            //   )
-            //     .toISOString()
-            //     .split("T")[0]
-            // }
-            // max={new Date().toISOString().split("T")[0]}
-            // min={new Date().getFullYear() - 55}
-            // max={new Date().getFullYear()}
-          />
-          <InputEmail
-            type="email"
-            name="personal_email_address"
-            placeholder="Personal Email Address"
-            onChange={handleChange}
-            setForm={setFormData}
-            value={formData.personal_email_address}
-          />
-          <Input_text
-            type="text"
-            name="tags"
-            placeholder="Tags"
-            onChange={handleChange}
-            setForm={setFormData}
-            value={formData.tags}
-          />
+        <div className="row py-5">
+          <div className="col-lg-4 col-md-4 col-sm-6">
+            <Input_text
+              type="text"
+              name="organisation_id"
+              placeholder="Organization ID"
+              onChange={handleChange}
+              setForm={setFormData}
+              // schema={schema.organisation_id}
+              value={formData.organisation_id}
+            />
+          </div>
+          <div className="col-lg-4 col-md-4 col-sm-6">
+            <Input_text
+              type="text"
+              name="employee_id"
+              placeholder="Employee ID"
+              onChange={handleChange}
+              setForm={setFormData}
+              value={formData.employee_id}
+              // schema={schema.employee_id}
+            />
+          </div>
+          <div className="col-lg-4 col-md-4 col-sm-6">
+            <Input_text
+              type="text"
+              name="nick_name"
+              placeholder="Nick Name"
+              onChange={handleChange}
+              setForm={setFormData}
+              value={formData.nick_name}
+              // schema={schema.nick_name}
+            />
+          </div>
+          <div className="col-lg-4 col-md-4 col-sm-6">
+            <Input_text
+              type="text"
+              name="expertise"
+              placeholder="Expertise"
+              setForm={setFormData}
+              onChange={handleChange}
+              value={formData.expertise}
+              // schema={schema.expertise}
+            />
+          </div>
+          <div className="col-lg-4 col-md-4 col-sm-6">
+            {" "}
+            <Select_inputs
+              name={"marital_status"}
+              placeholder={"Marital Status"}
+              value={formData.marital_status}
+              schema={schema.marital_status}
+              setForm={setFormData}
+              options={["unmarried", "married"]}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-lg-4 col-md-4 col-sm-6">
+            <Input_area
+              type={"textarea"}
+              name={"about_me"}
+              placeholder={"About Me"}
+              value={formData.about_me}
+              setForm={setFormData}
+              length={250}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-lg-4 col-md-4 col-sm-6">
+            <Input_text
+              type="tel"
+              name="aadhaar"
+              placeholder="Aadhaar Number"
+              onChange={handleChange}
+              setForm={setFormData}
+              value={formData.aadhaar}
+            />
+          </div>
+          <div className="col-lg-4 col-md-4 col-sm-6">
+            {" "}
+            <Input_text
+              name="pan"
+              placeholder="PAN Number"
+              setForm={setFormData}
+              onChange={handleChange}
+              value={formData.pan}
+            />
+          </div>
+          <div className="col-lg-4 col-md-4 col-sm-6">
+            <Input_text
+              type="tel"
+              name="passport"
+              placeholder="Passport"
+              onChange={handleChange}
+              setForm={setFormData}
+              value={formData.passport}
+            />
+          </div>
+          <div className="col-lg-4 col-md-4 col sm-6">
+            <Input_text
+              type="tel"
+              name="uan"
+              placeholder="UAN"
+              setForm={setFormData}
+              onChange={handleChange}
+              value={formData.uan}
+            />
+          </div>
+          <div className="col-lg-4 col-md-4 col sm-6">
+            <Input_text
+              type="tel"
+              name="work_phone_number"
+              placeholder="Work Phone Number"
+              onChange={handleChange}
+              setForm={setFormData}
+              value={formData.work_phone_number}
+            />
+          </div>
+          <div className="col-lg-4 col-md-4 col sm-6">
+            {" "}
+            <Input_text
+              type={"tel"}
+              name={"personal_mobile_number"}
+              placeholder={"Personal Mobile Number"}
+              value={formData.personal_mobile_number}
+              setForm={setFormData}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-lg-4 col-md-4 col sm-6">
+            <Input_text
+              type={"text"}
+              name={"institute_name"}
+              placeholder={"Institute Name"}
+              value={formData.institute_name}
+              setForm={setFormData}
+            />
+          </div>
+          <div className="col-lg-4 col-md-4 col sm-6">
+            <Input_text
+              type={"text"}
+              name={"degree"}
+              placeholder={"Degree"}
+              value={formData.degree}
+              setForm={setFormData}
+            />
+          </div>
+          <div className="col-lg-4 col-md-4 col sm-6">
+            {" "}
+            <Input_text
+              type={"text"}
+              name={"specialization"}
+              placeholder={"Specialization"}
+              value={formData.specialization}
+              setForm={setFormData}
+            />
+          </div>
+          <div className="col-lg-4 col-md-4 col sm-6">
+            {" "}
+            <Input_text
+              type={"tel"}
+              name={"year_of_completion"}
+              placeholder={"Date of Completion"}
+              value={formData.year_of_completion}
+              setForm={setFormData}
+            />
+          </div>
+          <div className="col-lg-4 col-md-4 col sm-6">
+            <InputEmail
+              type="email"
+              name="personal_email_address"
+              placeholder="Personal Email Address"
+              onChange={handleChange}
+              setForm={setFormData}
+              value={formData.personal_email_address}
+            />
+          </div>
+          <div className="col-lg-4 col-md-4 col sm-6">
+            <Input_text
+              type="text"
+              name="tags"
+              placeholder="Tags"
+              onChange={handleChange}
+              setForm={setFormData}
+              value={formData.tags}
+            />
+          </div>
+
           <div className="col-lg-4 col-md-4 col-sm-6">
             <Input_text
               type={"text"}
@@ -594,6 +636,7 @@ const SingleEmployeeProfileEdit = () => {
               setForm={setFormData}
             />
           </div>
+
           <div className="col-lg-4 col-md-4 col-sm-6">
             <Input_text
               type={"text"}
@@ -603,6 +646,7 @@ const SingleEmployeeProfileEdit = () => {
               setForm={setFormData}
             />
           </div>
+
           <div className="col-lg-4 col-md-4 col-sm-6">
             <Date_Input
               name={"from_date"}
@@ -622,6 +666,7 @@ const SingleEmployeeProfileEdit = () => {
               max={new Date().toISOString().split("T")[0]}
             />
           </div>
+
           <div className="col-lg-4 col-md-4 col-sm-6">
             <Date_Input
               name={"to_date"}
@@ -640,6 +685,7 @@ const SingleEmployeeProfileEdit = () => {
               max={new Date().toISOString().split("T")[0]}
             />
           </div>
+
           <div className="col-lg-4 col-md-4 col-sm-6">
             <Input_text
               type={"tel"}
@@ -649,6 +695,7 @@ const SingleEmployeeProfileEdit = () => {
               setForm={setFormData}
             />
           </div>
+
           <div className="col-lg-4 col-md-4 col-sm-6">
             <Input_area
               type={"textarea"}
@@ -658,6 +705,7 @@ const SingleEmployeeProfileEdit = () => {
               setForm={setFormData}
             />
           </div>
+
           <div className="col-lg-4 col-md-4 col-sm-6">
             <Input_text
               type={"text"}
@@ -667,6 +715,7 @@ const SingleEmployeeProfileEdit = () => {
               setForm={setFormData}
             />
           </div>
+
           <div className="col-lg-4 col-md-4 col-sm-6">
             <Input_text
               type={"text"}
@@ -676,6 +725,7 @@ const SingleEmployeeProfileEdit = () => {
               setForm={setFormData}
             />
           </div>
+
           <div className="col-lg-4 col-md-4 col-sm-6">
             <Date_Input
               type={"date"}
@@ -703,10 +753,19 @@ const SingleEmployeeProfileEdit = () => {
               }
             />
           </div>
-          <button type="submit">Submit</button>
+          <button
+            type="submit"
+            style={{
+              width: "fit-content",
+              padding: "5px 10px",
+              marginRight: "0",
+            }}
+          >
+            Submit
+          </button>
         </div>
       </form>
-    </>
+    </div>
   );
 };
 

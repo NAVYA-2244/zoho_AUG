@@ -985,8 +985,14 @@ function TodayAttendanceCardView() {
               </div>
             ))
           ) : (
-            <div className="d-flex justify-content-center w-100">
-              <p>No Data</p>
+            <div
+              className="d-flex justify-content-center w-100 py-2"
+              style={{
+                background: applicationColor.cardBg2,
+                color: applicationColor.readColor1,
+              }}
+            >
+              <p>No Leaves - Today</p>
             </div>
           )}
         </div>

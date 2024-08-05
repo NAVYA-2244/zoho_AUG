@@ -67,6 +67,11 @@
       .employee-login-form {
         .total-form {
           margin-bottom: 10px;
+
+          .error-message {
+            position: absolute;
+            transform: translate(0, 18px);
+          }
         }
       }
     }

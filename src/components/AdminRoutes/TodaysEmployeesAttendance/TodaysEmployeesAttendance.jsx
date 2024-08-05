@@ -199,7 +199,7 @@ const TodaysEmployeesAttendance = () => {
               </div>
             </div>
             <div className="tables">
-              <table className="main-table table-bordered table-responsive mt-4">
+              <table className="main-table table-bordered table-responsive">
                 <TableHead
                   tableHeadProperties={employeeeAttedanceTableProperties}
                   // data={todayAttendance}
@@ -275,7 +275,9 @@ const TodaysEmployeesAttendance = () => {
                     })
                   ) : (
                     <tr>
-                      <td colSpan={6}>No Data</td>
+                      <td className="text-center" colSpan={9}>
+                        No Data
+                      </td>
                     </tr>
                   )}
                 </tbody>
