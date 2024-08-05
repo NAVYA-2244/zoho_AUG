@@ -163,7 +163,6 @@
 //       setrecentHire(res?.dashborad?.recent_hires);
 //       setBirthdays(res?.dashboard.birthdays);
 //       console.log("res.dashborad?.today_attendance", res.dashborad?.today_attendance.checkin);
-     
 
 //       let checkInTime = "";
 //       if (
@@ -180,7 +179,7 @@
 //           todayAttendance.checkout[todayAttendance.checkout.length - 1].out_time
 //         );
 //       }
-      
+
 //       setCheckOutTime(checkOutTime);
 //       setCheckInTime(checkInTime);
 
@@ -202,7 +201,7 @@
 //       console.log(error, "eroor");
 //     }
 //   };
-  
+
 //   useEffect(() => {
 //     // IsAdmin()
 //     fetchData();
@@ -332,13 +331,12 @@ import { useThemeContext } from "../../Contexts/ThemesContext";
 import dummyUser from "../../../assets/Header/dummy-user.jpg";
 import { CiSearch } from "react-icons/ci";
 import { useNavigate } from "react-router";
-import { TbLogout2 } from "react-icons/tb";
 import { Link } from "react-router-dom";
-import {
-  backEndCallObjNothing,
-} from "../../../services/mainService";
+import { backEndCallObjNothing } from "../../../services/mainService";
 import { formatTime } from "../../../Utils/Helpers";
-// import { CgLogOut, CgProfile } from "react-icons/cg";
+import { TbLogout2 } from "react-icons/tb";
+import { CgProfile } from "react-icons/cg";
+
 const Headers = () => {
   const {
     isOpen,
@@ -402,19 +400,19 @@ const Headers = () => {
   const fetchData = async () => {
     try {
       const res = await backEndCallObjNothing("/emp_get/universal");
-      console.log(res.dashborad.today_attendance.checkin[0].in_time,"res")
+      console.log(res.dashborad.today_attendance.checkin[0].in_time, "res");
       setOrgDetails(res?.dashborad?.organisation_details);
       setOrgLogo(res?.dashborad?.organisation_details.images?.logo);
       setLocations(res.dashborad?.organisation_details?.locations);
       setTodayAttendance(res.dashborad?.today_attendance);
       setRecentHire(res?.dashborad?.recent_hires);
       setBirthdays(res?.dashborad?.birthdays);
-// console.log("res.dashborad?.today_attendance",res.dashborad?.today_attendance)
+      // console.log("res.dashborad?.today_attendance",res.dashborad?.today_attendance)
       const todayAttendance = res.dashborad?.today_attendance;
-        console.log("checkInTime",todayAttendance)
+      console.log("checkInTime", todayAttendance);
       if (todayAttendance?.checkin?.length > 0) {
         const checkInTime = formatTime(todayAttendance.checkin[0].in_time);
-        console.log("checkInTime",checkInTime)
+        console.log("checkInTime", checkInTime);
         setCheckInTime(checkInTime);
       } else {
         setCheckInTime("");
@@ -434,12 +432,11 @@ const Headers = () => {
           ? false
           : true
       );
-      
     } catch (error) {
       console.log(error, "error");
     }
   };
-  console.log("today attandece",todayAttendance.checkout)
+  console.log("today attandece", todayAttendance.checkout);
   useEffect(() => {
     fetchData();
   }, []);
@@ -511,7 +508,7 @@ const Headers = () => {
 
             <ul className="dropdown-menu user-dropdown">
               <Link to={"/admin/profile"} className="dropdown-item">
-                {/* <CgProfile /> */}
+                <CgProfile />
                 Profile
               </Link>
 
