@@ -21,6 +21,7 @@ const EmployeeAttendanceCalendar = () => {
         skip,
         limit,
       });
+      console.log(response, "");
       setEmployeeAttendance(response.attendance);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -36,10 +37,10 @@ const EmployeeAttendanceCalendar = () => {
   useEffect(() => {
     const formattedEvents = employeeAttendance.flatMap((employee) => {
       if (employee.checkin.length > 0) {
-        const firstCheckin = new Date(employee.checkin[0].in_time);
+        const firstCheckin = employee.checkin[0].in_time;
         const lastCheckout =
           employee.checkout.length > 0
-            ? new Date(employee.checkout[employee.checkout.length - 1].out_time)
+            ? employee.checkout[employee.checkout.length - 1].out_time
             : null;
 
         // Ignore events for today
@@ -70,22 +71,18 @@ const EmployeeAttendanceCalendar = () => {
       }
       return [];
     });
-
     setCalendarEvents(formattedEvents);
   }, [employeeAttendance]);
-
   // Handle event selection to show the modal with event details
   const handleSelectEvent = (event) => {
     setSelectedEvent(event);
     setShowModal(true);
   };
-
   // Close the modal
   const handleCloseModal = () => {
     setShowModal(false);
     setSelectedEvent(null);
   };
-
   // Highlight today's date in the calendar
   const dayPropGetter = (date) => {
     const today = moment().startOf("day").toDate();

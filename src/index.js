@@ -5,7 +5,7 @@ import "./index.scss";
 
 import "./assets/fonts/fonts.css";
 
-import "leaflet/dist/leaflet.css";
+// import "leaflet/dist/leaflet.css";
 import { FunctionContextProvider } from "./components/Contexts/FunctionContext";
 import { StateContextProvider } from "./components/Contexts/StateContext";
 import { ThemeContextProvider } from "./components/Contexts/ThemesContext";
