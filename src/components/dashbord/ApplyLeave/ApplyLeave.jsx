@@ -135,6 +135,10 @@ const ApplyLeave = () => {
                   color: applicationColor.readColor1,
                 }}
               >
+                {console.log(
+                  employeeData.leaveReport,
+                  "employeeData leaveReport"
+                )}
                 <div className="leave-img d-flex flex-column">
                   <i className={`${item.type}`} alt={item.type}>
                     {item.type === "Casual" ? <FcLeave /> : <FaUserDoctor />}

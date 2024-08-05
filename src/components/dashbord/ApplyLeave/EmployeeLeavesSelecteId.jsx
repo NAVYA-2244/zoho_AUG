@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { FcLeave } from "react-icons/fc";
 import { FaUserDoctor } from "react-icons/fa6";
@@ -53,7 +52,10 @@ function EmployeeLeavesSelecteId() {
         if (status) {
           payload.status = status;
         }
-        const response = await backEndCallObjNothing("/emp_get/get_leaves", payload);
+        const response = await backEndCallObjNothing(
+          "/emp_get/get_leaves",
+          payload
+        );
         setLeaveApplications(response.data);
         setEmployeeLeaveApplications(response.data);
         console.log("response", response);
@@ -80,7 +82,11 @@ function EmployeeLeavesSelecteId() {
     <section className="leave-report">
       <div className="row mb-3">
         <div className="col-md-4">
-          <select value={status} onChange={handleStatusChange} className="form-control">
+          <select
+            value={status}
+            onChange={handleStatusChange}
+            className="form-control"
+          >
             <option value="">All</option>
             <option value="Pending">Pending</option>
             <option value="Approved">Approved</option>
@@ -139,8 +145,8 @@ function EmployeeLeavesSelecteId() {
           </div>
         )}
       </section> */}
-<Piachart/>
-      
+      <Piachart />
+
       <br />
 
       {!loading ? (

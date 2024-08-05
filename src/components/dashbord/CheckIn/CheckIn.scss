@@ -52,6 +52,10 @@
       }
     }
     .check-in-ckeckout-buttons {
+      .check-out {
+        background-color: #ed2b2a !important;
+        color: #fff !important;
+      }
       .check-in-button {
         text-transform: capitalize;
         @include button();
@@ -61,15 +65,12 @@
         justify-content: flex-start;
         font-size: 0.8rem;
         padding: 1px 0px;
-        background: $primary-bg-color !important;
+        background: $primary-bg-color;
         display: flex;
         flex-direction: column;
         @include SMmobile {
           width: 79px;
         }
-      }
-      .check-out {
-        background: #ed2b2a;
       }
     }
     .load {

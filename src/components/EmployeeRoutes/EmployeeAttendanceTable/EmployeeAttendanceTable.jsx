@@ -1033,7 +1033,6 @@
 
 // export default EmployeeAttendanceTable;
 
-
 // import React, { useEffect, useState } from "react";
 // import TableHead from "../../Table/TableHead";
 // import { useStateContext } from "../../Contexts/StateContext";
@@ -1504,7 +1503,7 @@ const EmployeeAttendanceTable = () => {
         skip,
         limit,
       });
-console.log("attandece total",response)
+      console.log("attandece total", response);
       setAttandanceData((prev) =>
         reset ? response.attendance : [...prev, ...response.attendance]
       );
@@ -1526,8 +1525,14 @@ console.log("attandece total",response)
 
   useEffect(() => {
     if (dateState.month_date && dateState.year) {
-      const numberOfWeeks = getWeeksInMonth(dateState.year, dateState.month_date);
-      const weekDates = Array.from({ length: numberOfWeeks }, (_, i) => ` ${i + 1}`);
+      const numberOfWeeks = getWeeksInMonth(
+        dateState.year,
+        dateState.month_date
+      );
+      const weekDates = Array.from(
+        { length: numberOfWeeks },
+        (_, i) => ` ${i + 1}`
+      );
       setWeeks(weekDates);
     }
   }, [dateState.month_date, dateState.year]);
@@ -1556,19 +1561,17 @@ console.log("attandece total",response)
   ];
 
   const getSpecificData = async (e) => {
-    
     e.preventDefault();
     setLoading(true);
     setLoadingTerm("attendanceFromTo");
     try {
-      console.log("hiiii")
-      const data={
-        year:dateState.year,
+      const data = {
+        year: dateState.year,
         month_date: dateState.month_date,
-        week_date:dateState.week_date,
-      }
-      console.log("data",data)
-      const  response = await backEndCallObjNothing(
+        week_date: dateState.week_date,
+      };
+      console.log("data", data);
+      const response = await backEndCallObjNothing(
         // {
         //   totalAttendanceFilters: {
         //     year: Number(dateState.year),
@@ -1576,9 +1579,10 @@ console.log("attandece total",response)
         //     week_date: Number(dateState.week_date),
         //   },
         // },
-        "/emp_get/get_attendance_by_filters",data
+        "/emp_get/get_attendance_by_filters",
+        data
       );
-      console.log("response",response)
+      console.log("response", response);
       setAttandanceData(response.employee_total_attendance);
     } catch (error) {
       console.error("Error fetching specific data", error);

@@ -90,29 +90,21 @@ const TodaysEmployeesAttendance = () => {
     },
   ];
 
-  
   const handleTabChange = (tabname) => {
     setCurrentTab(tabname);
   };
 
-  
-  // let calculateHours = (minutes) => {
-  //   let hours = (minutes / 60).toFixed(2);
-  //   return `${hours} hrs`;
-  // };
-
-  // const extractTime = (datetime) => {
-  //   let parts = datetime.split(" ");
-  //   return parts[1];
-  // };
   const fetchAttendanceData = async (date) => {
     try {
       setLoading(true);
-      const response = await backEndCallObjNothing("/user_get/today_attendance", {
-        skip: 0, // Example skip value, adjust as needed
-        date: date || form.dateTime,
-      });
-      console.log("todayAttendance",response)
+      const response = await backEndCallObjNothing(
+        "/user_get/today_attendance",
+        {
+          skip: 0, // Example skip value, adjust as needed
+          date: date || form.dateTime,
+        }
+      );
+      console.log("todayAttendance", response);
       setTodayAttendanceAdmin(response.today_attendance);
       setLoading(false);
     } catch (error) {
@@ -130,9 +122,31 @@ const TodaysEmployeesAttendance = () => {
     fetchAttendanceData(event.target.value);
   };
 
-  const lateCheckins = todayAttendanceAdmin?.filter(employee => employee.grace_time > 0) || [];
-  const onLeave = todayAttendanceAdmin?.filter(employee => employee.status === 'leave') || [];
+  const lateCheckins =
+    todayAttendanceAdmin?.filter((employee) => employee.grace_time > 0) || [];
+  const onLeave =
+    todayAttendanceAdmin?.filter((employee) => employee.status === "leave") ||
+    [];
   const allCheckins = todayAttendanceAdmin || [];
+
+  let calculateHours = (minutes) => {
+    let hours = (minutes / 60).toFixed(2);
+    return `${hours} hrs`;
+  };
+
+  const extractTime = (datetime) => {
+    let parts = datetime.split(" ");
+    return parts[1];
+  };
+
+  const findCheckin = (time) => {
+    if (time.checkin.length > 0 && time.checkout.length > 0) {
+      return "Present";
+    } else if (time.checkin.length > 0 && time.checkout.length === 0) {
+      return "Checkin";
+    } else if (time.status === "leave") return "Absent";
+  };
+
   return (
     <>
       <main
@@ -142,55 +156,59 @@ const TodaysEmployeesAttendance = () => {
           color: applicationColor.readColor1,
         }}
       >
-        <div className="today-attendance-wrapper">
-       
-          <div className="tabs">
-            {tabs.map((tab) => (
-              <button key={tab.name} onClick={() => handleTabChange(tab.name)}>
-                {tab.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
         {currentTab === "table-view" ? (
-          
-          <div className="tables">
-             <div className="date-input">
-          <Date_Input
-            name="dateTime"
-            value={form.dateTime}
-            onChange={handleDateChange}
-            setForm={setForm}
-            min={
-              new Date(
-                new Date().getFullYear() - 55,
-                new Date().getMonth(),
-                new Date().getDate()
-              )
-                .toISOString()
-                .split("T")[0]
-            }
-            max={new Date().toISOString().split("T")[0]}
-          />
-          {form.dateTime && (
-            <button
-              disabled={loadingTerm === "gettingAttendanceByDate"}
-              onClick={() => fetchAttendanceData(form.dateTime)}
-            >
-              {loading && loadingTerm === "gettingAttendanceByDate" ? "Loading..." : "Submit"}
-            </button>
-          )}
-        </div>
-            <table className="main-table table-bordered table-responsive mt-4">
-              <TableHead
-                tableHeadProperties={employeeeAttedanceTableProperties}
-                // data={todayAttendance}
-                // component="UpdateTodayAttendance"
-                // loadMoreRef={gettingMoreTodayAttendanceRef}
-                // getExtraDataType="getMoreTodayAttendance"
-              />
-             {/* <tbody>
+          <>
+            <div className="today-attendance-wrapper">
+              <div className="tabs">
+                {tabs.map((tab) => (
+                  <button
+                    key={tab.name}
+                    onClick={() => handleTabChange(tab.name)}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+
+              <div className="date-input">
+                <Date_Input
+                  name="dateTime"
+                  value={form.dateTime}
+                  onChange={handleDateChange}
+                  setForm={setForm}
+                  min={
+                    new Date(
+                      new Date().getFullYear() - 55,
+                      new Date().getMonth(),
+                      new Date().getDate()
+                    )
+                      .toISOString()
+                      .split("T")[0]
+                  }
+                  max={new Date().toISOString().split("T")[0]}
+                />
+                {form.dateTime && (
+                  <button
+                    disabled={loadingTerm === "gettingAttendanceByDate"}
+                    onClick={() => fetchAttendanceData(form.dateTime)}
+                  >
+                    {loading && loadingTerm === "gettingAttendanceByDate"
+                      ? "Loading..."
+                      : "Submit"}
+                  </button>
+                )}
+              </div>
+            </div>
+            <div className="tables">
+              <table className="main-table table-bordered table-responsive mt-4">
+                <TableHead
+                  tableHeadProperties={employeeeAttedanceTableProperties}
+                  // data={todayAttendance}
+                  // component="UpdateTodayAttendance"
+                  // loadMoreRef={gettingMoreTodayAttendanceRef}
+                  // getExtraDataType="getMoreTodayAttendance"
+                />
+                {/* <tbody>
                 {todayAttendance?.length !== 0 ? (
                   todayAttendance.map((attendance) => (
                     <tr key={attendance.employee_id}>
@@ -208,37 +226,63 @@ const TodaysEmployeesAttendance = () => {
                   </tr>
                 )}
               </tbody> */}
-              <tbody>
-  {todayAttendanceAdmin?.length !== 0 ? (
-    todayAttendanceAdmin.map((attendance) => {
-      const checkInAvailable = attendance.checkin.length > 0;
-      const checkOutAvailable = attendance.checkout.length > 0;
-      const status = checkInAvailable && checkOutAvailable ? "Present" : "Absent";
+                <tbody>
+                  {todayAttendanceAdmin?.length !== 0 ? (
+                    todayAttendanceAdmin.map((attendance) => {
+                      const checkInAvailable = attendance.checkin.length > 0;
+                      const checkOutAvailable = attendance.checkout.length > 0;
+                      const status =
+                        checkInAvailable && checkOutAvailable
+                          ? "Present"
+                          : "Absent";
 
-      return (
-        <tr key={attendance.employee_id}>
-           <td>{attendance.employee_id}</td>
-           <td>{attendance.createdAt}</td>
-          <td>{attendance.employee_name}</td>
-          <td>{attendance.email}</td>
-         
-          <td>{status}</td>
-          <td>{checkInAvailable ? attendance.checkin[0].in_time : '-'}</td>
-          <td>{checkOutAvailable ? attendance.checkout[attendance.checkout.length - 1].out_time : '-'}</td>
-          {/* <td>{attendance.total_working_minutes}</td> */}
-          <td>{attendance.total_working_minutes !== undefined ? (attendance.total_working_minutes / 60).toFixed(2) + " hrs" : '-'}</td>
-        </tr>
-      );
-    })
-  ) : (
-    <tr>
-      <td colSpan={6}>No Data</td>
-    </tr>
-  )}
-</tbody>
+                      return (
+                        <tr key={attendance.employee_id}>
+                          <td>{attendance.employee_id}</td>
+                          <td>{attendance.createdAt}</td>
+                          <td>{attendance.employee_name}</td>
+                          <td style={{ textTransform: "lowercase" }}>
+                            {attendance.email}
+                          </td>
 
-            </table>
-          </div>
+                          <td>{findCheckin(attendance)}</td>
+                          <td>
+                            {checkInAvailable
+                              ? extractTime(attendance.checkin[0].in_time)
+                              : "-"}
+                          </td>
+                          <td>
+                            {checkOutAvailable
+                              ? extractTime(
+                                  attendance.checkout[
+                                    attendance.checkout.length - 1
+                                  ].out_time
+                                )
+                              : "-"}
+                          </td>
+                          {/* <td>{attendance.total_working_minutes}</td> */}
+                          <td
+                            style={{
+                              textAlign: "center",
+                              textTransform: "lowercase",
+                            }}
+                          >
+                            {attendance.total_working_minutes !== undefined
+                              ? calculateHours(attendance.total_working_minutes)
+                              : "-"}
+                          </td>
+                        </tr>
+                      );
+                    })
+                  ) : (
+                    <tr>
+                      <td colSpan={6}>No Data</td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </>
         ) : (
           <div
             className="admin_all_employees-cardView"
@@ -304,7 +348,9 @@ const TodaysEmployeesAttendance = () => {
               </tr>
             )} */}
 
-            <TodayAttendanceCardView todayAttendanceAdmin={todayAttendanceAdmin} />
+            <TodayAttendanceCardView
+              todayAttendanceAdmin={todayAttendanceAdmin}
+            />
           </div>
         )}
       </main>

@@ -14,9 +14,9 @@
 // // //       )
 // // //       setTodayAttendance(response)
 // // //     } catch (error) {
-     
+
 // // //     } finally {
-      
+
 // // //     }
 // // //   };
 // // // useEffect(()=>(
@@ -157,7 +157,6 @@
 // // // }
 
 // // // export default TodayAttendanceCardView;
-
 
 // // // import React, { useEffect, useState } from "react";
 // // // import { useThemeContext } from "../../Contexts/ThemesContext";
@@ -423,7 +422,7 @@
 // //     <>
 // //       <div className="today-attendance-wrapper">
 // //       <div className="today-attendance-wrapper">
-         
+
 // //          <div className="date-input">
 // //          <Date_Input
 // //            name="dateTime"
@@ -449,7 +448,7 @@
 // //            </button>
 // //          )}
 // //        </div>
-  
+
 // //          </div>
 // //          {/* <div className="tabs">
 // //            {tabs.map((tab) => (
@@ -457,7 +456,7 @@
 // //                {tab.label}
 // //              </button>
 // //            ))}
-         
+
 // //        </div> */}
 // //         <div className="tabs">
 // //            {cardViewHeadings.map((tab) => (
@@ -665,9 +664,9 @@
 //           <div className="late-checkin-heading">
 //             <p>{item}</p>
 //             <p className={`count ${item.toLowerCase().replace(' ', '-')}-count`}>
-             
+
 //               {item === "Late Checkin" ? lateCheckins.length : item === "On Leave" ? onLeave.length : allCheckins.length}
-            
+
 //             </p>
 //           </div>
 //           <div className="late-checkin-info">
@@ -702,7 +701,7 @@
 //                     </div>
 //                   </div>
 //                 ))
-                
+
 //               : item === "On Leave" && onLeave.length > 0
 //               ? onLeave.map((employee) => (
 //                   <div
@@ -789,14 +788,27 @@ function TodayAttendanceCardView() {
   });
   const [loading, setLoading] = useState(false);
   const [loadingTerm, setLoadingTerm] = useState("");
+  let [currentTab, setCurrentTab] = useState("card-view");
+
+  let tabs = [
+    { name: "table-view", label: "Table View" },
+    { name: "card-view", label: "Card View" },
+  ];
+
+  const handleTabChange = (tabname) => {
+    setCurrentTab(tabname);
+  };
 
   const fetchAttendanceData = async (date) => {
     try {
       setLoading(true);
-      const response = await backEndCallObjNothing("/user_get/today_attendance", {
-        skip: 0,
-        date: date || form.dateTime,
-      });
+      const response = await backEndCallObjNothing(
+        "/user_get/today_attendance",
+        {
+          skip: 0,
+          date: date || form.dateTime,
+        }
+      );
       console.log("response", response);
       setTodayAttendanceAdmin(response.today_attendance);
       setLoading(false);
@@ -815,17 +827,31 @@ function TodayAttendanceCardView() {
     fetchAttendanceData(event.target.value);
   };
 
-  const lateCheckins = todayAttendanceAdmin.filter(employee => employee.late_checkin === true);
-  const allCheckins = todayAttendanceAdmin.filter(employee => employee.late_checkin === false);
-  const leaveApplications = todayAttendanceAdmin.filter(employee => employee.status === 'leave');
+  const lateCheckins = todayAttendanceAdmin.filter(
+    (employee) => employee.late_checkin === true
+  );
+  const allCheckins = todayAttendanceAdmin.filter(
+    (employee) => employee.late_checkin === false
+  );
+  const leaveApplications = todayAttendanceAdmin.filter(
+    (employee) => employee.status === "leave"
+  );
 
   console.log("lateCheckins", lateCheckins);
   console.log("allCheckins", allCheckins);
   console.log("leaveApplications", leaveApplications);
-console.log(todayAttendanceAdmin,"todayAttendanceAdmin")
+  console.log(todayAttendanceAdmin, "todayAttendanceAdmin");
   return (
     <>
       <div className="today-attendance-wrapper">
+        <div className="tabs">
+          {tabs.map((tab) => (
+            <button key={tab.name} onClick={() => handleTabChange(tab.name)}>
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
         <div className="date-input">
           <Date_Input
             name="dateTime"
@@ -837,7 +863,9 @@ console.log(todayAttendanceAdmin,"todayAttendanceAdmin")
                 new Date().getFullYear() - 55,
                 new Date().getMonth(),
                 new Date().getDate()
-              ).toISOString().split("T")[0]
+              )
+                .toISOString()
+                .split("T")[0]
             }
             max={new Date().toISOString().split("T")[0]}
           />
@@ -846,18 +874,22 @@ console.log(todayAttendanceAdmin,"todayAttendanceAdmin")
               disabled={loadingTerm === "gettingAttendanceByDate"}
               onClick={() => fetchAttendanceData(form.dateTime)}
             >
-              {loading && loadingTerm === "gettingAttendanceByDate" ? "Loading..." : "Submit"}
+              {loading && loadingTerm === "gettingAttendanceByDate"
+                ? "Loading..."
+                : "Submit"}
             </button>
           )}
         </div>
       </div>
+
       <div className="late-checkin-data">
-        <div className="late-checkin-heading">
-          <p>{lateCheckins.length > 0 ? "Late Checkin" : "All Checkin's"}</p>
-          <p className="count">
-            {lateCheckins.length > 0 ? lateCheckins.length : allCheckins.length}
-          </p>
-        </div>
+        {lateCheckins ? (
+          <div className="late-checkin-heading">
+            <p>{lateCheckins ? "Late Checkin" : ""}</p>
+            <p className="count late-count">{lateCheckins.length}</p>{" "}
+          </div>
+        ) : null}
+
         <div className="late-checkin-info">
           {lateCheckins.length > 0 ? (
             lateCheckins.map((employee) => (
@@ -876,11 +908,19 @@ console.log(todayAttendanceAdmin,"todayAttendanceAdmin")
                   />
                   <div className="d-flex justify-content-between">
                     <div>
-                      <p className="individual-name">{employee.employee_name}</p>
-                      <p className="individual-id text-muted mb-2">{employee.employee_id}</p>
+                      <p className="individual-name">
+                        {employee.employee_name}
+                      </p>
+                      <p className="individual-id text-muted mb-2">
+                        {employee.employee_id}
+                      </p>
                       <p className="individual-id">{employee.email}</p>
-                      <p className="individual-id">{employee.checkin[0]?.in_time}</p>
-                      <p className="individual-id">{employee.checkout[0]?.out_time}</p>
+                      {/* <p className="individual-id">
+                          {employee.checkin[0]?.in_time}
+                        </p>
+                        <p className="individual-id">
+                          {employee.checkout[0]?.out_time}
+                        </p> */}
                     </div>
                   </div>
                   <div className="status late-status">
@@ -890,7 +930,24 @@ console.log(todayAttendanceAdmin,"todayAttendanceAdmin")
               </div>
             ))
           ) : (
-            allCheckins.map((employee) => (
+            <div className="d-flex justify-content-center w-100">
+              <p>No Data</p>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="late-checkin-data">
+        {leaveApplications ? (
+          <div className="late-checkin-heading">
+            <p>{leaveApplications ? "On Leave" : ""}</p>
+            <p className="count leave-count">{leaveApplications.length}</p>{" "}
+          </div>
+        ) : null}
+
+        <div className="late-checkin-info">
+          {leaveApplications.length > 0 ? (
+            leaveApplications.map((employee) => (
               <div
                 key={employee.employee_id}
                 className="late-checkin-individual"
@@ -906,60 +963,86 @@ console.log(todayAttendanceAdmin,"todayAttendanceAdmin")
                   />
                   <div className="d-flex justify-content-between">
                     <div>
-                      <p className="individual-name">{employee.employee_name}</p>
-                      <p className="individual-id text-muted mb-2">{employee.employee_id}</p>
+                      <p className="individual-name">
+                        {employee.employee_name}
+                      </p>
+                      <p className="individual-id text-muted mb-2">
+                        {employee.employee_id}
+                      </p>
                       <p className="individual-id">{employee.email}</p>
-                      <p className="individual-id">{employee.checkin[0]?.in_time}</p>
-                      <p className="individual-id">{employee.checkout[0]?.out_time}</p>
+                      {/* <p className="individual-id">
+                          {employee.checkin[0]?.in_time}
+                        </p>
+                        <p className="individual-id">
+                          {employee.checkout[0]?.out_time}
+                        </p> */}
                     </div>
                   </div>
-                  <div className="status in-status">
-                    {employee.checkin.length > 0 ? (
-                      <span className="fw-semibold">In</span>
-                    ) : (
-                      "Not In"
-                    )}
+                  <div className="status out-status">
+                    <span className="fw-semibold">Out</span>
                   </div>
                 </div>
               </div>
             ))
+          ) : (
+            <div className="d-flex justify-content-center w-100">
+              <p>No Data</p>
+            </div>
           )}
-          {leaveApplications.length > 0 && (
-            <>
-              <div className="leave-heading">
-                <p>Leave Applications</p>
-                <p className="count">{leaveApplications.length}</p>
-              </div>
-              <div className="leave-info">
-                {leaveApplications.map((employee) => (
-                  <div
-                    key={employee.employee_id}
-                    className="leave-individual"
-                    style={{
-                      background: applicationColor.cardBg1,
-                      color: applicationColor.readColor1,
-                    }}
-                  >
-                    <div className="individual-names">
-                      <img
-                        src="https://cdna.artstation.com/p/assets/images/images/034/457/398/large/shin-min-jeong-.jpg?1612345160"
-                        alt="profile-img"
-                      />
-                      <div className="d-flex justify-content-between">
-                        <div>
-                          <p className="individual-name">{employee.employee_name}</p>
-                          <p className="individual-id text-muted mb-2">{employee.employee_id}</p>
-                          <p className="individual-id">{employee.email}</p>
-                        </div>
-                      </div>
-                      <div className="status leave-status">
-                        <span className="fw-semibold">On Leave</span>
-                      </div>
+        </div>
+      </div>
+
+      <div className="late-checkin-data">
+        {allCheckins ? (
+          <div className="late-checkin-heading">
+            <p>{allCheckins ? "All Checkin" : ""}</p>
+            <p className="count checkin-count">{allCheckins.length}</p>{" "}
+          </div>
+        ) : null}
+
+        <div className="late-checkin-info">
+          {allCheckins.length > 0 ? (
+            allCheckins.map((employee) => (
+              <div
+                key={employee.employee_id}
+                className="late-checkin-individual"
+                style={{
+                  background: applicationColor.cardBg1,
+                  color: applicationColor.readColor1,
+                }}
+              >
+                <div className="individual-names">
+                  <img
+                    src="https://cdnb.artstation.com/p/assets/images/images/034/457/373/large/shin-min-jeong-.jpg?1612345104"
+                    alt="profile-img"
+                  />
+                  <div className="d-flex justify-content-between">
+                    <div>
+                      <p className="individual-name">
+                        {employee.employee_name}
+                      </p>
+                      <p className="individual-id text-muted mb-2">
+                        {employee.employee_id}
+                      </p>
+                      <p className="individual-id">{employee.email}</p>
+                      {/* <p className="individual-id">
+                          {employee.checkin[0]?.in_time}
+                        </p>
+                        <p className="individual-id">
+                          {employee.checkout[0]?.out_time}
+                        </p> */}
                     </div>
                   </div>
-                ))}
+                  <div className="status in-status">
+                    <span className="fw-semibold">In</span>
+                  </div>
+                </div>
               </div>
-            </>
+            ))
+          ) : (
+            <div className="d-flex justify-content-center w-100">
+              <p>No Data</p>
+            </div>
           )}
         </div>
       </div>
