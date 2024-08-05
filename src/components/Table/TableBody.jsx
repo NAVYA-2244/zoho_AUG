@@ -134,10 +134,10 @@ const TableBody = ({
     }
     //  else if (componentName === "UpdateEmployeeLeaveStatus") {
     // return  <UpdateEmployeeLeaveStatus id={item?.leave_type_id}
-        // leave_application_id={item?.leave_type_id}
-        // leave_status={item.leave_status}
-      // />
-    
+    // leave_application_id={item?.leave_type_id}
+    // leave_status={item.leave_status}
+    // />
+
     // }
     else if (componentName === "UpdateAttendance") {
       return <UpdateAttendance attendanceItem={item} />;
@@ -187,8 +187,9 @@ const TableBody = ({
                         // marginRight: "10px",
                         // fontWeight: "400",
                         // color: applicationColor.readColor1,
-                        textTransform: `${propName === "email" ? "none" : "capitalize"
-                          } `,
+                        textTransform: `${
+                          propName === "email" ? "none" : "capitalize"
+                        } `,
                       }}
                     >
                       {propName === ""
@@ -201,9 +202,9 @@ const TableBody = ({
             ) : (
               <tr
                 key={item._id}
-              // style={{
-              //   borderBottom: `0.01px solid ${applicationColor.readColor2}`,
-              // }}
+                // style={{
+                //   borderBottom: `0.01px solid ${applicationColor.readColor2}`,
+                // }}
               >
                 {tableHeadProperties.map((property, index) => {
                   const { property: propName } = property;
@@ -218,8 +219,9 @@ const TableBody = ({
                       style={{
                         background: applicationColor.cardBg1,
                         color: applicationColor.readColor1,
-                        textTransform: `${propName === "email" ? "none" : "capitalize"
-                          } `,
+                        textTransform: `${
+                          propName === "email" ? "none" : "capitalize"
+                        } `,
                       }}
                     >
                       {propName === ""

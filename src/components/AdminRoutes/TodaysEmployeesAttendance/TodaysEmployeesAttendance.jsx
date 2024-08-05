@@ -155,49 +155,78 @@ const TodaysEmployeesAttendance = () => {
           color: applicationColor.readColor1,
         }}
       >
+        <div className="today-attendance-wrapper">
+          <div className="tabs">
+            {tabs.map((tab) => (
+              <button key={tab.name} onClick={() => handleTabChange(tab.name)}>
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {currentTab === "table-view" ? (
+            <div className="date-input">
+              <Date_Input
+                name="dateTime"
+                value={form.dateTime}
+                onChange={handleDateChange}
+                setForm={setForm}
+                min={
+                  new Date(
+                    new Date().getFullYear() - 55,
+                    new Date().getMonth(),
+                    new Date().getDate()
+                  )
+                    .toISOString()
+                    .split("T")[0]
+                }
+                max={new Date().toISOString().split("T")[0]}
+              />
+              {form.dateTime && (
+                <button
+                  disabled={loadingTerm === "gettingAttendanceByDate"}
+                  onClick={() => fetchAttendanceData(form.dateTime)}
+                >
+                  {loading && loadingTerm === "gettingAttendanceByDate"
+                    ? "Loading..."
+                    : "Submit"}
+                </button>
+              )}
+            </div>
+          ) : (
+            <div className="date-input">
+              <Date_Input
+                name="dateTime"
+                value={form.dateTime}
+                onChange={handleDateChange}
+                setForm={setForm}
+                min={
+                  new Date(
+                    new Date().getFullYear() - 55,
+                    new Date().getMonth(),
+                    new Date().getDate()
+                  )
+                    .toISOString()
+                    .split("T")[0]
+                }
+                max={new Date().toISOString().split("T")[0]}
+              />
+              {form.dateTime && (
+                <button
+                  disabled={loadingTerm === "gettingAttendanceByDate"}
+                  onClick={() => fetchAttendanceData(form.dateTime)}
+                >
+                  {loading && loadingTerm === "gettingAttendanceByDate"
+                    ? "Loading..."
+                    : "Submit"}
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+
         {currentTab === "table-view" ? (
           <>
-            <div className="today-attendance-wrapper">
-              <div className="tabs">
-                {tabs.map((tab) => (
-                  <button
-                    key={tab.name}
-                    onClick={() => handleTabChange(tab.name)}
-                  >
-                    {tab.label}
-                  </button>
-                ))}
-              </div>
-
-              <div className="date-input">
-                <Date_Input
-                  name="dateTime"
-                  value={form.dateTime}
-                  onChange={handleDateChange}
-                  setForm={setForm}
-                  min={
-                    new Date(
-                      new Date().getFullYear() - 55,
-                      new Date().getMonth(),
-                      new Date().getDate()
-                    )
-                      .toISOString()
-                      .split("T")[0]
-                  }
-                  max={new Date().toISOString().split("T")[0]}
-                />
-                {form.dateTime && (
-                  <button
-                    disabled={loadingTerm === "gettingAttendanceByDate"}
-                    onClick={() => fetchAttendanceData(form.dateTime)}
-                  >
-                    {loading && loadingTerm === "gettingAttendanceByDate"
-                      ? "Loading..."
-                      : "Submit"}
-                  </button>
-                )}
-              </div>
-            </div>
             <div className="tables">
               <table className="main-table table-bordered table-responsive">
                 <TableHead
@@ -240,9 +269,9 @@ const TodaysEmployeesAttendance = () => {
                           <td>{attendance.employee_id}</td>
                           <td>{attendance.createdAt}</td>
                           <td>{attendance.employee_name}</td>
-                          <td style={{ textTransform: "lowercase" }}>
+                          {/* <td style={{ textTransform: "lowercase" }}>
                             {attendance.email}
-                          </td>
+                          </td> */}
 
                           <td>{findCheckin(attendance)}</td>
                           <td>

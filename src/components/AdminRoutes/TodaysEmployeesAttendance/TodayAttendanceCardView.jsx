@@ -843,7 +843,7 @@ function TodayAttendanceCardView() {
   console.log(todayAttendanceAdmin, "todayAttendanceAdmin");
   return (
     <>
-      <div className="today-attendance-wrapper">
+      {/* <div className="today-attendance-wrapper">
         <div className="tabs">
           {tabs.map((tab) => (
             <button key={tab.name} onClick={() => handleTabChange(tab.name)}>
@@ -880,7 +880,7 @@ function TodayAttendanceCardView() {
             </button>
           )}
         </div>
-      </div>
+      </div> */}
 
       <div className="late-checkin-data">
         {lateCheckins ? (
