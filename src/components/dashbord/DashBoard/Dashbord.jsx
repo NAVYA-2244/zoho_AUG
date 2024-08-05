@@ -234,7 +234,10 @@ export const OnlyBirthDaysAndNewHires = () => {
         />
       </div>
 
-      <div className="d_card" style={{ background: applicationColor.cardItem }}>
+      <div
+        className="d_card new-hires-card"
+        style={{ background: applicationColor.cardItem }}
+      >
         <BirthdaysAndNewHires
           data={newHires}
           heading={"New Hires"}
@@ -243,8 +246,6 @@ export const OnlyBirthDaysAndNewHires = () => {
           getMoreDataType="getMoreNewHires"
         />
       </div>
-
-      <h1></h1>
     </>
   );
 };
