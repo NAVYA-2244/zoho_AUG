@@ -56,7 +56,7 @@ const TodaysEmployeesAttendance = () => {
     // { name: "Employee Name", property: "employeeName", type: "string" },
     { name: "Date", property: "createdAt", type: "string" },
     { name: "Employee Name", property: "createdAt", type: "string" },
-    { name: "Email", property: "createdAt", type: "string" },
+    // { name: "Email", property: "createdAt", type: "string" },
 
     {
       name: "Status",
@@ -89,7 +89,6 @@ const TodaysEmployeesAttendance = () => {
       style: { textAlign: "center", paddingLeft: "50px" },
     },
   ];
-
   const handleTabChange = (tabname) => {
     setCurrentTab(tabname);
   };
