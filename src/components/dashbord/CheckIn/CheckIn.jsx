@@ -550,16 +550,16 @@ const CheckIn = () => {
   const fetchData = async () => {
     try {
       const res = await backEndCallObjNothing("/emp_get/universal");
-      console.log(res.dashborad.today_attendance.checkin[0].in_time,"res")
+      // console.log(res.dashborad.today_attendance.checkin[0].in_time,"res")
      
       setTodayAttendance(res.dashborad?.today_attendance);
      
 // console.log("res.dashborad?.today_attendance",res.dashborad?.today_attendance)
       const todayAttendance = res.dashborad?.today_attendance;
-        console.log("checkInTime",todayAttendance)
+        // console.log("checkInTime",todayAttendance)
       if (todayAttendance?.checkin?.length > 0) {
         const checkInTime = formatTime(todayAttendance.checkin[0].in_time);
-        console.log("checkInTime",checkInTime)
+        // console.log("checkInTime",checkInTime)
         setCheckInTime(checkInTime);
       } else {
         setCheckInTime("");
@@ -584,7 +584,7 @@ const CheckIn = () => {
       console.log(error, "error");
     }
   };
-  console.log("today attandece",todayAttendance.checkout)
+  // console.log("today attandece",todayAttendance.checkout)
   useEffect(() => {
     fetchData();
   }, []);
@@ -669,7 +669,7 @@ const CheckIn = () => {
 
   const checkinTwelveHr = checkInTime ? convertTo12HourFormat(checkInTime) : "00:00:00";
   const checkOutTwelveHr = checkOutTime ? convertTo12HourFormat(checkOutTime) : "00:00:00";
-console.log("checkin",checkin)
+// console.log("checkin",checkin)
   return (
     <section className="check-in" style={{ color: applicationColor.readColor1 }}>
       <section className="date-section">

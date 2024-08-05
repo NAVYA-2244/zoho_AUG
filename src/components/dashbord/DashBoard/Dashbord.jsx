@@ -63,7 +63,7 @@ export default Dashbord;
 export const OnlyBirthDaysAndNewHires = () => {
   const [newHires, setNewHires] = useState([]);
   const [todayBirthdays, setTodayBirthdays] = useState([]);
-  const { setLoading, loading, setLoadingTerm, setrecentHire } =
+  const { setLoading, loading, setLoadingTerm, setrecentHire ,Birthdays,recentHire} =
     useStateContext();
   const { fetchMoreData } = useFunctionContext();
   const { applicationColor } = useThemeContext();
@@ -86,7 +86,7 @@ export const OnlyBirthDaysAndNewHires = () => {
         "getOrgData1",
         "headers"
       );
-      console.log("setrecentHire", setrecentHire);
+     
       if (response.detail.birthdays.length > 0) {
         setTodayBirthdays((prevList) => {
           return [...prevList, ...response.detail.birthdays];
@@ -105,7 +105,8 @@ export const OnlyBirthDaysAndNewHires = () => {
       setLoadingTerm("");
     }
   };
-
+  console.log("setrecentHire", recentHire);
+  console.log("birthdays",Birthdays)
   // This call back function will responsible to obeserve the last item in the todayBirthdays Array and make the network call based on some condtions
   const birthdayListRef = useCallback(
     (node) => {

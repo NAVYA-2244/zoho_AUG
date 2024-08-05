@@ -43,7 +43,7 @@ const Headers = () => {
     setCheckIn,
     todayAttendance,
     setTodayAttendance,
-    setrecentHire,
+  setrecentHire,
     setBirthdays,
   } = useStateContext();
   const { checkingDataThere } = useFunctionContext();
@@ -194,16 +194,7 @@ const Headers = () => {
           ? false
           : true
       );
-
-      setCheckOutTime(checkOutTime);
-      setCheckInTime(checkInTime);
-
-      setCheckIn(
-        todayAttendance?.checkin?.length > todayAttendance?.checkout?.length
-          ? false
-          : true
-      );
-    } catch (error) {
+      } catch (error) {
       console.log(error, "eroor");
     }
   };

@@ -102,50 +102,50 @@ export const employeeSidebar = [
     path: "/leaveApplications",
   },
 
-  {
-    id: "Controls",
-    icon: <GrPerformance />,
-    label: "Controls",
-    children: [
-      {
-        id: "roles",
-        icon: <GrUserSettings />,
-        label: "Roles",
-        path: "/admin/admin-controls/roles",
-      },
+  // {
+  //   id: "Controls",
+  //   icon: <GrPerformance />,
+  //   label: "Controls",
+  //   children: [
+  //     {
+  //       id: "roles",
+  //       icon: <GrUserSettings />,
+  //       label: "Roles",
+  //       path: "/admin/admin-controls/roles",
+  //     },
 
-      {
-        id: "Location",
-        icon: <GrUserSettings />,
-        label: "Organisation Location",
-        path: "/location",
-      },
-      // {
-      //   id: "admincontrolesuser",
-      //   icon: <GrUserSettings />,
-      //   label: "Admin Controls users",
-      //   path: "/admincontrolesuser",
-      // },
-      {
-        id: "company",
-        icon: <RiImageCircleLine />,
-        label: "Company Logo",
-        path: "/admin/company",
-      },
-      {
-        id: "folers",
-        icon: <LuFolderClosed />,
-        label: "Folders",
-        path: "/admin/folders",
-      },
-      // {
-      //   id: "Logout",
-      //   icon: <VscSignOut />,
-      //   label: "Logout",
-      //   path: () => settingTokens.removingEmployeeToken(),
-      // },
-    ],
-  },
+  //     {
+  //       id: "Location",
+  //       icon: <GrUserSettings />,
+  //       label: "Organisation Location",
+  //       path: "/location",
+  //     },
+  //     // {
+  //     //   id: "admincontrolesuser",
+  //     //   icon: <GrUserSettings />,
+  //     //   label: "Admin Controls users",
+  //     //   path: "/admincontrolesuser",
+  //     // },
+  //     {
+  //       id: "company",
+  //       icon: <RiImageCircleLine />,
+  //       label: "Company Logo",
+  //       path: "/admin/company",
+  //     },
+  //     {
+  //       id: "folers",
+  //       icon: <LuFolderClosed />,
+  //       label: "Folders",
+  //       path: "/admin/folders",
+  //     },
+  //     // {
+  //     //   id: "Logout",
+  //     //   icon: <VscSignOut />,
+  //     //   label: "Logout",
+  //     //   path: () => settingTokens.removingEmployeeToken(),
+  //     // },
+  //   ],
+  // },
 
   {
     id: "Chat",
