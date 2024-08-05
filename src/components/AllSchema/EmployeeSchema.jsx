@@ -312,7 +312,7 @@ export const ExpirementSchema = {
     .items(
       Joi.object({
         company_name: Joi.string()
-          .min(3)
+          .min(10)
           .max(30)
           .allow("")
           .messages({
@@ -350,7 +350,7 @@ export const ExpirementSchema = {
     .items(
       Joi.object({
         institute_name: Joi.string()
-          .min(5)
+          .min(10)
           .max(50)
           .allow("")
           .messages({
@@ -360,7 +360,7 @@ export const ExpirementSchema = {
           .label("Institute Name"),
         degree: Joi.string()
           .min(5)
-          .max(35)
+          .max(15)
           .allow("")
           .messages({
             "string.pattern.base":
@@ -369,7 +369,7 @@ export const ExpirementSchema = {
           .label("Degree or Diploma"),
         specialization: Joi.string()
           .min(5)
-          .max(35)
+          .max(15)
           .allow("")
           .messages({
             "string.pattern.base":
@@ -662,7 +662,7 @@ const EmployeeDataSchema = {
     .label("Permanent Address"),
 
   company_name: Joi.string()
-    .min(3)
+    .min(10)
     .max(30)
     .allow("")
     .messages({
@@ -692,7 +692,7 @@ const EmployeeDataSchema = {
   experience: Joi.number().max(50).allow("").label("Relevant Experience"),
 
   institute_name: Joi.string()
-    .min(5)
+    .min(10)
     .max(50)
     .allow("")
     .messages({
@@ -702,7 +702,7 @@ const EmployeeDataSchema = {
     .label("Institute Name"),
   degree: Joi.string()
     .min(5)
-    .max(35)
+    .max(15)
     .allow("")
     .messages({
       "string.pattern.base":
@@ -711,7 +711,7 @@ const EmployeeDataSchema = {
     .label("Degree or Diploma"),
   specialization: Joi.string()
     .min(5)
-    .max(35)
+    .max(15)
     .allow("")
     .messages({
       "string.pattern.base":

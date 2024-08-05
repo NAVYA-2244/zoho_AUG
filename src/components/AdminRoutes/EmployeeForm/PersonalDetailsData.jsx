@@ -143,8 +143,8 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                 />
               </div>
               <div className="col-lg-4 col-md-4 col-sm-6">
-                <Date_Input
-                  type={"date"}
+                <Input_text
+                  type={"tel"}
                   name={"year_of_completion"}
                   placeholder={"Date of Completion"}
                   value={data?.year_of_completion}
@@ -153,16 +153,18 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                   // inputRef={(el) => (refs.current.dateOfCompletion = el)}
                   index={index}
                   fieldName="educational_details"
-                  min={
-                    new Date(
-                      new Date().getFullYear() - 55,
-                      new Date().getMonth(),
-                      new Date().getDate()
-                    )
-                      .toISOString()
-                      .split("T")[0]
-                  }
-                  max={new Date().toISOString().split("T")[0]}
+                  // min={
+                  //   new Date(
+                  //     new Date().getFullYear() - 55,
+                  //     new Date().getMonth(),
+                  //     new Date().getDate()
+                  //   )
+                  //     .toISOString()
+                  //     .split("T")[0]
+                  // }
+                  // max={new Date().toISOString().split("T")[0]}
+                  // min={new Date().getFullYear() - 55}
+                  // max={new Date().getFullYear()}
                 />
               </div>
 

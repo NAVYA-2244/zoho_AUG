@@ -22,6 +22,23 @@ const AddEmployee = () => {
   const { checkErrors } = useFunctionContext();
 
   const handleSubmit = async (formData, setFormData) => {
+    // const extractYear = (dateString) => {
+    //   if (typeof dateString === "string") {
+    //     const date = new Date(dateString);
+    //     return date.getFullYear();
+    //   } else {
+    //     // Handle the case where dateString is not a valid string
+    //     console.error("Invalid date string:", dateString);
+    //     return null; // Or some default value if preferred
+    //   }
+    // };
+    // const formatEducationalDetails = (details) => {
+    //   return details.map((detail) => ({
+    //     ...detail,
+    //     year_of_completion: extractYear(detail.year_of_completion), // Extract and keep only the year
+    //   }));
+    // };
+
     try {
       // console.log(formData, "formData");
       setLoading(true);
@@ -70,18 +87,24 @@ const AddEmployee = () => {
           (item) => item.length > 0
         )
           ? formData.work_experience
-          : [],
+          : formData.work_experience,
 
         educational_details: Object.values(
           formData?.educational_details || {}
         ).every((item) => item.length > 0)
           ? formData.educational_details
-          : [],
+          : formData.educational_details,
+        // educational_details: formatEducationalDetails(
+        //   Object.values(formData?.educational_details || {})
+        // ).every((item) => item.length > 0)
+        //   ? formatEducationalDetails(formData.educational_details)
+        //   : formatEducationalDetails(formData.educational_details),
+
         dependent_details: Object.values(
           formData?.dependent_details || {}
         ).every((item) => item.length > 0)
           ? formData.dependent_details
-          : [],
+          : formData.dependent_details,
       };
 
       data.organisation_id = orgDetails?.organisation_id;

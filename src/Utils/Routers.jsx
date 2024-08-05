@@ -40,7 +40,7 @@ import Companydetails from "../components/AdminRoutes/Companydetails/Companydeta
 import LeavesSettings from "./../components/AdminRoutes/AdminControls/RolesTable/Depatment_Roles_Designations/LeavesSettings";
 import AdminControlesUserDetails from "./../components/AdminRoutes/AdminControls/AdminControlesUserDetails";
 import LoginForm from "../components/Logins/EmployeeLoginPage/LoginForm.jsx";
-import SingleEmployeeProfileEdit from './../components/AdminRoutes/AdminFetchingSingleEmployeeData/SingleEmployeeProfile/SingleEmployeeProfileEdit';
+import SingleEmployeeProfileEdit from "../components/AdminRoutes/AdminFetchingSingleEmployeeData/SingleEmployeeProfile/SingleEmployeeProfileEdit.jsx";
 
 // AdminType "0" //Team member or normal employee
 export const isEmployeeRouter = [
