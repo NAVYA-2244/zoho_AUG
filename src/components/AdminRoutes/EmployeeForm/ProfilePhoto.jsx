@@ -196,7 +196,7 @@ const ProfilePhoto = () => {
       const response = await backEndCallObjNothing("/emp/update_dp", {
         image: formData.image,
       });
-      setProfilePhoto(response?.data || "");
+      setProfilePhoto(response?.data|| "");
       setFormData({ image: "" });
       setError("");
       toastOptions.success("Profile photo updated successfully.");
@@ -219,8 +219,8 @@ const ProfilePhoto = () => {
         <img
           className="main_profile_photo img-fluid"
           src={
-            profilePhoto
-              ? profilePhoto
+            profilePhoto.dp
+              ? profilePhoto.dp
               : "https://cdnb.artstation.com/p/assets/images/images/034/457/389/large/shin-min-jeong-.jpg?1612345145"
           }
           alt="profile_photo"

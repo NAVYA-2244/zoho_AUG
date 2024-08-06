@@ -134,7 +134,7 @@ const TodaysEmployeesAttendance = () => {
   };
 
   const extractTime = (datetime) => {
-    let parts = datetime.split(" ");
+    let parts = datetime?.split(" ");
     return parts[1];
   };
 

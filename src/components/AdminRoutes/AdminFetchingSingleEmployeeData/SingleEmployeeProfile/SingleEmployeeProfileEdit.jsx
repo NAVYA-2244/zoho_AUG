@@ -143,7 +143,7 @@ const SingleEmployeeProfileEdit = () => {
       .optional(),
     experience: Joi.number()
       .max(50)
-      .allow("")
+      // .allow("")
       .optional()
       .label("Relevant Experience"),
 
@@ -177,9 +177,9 @@ const SingleEmployeeProfileEdit = () => {
           '" Locationspecialization" should not include special characters',
       })
       .label("Specialization"),
-    year_of_completion: Joi.date()
-      .max("now")
-      .allow("")
+    year_of_completion: Joi.number()
+      // .max("now")
+      // .allow("")
       .optional()
 
       .label("Date of Completion"),
@@ -271,8 +271,8 @@ const SingleEmployeeProfileEdit = () => {
     experience:
       employeeProfileData.profile.work_experience &&
       employeeProfileData.profile.work_experience.length > 0
-        ? employeeProfileData.profile.work_experience[0].experience || ""
-        : "",
+        ? employeeProfileData.profile.work_experience[0].experience || 0
+        : 0,
 
     job_description:
       employeeProfileData.profile.work_experience &&
@@ -303,8 +303,8 @@ const SingleEmployeeProfileEdit = () => {
       employeeProfileData.profile.educational_details &&
       employeeProfileData.profile.educational_details.length > 0
         ? employeeProfileData.profile.educational_details[0]
-            .year_of_completion || ""
-        : "",
+            .year_of_completion || 0
+        : 0,
 
     // employeeProfileData.profile.educational_details.year_of_completion || "",
     dependent_date_of_birth:
@@ -388,7 +388,7 @@ const SingleEmployeeProfileEdit = () => {
             institute_name: formData.institute_name,
             degree: formData.degree,
             specialization: formData.specialization,
-            year_of_completion: formatYearOnly(formData.year_of_completion),
+            year_of_completion: formData.year_of_completion,
           },
         ],
         dependent_details: [

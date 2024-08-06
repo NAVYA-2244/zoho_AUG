@@ -313,7 +313,7 @@ const Companydetails = () => {
                   setForm={setFormData}
                   schema={orgSchema.hr_mail_id}
                 />
-                <Input_email
+                {/* <Input_email
                   type={"email"}
                   placeholder={"Hr Email Id"}
                   name={"hr_mail_id"}
@@ -328,7 +328,7 @@ const Companydetails = () => {
                   value={formData.organisation_type}
                   schema={orgSchema.organisation_type}
                   setForm={setFormData}
-                />
+                /> */}
               </div>
             </div>
           </div>
