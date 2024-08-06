@@ -124,6 +124,19 @@ const EmployeeAttendanceTable = () => {
       return "Checkin";
     } else if (time.status === "leave") return "Absent";
   };
+  const tableHeadProperties = [
+    { name: "Employee Id", property: "employee_id", type: "string" },
+    { name: "Date", property: "createdAt", type: "string" },
+    { name: "Status", property: "status", type: "string" },
+    { name: "Check In", property: "checkinTimes", type: "string" },
+    { name: "Check Out", property: "checkoutTimes", type: "string" },
+    {
+      name: "Total Hours",
+      property: "total_working_minutes",
+      type: "string",
+      style: { textAlign: "center", paddingLeft: "50px" },
+    },
+  ];
 
   return (
     <main
@@ -168,6 +181,7 @@ const EmployeeAttendanceTable = () => {
 
         {dateState.month_date && dateState.year ? (
           <button
+            className="filter-btn"
             style={{ background: applicationColor.tabColor }}
             disabled={loadingTerm === "attendanceFromTo"}
           >
@@ -183,7 +197,7 @@ const EmployeeAttendanceTable = () => {
       </form>
       <section className="tables">
         <table className="main-table">
-          {/* <TableHead tableHeadProperties={tableHeadProperties} /> */}
+          <TableHead tableHeadProperties={tableHeadProperties} />
           <tbody>
             {console.log(attendanceData, "attendance data in table")}
             {attendanceData.length > 0 &&

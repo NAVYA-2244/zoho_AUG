@@ -342,6 +342,7 @@ const SingleEmployeeProfileEdit = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("akash");
 
     try {
       setLoading(true);

@@ -291,7 +291,8 @@ const BirthdaysAndNewHires = ({
   setrecentHire,
 }) => {
   const { applicationColor } = useThemeContext();
-  const { loadingTerm, orgDetails, recentHire } = useStateContext();
+  const { loadingTerm, orgDetails, employeeDetails, recentHire } =
+    useStateContext();
   {
     console.log(setrecentHire, "iuytfg");
   }
@@ -460,26 +461,35 @@ const BirthdaysAndNewHires = ({
               </p>
             </div>
             {/* <div className="new-hire-dropdown">...</div> */}
-            <div className="dropdown new-hire-dropdown">
-              <Link
-                className="user-image fs-4"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                ...
-              </Link>
 
-              <ul className="dropdown-menu user-dropdown">
+            {employeeDetails.collection === "USER" ? (
+              <div className="dropdown new-hire-dropdown">
                 <Link
-                  to={`/admin/employee/${item.employee_id}`}
-                  className="dropdown-item"
+                  className="user-image fs-4"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
                 >
-                  <CgProfile />
-                  Profile
+                  ...
                 </Link>
-              </ul>
-            </div>
+
+                <ul className="dropdown-menu user-dropdown">
+                  {employeeDetails.collection === "USER" ? (
+                    <Link
+                      to={`/admin/employee/${item?.employee_id}`}
+                      className="dropdown-item"
+                    >
+                      <CgProfile />
+                      Profile
+                    </Link>
+                  ) : (
+                    ""
+                  )}
+                </ul>
+              </div>
+            ) : (
+              ""
+            )}
           </section>
         ))
       ) : (

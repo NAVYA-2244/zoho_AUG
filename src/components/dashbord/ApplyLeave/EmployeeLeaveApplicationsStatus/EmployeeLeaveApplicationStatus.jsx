@@ -7,7 +7,7 @@ import { RiStickyNoteFill } from "react-icons/ri";
 import { FaCheck } from "react-icons/fa";
 import { useThemeContext } from "../../../Contexts/ThemesContext";
 const EmployeeLeaveApplicationStatus = () => {
-  const { employeeData } = useStateContext();
+  const { employeeData, adminGettingLeaveApplications } = useStateContext();
   const { applicationColor } = useThemeContext();
   const [leaveStatus, setLeaveStatus] = useState([
     {
@@ -40,6 +40,8 @@ const EmployeeLeaveApplicationStatus = () => {
   let totalApprovedLeaveApplications;
   let totalRejectedLeaveApplications;
   let totalPendingLeaveApplication;
+
+  // console.log("adminGettingLeaveApplications", adminGettingLeaveApplications);
 
   useEffect(() => {
     if (Object.keys(employeeData).length > 0) {

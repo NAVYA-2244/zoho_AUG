@@ -43,7 +43,7 @@ const Headers = () => {
     setCheckIn,
     todayAttendance,
     setTodayAttendance,
-  setrecentHire,
+    setrecentHire,
     setBirthdays,
   } = useStateContext();
   const { checkingDataThere } = useFunctionContext();
@@ -194,7 +194,7 @@ const Headers = () => {
           ? false
           : true
       );
-      } catch (error) {
+    } catch (error) {
       console.log(error, "eroor");
     }
   };
@@ -302,10 +302,14 @@ const Headers = () => {
             </Link>
 
             <ul className="dropdown-menu user-dropdown">
-              <Link to={"/admin/profile"} className="dropdown-item">
-                <CgProfile />
-                Profile
-              </Link>
+              {employeeDetails.collection === "USER" ? (
+                ""
+              ) : (
+                <Link to={"/admin/profile"} className="dropdown-item">
+                  <CgProfile />
+                  Profile
+                </Link>
+              )}
 
               <Link className="dropdown-item" onClick={handleLogout}>
                 <TbLogout2 />

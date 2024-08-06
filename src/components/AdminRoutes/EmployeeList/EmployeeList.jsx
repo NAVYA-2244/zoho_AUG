@@ -35,7 +35,6 @@
 //   const [showButton, setShowButton] = useState(false);
 //   const [resetButton, setResetButton] = useState(false);
 
-
 //   let tableHeadProperties = [
 //     {
 //       name: "Employee ID",
@@ -167,7 +166,7 @@
 //       setLoadingTerm("getExtraEmployees");
 
 //       setLoading(false);
-      
+
 //       setLoadingTerm("");
 //     } catch (error) {
 //       setLoading(false);
@@ -178,7 +177,7 @@
 //       setLoadingTerm("");
 //     }
 //   };
-  
+
 //   // This callback is responseible to observe the last item in the employeelist and based omn some conditions will make some netwrok call
 //   const gettingMoreDataRef = useCallback(
 //     (node) => {
@@ -225,7 +224,7 @@
 //           firstName?.toLowerCase().includes(lowerCaseSearchTerm) ||
 //           employeeId.toLowerCase().includes(lowerCaseSearchTerm) ||
 //           lastName?.toLowerCase().includes(lowerCaseSearchTerm) ||
-//           email?.toLowerCase().includes(lowerCaseSearchTerm) 
+//           email?.toLowerCase().includes(lowerCaseSearchTerm)
 //           // dateOfJoining?.toLowerCase().includes(lowerCaseSearchTerm) ||
 //           // departmentName?.toLowerCase().includes(lowerCaseSearchTerm) ||
 //           // designationName?.toLowerCase().includes(lowerCaseSearchTerm) ||
@@ -406,7 +405,7 @@ const EmployeeList = () => {
     { name: "Last Name", property: "basic_info.last_name" },
     { name: "Department", property: "work_info.department_name" },
     { name: "Designation", property: "work_info.designation_name" },
-    { name: "Location", property: "contact_details.seating_location" },
+    { name: "Location", property: "work_info.location_name" },
     { name: "Shift", property: "work_info.shift_name" },
     { name: "Date of Join", property: "work_info.date_of_join" },
     { name: "Action", property: "", type: "string" },
@@ -422,6 +421,7 @@ const EmployeeList = () => {
         );
         setEmployeesList(employees);
         setFilteredEmployees(employees);
+        console.log(employees, "employees");
       } catch (error) {
         toastOptions.error(error?.response?.data || "something went wrong");
       } finally {
