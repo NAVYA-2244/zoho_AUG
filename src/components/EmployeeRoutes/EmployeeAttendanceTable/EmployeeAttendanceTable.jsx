@@ -341,13 +341,13 @@ const EmployeeAttendanceTable = () => {
     let hours = (minutes / 60).toFixed(2);
     return hours !== "NaN" ? `${hours} hrs` : "-";
   };
-
   const findCheckin = (time) => {
+    console.log(time.status, "time");
     if (time.checkin.length > 0 && time.checkout.length > 0) {
       return "Present";
     } else if (time.checkin.length > 0 && time.checkout.length === 0) {
       return "Checkin";
-    } else if (time.status === "leave") return "Absent";
+    } else if (time.status === "leave") return time.leave.leave_type;
   };
 
   const tableHeadProperties = [

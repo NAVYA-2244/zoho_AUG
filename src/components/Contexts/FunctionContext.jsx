@@ -14,7 +14,6 @@ export const FunctionContextProvider = ({ children }) => {
   } = useStateContext();
   //  const navigate= useNavigate()
   const handleChange = (e, schema, setForm, index = null, fieldName = null) => {
-
     const { name, type, checked, id } = e.target;
     let value = e.target.value;
     let max = schema?._rules[1]?.args?.limit || 200;
@@ -25,7 +24,7 @@ export const FunctionContextProvider = ({ children }) => {
       return;
     }
     if ((type === "textarea" || type === "email") && id !== "password") {
-      value = value.replace(/[^A-Za-z0-9@.\s-]/g, "");
+      value = value.replace(/[^A-Za-z0-9@.\s.,!()-:;]/g, "");
     }
     if (
       type === "text" &&
@@ -81,7 +80,6 @@ export const FunctionContextProvider = ({ children }) => {
   };
 
   const checkErrors = async (schema, formData) => {
-
     const mainSchema = Joi.object(schema);
     // console.log(mainSchema, "mainschema")
     const { error } = mainSchema.validate(formData, { abortEarly: false });
@@ -120,7 +118,6 @@ export const FunctionContextProvider = ({ children }) => {
 
     setErrors({});
     return Promise.resolve([]);
-
   };
 
   const updateWidth = async (setWidth, ref) => {

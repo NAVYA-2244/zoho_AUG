@@ -169,7 +169,7 @@ const SingleEmployeeProfileEdit = () => {
       .label("Degree or Diploma"),
     specialization: Joi.string()
       .min(5)
-      .max(15)
+      .max(100)
       .allow("")
       .optional()
       .messages({

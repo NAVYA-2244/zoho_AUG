@@ -233,10 +233,10 @@ export function InputText({
           (errors?.[fieldName] &&
             errors?.[fieldName][index] &&
             errors?.[fieldName][index][name])) && (
-            <div className="error-message">
-              <span>{errors[name] || errors?.[fieldName][index][name]}</span>
-            </div>
-          )}
+          <div className="error-message">
+            <span>{errors[name] || errors?.[fieldName][index][name]}</span>
+          </div>
+        )}
       </div>
     </>
   );
@@ -266,8 +266,7 @@ export function Input_text({
   };
 
   const error =
-    errors[name] ||
-    (errors?.[fieldName] && errors?.[fieldName][index]?.[name]);
+    errors[name] || (errors?.[fieldName] && errors?.[fieldName][index]?.[name]);
 
   return (
     <div className="total-form">
@@ -410,6 +409,7 @@ export function Input_area({
 }) {
   const { errors } = useStateContext();
   const { handleChange } = useFunctionContext();
+
   const { applicationColor } = useThemeContext();
 
   return (
@@ -466,10 +466,10 @@ export function Input_area({
           (errors?.[fieldName] &&
             errors?.[fieldName][index] &&
             errors?.[fieldName][index][name])) && (
-            <div className="error-message">
-              <span>{errors[name] || errors?.[fieldName][index][name]}</span>
-            </div>
-          )}
+          <div className="error-message">
+            <span>{errors[name] || errors?.[fieldName][index][name]}</span>
+          </div>
+        )}
       </div>
     </>
   );
@@ -532,7 +532,7 @@ export function InputEmail({
                 color: applicationColor.readColor1,
               }}
 
-            //        onChange={(e) => handleChange(e, schema, setForm)}
+              //        onChange={(e) => handleChange(e, schema, setForm)}
             />
           </div>
         </div>
@@ -639,14 +639,11 @@ export function Input_email({
   return (
     <div className="total-form">
       <div className="main_label">
-        <label
-          htmlFor={name}
-          style={{ color: applicationColor.readColor2 }}
-        >
+        <label htmlFor={name} style={{ color: applicationColor.readColor2 }}>
           {imp ? (
             <>
               {placeholder}
-              <sup style={{ color: 'red' }}> *</sup>
+              <sup style={{ color: "red" }}> *</sup>
             </>
           ) : (
             placeholder
@@ -1021,10 +1018,10 @@ export function Date_Input({
           (errors?.[fieldName] &&
             errors?.[fieldName][index] &&
             errors?.[fieldName][index][name])) && (
-            <div className="error-message">
-              <span>{errors[name] || errors?.[fieldName][index][name]}</span>
-            </div>
-          )}
+          <div className="error-message">
+            <span>{errors[name] || errors?.[fieldName][index][name]}</span>
+          </div>
+        )}
       </div>
     </>
   );
@@ -1281,7 +1278,7 @@ export const PDFInput = ({
               onChange={handlePDFUpload}
               ref={inputRef}
               schema={schema}
-            // value={value}
+              // value={value}
             />
           </div>
         </div>

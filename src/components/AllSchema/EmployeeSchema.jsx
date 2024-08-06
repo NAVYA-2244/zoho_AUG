@@ -369,7 +369,7 @@ export const ExpirementSchema = {
           .label("Degree or Diploma"),
         specialization: Joi.string()
           .min(5)
-          .max(15)
+          .max(100)
           .allow("")
           .messages({
             "string.pattern.base":
@@ -639,33 +639,45 @@ const EmployeeDataSchema = {
   tags: Joi.string().allow("").optional().label("Tags"),
 
   present_address: Joi.string()
+
     .min(10)
     .max(250)
     .required()
-    .pattern(/^[a-zA-Z0-9 ,]*$/, {
-      name: "alphanumeric with spaces and commas",
+    .pattern(/^[a-zA-Z0-9 ,.]*$/, {
+      name: "'alphanumeric with spaces, commas, and dots'",
     })
     .messages({
       "string.pattern.base":
-        '"Present Address" should not include special characters',
+        '"Present Address" should only include alphanumeric characters, spaces, commas, and dots',
       "any.required": '"Present Address" is required',
     })
     .label("Present Address"),
-
   // dateOfExit: Joi.date().allow("").messages({
   //   "date.base": `"dateOfExit" should be a valid date`,
   // }),
 
   permanent_address: Joi.string()
+    // .min(10)
+    // .max(250)
+    // .required()
+    // .pattern(/^[a-zA-Z0-9 ,]*$/, {
+    //   name: "'alphanumeric with spaces, commas, and dots'",
+    // })
+    // .messages({
+    //   "string.pattern.base":
+    //     '"Permanent Address" should not include special characters',
+    //   "any.required": '"Permanent Address" is required',
+    // })
+    // .label("Permanent Address"),
     .min(10)
     .max(250)
     .required()
-    .pattern(/^[a-zA-Z0-9 ,]*$/, {
-      name: "alphanumeric with spaces and commas",
+    .pattern(/^[a-zA-Z0-9 ,.]*$/, {
+      name: "'alphanumeric with spaces, commas, and dots'",
     })
     .messages({
       "string.pattern.base":
-        '"Permanent Address" should not include special characters',
+        '"Permanent Address" should only include alphanumeric characters, spaces, commas, and dots',
       "any.required": '"Permanent Address" is required',
     })
     .label("Permanent Address"),
@@ -720,7 +732,7 @@ const EmployeeDataSchema = {
     .label("Degree or Diploma"),
   specialization: Joi.string()
     .min(5)
-    .max(15)
+    .max(100)
     .allow("")
     .messages({
       "string.pattern.base":
