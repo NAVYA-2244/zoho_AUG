@@ -43,9 +43,9 @@ const Birthday = ({
                   <div className="person-data">
                     <div className="id_name">
                       <span>
-                        {item?.employee_id} -{" "}
                         <span className="name">
                           {item?.basic_info?.first_name}
+                          <h6>Birthday Today........</h6>
                         </span>
                       </span>
                     </div>
@@ -54,11 +54,7 @@ const Birthday = ({
                       style={{
                         color: applicationColor.readColor2,
                       }}
-                    >
-                      <span>
-                        <MdEmail /> {item.personal_details?.date_of_birth}
-                      </span>
-                    </div>
+                    ></div>
                   </div>
                 </section>
               );
@@ -74,9 +70,10 @@ const Birthday = ({
                   <div className="person-data">
                     <div className="id_name">
                       <span>
-                        {item?.employee_id} -{" "}
+                        {/* {item?.employee_id} -{" "} */}
                         <span className="name">
                           {item?.basic_info?.first_name}
+                          <h6>Birthday today..........</h6>
                         </span>
                       </span>
                     </div>
@@ -86,9 +83,7 @@ const Birthday = ({
                         color: applicationColor.readColor2,
                       }}
                     >
-                      <span>
-                        <MdEmail /> {item.personal_details?.date_of_birth}
-                      </span>
+                      {/* <span>{item.personal_details?.date_of_birth}</span> */}
                     </div>
                   </div>
                 </section>
