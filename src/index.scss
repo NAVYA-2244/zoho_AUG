@@ -579,12 +579,14 @@ input[type="date"] {
 // employee attendence table view
 .year-month-day-selects {
   button {
-    background-color: #6c63fc !important;
-    color: #fff;
-    border-radius: 8px;
+    border-radius: 5px;
     padding: 5px 10px;
     border: none;
     margin-bottom: 1rem;
+  }
+  .filter-btn {
+    background-color: #6c63fc !important;
+    color: #fff;
   }
 }
 

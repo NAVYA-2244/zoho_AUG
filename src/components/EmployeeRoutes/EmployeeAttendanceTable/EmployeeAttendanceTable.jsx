@@ -124,6 +124,7 @@ const EmployeeAttendanceTable = () => {
       return "Checkin";
     } else if (time.status === "leave") return "Absent";
   };
+
   const tableHeadProperties = [
     { name: "Employee Id", property: "employee_id", type: "string" },
     { name: "Date", property: "createdAt", type: "string" },
@@ -137,6 +138,10 @@ const EmployeeAttendanceTable = () => {
       style: { textAlign: "center", paddingLeft: "50px" },
     },
   ];
+
+  const handleReset = () => {
+    setDateState({ year: "", month_date: "", week_date: "" });
+  };
 
   return (
     <main
@@ -180,17 +185,23 @@ const EmployeeAttendanceTable = () => {
         </div>
 
         {dateState.month_date && dateState.year ? (
-          <button
-            className="filter-btn"
-            style={{ background: applicationColor.tabColor }}
-            disabled={loadingTerm === "attendanceFromTo"}
-          >
-            {loading && loadingTerm === "attendanceFromTo" ? (
-              <Loader />
-            ) : (
-              "Submit"
-            )}
-          </button>
+          <div className="filter-btns d-flex gap-2">
+            <button
+              className="filter-btn"
+              style={{ background: applicationColor.tabColor }}
+              disabled={loadingTerm === "attendanceFromTo"}
+            >
+              {loading && loadingTerm === "attendanceFromTo" ? (
+                <Loader />
+              ) : (
+                "Submit"
+              )}
+            </button>
+
+            <button className="reset-btn" onClick={handleReset}>
+              Reset
+            </button>
+          </div>
         ) : (
           ""
         )}

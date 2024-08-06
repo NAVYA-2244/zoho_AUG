@@ -37,10 +37,10 @@ const CustomBarChart = () => {
     fontSize: "1rem", // Font size
   };
   const barStyle = {
-    fill: "#0097FF",
+    // fill: "#0097FF",
+    fill: "#6c63fc",
     filter: "brightness(115%)",
   };
-
 
   const tooltipStyle = {
     backgroundColor: "#F5F5F5", // Change this to your desired background color
