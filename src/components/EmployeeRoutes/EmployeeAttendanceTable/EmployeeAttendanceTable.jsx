@@ -180,7 +180,7 @@
 //         ) : (
 //           ""
 //         )}
-        
+
 //       </form>
 //       <section className="tables">
 //         <table className="main-table">
@@ -288,13 +288,12 @@ const EmployeeAttendanceTable = () => {
     setLoading(true);
     setLoadingTerm("attendanceFromTo");
     try {
-    
       const data = {
         year: dateState.year,
         month_date: dateState.month_date,
         week_date: dateState.week_date,
       };
-     
+
       const response = await backEndCallObjNothing(
         "/emp_get/get_attendance_by_filter",
         data
@@ -412,8 +411,9 @@ const EmployeeAttendanceTable = () => {
 
         <div className="form-buttons">
           {dateState.month_date && dateState.year && (
-            <div className="filter-btns d flex gap-2">
-              <button className="filter-btn"
+            <div className="filter-btns d-flex gap-2">
+              <button
+                className="filter-btn"
                 style={{ background: applicationColor.tabColor }}
                 disabled={loadingTerm === "attendanceFromTo"}
               >
