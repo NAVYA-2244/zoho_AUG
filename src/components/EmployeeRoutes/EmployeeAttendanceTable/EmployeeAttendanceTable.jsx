@@ -141,6 +141,7 @@ const EmployeeAttendanceTable = () => {
 
   const handleReset = () => {
     setDateState({ year: "", month_date: "", week_date: "" });
+    setDates([]); // Clear the dates array
   };
 
   return (

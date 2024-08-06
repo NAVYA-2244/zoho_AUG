@@ -135,10 +135,7 @@ function ApplyLeaveForm() {
             style={{ cursor: "pointer" }}
           />
         </div>
-        <h5
-          className="apply-leave-heading"
-          style={{ color: applicationColor.readColor1 }}
-        >
+        <h5 className="apply-leave-heading mt-4 mb-3 ms-3 fw-semibold">
           Apply Leave
         </h5>
         <form className="leave-form" onSubmit={onLeaveApply}>
@@ -180,6 +177,15 @@ function ApplyLeaveForm() {
             </div>
             <div className="col-lg-6 col-md-6">
               <section>
+                <Input_email
+                  type="email"
+                  placeholder="Team Email ID"
+                  name="team_mail_id"
+                  value={formData.team_mail_id}
+                  setForm={setFormData}
+                  schema={leaveFormSchema.team_mail_id}
+                  imp
+                />
                 <Date_Input
                   type="date"
                   value={formData.to_date}
@@ -189,6 +195,7 @@ function ApplyLeaveForm() {
                   schema={leaveFormSchema.to_date}
                   imp
                 />
+
                 {/* <Input_text
                   value={formData.days_taken}
                   name="days_taken"
@@ -207,15 +214,6 @@ function ApplyLeaveForm() {
                   schema={leaveFormSchema.team_mail_id}
                   imp
                 /> */}
-                <Input_email
-                  type="email"
-                  placeholder="Team Email ID"
-                  name="team_mail_id"
-                  value={formData.team_mail_id}
-                  setForm={setFormData}
-                  schema={leaveFormSchema.team_mail_id}
-                  imp
-                />
               </section>
             </div>
           </div>
@@ -224,7 +222,7 @@ function ApplyLeaveForm() {
             <button
               type="submit"
               disabled={loading}
-              className="btn btn-primary"
+              className="btn btn-primary mt-2 px-2"
             >
               Apply Leave
             </button>
