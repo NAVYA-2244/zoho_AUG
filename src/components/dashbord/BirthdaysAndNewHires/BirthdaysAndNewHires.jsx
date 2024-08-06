@@ -441,7 +441,7 @@ const BirthdaysAndNewHires = ({
               background: applicationColor.cardBg2,
             }}
           >
-            {console.log({ recentHiresToDisplay }, "iugf")}
+           
             <div className="person-img">
               <img
                 src="https://img.freepik.com/free-photo/portrait-man-having-great-time_23-2149443790.jpg?size=626&ext=jpg&ga=GA1.1.2082370165.1717027200&semt=ais_user"

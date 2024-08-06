@@ -288,13 +288,13 @@ const EmployeeAttendanceTable = () => {
     setLoading(true);
     setLoadingTerm("attendanceFromTo");
     try {
-      console.log("hiiii");
+    
       const data = {
         year: dateState.year,
         month_date: dateState.month_date,
         week_date: dateState.week_date,
       };
-      console.log("data", data);
+     
       const response = await backEndCallObjNothing(
         "/emp_get/get_attendance_by_filter",
         data

@@ -105,8 +105,8 @@ export const OnlyBirthDaysAndNewHires = () => {
       setLoadingTerm("");
     }
   };
-  console.log("setrecentHire", recentHire);
-  console.log("birthdays",Birthdays)
+  // console.log("setrecentHire", recentHire);
+  // console.log("birthdays",Birthdays)
   // This call back function will responsible to obeserve the last item in the todayBirthdays Array and make the network call based on some condtions
   const birthdayListRef = useCallback(
     (node) => {
