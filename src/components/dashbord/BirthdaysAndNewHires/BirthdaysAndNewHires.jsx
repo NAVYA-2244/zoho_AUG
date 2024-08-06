@@ -471,7 +471,10 @@ const BirthdaysAndNewHires = ({
               </Link>
 
               <ul className="dropdown-menu user-dropdown">
-                <Link to={"/admin/profile"} className="dropdown-item">
+                <Link
+                  to={`/admin/employee/${item.employee_id}`}
+                  className="dropdown-item"
+                >
                   <CgProfile />
                   Profile
                 </Link>

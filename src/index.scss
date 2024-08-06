@@ -576,6 +576,18 @@ input[type="date"] {
   }
 }
 
+// employee attendence table view
+.year-month-day-selects {
+  button {
+    background-color: #6c63fc !important;
+    color: #fff;
+    border-radius: 8px;
+    padding: 5px 10px;
+    border: none;
+    margin-bottom: 1rem;
+  }
+}
+
 // all employee attendance - cardview (for Admin)
 
 .admin_all_employees-cardView {

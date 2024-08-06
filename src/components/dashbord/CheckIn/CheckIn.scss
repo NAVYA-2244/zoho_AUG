@@ -52,22 +52,25 @@
       }
     }
     .check-in-ckeckout-buttons {
-      .check-out {
-        background-color: #ed2b2a !important;
-        color: #fff !important;
+      .check-in-button.check-out {
+        background-color: #e95b6d !important;
+        color: #fff;
       }
+
       .check-in-button {
-        text-transform: capitalize;
-        @include button();
-        @include flexColoum();
-        width: 100px;
-        border-radius: 4px;
-        justify-content: flex-start;
-        font-size: 0.8rem;
-        padding: 1px 0px;
-        background: $primary-bg-color;
+        color: #fff;
+        font-size: 13px;
+        height: 38px;
+        border-radius: 3px;
+        border: 0px;
+        text-align: center;
+        background-color: #28cea6;
         display: flex;
         flex-direction: column;
+        align-items: center;
+        width: fit-content;
+        padding: 5px 18px;
+
         @include SMmobile {
           width: 79px;
         }
@@ -87,13 +90,13 @@
   }
   .notes-check-in-card {
     width: 100%;
-    background-image: radial-gradient(
-      circle 918px at 13.1% 25.5%,
-      rgb(252, 79, 79) 0%,
-      rgb(244, 213, 101) 48.9%
-    );
-    background: #a3d8ff;
-    background: #0097ff;
+    // background-image: radial-gradient(
+    //   circle 918px at 13.1% 25.5%,
+    //   rgb(252, 79, 79) 0%,
+    //   rgb(244, 213, 101) 48.9%
+    // );
+    // background: #a3d8ff;
+    background-color: #6c63fc;
     filter: brightness(115%);
     color: white !important;
     display: flex;

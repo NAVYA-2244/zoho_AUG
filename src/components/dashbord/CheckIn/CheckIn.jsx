@@ -683,7 +683,7 @@ const CheckIn = () => {
 
              <button
              className="check-in-button"
-             style={{ background: Object.keys(orgDetails).length > 0 ? applicationColor.cardBg2 : "#000", color: applicationColor.readColor1 }}
+            //  style={{ background: Object.keys(orgDetails).length > 0 ? applicationColor.cardBg2 : "#000", color: applicationColor.readColor1 }}
              onClick={handleCheckIn}
              disabled={!Object.keys(orgDetails).length}
            >
@@ -697,7 +697,7 @@ const CheckIn = () => {
 className="check-in-button check-out"
 onClick={handleCheckOut}
 disabled={!Object.keys(orgDetails).length}
-style={{ background: Object.keys(orgDetails).length > 0 ? applicationColor.cardBg2 : "#000", color: applicationColor.readColor1 }}
+// style={{ background: Object.keys(orgDetails).length > 0 ? applicationColor.cardBg2 : "#000", color: applicationColor.readColor1 }}
 >
 <span>{Object.keys(orgDetails).length > 0 ? "Check Out" : <Loader />}</span>
 {loading && loadingTerm === "checkIn_checkOut" ? <Loader /> : fakeTimer}

@@ -13,6 +13,15 @@
     width: 60%;
     gap: 10px;
 
+    .filter-btn {
+      background: rgb(255, 255, 255);
+      border-radius: 8px;
+      padding: 5px 10px;
+      border: none;
+      background-color: #6c63fc;
+      color: #fff;
+    }
+
     button {
       min-width: 100px;
       padding: 4px;

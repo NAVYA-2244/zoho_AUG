@@ -526,7 +526,9 @@ const EmployeeDataSchema = {
   permanantAddress: Joi.string()
     .min(5)
     .max(250)
-    .allow("")
+    .pattern(/^[a-zA-Z0-9 ,]*$/, {
+      name: "alphanumeric with spaces and commas",
+    })
     .messages({
       "string.pattern.base":
         '"Permanent Address" should not include special characters',
@@ -539,7 +541,9 @@ const EmployeeDataSchema = {
   about_me: Joi.string()
     .min(5)
     .max(250)
-    .allow("")
+    .pattern(/^[a-zA-Z0-9 ,]*$/, {
+      name: "alphanumeric with spaces and commas",
+    })
     .messages({
       "string.pattern.base": '"About Me" should not include special characters',
       "any.required": '"About Me" is required',
@@ -638,6 +642,9 @@ const EmployeeDataSchema = {
     .min(10)
     .max(250)
     .required()
+    .pattern(/^[a-zA-Z0-9 ,]*$/, {
+      name: "alphanumeric with spaces and commas",
+    })
     .messages({
       "string.pattern.base":
         '"Present Address" should not include special characters',
@@ -653,7 +660,9 @@ const EmployeeDataSchema = {
     .min(10)
     .max(250)
     .required()
-
+    .pattern(/^[a-zA-Z0-9 ,]*$/, {
+      name: "alphanumeric with spaces and commas",
+    })
     .messages({
       "string.pattern.base":
         '"Permanent Address" should not include special characters',
