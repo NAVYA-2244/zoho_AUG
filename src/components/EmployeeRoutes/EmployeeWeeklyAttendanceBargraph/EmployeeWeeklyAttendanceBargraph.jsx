@@ -37,8 +37,8 @@ const CustomBarChart = () => {
     fontSize: "1rem", // Font size
   };
   const barStyle = {
-    // fill: "#0097FF",
-    fill: "#6c63fc",
+    // fill: "#0097FF",#3f83b4, 6c63fc
+    fill: "#3f83b4",
     filter: "brightness(115%)",
   };
 

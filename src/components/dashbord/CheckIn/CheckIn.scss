@@ -90,13 +90,15 @@
   }
   .notes-check-in-card {
     width: 100%;
-    // background-image: radial-gradient(
-    //   circle 918px at 13.1% 25.5%,
-    //   rgb(252, 79, 79) 0%,
-    //   rgb(244, 213, 101) 48.9%
-    // );
+    background: #6c63fc;
+    background: linear-gradient(
+      90deg,
+      rgba(108, 99, 252, 1) 28%,
+      rgb(0, 212, 255) 100%
+    );
     // background: #a3d8ff;
-    background-color: #6c63fc;
+    // background-color: #6c63fc;
+    // background-color: #3f83b4;
     filter: brightness(115%);
     color: white !important;
     display: flex;
