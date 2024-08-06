@@ -36,7 +36,7 @@
 
 //         <div className="edit-details">
 //           {/* {loading && loadingTerm === type ? (
-//             <>  
+//             <>
 //               <Loader />
 //             </>
 //           ) : ( */}
@@ -74,10 +74,14 @@ const ReusableProfileForm = ({ form, type, submit }) => {
     e.preventDefault();
     await submit(formData, setFormData);
   };
-  console.log("formdata", form)
+  console.log("formdata", form);
   return (
     <form className="profile-form" onSubmit={handleSubmit}>
-      <BasicEmployeeData formData={formData} setFormData={setFormData} type={type} />
+      <BasicEmployeeData
+        formData={formData}
+        setFormData={setFormData}
+        type={type}
+      />
 
       <WorkInformationData
         formData={formData}

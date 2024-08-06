@@ -444,11 +444,12 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
                             >
                               <p>marital_status:</p>
                               <p>
-                                {employeeProfileData.profile.personal_details
+                                {/* {employeeProfileData.profile.personal_details
                                   .marital_status
                                   ? employeeProfileData.profile.personal_details
                                       .marital_status
-                                  : "no data"}
+                                  : "no data"} */}
+                                {personal_details.martial_status || "no data"}
                               </p>
                             </div>
                           </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import {
   Date_Input,
   Input_area,
@@ -20,9 +20,14 @@ import { useThemeContext } from "../../../Contexts/ThemesContext";
 
 const SingleEmployeeProfileEdit = () => {
   const location = useLocation();
+  const [redirect, setRedirect] = useState(false);
+
   const { setLoadingTerm, setLoading } = useStateContext();
+  const { setEmployeedata, employeeData } = useStateContext();
+
   const { checkErrors } = useFunctionContext();
   const { applicationColor } = useThemeContext();
+  const { loading } = useStateContext();
 
   const { employeeProfileData } = location.state || {};
   const eighteenYearsAgo = new Date();
@@ -55,11 +60,10 @@ const SingleEmployeeProfileEdit = () => {
 
     pan: Joi.string()
       .length(10)
-      .regex(/^[A-Z]{5}[0-9]{4}[A-Z]$/) // Assuming PAN format (5 letters, 4 digits, 1 letter)
       .messages({
-        "string.regex.base":
+        "string.pattern.base":
           '"PAN" should consist of 5 letters followed by 4 digits and 1 letter, and should not include special characters',
-        "string.length": '"PAN" should be exactly 10 characters long',
+        "string.length": '"Pan" should be exactly 10 characters long',
         "any.required": '"PAN" is required',
       })
       .required()
@@ -417,15 +421,22 @@ const SingleEmployeeProfileEdit = () => {
         "/emp/edit_profile",
         formattedData
       );
-      console.log(response.success);
+      setEmployeedata(response.data);
+      setRedirect(true);
+      console.log(response);
 
       toastOptions.success(response.success);
       // Handle response if needed
     } catch (error) {
       // Handle error
       console.error("Error updating profile", error);
+    } finally {
+      setLoading(false);
     }
   };
+  if (redirect) {
+    return <Navigate to="/admin/profile" />;
+  }
 
   return (
     <div
@@ -756,13 +767,14 @@ const SingleEmployeeProfileEdit = () => {
           </div>
           <button
             type="submit"
+            disabled={loading}
             style={{
               width: "fit-content",
               padding: "5px 10px",
               marginRight: "0",
             }}
           >
-            Submit
+            {loading ? "Please wait..." : "Submit"}
           </button>
         </div>
       </form>

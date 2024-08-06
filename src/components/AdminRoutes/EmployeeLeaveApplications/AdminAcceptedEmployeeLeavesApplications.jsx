@@ -134,16 +134,15 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
       const data = { leave_application_id, leave_status: "Approved" };
       const response = await backEndCallObjNothing("/user/update_leave", data);
       const updatedApplication = response.data;
-      setAdminGettingLeaveApplications((prev) =>
-        prev.map((app) =>
-          app.leave_application_id === leave_application_id
-            ? updatedApplication
-            : app
-        )
-      );
-      toastOptions.success(
-        `Leave Approved for ${updatedApplication.employee_name}, for ${updatedApplication.days_taken} days from ${updatedApplication.from_date} to ${updatedApplication.to_date}`
-      );
+      // setAdminGettingLeaveApplications((prev) =>
+      //   prev.map((app) =>
+      //     app.leave_application_id === leave_application_id
+      //       ? updatedApplication
+      //       : app
+      //   )
+      // );
+      setAdminGettingLeaveApplications(response);
+      toastOptions.success("Success");
     } catch (error) {
       toastOptions.error(
         error?.response?.data?.detail ||
@@ -157,16 +156,19 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
       const data = { leave_application_id, leave_status: "Rejected" };
       const response = await backEndCallObjNothing("/user/update_leave", data);
       const updatedApplication = response.data;
-      setAdminGettingLeaveApplications((prev) =>
-        prev.map((app) =>
-          app.leave_application_id === leave_application_id
-            ? updatedApplication
-            : app
-        )
+      console.log(
+        adminGettingLeaveApplications,
+        "setAdminGettingLeaveApplications"
       );
-      toastOptions.success(
-        `Leave Rejected for ${updatedApplication.employee_name}, for ${updatedApplication.days_taken} days from ${updatedApplication.from_date} to ${updatedApplication.to_date}`
-      );
+      // setAdminGettingLeaveApplications((prev) =>
+      //   prev.map((app) =>
+      //     app.leave_application_id === leave_application_id
+      //       ? updatedApplication
+      //       : app
+      //   )
+      // );
+      setAdminGettingLeaveApplications(response);
+      toastOptions.error("Rejected");
     } catch (error) {
       toastOptions.error(
         error?.response?.data?.detail ||
@@ -193,6 +195,8 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
     };
     fetchingData();
   }, []);
+
+  console.log(adminGettingLeaveApplications, "Admin");
 
   return (
     <section
