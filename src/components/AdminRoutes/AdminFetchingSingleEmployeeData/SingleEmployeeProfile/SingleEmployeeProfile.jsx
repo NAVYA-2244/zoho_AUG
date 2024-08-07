@@ -6,7 +6,12 @@ import { useStateContext } from "../../../Contexts/StateContext";
 import { useNavigate } from "react-router";
 import Selectinputimg from "../../../EmployeeRoutes/EmployeeAttendance/Selectinputimg";
 import ProfilePhoto from "../../EmployeeForm/ProfilePhoto";
-import { AiOutlineEdit } from "react-icons/ai";
+import { MdPermIdentity } from "react-icons/md";
+
+import { MdOutlineMail } from "react-icons/md";
+import { FaPhone } from "react-icons/fa";
+import { PiIdentificationBadgeBold } from "react-icons/pi";
+
 let educationDetailsProperties = [
   {
     name: "Institute Name",
@@ -70,13 +75,130 @@ let dependentdetails = [
     type: "string",
   },
   {
-    name: "Dependent_Date_Of_Birth",
+    name: "Dependent DOB",
     property: "dependent_date_of_birth",
     type: "string",
   },
   {
     name: "Relationship",
     property: "relation",
+    type: "string",
+  },
+];
+
+let workInformationProperties = [
+  {
+    name: "Date of Joining",
+    property: "date_of_join",
+    type: "string",
+  },
+  {
+    name: "Designation Name",
+    property: "designation_name",
+    type: "string",
+  },
+  {
+    name: "Employee Status",
+    property: "employee_status",
+    type: "string",
+  },
+  {
+    name: "Location",
+    property: "location_name",
+    type: "string",
+  },
+  {
+    name: "Shift",
+    property: "shift_name",
+    type: "string",
+  },
+  {
+    name: "Source of Hire",
+    property: "source_of_hire",
+    type: "string",
+  },
+];
+
+let contactDetailsProperties = [
+  {
+    name: "Permanent Address",
+    property: "permanent_address",
+    type: "string",
+  },
+  {
+    name: "Personal Email",
+    property: "personal_email_address",
+    type: "string",
+  },
+  {
+    name: "Present Address",
+    property: "present_address",
+    type: "string",
+  },
+  {
+    name: "Seating Location",
+    property: "seating_location",
+    type: "string",
+  },
+  {
+    name: "Tags",
+    property: "tags",
+    type: "string",
+  },
+  {
+    name: "Work Phone Number",
+    property: "work_phone_number",
+    type: "string",
+  },
+];
+
+let identityInfoProperties = [
+  {
+    name: "Aadhaar",
+    property: "aadhaar",
+    type: "string",
+  },
+  {
+    name: "PAN",
+    property: "pan",
+    type: "string",
+  },
+  {
+    name: "Passport",
+    property: "passport",
+    type: "string",
+  },
+  {
+    name: "UAN",
+    property: "uan",
+    type: "string",
+  },
+];
+
+let personalDetailsProperties = [
+  {
+    name: "About Me",
+    property: "about_me",
+    type: "string",
+  },
+  {
+    name: "DOB",
+    property: "date_of_birth",
+    type: "string",
+  },
+  {
+    name: "Expertise",
+    property: "expertise",
+    type: "string",
+  },
+  {
+    name: "Gender",
+    property: "gender",
+    type: "string",
+  },
+  {
+    name: "Martial Status",
+    property: "martial_status",
     type: "string",
   },
 ];
@@ -119,6 +241,7 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
   const [currentTab, setCurrentTab] = useState("profile");
   const { applicationColor } = useThemeContext();
   const navigate = useNavigate();
+
   const {
     setLoading,
     setLoadingTerm,
@@ -155,7 +278,6 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
   };
 
   const handleEdit = () => {
-    console.log("hi");
     navigate("/profile_Edit", { state: { employeeProfileData } });
   };
   const {
@@ -165,8 +287,6 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
     work_info,
     personal_details,
   } = employeeProfileData?.profile;
-
-  console.log(basic_info?.first_name, "name");
 
   //Thi`s function updates the employee Status like pending , active ,terminated etc
   // const handleStatusSubmit = async (e) => {
@@ -203,8 +323,13 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
   const workExperiences = employeeProfileData.profile.work_experience;
   const educational_details = employeeProfileData.profile.educational_details;
   const dependent_details = employeeProfileData.profile.dependent_details;
+  const workInfoArray = [work_info];
+  const contactDetailsArray = [contact_details];
+  const identityInfoArray = [identity_info];
+  const personalDetailsArray = [personal_details];
 
-  console.log(employeeProfileData, "profile");
+  console.log({ basic_info });
+
   return (
     <div className="row">
       {/* <h1>hello</h1> */}
@@ -294,427 +419,46 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
               ) : currentTab === "profile" ? (
                 <div className="row">
                   {/*Basic Information */}
-
-                  <div className="col-lg-12">
-                    <br />
-                    <h5 className="profile-heading">My Profile</h5>
-                    <button className="btn btn-primary" onClick={handleEdit}>
-                      Edit
-                    </button>
-                    <section className="info-wrapper user-info-wrapper">
-                      <div className="head-wrapper">
-                        <h5>Basic Information</h5>
-                        <div className="info-details d-flex">
-                          <div className="info-div-right">
-                            <div className="detail">
-                              <p>First Name</p>
-                              <p>{basic_info.first_name || "no data"}</p>
-                            </div>
-                            <div
-                              className="detail"
-                              style={{
-                                color: "red",
-                                color: applicationColor.readColor2,
-                              }}
-                            >
-                              <p>Nick Name</p>
-                              {basic_info.nick_name || "no data"}
-                            </div>
-                            <div
-                              className="detail"
-                              style={{
-                                color: "red",
-                                color: applicationColor.readColor2,
-                              }}
-                            >
-                              <p>Employee Id</p>
-                              {employeeProfileData.profile.employee_id}
-                              <p>Last_ip</p>
-                              {employeeProfileData.profile.last_ip}
-                              <p>Device_id</p>
-                              {employeeProfileData.profile.device_id}
-                            </div>
-                          </div>
-
-                          <div className="info-div-left">
-                            <div className="detail">
-                              <p>Last Name</p>
-
-                              {basic_info.last_name || "no data"}
-                            </div>
-
-                            <div
-                              className="detail"
-                              style={{
-                                color: "red",
-                                color: applicationColor.readColor2,
-                              }}
-                            >
-                              <p>Email</p>
-
-                              {basic_info.email || "no data"}
-                            </div>
-
-                            <div
-                              className="detail"
-                              style={{
-                                color: "red",
-                                color: applicationColor.readColor2,
-                              }}
-                            >
-                              <p>Contact</p>
-                              <p>personal_mobile_number</p>
-                              <p>
-                                {contact_details.personal_mobile_number ||
-                                  "no data"}
-                              </p>
-                            </div>
-                          </div>
+                  <div className="basic-info-wrapper">
+                    <div className="d-flex align-items-center justify-content-between">
+                      <h4 className="profile-heading">Profile</h4>
+                      <button className="btn btn-primary" onClick={handleEdit}>
+                        Edit
+                      </button>
+                    </div>
+                    <div className="basic-information">
+                      <div className="basic-info-left">
+                        <div className="info">
+                          <p>
+                            <MdPermIdentity />
+                          </p>
+                          <p>
+                            {basic_info.first_name || "no data"}&nbsp;
+                            {basic_info.last_name || "no data"}
+                          </p>
+                        </div>
+                        <div className="info detail">
+                          <MdOutlineMail />
+                          <p>{basic_info.email || "no data"}</p>
                         </div>
                       </div>
-                    </section>
+                      <div className="basic-info-right">
+                        <div className="info">
+                          <PiIdentificationBadgeBold />
+                          <p>{employeeProfileData.profile.employee_id}</p>
+                        </div>
+                        <div className="info detail">
+                          <FaPhone />
+                          <p>
+                            {contact_details.personal_mobile_number ||
+                              "no data"}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
+
                   {/*Work Information */}
-
-                  <div className="col-lg-6 col-md-12">
-                    <div
-                      className="info-wrapper user-info-wrapper"
-                      style={{
-                        border: `1px solid ${applicationColor.borderLine}`,
-                      }}
-                    >
-                      <h5>Personal_details</h5>
-                      <div className="head-wrapper">
-                        <div
-                          className="card-1"
-                          style={{
-                            background: applicationColor.cardBg1,
-                            color: applicationColor.readColor1,
-                          }}
-                        >
-                          <div className="info-card">
-                            <div
-                              className="detail"
-                              style={{
-                                color: applicationColor.readColor2,
-                                borderBottom: `1px solid ${applicationColor.borderLine}`,
-                              }}
-                            >
-                              <p>about_me:</p>
-                              <p>{personal_details.about_me || "no data"}</p>
-                            </div>
-                            <div
-                              className="detail"
-                              style={{
-                                color: applicationColor.readColor2,
-                                borderBottom: `1px solid ${applicationColor.borderLine}`,
-                              }}
-                            >
-                              <p>date_of_birth:</p>
-                              <p>
-                                {personal_details.date_of_birth || "no data"}
-                              </p>
-                            </div>
-                            <div
-                              className="detail"
-                              style={{
-                                color: applicationColor.readColor2,
-                                borderBottom: `1px solid ${applicationColor.borderLine}`,
-                              }}
-                            >
-                              <p>expertise:</p>
-                              <p>{personal_details.expertise || "no data"}</p>
-                            </div>
-                            <div
-                              className="detail"
-                              style={{
-                                color: applicationColor.readColor2,
-                                borderBottom: `1px solid ${applicationColor.borderLine}`,
-                              }}
-                            >
-                              <p>gender:</p>
-                              <p>{personal_details.gender || "no data"}</p>
-                            </div>
-                            <div
-                              className="detail"
-                              style={{
-                                color: applicationColor.readColor2,
-                                borderBottom: `1px solid ${applicationColor.borderLine}`,
-                              }}
-                            >
-                              <p>marital_status:</p>
-                              <p>
-                                {/* {employeeProfileData.profile.personal_details
-                                  .marital_status
-                                  ? employeeProfileData.profile.personal_details
-                                      .marital_status
-                                  : "no data"} */}
-                                {personal_details.martial_status || "no data"}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/*Identity Info */}
-
-                  {/* Personal_details*/}
-                  <div className="col-lg-6 col-md-12">
-                    <div
-                      className="info-wrapper user-info-wrapper"
-                      style={{
-                        border: `1px solid ${applicationColor.borderLine}`,
-                      }}
-                    >
-                      <h5>Identity Info</h5>
-                      <div
-                        className="card-1"
-                        style={{
-                          background: applicationColor.cardBg1,
-                          color: applicationColor.readColor1,
-                        }}
-                      >
-                        <div className="info-card identity-info">
-                          <div
-                            className="detail"
-                            style={{
-                              color: applicationColor.readColor2,
-                              borderBottom: `1px solid ${applicationColor.borderLine}`,
-                            }}
-                          >
-                            <p>aadhaar:</p>
-                            <p>{identity_info.aadhaar || "no data"}</p>
-                          </div>
-                        </div>
-                        <div className="info-card identity-info">
-                          <div
-                            className="detail"
-                            style={{
-                              color: applicationColor.readColor2,
-                              borderBottom: `1px solid ${applicationColor.borderLine}`,
-                            }}
-                          >
-                            <p>pan:</p>
-                            <p>{identity_info.pan || "no data"}</p>
-                          </div>
-                        </div>
-                        <div className="info-card identity-info">
-                          <div
-                            className="detail"
-                            style={{
-                              color: applicationColor.readColor2,
-                              borderBottom: `1px solid ${applicationColor.borderLine}`,
-                            }}
-                          >
-                            <p>passport:</p>
-                            <p>{identity_info.passport || "no data"}</p>
-                          </div>
-                        </div>
-                        <div className="info-card identity-info">
-                          <div
-                            className="detail"
-                            style={{
-                              color: applicationColor.readColor2,
-                              borderBottom: `1px solid ${applicationColor.borderLine}`,
-                            }}
-                          >
-                            <p>uan:</p>
-                            <p>{identity_info.uan || "no data"}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-lg-6 col-md-12">
-                    <div
-                      className="info-wrapper user-info-wrapper"
-                      style={{
-                        border: `1px solid ${applicationColor.borderLine}`,
-                      }}
-                    >
-                      <h5>contact_details</h5>
-                      <div className="head-wrapper">
-                        <div
-                          className="card-1"
-                          style={{
-                            background: applicationColor.cardBg1,
-                            color: applicationColor.readColor1,
-                          }}
-                        >
-                          <div className="info-card">
-                            <div
-                              className="detail"
-                              style={{
-                                color: applicationColor.readColor2,
-                                borderBottom: `1px solid ${applicationColor.borderLine}`,
-                              }}
-                            >
-                              <p> permanent_address:</p>
-                              <p>
-                                {contact_details.permanent_address || "no data"}
-                              </p>
-                            </div>
-
-                            <div
-                              className="detail"
-                              style={{
-                                color: applicationColor.readColor2,
-                                borderBottom: `1px solid ${applicationColor.borderLine}`,
-                              }}
-                            >
-                              <p>personal_email_address:</p>
-                              <p>
-                                {contact_details.personal_email_address ||
-                                  "no data"}
-                              </p>
-                            </div>
-
-                            <div
-                              className="detail"
-                              style={{
-                                color: applicationColor.readColor2,
-                                borderBottom: `1px solid ${applicationColor.borderLine}`,
-                              }}
-                            >
-                              <p>present_address:</p>
-                              <p>
-                                {contact_details.present_address || "no data"}
-                              </p>
-                            </div>
-                            <div
-                              className="detail"
-                              style={{
-                                color: applicationColor.readColor2,
-                                borderBottom: `1px solid ${applicationColor.borderLine}`,
-                              }}
-                            >
-                              <p>seating_location:</p>
-                              <p>
-                                {contact_details.seating_location || "no data"}
-                              </p>
-                            </div>
-                            <div
-                              className="detail"
-                              style={{
-                                color: applicationColor.readColor2,
-                                borderBottom: `1px solid ${applicationColor.borderLine}`,
-                              }}
-                            >
-                              <p>tags:</p>
-                              <p>{contact_details.tags || "no data"}</p>
-                            </div>
-                            <div
-                              className="detail"
-                              style={{
-                                color: applicationColor.readColor2,
-                                borderBottom: `1px solid ${applicationColor.borderLine}`,
-                              }}
-                            >
-                              <p>work_phone_number:</p>
-                              <p>
-                                {contact_details.work_phone_number || "no data"}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="col-lg-6 col-md-12">
-                    <div
-                      className="info-wrapper user-info-wrapper"
-                      style={{
-                        border: `1px solid ${applicationColor.borderLine}`,
-                      }}
-                    >
-                      <h5>Work Information</h5>
-                      <div className="head-wrapper">
-                        <div
-                          className="card-1"
-                          style={{
-                            background: applicationColor.cardBg1,
-                            color: applicationColor.readColor1,
-                          }}
-                        >
-                          <div className="info-card">
-                            <div
-                              className="detail"
-                              style={{
-                                color: applicationColor.readColor2,
-                                borderBottom: `1px solid ${applicationColor.borderLine}`,
-                              }}
-                            >
-                              <p>Date_of_join:</p>
-                              <p>{work_info.date_of_join || "no data"}</p>
-                            </div>
-                            <div
-                              className="detail"
-                              style={{
-                                color: applicationColor.readColor2,
-                                borderBottom: `1px solid ${applicationColor.borderLine}`,
-                              }}
-                            >
-                              <p>designation_name:</p>
-                              <p>{work_info.designation_name || "no data"}</p>
-                            </div>
-                            <div
-                              className="detail"
-                              style={{
-                                color: applicationColor.readColor2,
-                                borderBottom: `1px solid ${applicationColor.borderLine}`,
-                              }}
-                            >
-                              <p>employee_status:</p>
-                              <p>{work_info.employee_status || "no data"}</p>
-                            </div>
-                            <div
-                              className="detail"
-                              style={{
-                                color: applicationColor.readColor2,
-                                borderBottom: `1px solid ${applicationColor.borderLine}`,
-                              }}
-                            >
-                              <p>employment_type:</p>
-                              <p>{work_info.employment_type || "no data"}</p>
-                            </div>
-                            <div
-                              className="detail"
-                              style={{
-                                color: applicationColor.readColor2,
-                                borderBottom: `1px solid ${applicationColor.borderLine}`,
-                              }}
-                            >
-                              <p>location_name:</p>
-                              <p>{work_info.location_name || "no data"}</p>
-                            </div>
-                            <div
-                              className="detail"
-                              style={{
-                                color: applicationColor.readColor2,
-                                borderBottom: `1px solid ${applicationColor.borderLine}`,
-                              }}
-                            >
-                              <p>shift_name:</p>
-                              <p>{work_info.shift_name || "no data"}</p>
-                            </div>{" "}
-                            <div
-                              className="detail"
-                              style={{
-                                color: applicationColor.readColor2,
-                                borderBottom: `1px solid ${applicationColor.borderLine}`,
-                              }}
-                            >
-                              <p>source_of_hire:</p>
-                              <p>{work_info.source_of_hire || "no data"}</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                   <div className="col-lg-12 col-md-12">
                     <div
                       className="tables table-wrapper py-2 px-3"
@@ -724,7 +468,100 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
                         marginTop: "20px",
                       }}
                     >
-                      <h4>Education Details</h4>
+                      <h5>Personal Details</h5>
+                      <div className="info-wrapper user-info-wrapper">
+                        <div className="tables">
+                          <table className="main-table table-bordered table-responsive rounded-1">
+                            <TableHead
+                              tableHeadProperties={personalDetailsProperties}
+                              data={personalDetailsArray || []}
+                            />
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/*Identity Info */}
+                  <div className="col-lg-12 col-md-12">
+                    <div
+                      className="tables table-wrapper py-2 px-3"
+                      style={{
+                        background: applicationColor.cardBg1,
+                        color: applicationColor.readColor1,
+                        marginTop: "20px",
+                      }}
+                    >
+                      <h5>Identity Info</h5>
+                      <div className="info-wrapper user-info-wrapper">
+                        <div className="tables">
+                          <table className="main-table table-bordered table-responsive rounded-1">
+                            <TableHead
+                              tableHeadProperties={identityInfoProperties}
+                              data={identityInfoArray || []}
+                            />
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="col-lg-12 col-md-12">
+                    <div
+                      className="tables table-wrapper py-2 px-3"
+                      style={{
+                        background: applicationColor.cardBg1,
+                        color: applicationColor.readColor1,
+                        marginTop: "20px",
+                      }}
+                    >
+                      <h5>Contact Details</h5>
+                      <div className="info-wrapper user-info-wrapper">
+                        <div className="tables">
+                          <table className="main-table table-bordered table-responsive rounded-1">
+                            <TableHead
+                              tableHeadProperties={contactDetailsProperties}
+                              data={contactDetailsArray || []}
+                            />
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="col-lg-12 col-md-12">
+                    <div
+                      className="tables table-wrapper py-2 px-3"
+                      style={{
+                        background: applicationColor.cardBg1,
+                        color: applicationColor.readColor1,
+                        marginTop: "20px",
+                      }}
+                    >
+                      <h5>Work Information</h5>
+                      <div className="info-wrapper user-info-wrapper">
+                        <div className="tables">
+                          <table className="main-table table-bordered table-responsive rounded-1">
+                            <TableHead
+                              tableHeadProperties={workInformationProperties}
+                              data={workInfoArray || []}
+                            />
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="col-lg-12 col-md-12">
+                    <div
+                      className="tables table-wrapper py-2 px-3"
+                      style={{
+                        background: applicationColor.cardBg1,
+                        color: applicationColor.readColor1,
+                        marginTop: "20px",
+                      }}
+                    >
+                      <h5>Education Details</h5>
                       <div className="info-wrapper user-info-wrapper">
                         <div className="tables">
                           <table className="main-table table-bordered table-responsive rounded-1">
@@ -737,6 +574,7 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
                       </div>
                     </div>
                   </div>
+
                   <div className="col-lg-12 col-md-12">
                     <div
                       className="tables table-wrapper py-2 px-3"
@@ -746,7 +584,7 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
                         marginTop: "20px",
                       }}
                     >
-                      <h4>Work Experience</h4>
+                      <h5>Work Experience</h5>
                       <div className="info-wrapper user-info-wrapper">
                         <div className="tables">
                           <table className="main-table table-bordered table-responsive rounded-1">
@@ -759,6 +597,7 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
                       </div>
                     </div>
                   </div>
+
                   <div className="col-lg-12 col-md-12">
                     <div
                       className="tables table-wrapper py-2 px-3"
@@ -768,7 +607,7 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
                         marginTop: "20px",
                       }}
                     >
-                      <h4>Dependent Details</h4>
+                      <h5>Dependent Details</h5>
 
                       <div className="info-wrapper user-info-wrapper">
                         <div className="tables">
