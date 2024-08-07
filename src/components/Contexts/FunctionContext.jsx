@@ -24,8 +24,9 @@ export const FunctionContextProvider = ({ children }) => {
       return;
     }
     if ((type === "textarea" || type === "email") && id !== "password") {
-      value = value.replace(/[^A-Za-z0-9@.\s.,!()-:;]/g, "");
+      value = value.replace(/[^A-Za-z0-9@.\s-]/g, "");
     }
+
     if (
       type === "text" &&
       name !== "uan" &&
@@ -45,7 +46,7 @@ export const FunctionContextProvider = ({ children }) => {
       (type === "text" && name === "uan") ||
       (type === "text" && name === "pan")
     ) {
-      value = value.replace(/[^A-Za-z0-9@." "]/g, "");
+      value = value.replace(/[^A-Za-z0-9]/g, "");
     }
     if (name === "taskName" && type === "textarea") {
       value = value.replace(/[^A-Za-z0-9&,\/\s-]/g, "");

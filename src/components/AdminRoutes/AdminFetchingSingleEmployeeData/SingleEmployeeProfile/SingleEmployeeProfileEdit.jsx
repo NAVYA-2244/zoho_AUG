@@ -48,6 +48,8 @@ const SingleEmployeeProfileEdit = () => {
 
     uan: Joi.string()
       .length(12)
+      .min(12)
+      .max(12)
       .allow("")
       .messages({
         "string.length": '"UAN" should be exactly 12 characters long',
@@ -59,6 +61,8 @@ const SingleEmployeeProfileEdit = () => {
 
     pan: Joi.string()
       .length(10)
+      .min(10)
+      .max(10)
       .messages({
         "string.pattern.base":
           '"PAN" should consist of 5 letters followed by 4 digits and 1 letter, and should not include special characters',
@@ -70,6 +74,8 @@ const SingleEmployeeProfileEdit = () => {
 
     aadhaar: Joi.string()
       .length(12)
+      .min(12)
+      .max(12)
       .allow("")
       .messages({
         "string.length": '"Aadhaar" should be exactly 12 characters long',
@@ -82,6 +88,8 @@ const SingleEmployeeProfileEdit = () => {
 
     passport: Joi.string()
       .length(12)
+      .min(12)
+      .max(12)
       .allow("")
       .optional()
       .messages({
@@ -92,8 +100,8 @@ const SingleEmployeeProfileEdit = () => {
       })
       .label("Passport"),
 
-    work_phone_number: Joi.string().allow(null, "").optional(),
-    personal_mobile_number: Joi.string().required(),
+    work_phone_number: Joi.string().allow(null, "").optional().min(10).max(10),
+    personal_mobile_number: Joi.string().required().min(10).max(10),
 
     personal_email_address: Joi.string()
       .min(5)
@@ -180,7 +188,7 @@ const SingleEmployeeProfileEdit = () => {
       // .max("now")
       // .allow("")
       .optional()
-
+      .max(10)
       .label("Date of Completion"),
 
     name: Joi.string()
@@ -446,15 +454,16 @@ const SingleEmployeeProfileEdit = () => {
       </div> */}
       <form className="profile-form" onSubmit={handleSubmit}>
         <div className="row py-5">
-          <div className="col-lg-4 col-md-4 col-sm-6">
+          {/* <div className="col-lg-4 col-md-4 col-sm-6">
             <Input_text
               type="text"
               name="organisation_id"
               placeholder="Organization ID"
               onChange={handleChange}
               setForm={setFormData}
-              // schema={schema.organisation_id}
+              schema={schema.organisation_id}
               value={formData.organisation_id}
+              maxLength={15}
             />
           </div>
           <div className="col-lg-4 col-md-4 col-sm-6">
@@ -465,9 +474,10 @@ const SingleEmployeeProfileEdit = () => {
               onChange={handleChange}
               setForm={setFormData}
               value={formData.employee_id}
-              // schema={schema.employee_id}
+              schema={schema.employee_id}
+              maxLength={15}
             />
-          </div>
+          </div> */}
           <div className="col-lg-4 col-md-4 col-sm-6">
             <Input_text
               type="text"
@@ -476,7 +486,8 @@ const SingleEmployeeProfileEdit = () => {
               onChange={handleChange}
               setForm={setFormData}
               value={formData.nick_name}
-              // schema={schema.nick_name}
+              schema={schema.nick_name}
+              maxLength={15}
             />
           </div>
           <div className="col-lg-4 col-md-4 col-sm-6">
@@ -487,7 +498,8 @@ const SingleEmployeeProfileEdit = () => {
               setForm={setFormData}
               onChange={handleChange}
               value={formData.expertise}
-              // schema={schema.expertise}
+              schema={schema.expertise}
+              maxLength={250}
             />
           </div>
           <div className="col-lg-4 col-md-4 col-sm-6">
@@ -498,6 +510,7 @@ const SingleEmployeeProfileEdit = () => {
               setForm={setFormData}
               options={["unmarried", "married"]}
               onChange={handleChange}
+              schema={schema.martial_status}
             />
           </div>
           <div className="col-lg-4 col-md-4 col-sm-6">
@@ -508,7 +521,9 @@ const SingleEmployeeProfileEdit = () => {
               value={formData.about_me}
               setForm={setFormData}
               length={250}
+              maxLength={250}
               onChange={handleChange}
+              schema={schema.about_me}
             />
           </div>
           <div className="col-lg-4 col-md-4 col-sm-6">
@@ -519,6 +534,7 @@ const SingleEmployeeProfileEdit = () => {
               onChange={handleChange}
               setForm={setFormData}
               value={formData.aadhaar}
+              schema={schema.aadhaar}
             />
           </div>
           <div className="col-lg-4 col-md-4 col-sm-6">
@@ -529,6 +545,7 @@ const SingleEmployeeProfileEdit = () => {
               setForm={setFormData}
               onChange={handleChange}
               value={formData.pan}
+              schema={schema.pan}
             />
           </div>
           <div className="col-lg-4 col-md-4 col-sm-6">
@@ -539,6 +556,7 @@ const SingleEmployeeProfileEdit = () => {
               onChange={handleChange}
               setForm={setFormData}
               value={formData.passport}
+              schema={schema.passport}
             />
           </div>
           <div className="col-lg-4 col-md-4 col sm-6">
@@ -549,6 +567,7 @@ const SingleEmployeeProfileEdit = () => {
               setForm={setFormData}
               onChange={handleChange}
               value={formData.uan}
+              schema={schema.uan}
             />
           </div>
           <div className="col-lg-4 col-md-4 col sm-6">
@@ -559,6 +578,7 @@ const SingleEmployeeProfileEdit = () => {
               onChange={handleChange}
               setForm={setFormData}
               value={formData.work_phone_number}
+              schema={schema.work_phone_number}
             />
           </div>
           <div className="col-lg-4 col-md-4 col sm-6">
@@ -570,6 +590,7 @@ const SingleEmployeeProfileEdit = () => {
               value={formData.personal_mobile_number}
               setForm={setFormData}
               onChange={handleChange}
+              schema={schema.personal_mobile_number}
             />
           </div>
           <div className="col-lg-4 col-md-4 col sm-6">
@@ -579,6 +600,8 @@ const SingleEmployeeProfileEdit = () => {
               placeholder={"Institute Name"}
               value={formData.institute_name}
               setForm={setFormData}
+              schema={schema.institute_name}
+              maxLength={50}
             />
           </div>
           <div className="col-lg-4 col-md-4 col sm-6">
@@ -588,6 +611,8 @@ const SingleEmployeeProfileEdit = () => {
               placeholder={"Degree"}
               value={formData.degree}
               setForm={setFormData}
+              schema={schema.degree}
+              maxLength={15}
             />
           </div>
           <div className="col-lg-4 col-md-4 col sm-6">
@@ -598,6 +623,8 @@ const SingleEmployeeProfileEdit = () => {
               placeholder={"Specialization"}
               value={formData.specialization}
               setForm={setFormData}
+              schema={schema.specialization}
+              maxLength={100}
             />
           </div>
           <div className="col-lg-4 col-md-4 col sm-6">
@@ -608,6 +635,8 @@ const SingleEmployeeProfileEdit = () => {
               placeholder={"Date of Completion"}
               value={formData.year_of_completion}
               setForm={setFormData}
+              schema={schema.year_of_completion}
+              maxLength={10}
             />
           </div>
           <div className="col-lg-4 col-md-4 col sm-6">
@@ -617,7 +646,9 @@ const SingleEmployeeProfileEdit = () => {
               placeholder="Personal Email Address"
               onChange={handleChange}
               setForm={setFormData}
+              maxLength={50}
               value={formData.personal_email_address}
+              schema={schema.personal_email_address}
             />
           </div>
           <div className="col-lg-4 col-md-4 col sm-6">
@@ -628,6 +659,8 @@ const SingleEmployeeProfileEdit = () => {
               onChange={handleChange}
               setForm={setFormData}
               value={formData.tags}
+              schema={schema.tags}
+              maxLength={50}
             />
           </div>
 
@@ -638,6 +671,8 @@ const SingleEmployeeProfileEdit = () => {
               placeholder={"Company Name"}
               value={formData?.company_name}
               setForm={setFormData}
+              schema={schema.company_name}
+              maxLength={30}
             />
           </div>
 
@@ -648,6 +683,8 @@ const SingleEmployeeProfileEdit = () => {
               placeholder={"Job Title"}
               value={formData?.job_title}
               setForm={setFormData}
+              schema={schema.job_title}
+              maxLength={30}
             />
           </div>
 
@@ -657,7 +694,7 @@ const SingleEmployeeProfileEdit = () => {
               placeholder={"Start Date"}
               value={formData?.from_date}
               setForm={setFormData}
-              schema={schema?.from_date}
+              schema={schema.from_date}
               min={
                 new Date(
                   new Date().getFullYear() - 55,
@@ -677,6 +714,7 @@ const SingleEmployeeProfileEdit = () => {
               placeholder={"End Date"}
               value={formData?.to_date}
               setForm={setFormData}
+              schema={schema.to_date}
               min={
                 new Date(
                   new Date().getFullYear() - 55,
@@ -697,6 +735,8 @@ const SingleEmployeeProfileEdit = () => {
               placeholder={"Relavent Experience"}
               value={formData?.experience}
               setForm={setFormData}
+              schema={schema.experience}
+              maxLength={2}
             />
           </div>
 
@@ -704,9 +744,11 @@ const SingleEmployeeProfileEdit = () => {
             <Input_area
               type={"textarea"}
               name={"job_description"}
-              placeholder={"Job Discription"}
+              placeholder={"Job Description"}
               value={formData?.job_description}
               setForm={setFormData}
+              schema={schema.job_description}
+              maxLength={250}
             />
           </div>
 
@@ -717,6 +759,8 @@ const SingleEmployeeProfileEdit = () => {
               placeholder={"Name"}
               value={formData?.name}
               setForm={setFormData}
+              schema={schema.name}
+              maxLength={50}
             />
           </div>
 
@@ -727,6 +771,8 @@ const SingleEmployeeProfileEdit = () => {
               placeholder={"Relation"}
               value={formData?.relation}
               setForm={setFormData}
+              schema={schema.relation}
+              maxLength={50}
             />
           </div>
 
@@ -737,6 +783,7 @@ const SingleEmployeeProfileEdit = () => {
               name={"dependent_date_of_birth"}
               value={formData.dependent_date_of_birth}
               setForm={setFormData}
+              schema={schema.dependent_date_of_birth}
               min={
                 new Date(
                   new Date().getFullYear() - 60,

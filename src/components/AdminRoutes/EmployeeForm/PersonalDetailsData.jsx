@@ -139,6 +139,7 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                   setForm={setFormData}
                   schema={schema.specialization}
                   index={index}
+                  maxLength={100}
                   fieldName="educational_details"
                 />
               </div>
@@ -150,6 +151,7 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                   value={data?.year_of_completion}
                   setForm={setFormData}
                   schema={schema.year_of_completion}
+                  maxLength={10}
                   // inputRef={(el) => (refs.current.dateOfCompletion = el)}
                   index={index}
                   fieldName="educational_details"
@@ -257,6 +259,7 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                   setForm={setFormData}
                   schema={schema?.name}
                   index={index}
+                  maxLength={50}
                   fieldName="dependent_details"
                 />
               </div>

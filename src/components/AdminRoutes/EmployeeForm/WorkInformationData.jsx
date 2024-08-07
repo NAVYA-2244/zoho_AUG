@@ -112,6 +112,7 @@ const WorkInformationData = ({ formData, setFormData }) => {
             placeholder={"PAN Number"}
             value={formData.pan}
             setForm={setFormData}
+            maxLength={10}
             schema={schema.pan}
             inputRef={(el) => (refs.current.pan = el)}
           />

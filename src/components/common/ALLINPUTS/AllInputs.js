@@ -251,10 +251,12 @@ export function Input_text({
   schema,
   icon,
   imp,
+  maxLength,
   readOnly,
   inputRef,
   index = "",
   fieldName = "",
+  
 }) {
   const { errors } = useStateContext();
   const { handleChange } = useFunctionContext();
@@ -301,6 +303,7 @@ export function Input_text({
             onChange={handleInputChange}
             readOnly={readOnly}
             ref={inputRef}
+            maxLength={maxLength}
             style={{
               background: applicationColor.cardBg2,
               color: applicationColor.readColor1,

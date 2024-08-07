@@ -64,6 +64,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             setForm={setFormData}
             schema={schema?.employee_id}
             imp={true}
+            maxLength={15}
             // readOnly={isAdmin || type === "Update Employee"}
             inputRef={(el) => (refs.current.employee_id = el)}
           />
@@ -107,6 +108,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             value={formData["nick_name"]}
             setForm={setFormData}
             schema={schema["nick_name"]}
+            maxLength={15}
             inputRef={(el) => (refs.current.nick_name = el)}
           />
         </div>
@@ -131,6 +133,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             value={formData["email"]}
             setForm={setFormData}
             schema={schema["email"]}
+            maxLength={50}
             imp={true}
             // readOnly={isAdmin}
             inputRef={(el) => (refs.current.email = el)}
@@ -188,6 +191,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             setForm={setFormData}
             schema={schema.about_me}
             length={250}
+            maxLength={250}
             inputRef={(el) => (refs.current.about_me = el)}
           />
         </div>
@@ -326,6 +330,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             value={formData["expertise"]}
             setForm={setFormData}
             schema={schema["expertise"]}
+            maxLength={250}
             inputRef={(el) => (refs.current.expertise = el)}
             // readOnly={isAdmin}
           />
@@ -340,6 +345,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             value={formData["tags"]}
             setForm={setFormData}
             schema={schema["tags"]}
+            maxLength={50}
             inputRef={(el) => (refs.current.tags = el)}
             // readOnly={isAdmin}
           />
@@ -375,7 +381,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
         </div>
 
         <div className="col-lg-4 col-md-4 col-sm-6">
-          <Input_text
+          {/* <Input_text
             name={"reporting_manager"}
             placeholder={"Reporting Manager Email"}
             value={formData.reporting_manager}
@@ -385,6 +391,18 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             // property={"email"}
             // valueProperty={"employeeId"}
             // imp={true}
+            // readOnly={isAdmin}
+            inputRef={(el) => (refs.current.reporting_manager = el)}
+          /> */}
+          <Input_email
+            type={"email"}
+            name={"reporting_manager"}
+            placeholder={"Reporting Manager Email"}
+            value={formData.reporting_manager}
+            setForm={setFormData}
+            schema={schema.reporting_manager}
+            maxLength={50}
+            imp={true}
             // readOnly={isAdmin}
             inputRef={(el) => (refs.current.reporting_manager = el)}
           />

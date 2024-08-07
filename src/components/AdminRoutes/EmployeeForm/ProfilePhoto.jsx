@@ -1,4 +1,3 @@
-
 // import React, { useState, useEffect, useRef } from "react";
 // import Joi from "joi";
 // import { useStateContext } from "../../Contexts/StateContext";
@@ -138,8 +137,17 @@ import { toastOptions } from "../../../Utils/FakeRoutes";
 import "./ProfilePhoto.scss";
 
 const ProfilePhoto = () => {
-  const { loading, setErrors, setLoading, orgDetails, setOrgDetails, setEmployeeDetails, employeeDetails, profilePhoto, setProfilePhoto } =
-    useStateContext();
+  const {
+    loading,
+    setErrors,
+    setLoading,
+    orgDetails,
+    setOrgDetails,
+    setEmployeeDetails,
+    employeeDetails,
+    profilePhoto,
+    setProfilePhoto,
+  } = useStateContext();
   const { applicationColor } = useThemeContext();
   const fileInputRef = useRef(null);
   const [formData, setFormData] = useState({ image: "" });
@@ -196,7 +204,7 @@ const ProfilePhoto = () => {
       const response = await backEndCallObjNothing("/emp/update_dp", {
         image: formData.image,
       });
-      setProfilePhoto(response?.data|| "");
+      setProfilePhoto(response?.data || "");
       setFormData({ image: "" });
       setError("");
       toastOptions.success("Profile photo updated successfully.");
@@ -219,8 +227,8 @@ const ProfilePhoto = () => {
         <img
           className="main_profile_photo img-fluid"
           src={
-            profilePhoto.dp
-              ? profilePhoto.dp
+            profilePhoto?.dp
+              ? profilePhoto?.dp
               : "https://cdnb.artstation.com/p/assets/images/images/034/457/389/large/shin-min-jeong-.jpg?1612345145"
           }
           alt="profile_photo"
@@ -258,4 +266,3 @@ const ProfilePhoto = () => {
 };
 
 export default ProfilePhoto;
-

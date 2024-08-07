@@ -100,6 +100,7 @@ const HierarchyData = ({ formData, setFormData }) => {
             value={formData.personal_email_address}
             setForm={setFormData}
             schema={schema.personal_email_address}
+            maxLength={50}
             // readOnly={isAdmin}
             imp
             inputRef={(el) => (refs.current.personal_email_address = el)}
@@ -290,6 +291,7 @@ const HierarchyData = ({ formData, setFormData }) => {
                   value={data?.experience}
                   setForm={setFormData}
                   schema={schema?.experience}
+                  maxLength={2}
                   // readOnly={isAdmin}
                   inputRef={(el) => (refs.current.company = el)}
                   index={index}
@@ -306,6 +308,7 @@ const HierarchyData = ({ formData, setFormData }) => {
                   setForm={setFormData}
                   schema={schema?.job_description}
                   length={250}
+                  maxLength={250}
                   fieldName="work_experience"
                   // readOnly={isAdmin}
                 />
