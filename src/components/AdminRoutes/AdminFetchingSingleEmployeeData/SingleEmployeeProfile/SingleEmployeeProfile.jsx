@@ -197,8 +197,8 @@ let personalDetailsProperties = [
     type: "string",
   },
   {
-    name: "Martial Status",
-    property: "martial_status",
+    name: "Marital Status",
+    property: "marital_status",
     type: "string",
   },
 ];

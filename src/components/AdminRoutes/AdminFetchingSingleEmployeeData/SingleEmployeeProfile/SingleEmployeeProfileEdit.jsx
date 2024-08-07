@@ -38,12 +38,13 @@ const SingleEmployeeProfileEdit = () => {
   //       Object.values(item).some((value) => value.length > 0)
   //     )
   //   : [],
+
   const schema = {
     organisation_id: Joi.string().min(15).max(17).required(),
     employee_id: Joi.string().min(5).max(10).required(),
     nick_name: Joi.string().max(15).allow(null, "").optional(),
     expertise: Joi.string().allow(null, "").optional(),
-    martial_status: Joi.string().valid("married", "unmarried").required(),
+    marital_status: Joi.string().valid("married", "unmarried").required(),
     about_me: Joi.string().allow(null, "").optional(),
 
     uan: Joi.string()
@@ -188,7 +189,7 @@ const SingleEmployeeProfileEdit = () => {
       // .max("now")
       // .allow("")
       .optional()
-      .max(10)
+
       .label("Date of Completion"),
 
     name: Joi.string()
@@ -235,8 +236,8 @@ const SingleEmployeeProfileEdit = () => {
     employee_id: employeeProfileData.profile.employee_id || "",
     nick_name: employeeProfileData.profile.basic_info.nick_name || "",
     expertise: employeeProfileData.profile.personal_details.expertise || "",
-    martial_status:
-      employeeProfileData.profile.personal_details.martial_status || "",
+    marital_status:
+      employeeProfileData.profile.personal_details.marital_status || "",
     about_me: employeeProfileData.profile.personal_details.about_me || "",
 
     aadhaar: employeeProfileData.profile.identity_info.aadhaar || "",
@@ -369,7 +370,6 @@ const SingleEmployeeProfileEdit = () => {
           uan: formData.uan,
           passport: formData.passport,
         },
-        marital_status: formData.martial_status,
 
         work_experience: [
           {
@@ -428,10 +428,10 @@ const SingleEmployeeProfileEdit = () => {
       setRedirect(true);
 
       toastOptions.success(response.success);
-      // Handle response if needed
     } catch (error) {
-      // Handle error
-      console.error("Error updating profile", error);
+      console.log(error);
+
+      toastOptions.error("Please Try Again");
     } finally {
       setLoading(false);
     }
@@ -504,13 +504,13 @@ const SingleEmployeeProfileEdit = () => {
           </div>
           <div className="col-lg-4 col-md-4 col-sm-6">
             <Select_inputs
-              name={"martial_status"}
-              placeholder={"Martial Status"}
-              value={formData.martial_status}
+              name={"marital_status"}
+              placeholder={"Marital Status"}
+              value={formData.marital_status}
               setForm={setFormData}
               options={["unmarried", "married"]}
               onChange={handleChange}
-              schema={schema.martial_status}
+              schema={schema.marital_status}
             />
           </div>
           <div className="col-lg-4 col-md-4 col-sm-6">

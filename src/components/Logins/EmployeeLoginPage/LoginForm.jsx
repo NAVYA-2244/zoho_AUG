@@ -114,7 +114,7 @@ const LoginForm = () => {
         browserid: browserId,
       };
       const response = await loginCall("/emp/login_verify", obj);
-
+      console.log(response, "login");
       toastOptions.success("Success");
       setLoader(false);
 
