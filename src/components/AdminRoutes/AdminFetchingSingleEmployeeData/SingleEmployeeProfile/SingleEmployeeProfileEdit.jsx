@@ -32,7 +32,6 @@ const SingleEmployeeProfileEdit = () => {
   const { employeeProfileData } = location.state || {};
   const eighteenYearsAgo = new Date();
   eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18);
-  console.log(employeeProfileData, "data");
 
   // educational_details: Array.isArray(formData?.educational_details);
   //   ? formData.educational_details.filter((item) =>
@@ -44,7 +43,7 @@ const SingleEmployeeProfileEdit = () => {
     employee_id: Joi.string().min(5).max(10).required(),
     nick_name: Joi.string().max(15).allow(null, "").optional(),
     expertise: Joi.string().allow(null, "").optional(),
-    marital_status: Joi.string().valid("married", "unmarried").required(),
+    martial_status: Joi.string().valid("married", "unmarried").required(),
     about_me: Joi.string().allow(null, "").optional(),
 
     uan: Joi.string()
@@ -143,7 +142,7 @@ const SingleEmployeeProfileEdit = () => {
       .optional(),
     experience: Joi.number()
       .max(50)
-      // .allow("")
+      // // .allow("")
       .optional()
       .label("Relevant Experience"),
 
@@ -228,8 +227,8 @@ const SingleEmployeeProfileEdit = () => {
     employee_id: employeeProfileData.profile.employee_id || "",
     nick_name: employeeProfileData.profile.basic_info.nick_name || "",
     expertise: employeeProfileData.profile.personal_details.expertise || "",
-    marital_status:
-      employeeProfileData.profile.personal_details.marital_status || "",
+    martial_status:
+      employeeProfileData.profile.personal_details.martial_status || "",
     about_me: employeeProfileData.profile.personal_details.about_me || "",
 
     aadhaar: employeeProfileData.profile.identity_info.aadhaar || "",
@@ -332,8 +331,6 @@ const SingleEmployeeProfileEdit = () => {
   });
 
   const handleChange = (e) => {
-    console.log(e);
-
     const { name, value } = e.target;
 
     setFormData((prevData) => ({
@@ -342,11 +339,8 @@ const SingleEmployeeProfileEdit = () => {
     }));
   };
 
-  console.log(formData.year_of_completion, "for,");
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("akash");
 
     try {
       setLoading(true);
@@ -367,6 +361,7 @@ const SingleEmployeeProfileEdit = () => {
           uan: formData.uan,
           passport: formData.passport,
         },
+        marital_status: formData.martial_status,
 
         work_experience: [
           {
@@ -423,7 +418,6 @@ const SingleEmployeeProfileEdit = () => {
       );
       setEmployeedata(response.data);
       setRedirect(true);
-      console.log(response);
 
       toastOptions.success(response.success);
       // Handle response if needed
@@ -497,12 +491,10 @@ const SingleEmployeeProfileEdit = () => {
             />
           </div>
           <div className="col-lg-4 col-md-4 col-sm-6">
-            {" "}
             <Select_inputs
-              name={"marital_status"}
-              placeholder={"Marital Status"}
-              value={formData.marital_status}
-              schema={schema.marital_status}
+              name={"martial_status"}
+              placeholder={"Martial Status"}
+              value={formData.martial_status}
               setForm={setFormData}
               options={["unmarried", "married"]}
               onChange={handleChange}

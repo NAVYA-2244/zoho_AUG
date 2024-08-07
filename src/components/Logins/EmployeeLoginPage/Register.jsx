@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { MdOutlineKey } from 'react-icons/md';
-import { MdEmail } from 'react-icons/md';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { MdOutlineKey } from "react-icons/md";
+import { MdEmail } from "react-icons/md";
 
-import { InputEmail, InputPassword } from '../../common/ALLINPUTS/AllInputs';
-import Loader from '../../Loader/Loader';
-import { useStateContext } from '../../Contexts/StateContext';
-import { useFunctionContext } from '../../Contexts/FunctionContext';
+import { InputEmail, InputPassword } from "../../common/ALLINPUTS/AllInputs";
+import Loader from "../../Loader/Loader";
+import { useStateContext } from "../../Contexts/StateContext";
+import { useFunctionContext } from "../../Contexts/FunctionContext";
 
-import Joi from 'joi';
-import { toastOptions } from '../../../Utils/FakeRoutes';
-import { useThemeContext } from '../../Contexts/ThemesContext';
-import { publicIpv4 } from 'public-ip';
-import { fullBrowserVersion } from 'react-device-detect';
-import { backEndCallObjNoEnc } from '../../../services/mainService';
+import Joi from "joi";
+import { toastOptions } from "../../../Utils/FakeRoutes";
+import { useThemeContext } from "../../Contexts/ThemesContext";
+import { publicIpv4 } from "public-ip";
+import { fullBrowserVersion } from "react-device-detect";
+import { backEndCallObjNoEnc } from "../../../services/mainService";
 
 const Register = () => {
-  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const { loadingTerm, setLoadingTerm, loading, setLoading } =
     useStateContext();
   const { applicationColor } = useThemeContext();
@@ -25,9 +25,9 @@ const Register = () => {
     email: Joi.string()
       .min(10)
       .max(25)
-      .email({ tlds: { allow: ['com', 'net', 'org'] } })
+      .email({ tlds: { allow: ["com", "net", "org"] } })
       .required()
-      .label('Email'),
+      .label("Email"),
 
     fcm_token: Joi.string(),
   };
@@ -40,21 +40,21 @@ const Register = () => {
   const EmployeeLoginSubmit = async (e) => {
     try {
       e.preventDefault();
-      setLoadingTerm('login');
+      setLoadingTerm("login");
       setLoading(true);
       await checkErrors(employeeLoginSchema, formData);
 
       formData.last_ip = await publicIpv4();
       formData.device_id = fullBrowserVersion;
-      formData.fcm_token = 'staging';
-      console.log(formData, 'fjnj');
+      formData.fcm_token = "staging";
+      console.log(formData, "fjnj");
 
       const response = await backEndCallObjNoEnc(
-        '/user/login',
+        "/user/login",
         formData,
-        'loginEmployee'
+        "loginEmployee"
       );
-      console.log(response, 'responer');
+      console.log(response, "responer");
       // settingTokens.settingEmployeeToken(response.detail);
       // setLoadingTerm('');
       // if (
@@ -66,15 +66,15 @@ const Register = () => {
       //   }, 0);
       // }
 
-      toastOptions.success('Successfully Login');
+      toastOptions.success("Successfully Login");
     } catch (error) {
       setLoading(false);
 
-      toastOptions.error(error?.response?.data || 'SomeThing Got Wrong');
-      setLoadingTerm('');
+      toastOptions.error(error?.response?.data || "SomeThing Got Wrong");
+      setLoadingTerm("");
     } finally {
       setLoading(false);
-      setLoadingTerm('');
+      setLoadingTerm("");
     }
   };
   const validateField = (name, value) => {
@@ -84,8 +84,8 @@ const Register = () => {
   };
 
   useEffect(() => {
-    const emailValid = validateField('email', formData.email);
-    const passwordValid = validateField('password', formData.password);
+    const emailValid = validateField("email", formData.email);
+    const passwordValid = validateField("password", formData.password);
     setTimeout(() => {
       setIsValid({ email: emailValid, password: passwordValid });
     }, 0);
@@ -93,53 +93,53 @@ const Register = () => {
 
   return (
     <>
-      <form className='employee-login-form' onSubmit={EmployeeLoginSubmit}>
-        <div className='greetings mb-3'>
-          <h2 className='welcome mb-2'>Welcome Back</h2>
-          <h4 className='details mb-2'>Please enter your account details</h4>
+      <form className="employee-login-form" onSubmit={EmployeeLoginSubmit}>
+        <div className="greetings mb-3">
+          <h2 className="welcome mb-2">Welcome Back</h2>
+          <h4 className="details mb-2">Please enter your account details</h4>
         </div>
         {/* <div className="comapany-logo">
           <img src={cglogo} alt="logo" />
         </div> */}
         <InputEmail
-          type={'email'}
-          placeholder={'Email'}
-          name={'email'}
-          value={formData['email']}
+          type={"email"}
+          placeholder={"Email"}
+          name={"email"}
+          value={formData["email"]}
           setForm={setFormData}
           schema={employeeLoginSchema.email}
           imp
           icon={<MdEmail />}
         />
         <InputPassword
-          type={'password'}
-          placeholder={'Password'}
-          name={'password'}
-          value={formData['password']}
+          type={"password"}
+          placeholder={"Password"}
+          name={"password"}
+          value={formData["password"]}
           setForm={setFormData}
-          id={'password'}
+          id={"password"}
           schema={employeeLoginSchema.password}
           imp
           icon={<MdOutlineKey />}
         />
 
         <h5
-          className='forgot-password'
-          onClick={() => navigate('/resetpassword')}
+          className="forgot-password"
+          onClick={() => navigate("/resetpassword")}
         >
           <span>Set Password</span>
         </h5>
 
-        <div className='employee-button'>
+        <div className="employee-button">
           <button
-            className='employee-form-button'
+            className="employee-form-button"
             style={{
               background: applicationColor.tabColor,
             }}
             disabled={!isValid.email || !isValid.password || loading}
           >
-            {' '}
-            {loading && loadingTerm === 'login' ? <Loader /> : 'Sign in'}{' '}
+            {" "}
+            {loading && loadingTerm === "login" ? <Loader /> : "Sign in"}{" "}
           </button>
         </div>
       </form>

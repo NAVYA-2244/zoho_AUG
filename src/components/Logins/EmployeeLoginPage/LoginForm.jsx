@@ -37,12 +37,23 @@ const LoginForm = () => {
   const [browserId, setBrowserId] = useState("");
   const [isValid, setIsValid] = useState({ email: false, otp: false });
   const LoginSchema = {
+    // email: Joi.string()
+    //   .min(10)
+    //   .max(25)
+    //   .email({ tlds: { allow: ["com", "net", "org"] } })
+    //   .required()
+    //   .messages({
+    //     "string.pattern.base": '"Email" should not include special characters',
+    //     "any.required": '"Email" is required',
+    //   })
+    //   .label("Email"),
     email: Joi.string()
-      .min(10)
+      // .min(10)
       .max(25)
       .email({ tlds: { allow: ["com", "net", "org"] } })
       .required()
       .label("Email"),
+
     last_ip: Joi.string().ip().required(),
     device_id: Joi.string().required(),
     fcm_token: Joi.string().required(),
@@ -86,6 +97,10 @@ const LoginForm = () => {
   }, [otp]);
 
   const handleLogin = async (e) => {
+    if (!otp) {
+      toastOptions.error("OTP is required");
+      return;
+    }
     e.preventDefault();
     setLoader(true);
     setBtndisabled(true);
@@ -99,7 +114,7 @@ const LoginForm = () => {
         browserid: browserId,
       };
       const response = await loginCall("/emp/login_verify", obj);
-      console.log(response, "responseotp");
+
       toastOptions.success("Success");
       setLoader(false);
 
@@ -119,7 +134,8 @@ const LoginForm = () => {
         email: formData.email,
       };
       await checkErrors(ResendOTPSchema, obj);
-      
+      setOtp("");
+
       const response = await backEndCallObjNothing("/emp/resend_otp", obj);
       // toastOptions.success(response.success||"OTP Resent Successfully");
       setLoader(false);
@@ -145,10 +161,10 @@ const LoginForm = () => {
       formData.fcm_token = "staging";
       await checkErrors(LoginSchema, formData);
       const response = await backEndCallObjNothing("/emp/login", formData);
-      console.log(response.success);
+      // console.log(response.success);
       setResponse(response);
-
-      toastOptions.success(response?.success || "");
+      setTimeLeft(120);
+      // toastOptions.success(response?.success || "");
     } catch (error) {
       setLoading(false);
       toastOptions.error(error?.response?.data || "Something went wrong login");
@@ -236,7 +252,14 @@ const LoginForm = () => {
                         maxLength={6}
                         placeholder="Enter your otp"
                         value={otp}
-                        onChange={(e) => setOtp(e.target.value)}
+                        // onChange={(e) => setOtp(e.target.value)}
+                        onChange={(e) => {
+                          // Only set the OTP value if the new value contains only numbers
+                          const newValue = e.target.value;
+                          if (/^\d*$/.test(newValue)) {
+                            setOtp(newValue);
+                          }
+                        }}
                       />
                     </div>
                     {timeLeft ? (
@@ -247,7 +270,10 @@ const LoginForm = () => {
                     ) : (
                       <div>
                         <p className="mb-0 mt-4">Didn't receive OTP code?</p>
-                        <button className="btn text-primary p-0 lh-0"onClick={handleResendOTP}>
+                        <button
+                          className="btn text-primary p-0 lh-0"
+                          onClick={handleResendOTP}
+                        >
                           Resend Code
                         </button>
                       </div>
@@ -258,15 +284,11 @@ const LoginForm = () => {
                         onClick={(e) => handleLogin(e)}
                         className="employee-form-button"
                         disabled={btndisabled}
-                      // style={{ background: applicationColor.tabColor }}
+                        // style={{ background: applicationColor.tabColor }}
                       >
                         Verify & Proceed
                       </button>
-
                     </div>
-
-
-                    
                   </div>
                 </div>
               ) : (
@@ -284,9 +306,10 @@ const LoginForm = () => {
                     name={"email"}
                     value={formData["email"]}
                     setForm={setFormData}
+                    schema={LoginSchema.email}
                     required
                     autoComplete="email"
-                    autoFocus
+                    maxLength={50}
                     icon={<MdEmail />}
                   />
 

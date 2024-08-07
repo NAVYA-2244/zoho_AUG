@@ -487,6 +487,8 @@ export function InputEmail({
   readOnly,
   icon,
   inputRef,
+  autoFocus,
+  maxLength
 }) {
   const { errors } = useStateContext();
   const { handleChange } = useFunctionContext();
@@ -527,6 +529,8 @@ export function InputEmail({
               onChange={(e) => handleChange(e, schema, setForm)}
               readOnly={readOnly}
               ref={inputRef}
+              autoFocus={autoFocus}
+              maxLength={maxLength}
               style={{
                 background: applicationColor.cardBg2,
                 color: applicationColor.readColor1,
@@ -630,6 +634,8 @@ export function Input_email({
   readOnly,
   icon,
   inputRef,
+  autoFocus,
+  maxLength
 }) {
   const { errors } = useStateContext();
   const { handleChange } = useFunctionContext();
@@ -663,6 +669,8 @@ export function Input_email({
             value={value}
             onChange={(e) => handleChange(e, schema, setForm)}
             readOnly={readOnly}
+            autoFocus={autoFocus}
+            maxLength={maxLength}
             ref={inputRef}
             style={{
               background: applicationColor.cardBg2,

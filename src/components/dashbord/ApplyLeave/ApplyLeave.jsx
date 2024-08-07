@@ -121,6 +121,7 @@ const ApplyLeave = () => {
       setLoading(false);
     }
   };
+
   return (
     <section className="leave-report">
       <section className="leave-types">

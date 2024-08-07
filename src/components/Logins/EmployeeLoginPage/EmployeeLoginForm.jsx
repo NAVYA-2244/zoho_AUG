@@ -346,6 +346,11 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
   // navigation hook
   const navigate = useNavigate();
   const handleLogin = async (e) => {
+    if (!otp) {
+      toastOptions.error("OTP is required");
+      return;
+    }
+
     e.preventDefault();
     setLoader(true);
     try {
@@ -358,7 +363,7 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
       const response = await loginCall("/user/login_verify", obj);
       console.log(response.success, "response");
       // toastOptions.success(response?.success||"");
-      toastOptions.success("Success");
+      // toastOptions.success("Success");
       setLoader(false);
       // window.location = "/dashboard";
       window.location = "/dashboard";
@@ -370,11 +375,11 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
   const handleResendOtp = async () => {
     try {
       setResendDisabled(true);
-
+      setOtp("");
       const response = await backEndCallObjNothing("/user/resend_otp", {
         email: formData.email,
       });
-      toastOptions.success(response?.success || "OTP Resent");
+      // toastOptions.success(response?.success || "OTP Resent");
       // setTimeout(() => setResendDisabled(false), 60000);
       setTimeLeft(120);
     } catch (error) {
@@ -396,9 +401,10 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
         formData,
         "loginEmployee"
       );
-      console.log(response, "loginresponse");
+      // console.log(response, "loginresponse");
       setResponse(response);
       setOtpType(response.type);
+      setTimeLeft(120);
       // settingTokens.settingEmployeeToken(response.detail);
       // setLoadingTerm('');
       // if (
@@ -409,7 +415,7 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
       //     window.location.href = '/';
       //   }, 0);
       // }
-      toastOptions.success(response?.success || "");
+      // toastOptions.success(response?.success || "");
     } catch (error) {
       setLoading(false);
       toastOptions.error(error?.response?.data || "SomeThing Got Wrong");
@@ -464,7 +470,7 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
               <h4 className="details mb-2 fw-semibold">
                 Please enter OTP Send to Your Registered Email
               </h4>
-              <p className="text-primary mb-4">example@gamil.com</p>
+              <p className="text-primary mb-4">{formData.email}</p>
               <div className="main-input">
                 <div className="icon-prefix">
                   <label htmlFor="otp">OTP</label>
@@ -476,7 +482,12 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
                     maxLength={6}
                     placeholder="Enter your otp"
                     value={otp}
-                    onChange={(e) => setOtp(e.target.value)}
+                    onChange={(e) => {
+                      const newValue = e.target.value;
+                      if (/^\d*$/.test(newValue)) {
+                        setOtp(newValue);
+                      }
+                    }}
                   />
                 </div>
 
