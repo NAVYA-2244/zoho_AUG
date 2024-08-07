@@ -42,11 +42,11 @@
       display: none;
     }
     img {
+      // mix-blend-mode: exclusion;
       width: 10rem;
       object-fit: contain;
       border-radius: 10px;
       max-height: 50px;
-      /* object-fit: cover; */
     }
   }
   hr {

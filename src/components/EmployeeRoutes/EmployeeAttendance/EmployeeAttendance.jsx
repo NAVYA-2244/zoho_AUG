@@ -28,11 +28,14 @@ function EmployeeAttendance() {
           <section className="calender-view">
             {/* <Selectinputimg /> */}
             <div
-              className="d-flex justify-content-end g-3 fs-5"
+              className="d-flex justify-content-start g-3 fs-5 mb-5"
               style={{ gap: "5px" }}
             >
               {tabs.map((tab) => (
                 <button
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title={tab.name}
                   key={tab.name}
                   onClick={() => setCurrentTab(tab.name)}
                   className={`nav-link ${
@@ -52,11 +55,14 @@ function EmployeeAttendance() {
           <section className="table-view">
             <div>{/* <Selectinputimg /> */}</div>
             <div
-              className="d-flex justify-content-end g-3 fs-5"
+              className="d-flex justify-content-start g-3 fs-5 mb-5"
               style={{ gap: "5px" }}
             >
               {tabs.map((tab) => (
                 <button
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title={tab.name}
                   key={tab.name}
                   onClick={() => setCurrentTab(tab.name)}
                   className={`nav-link ${
