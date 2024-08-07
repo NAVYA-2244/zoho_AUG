@@ -34,6 +34,7 @@ const TodaysEmployeesAttendance = () => {
   const todayAttendanceObserver = useRef();
   const [todayAttendanceExist, settodayAttendanceExist] = useState(false);
   // const[loader,setLoader]=useState(false)
+  const[btndisabled,setBtndisabled]=useState(false)
   const navigate = useNavigate();
 
   let [currentTab, setCurrentTab] = useState("table-view");
@@ -94,7 +95,9 @@ const TodaysEmployeesAttendance = () => {
   };
 
   const fetchAttendanceData = async (date) => {
+
     try {
+      setBtndisabled(true)
       setLoading(true);
       const response = await backEndCallObjNothing(
         "/user_get/today_attendance",
@@ -109,6 +112,9 @@ const TodaysEmployeesAttendance = () => {
     } catch (error) {
       console.error("Error fetching attendance data:", error);
       setLoading(false);
+    }
+    finally{
+      setBtndisabled(false)
     }
   };
 
@@ -143,7 +149,11 @@ const TodaysEmployeesAttendance = () => {
       return "Present";
     } else if (time.checkin.length > 0 && time.checkout.length === 0) {
       return "Checkin";
-    } else if (time.status === "leave") return "Absent";
+    } 
+   
+    else if (time.status === "leave")
+      { return "leave";}
+   
   };
 
   return (
@@ -184,11 +194,11 @@ const TodaysEmployeesAttendance = () => {
               />
               {form.dateTime && (
                 <button
-                  disabled={loadingTerm === "gettingAttendanceByDate"}
+                  disabled={loading}
                   onClick={() => fetchAttendanceData(form.dateTime)}
                 >
                   {loading && loadingTerm === "gettingAttendanceByDate"
-                    ? "Loading..."
+                    ? <Loader></Loader>
                     : "Submit"}
                 </button>
               )}
@@ -213,11 +223,11 @@ const TodaysEmployeesAttendance = () => {
               />
               {form.dateTime && (
                 <button
-                  disabled={loadingTerm === "gettingAttendanceByDate"}
+                  disabled={loading}
                   onClick={() => fetchAttendanceData(form.dateTime)}
                 >
                   {loading && loadingTerm === "gettingAttendanceByDate"
-                    ? "Loading..."
+                    ? <Loader></Loader>
                     : "Submit"}
                 </button>
               )}
@@ -310,7 +320,9 @@ const TodaysEmployeesAttendance = () => {
                     </tr>
                   )}
                 </tbody>
+                
               </table>
+              {loading && <Loader></Loader>}
             </div>
           </>
         ) : (
@@ -457,6 +469,8 @@ export const UpdateTodayAttendance = ({ attendanceItem }) => {
 
   let attendanceDataUpdate = () => {
     try {
+    setLoading(true);
+      setLoadingTerm("updatingEmployeeAttendance");
       setAttendanceModal(!attendanceModal);
       setAttendanceModalData({
         heading: "Attendance",
@@ -483,7 +497,15 @@ export const UpdateTodayAttendance = ({ attendanceItem }) => {
       });
     } catch (error) {
       console.log("error", error);
+      toastOptions.error(error)
+       setLoading(false);
+      setLoadingTerm("");
     }
+     finally {
+      setLoading(false);
+      setLoadingTerm("");
+    }
+  
   };
 
   return (
