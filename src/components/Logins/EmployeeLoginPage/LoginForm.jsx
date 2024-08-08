@@ -117,8 +117,10 @@ const LoginForm = () => {
       console.log(response, "login");
       toastOptions.success("Success");
       setLoader(false);
-
-      window.location = "/dashboard";
+      window.localStorage.getItem("zohoEmployeeToken")
+        ? (window.location = "/dashboard")
+        : (window.location = "/loginForm");
+        
     } catch (e) {
       setLoader(false);
       toastOptions.error(e?.response?.data || "Something went wrong otp");
@@ -263,10 +265,17 @@ const LoginForm = () => {
                       />
                     </div>
                     {timeLeft ? (
-                      <p className="my-4">
-                        OTP Expires in:
-                        <span id="timer">{formatTime(timeLeft)}</span>
-                      </p>
+                      <div className="d-flex align-items-center gap-2">
+                        <p className="my-4">OTP Expires in: </p>
+                        <div className="timer-container d-flex align-items-center gap-2">
+                          <span id="timer">{formatTime(timeLeft)}</span>
+                          <div class="loader">
+                            <span class="hour"></span>
+                            <span class="min"></span>
+                            <span class="circel"></span>
+                          </div>
+                        </div>
+                      </div>
                     ) : (
                       <div>
                         <p className="mb-0 mt-4">Didn't receive OTP code?</p>

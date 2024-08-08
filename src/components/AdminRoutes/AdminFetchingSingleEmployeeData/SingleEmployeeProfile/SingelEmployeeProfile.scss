@@ -205,6 +205,10 @@
   padding: 0;
   border-radius: 5px;
 
+  .tables {
+    overflow: unset;
+  }
+
   .info-details {
     justify-content: space-around;
     padding: 1rem 0;

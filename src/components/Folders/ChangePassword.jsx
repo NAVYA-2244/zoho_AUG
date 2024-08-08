@@ -1,7 +1,5 @@
 // // // import React, { useState } from "react";
 
-
-
 // // // import Joi from "joi";
 // // // import { MdOutlineKey } from "react-icons/md";
 
@@ -11,9 +9,7 @@
 // // // import { backEndCallObjNothing } from "../../services/mainService";
 // // // import { useFunctionContext } from "../Contexts/FunctionContext";
 
-
 // // // // Joi validation schema
-
 
 // // // const ChangePassword = () => {
 // // //   const { applicationColor } = useThemeContext();
@@ -48,7 +44,7 @@
 // // //     //   toastOptions.error(error.details.map((detail) => detail.message).join(", "));
 // // //     //   return;
 // // //     // }
-    
+
 // // //     try {
 // // //       // Send payload to backend for changing password
 // // //       await checkErrors(changePasswordSchema, formData);
@@ -244,7 +240,7 @@
 //   .min(8)
 //   .max(10)
 //   // .pattern(new RegExp("^(?=.*[A-Z])(?=.*[!@#$%^&*])"))
- 
+
 //     .required()
 //     .label("Confirm Password")
 //     .messages({ "any.only": "Confirm Password must match New Password" }),
@@ -287,10 +283,10 @@
 //       };
 
 //       // Make backend call with token in headers
-     
+
 //      const res= await backEndCallObjNothing("/user/reset_password", payload);
 //      toastOptions.success(res.success||"Password changed successfully")
-     
+
 //       handleLogout()
 //     } catch (error) {
 //       toastOptions.error(error.message || "Error changing password");
@@ -301,7 +297,7 @@
 // setTimeout(() => {
 //   navigate("/login");
 // }, 6000);
-   
+
 //     // window.location.reload("/login");
 //   };
 //   return (
@@ -320,7 +316,7 @@
 //           readOnly={false}
 //         />
 //         {errors.oldPassword && <div className="error-message">{errors.oldPassword}</div>}
-  
+
 //         <InputPassword
 //           id="newPassword"
 //           name="newPassword"
@@ -333,7 +329,7 @@
 //           readOnly={false}
 //         />
 //         {errors.newPassword && <div className="error-message">{errors.newPassword}</div>}
-  
+
 //         <InputPassword
 //           id="confirmPassword"
 //           name="confirmPassword"
@@ -346,7 +342,7 @@
 //           readOnly={false}
 //         />
 //         {errors.confirmPassword && <div className="error-message">{errors.confirmPassword}</div>}
-  
+
 //         <button type="submit">Change Password</button>
 //       </form>
 //     </main>
@@ -369,7 +365,6 @@ const Modal = ({ onClose, onLogout }) => (
     <div className="modal-content">
       <h2>Password Changed Successfully!</h2>
       <button onClick={onLogout}>Logout</button>
-     
     </div>
   </div>
 );
@@ -396,7 +391,8 @@ const ChangePassword = () => {
       .label("New Password")
       .messages({
         "string.min": "Password must be at least 8 characters long",
-        "string.pattern.base": "Password must contain at least one capital letter and one special character",
+        "string.pattern.base":
+          "Password must contain at least one capital letter and one special character",
       }),
     confirmPassword: Joi.string()
       .min(8)
@@ -407,19 +403,22 @@ const ChangePassword = () => {
   };
 
   const validateForm = () => {
-    const newErrors = {}; 
+    const newErrors = {};
 
     if (formData.oldPassword.length < 6) {
       newErrors.oldPassword = "Old Password must be at least 6 characters long";
     }
     if (formData.newPassword.length < 8 || formData.newPassword.length > 10) {
-      newErrors.newPassword = "New Password must be between 8 and 10 characters long";
+      newErrors.newPassword =
+        "New Password must be between 8 and 10 characters long";
     }
     if (!/[A-Z]/.test(formData.newPassword)) {
-      newErrors.newPassword = "New Password must contain at least one capital letter";
+      newErrors.newPassword =
+        "New Password must contain at least one capital letter";
     }
     if (!/[!@#$%^&*]/.test(formData.newPassword)) {
-      newErrors.newPassword = "New Password must contain at least one special character";
+      newErrors.newPassword =
+        "New Password must contain at least one special character";
     }
     if (formData.confirmPassword !== formData.newPassword) {
       newErrors.confirmPassword = "Confirm Password must match New Password";
@@ -445,7 +444,7 @@ const ChangePassword = () => {
       // Make backend call with token in headers
       const res = await backEndCallObjNothing("/user/reset_password", payload);
       toastOptions.success(res.success || "Password changed successfully");
-      
+
       // Show the modal on success
       setShowModal(true);
     } catch (error) {
@@ -460,58 +459,61 @@ const ChangePassword = () => {
 
   return (
     <main className="folders" style={{ background: applicationColor.cardItem }}>
-      <h1>Change Password</h1>
       <form className="all-folders" onSubmit={handleSubmit}>
-        <InputPassword
-          id="oldPassword"
-          name="oldPassword"
-          placeholder="Old Password"
-          value={formData.oldPassword}
-          setForm={setFormData}
-          schema={changePasswordSchema.oldPassword}
-          imp
-          icon={<MdOutlineKey />}
-          readOnly={false}
-        />
-        {errors.oldPassword && <div className="error-message">{errors.oldPassword}</div>}
-  
-        <InputPassword
-          id="newPassword"
-          name="newPassword"
-          placeholder="New Password"
-          value={formData.newPassword}
-          setForm={setFormData}
-          schema={changePasswordSchema.newPassword}
-          imp
-          icon={<MdOutlineKey />}
-          readOnly={false}
-        />
-        {errors.newPassword && <div className="error-message">{errors.newPassword}</div>}
-  
-        <InputPassword
-          id="confirmPassword"
-          name="confirmPassword"
-          placeholder="Confirm Password"
-          value={formData.confirmPassword}
-          schema={changePasswordSchema.confirmPassword}
-          setForm={setFormData}
-          imp
-          icon={<MdOutlineKey />}
-          readOnly={false}
-        />
-        {errors.confirmPassword && <div className="error-message">{errors.confirmPassword}</div>}
-  
-        <button type="submit">Change Password</button>
+        <div className="row">
+          <div className="col-xl-4 mx-auto">
+            <h5 className="text-center mb-4">Change Password</h5>
+            <InputPassword
+              id="oldPassword"
+              name="oldPassword"
+              placeholder="Old Password"
+              value={formData.oldPassword}
+              setForm={setFormData}
+              schema={changePasswordSchema.oldPassword}
+              imp
+              icon={<MdOutlineKey />}
+              readOnly={false}
+            />
+            {errors.oldPassword && (
+              <div className="error-message">{errors.oldPassword}</div>
+            )}
+
+            <InputPassword
+              id="newPassword"
+              name="newPassword"
+              placeholder="New Password"
+              value={formData.newPassword}
+              setForm={setFormData}
+              schema={changePasswordSchema.newPassword}
+              imp
+              icon={<MdOutlineKey />}
+              readOnly={false}
+            />
+            {errors.newPassword && (
+              <div className="error-message">{errors.newPassword}</div>
+            )}
+
+            <InputPassword
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder="Confirm Password"
+              value={formData.confirmPassword}
+              schema={changePasswordSchema.confirmPassword}
+              setForm={setFormData}
+              imp
+              icon={<MdOutlineKey />}
+              readOnly={false}
+            />
+            {errors.confirmPassword && (
+              <div className="error-message">{errors.confirmPassword}</div>
+            )}
+            <button type="submit">Change Password</button>
+          </div>
+        </div>
       </form>
 
       {/* Render modal if showModal is true */}
-      {showModal && (
-        <Modal
-          
-
-          onLogout={handleLogout}
-        />
-      )}
+      {showModal && <Modal onLogout={handleLogout} />}
     </main>
   );
 };

@@ -94,8 +94,9 @@ const Headers = () => {
   const handleLogout = () => {
     localStorage.removeItem("zohoEmployeeToken");
 
-    navigate("/login");
-    // window.location.reload("/login");
+    window.localStorage.getItem("zohoEmployeeToken")
+      ? (window.location = "/dashboard")
+      : (window.location = "/loginForm");
   };
 
   // const checkingDataThere = async (data) => {

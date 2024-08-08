@@ -45,6 +45,7 @@ const EmployeeAttendanceCalendar = () => {
 
         // Ignore events for today
         const today = moment().startOf("day").toDate();
+        
         const checkinDate = moment(firstCheckin).startOf("day").toDate();
         if (checkinDate.getTime() === today.getTime()) {
           return [];

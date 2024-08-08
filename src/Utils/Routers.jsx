@@ -144,7 +144,7 @@ export const isEmployeeRouter = [
           </EmployeeRoute>
         ),
       },
-      
+
       {
         path: "/employee/folders/:folderName/:folderId",
         element: (
@@ -387,7 +387,7 @@ export const isSuperAdminRouter = [
         path: "/admin/ChangePassword",
         element: (
           <IsSuperAdminRoute>
-            <ChangePassword/>
+            <ChangePassword />
           </IsSuperAdminRoute>
         ),
       },

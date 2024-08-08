@@ -298,10 +298,10 @@ export function InputText({
           (errors?.[fieldName] &&
             errors?.[fieldName][index] &&
             errors?.[fieldName][index][name])) && (
-            <div className="error-message">
-              <span>{errors[name] || errors?.[fieldName][index][name]}</span>
-            </div>
-          )}
+          <div className="error-message">
+            <span>{errors[name] || errors?.[fieldName][index][name]}</span>
+          </div>
+        )}
       </div>
     </>
   );
@@ -321,7 +321,6 @@ export function Input_text({
   inputRef,
   index = "",
   fieldName = "",
-
 }) {
   const { errors } = useStateContext();
   const { handleChange } = useFunctionContext();
@@ -534,10 +533,10 @@ export function Input_area({
           (errors?.[fieldName] &&
             errors?.[fieldName][index] &&
             errors?.[fieldName][index][name])) && (
-            <div className="error-message">
-              <span>{errors[name] || errors?.[fieldName][index][name]}</span>
-            </div>
-          )}
+          <div className="error-message">
+            <span>{errors[name] || errors?.[fieldName][index][name]}</span>
+          </div>
+        )}
       </div>
     </>
   );
@@ -556,7 +555,7 @@ export function InputEmail({
   icon,
   inputRef,
   autoFocus,
-  maxLength
+  maxLength,
 }) {
   const { errors } = useStateContext();
   const { handleChange } = useFunctionContext();
@@ -604,7 +603,7 @@ export function InputEmail({
                 color: applicationColor.readColor1,
               }}
 
-            //        onChange={(e) => handleChange(e, schema, setForm)}
+              //        onChange={(e) => handleChange(e, schema, setForm)}
             />
           </div>
         </div>
@@ -703,7 +702,7 @@ export function Input_email({
   icon,
   inputRef,
   autoFocus,
-  maxLength
+  maxLength,
 }) {
   const { errors } = useStateContext();
   const { handleChange } = useFunctionContext();
@@ -1066,9 +1065,7 @@ export function Select_inputs({
             ) : (
               options.map((option, index) => (
                 <option
-                  value={
-                    option[valueProperty] ? option[valueProperty] : option
-                  }
+                  value={option[valueProperty] ? option[valueProperty] : option}
                   style={{ padding: "5px", margin: "10px 0" }}
                   key={index}
                 >
@@ -1181,10 +1178,10 @@ export function Date_Input({
           (errors?.[fieldName] &&
             errors?.[fieldName][index] &&
             errors?.[fieldName][index][name])) && (
-            <div className="error-message">
-              <span>{errors[name] || errors?.[fieldName][index][name]}</span>
-            </div>
-          )}
+          <div className="error-message">
+            <span>{errors[name] || errors?.[fieldName][index][name]}</span>
+          </div>
+        )}
       </div>
     </>
   );
@@ -1441,7 +1438,7 @@ export const PDFInput = ({
               onChange={handlePDFUpload}
               ref={inputRef}
               schema={schema}
-            // value={value}
+              // value={value}
             />
           </div>
         </div>

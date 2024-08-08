@@ -102,3 +102,15 @@
     outline: none;
   }
 }
+
+// password eye icon styles
+.all-folders {
+  .total-form .main-input .input {
+    position: relative;
+
+    .eye {
+      position: absolute;
+      right: 10px;
+    }
+  }
+}

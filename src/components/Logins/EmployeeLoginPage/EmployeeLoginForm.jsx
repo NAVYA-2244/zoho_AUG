@@ -274,7 +274,7 @@
 // export default EmployeeLoginForm;
 
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdOutlineKey } from "react-icons/md";
 import { MdEmail } from "react-icons/md";
 import cglogo from "../../../cg_logo_mini.png";
@@ -516,10 +516,17 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
                 </div>
 
                 {timeLeft ? (
-                  <p className="my-4">
-                    OTP Expires in:{" "}
-                    <span id="timer">{formatTime(timeLeft)}</span>
-                  </p>
+                  <div className="d-flex align-items-center gap-2">
+                    <p className="my-4">OTP Expires in: </p>
+                    <div className="timer-container d-flex align-items-center gap-2">
+                      <span id="timer">{formatTime(timeLeft)}</span>
+                      <div class="loader">
+                        <span class="hour"></span>
+                        <span class="min"></span>
+                        <span class="circel"></span>
+                      </div>
+                    </div>
+                  </div>
                 ) : (
                   <div>
                     <p className="mb-0 mt-4">Didn't receive OTP code?</p>
@@ -605,9 +612,9 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
             </div>
             <div className="employee-login mt-3">
               <span>for Employee access?</span>{" "}
-              <a className="fw-semibold" onClick={() => employeeLogin()}>
+              <Link className="fw-semibold" onClick={() => employeeLogin()}>
                 Sign in
-              </a>
+              </Link>
             </div>
           </>
         )}
