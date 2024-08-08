@@ -30,7 +30,7 @@ const Sidebar = () => {
   } = useStateContext();
 
   const settingsiderbar = () => {
-    if (employeeDetails.collection === "USER") {
+    if (employeeDetails.role=== "Director") {
       return superAdminSidebar;
     }
     //  else if (employeeDetails.collection === "EMPLOYEE") {

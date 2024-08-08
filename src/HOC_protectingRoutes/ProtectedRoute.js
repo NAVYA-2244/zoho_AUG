@@ -4,7 +4,8 @@ import { useStateContext } from "../components/Contexts/StateContext";
 
 const AuthenticatedRoute = ({ children }) => {
   const { employeeDetails } = useStateContext();
-  return employeeDetails?.employee_id || employeeDetails?.collection ? (
+  console.log(employeeDetails, "employeeDetails")
+  return employeeDetails?.role || employeeDetails?.role ? (
     <>{children}</>
   ) : (
     <Navigate to="/loginForm" />

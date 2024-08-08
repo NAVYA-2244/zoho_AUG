@@ -208,7 +208,7 @@ export const isSuperAdminRouter = [
 
     children: [
       {
-        path: "/",
+        path: "/dashboard",
 
         element: (
           <IsSuperAdminRoute>

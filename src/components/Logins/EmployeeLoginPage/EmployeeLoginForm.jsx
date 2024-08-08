@@ -279,6 +279,7 @@ import { MdOutlineKey } from "react-icons/md";
 import { MdEmail } from "react-icons/md";
 import cglogo from "../../../cg_logo_mini.png";
 import logolg from "../../../../src/assets/Login/logo-lg.png";
+import FingerprintJS from "@fingerprintjs/fingerprintjs";
 import {
   InputEmail,
   InputPassword,
@@ -299,16 +300,17 @@ import { toastOptions } from "../../../Utils/FakeRoutes";
 import { useThemeContext } from "../../Contexts/ThemesContext";
 import { publicIpv4 } from "public-ip";
 import { fullBrowserVersion } from "react-device-detect";
+
 import {
-  backEndCallNoEnc,
-  backEndCallObjNoEnc,
+ 
   backEndCallObjNothing,
   loginCall,
-  testBackendcall,
+  
 } from "../../../services/mainService";
 import { FaBullseye } from "react-icons/fa";
 const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
   const [timeLeft, setTimeLeft] = useState(120);
+
   const [formData, setFormData] = useState({ email: "", password: "" });
   const { loadingTerm, setLoadingTerm, employeeDetails, loading, setLoading } =
     useStateContext();
@@ -318,6 +320,7 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
   const [loader, setLoader] = useState(false);
   const [isValid, setIsValid] = useState({ email: false, password: false });
   const [resendDisabled, setResendDisabled] = useState(false);
+  const [browserId, setBrowserId] = useState("");
   const employeeLoginSchema = {
     email: Joi.string()
       .min(10)
@@ -338,70 +341,35 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
         "any.required": '"Password" is required',
       })
       .label("Password"),
-    last_ip: Joi.string(),
-    device_id: Joi.string(),
-    fcm_token: Joi.string(),
+    last_ip: Joi.string().required(),
+    device_id: Joi.string().required(),
+    fcm_token: Joi.string().required(),
+    browserid: Joi.string().required(),
   };
   const { checkErrors } = useFunctionContext();
   // navigation hook
   const navigate = useNavigate();
-  const handleLogin = async (e) => {
-    if (!otp) {
-      toastOptions.error("OTP is required");
-      return;
-    }
 
-    e.preventDefault();
-    setLoader(true);
-    try {
-      const obj = {
-        otp,
-        email: formData.email,
-        code2fa: "",
-        last_ip: await publicIpv4(),
-      };
-      const response = await loginCall("/user/login_verify", obj);
-      console.log(response.success, "response");
-      // toastOptions.success(response?.success||"");
-      // toastOptions.success("Success");
-      setLoader(false);
-      // window.location = "/dashboard";
-      window.location = "/dashboard";
-    } catch (e) {
-      setLoader(false);
-      toastOptions.error(e?.response?.data || "SomeThing Got Wrong");
-    }
-  };
-  const handleResendOtp = async () => {
-    try {
-      setResendDisabled(true);
-      setOtp("");
-      const response = await backEndCallObjNothing("/user/resend_otp", {
-        email: formData.email,
-      });
-      // toastOptions.success(response?.success || "OTP Resent");
-      // setTimeout(() => setResendDisabled(false), 60000);
-      setTimeLeft(120);
-    } catch (error) {
-      toastOptions.error(error?.response?.data || "Something went wrong");
-      setResendDisabled(false);
-    }
-  };
+
+
   const EmployeeLoginSubmit = async (e) => {
     try {
       e.preventDefault();
       setLoadingTerm("login");
       setLoading(true);
-      await checkErrors(employeeLoginSchema, formData);
       formData.last_ip = await publicIpv4();
       formData.device_id = fullBrowserVersion;
+      formData.browserid = browserId;
       formData.fcm_token = "staging";
+      await checkErrors(employeeLoginSchema, formData);
+     
+     
       const response = await backEndCallObjNothing(
-        "/user/login",
+        "/emp/login",
         formData,
-        "loginEmployee"
+        
       );
-      // console.log(response, "loginresponse");
+      console.log(response, "loginresponse");
       setResponse(response);
       setOtpType(response.type);
       setTimeLeft(120);
@@ -425,18 +393,74 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
       setLoadingTerm("");
     }
   };
+
+
+
+  const handleLogin = async (e) => {
+    if (!otp) {
+      toastOptions.error("OTP is required");
+      return;
+    }
+
+    e.preventDefault();
+    setLoader(true);
+    try {
+      const obj = {
+        otp,
+        email: formData.email,
+        code2fa: "",
+        last_ip: await publicIpv4(),
+        device_id: fullBrowserVersion,
+        browserid: browserId,
+      };
+      const response = await loginCall("/emp/login_verify", obj);
+      console.log(response.success, "response");
+      // toastOptions.success(response?.success||"");
+      // toastOptions.success("Success");
+      setLoader(false);
+      // window.location = "/dashboard";
+      window.location = "/dashboard";
+    } catch (e) {
+      setLoader(false);
+      toastOptions.error(e?.response?.data || "SomeThing Got Wrong");
+    }
+  };
+  useEffect(() => {
+    const getBrowserId = async () => {
+      const fp = await FingerprintJS.load();
+      const result = await fp.get();
+      setBrowserId(result.visitorId.toString());
+    };
+    getBrowserId();
+  }, []);
+  const handleResendOtp = async () => {
+    try {
+      setResendDisabled(true);
+      setOtp("");
+      const response = await backEndCallObjNothing("/emp/resend_otp", {
+        email: formData.email,
+      });
+      // toastOptions.success(response?.success || "OTP Resent");
+      // setTimeout(() => setResendDisabled(false), 60000);
+      setTimeLeft(120);
+    } catch (error) {
+      toastOptions.error(error?.response?.data || "Something went wrong");
+      setResendDisabled(false);
+    }
+  };
+ 
   const validateField = (name, value) => {
     const schema = Joi.object(employeeLoginSchema);
     const { error } = schema.extract(name).validate(value);
     return !error;
   };
-  useEffect(() => {
-    const emailValid = validateField("email", formData.email);
-    const passwordValid = validateField("password", formData.password);
-    setTimeout(() => {
-      setIsValid({ email: emailValid, password: passwordValid });
-    }, 0);
-  }, [formData]);
+  // useEffect(() => {
+  //   const emailValid = validateField("email", formData.email);
+  //   const passwordValid = validateField("password", formData.password);
+  //   setTimeout(() => {
+  //     setIsValid({ email: emailValid, password: passwordValid });
+  //   }, 0);
+  // }, [formData]);
   // console.log(response, "resjun");
   /// otp timer
   useEffect(() => {
@@ -569,7 +593,7 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
                   background: applicationColor.buttonColor,
                   // color: applicationColor.readColor1,
                 }}
-                disabled={!isValid.email || !isValid.password || loading}
+                // disabled={!isValid.email || !isValid.password || loading}
               >
                 {" "}
                 {loading && loadingTerm === "login" ? (
