@@ -24,7 +24,7 @@ import AdminControls from "../components/AdminRoutes/AdminControls/AdminControls
 import TodaysEmployeesAttendance from "../components/AdminRoutes/TodaysEmployeesAttendance/TodaysEmployeesAttendance";
 import NewLogin from "../components/Login/Register/NewLogin";
 import NewForgotPassword from "../components/Login/Register/NewForgotPassword";
-import Folders from "../components/Folders/Folders";
+import Folders from "../components/Folders/ChangePassword.jsx";
 import FilesByFolderId from "../components/Folders/FilesByFolderId/FilesByFolderId";
 import EmployeeFilesById from "../components/Folders/EmployeeFilesById/EmployeeFilesById";
 import EmployeeAttendance from "../components/EmployeeRoutes/EmployeeAttendance/EmployeeAttendance";
@@ -41,6 +41,7 @@ import LeavesSettings from "./../components/AdminRoutes/AdminControls/RolesTable
 import AdminControlesUserDetails from "./../components/AdminRoutes/AdminControls/AdminControlesUserDetails";
 import LoginForm from "../components/Logins/EmployeeLoginPage/LoginForm.jsx";
 import SingleEmployeeProfileEdit from "../components/AdminRoutes/AdminFetchingSingleEmployeeData/SingleEmployeeProfile/SingleEmployeeProfileEdit.jsx";
+import ChangePassword from "../components/Folders/ChangePassword.jsx";
 
 // AdminType "0" //Team member or normal employee
 export const isEmployeeRouter = [
@@ -143,6 +144,7 @@ export const isEmployeeRouter = [
           </EmployeeRoute>
         ),
       },
+      
       {
         path: "/employee/folders/:folderName/:folderId",
         element: (
@@ -203,9 +205,10 @@ export const isSuperAdminRouter = [
         <AppLayout />
       </AuthenticatedRoute>
     ),
+
     children: [
       {
-        path: "/dashboard",
+        path: "/",
 
         element: (
           <IsSuperAdminRoute>
@@ -273,6 +276,7 @@ export const isSuperAdminRouter = [
           </IsSuperAdminRoute>
         ),
       },
+
       {
         path: "/admin/add_employee",
         element: (
@@ -380,10 +384,10 @@ export const isSuperAdminRouter = [
         ),
       },
       {
-        path: "/admin/folders",
+        path: "/admin/ChangePassword",
         element: (
           <IsSuperAdminRoute>
-            <Folders />
+            <ChangePassword/>
           </IsSuperAdminRoute>
         ),
       },

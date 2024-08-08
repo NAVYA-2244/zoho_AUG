@@ -189,7 +189,7 @@ const SingleEmployeeProfileEdit = () => {
       // .max("now")
       // .allow("")
       .optional()
-
+      // .max(10)
       .label("Date of Completion"),
 
     name: Joi.string()

@@ -434,8 +434,8 @@ export const superAdminSidebar = [
       {
         id: "folers",
         icon: <LuFolderClosed />,
-        label: "Folders",
-        path: "/admin/folders",
+        label: "ChangePassword",
+        path: "/admin/ChangePassword",
       },
       // {
       //   id: "Logout",

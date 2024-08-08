@@ -165,7 +165,72 @@ export function InputPassword({
     </>
   );
 }
+export function InputOtp({
+  id,
+  name,
+  placeholder,
+  value,
+  setForm,
+  schema,
+  imp,
+  readOnly,
+  icon,
+  inputRef,
+}) {
+  const { errors } = useStateContext();
+  const { handleChange } = useFunctionContext();
+  const { applicationColor } = useThemeContext();
 
+  const computedPlaceholder = imp ? `${placeholder} *` : placeholder;
+
+  return (
+    <div className="total-form">
+      <div className="main_label">
+        <label
+          htmlFor={name}
+          style={{
+            color: applicationColor.readColor2,
+          }}
+        >
+          {imp ? (
+            <>
+              {placeholder}
+              <sup style={{ color: "red" }}> *</sup>
+            </>
+          ) : (
+            placeholder
+          )}
+        </label>
+      </div>
+      <div className="main-input">
+        <div className="icon-prefix">
+          <label htmlFor={name}>{icon ? icon : "$"}</label>
+        </div>
+        <div className="input">
+          <input
+            type="text"
+            placeholder={computedPlaceholder}
+            name={name}
+            id={id}
+            value={value}
+            onChange={(e) => handleChange(e, schema, setForm)}
+            readOnly={readOnly}
+            ref={inputRef}
+            style={{
+              background: applicationColor.cardBg2,
+              color: applicationColor.readColor1,
+            }}
+          />
+        </div>
+      </div>
+      {errors[name] && (
+        <div className="error-message">
+          <span>{errors[name]}</span>
+        </div>
+      )}
+    </div>
+  );
+}
 export function InputText({
   type,
   name,
@@ -233,10 +298,10 @@ export function InputText({
           (errors?.[fieldName] &&
             errors?.[fieldName][index] &&
             errors?.[fieldName][index][name])) && (
-          <div className="error-message">
-            <span>{errors[name] || errors?.[fieldName][index][name]}</span>
-          </div>
-        )}
+            <div className="error-message">
+              <span>{errors[name] || errors?.[fieldName][index][name]}</span>
+            </div>
+          )}
       </div>
     </>
   );
@@ -256,7 +321,7 @@ export function Input_text({
   inputRef,
   index = "",
   fieldName = "",
-  
+
 }) {
   const { errors } = useStateContext();
   const { handleChange } = useFunctionContext();
@@ -469,10 +534,10 @@ export function Input_area({
           (errors?.[fieldName] &&
             errors?.[fieldName][index] &&
             errors?.[fieldName][index][name])) && (
-          <div className="error-message">
-            <span>{errors[name] || errors?.[fieldName][index][name]}</span>
-          </div>
-        )}
+            <div className="error-message">
+              <span>{errors[name] || errors?.[fieldName][index][name]}</span>
+            </div>
+          )}
       </div>
     </>
   );
@@ -539,7 +604,7 @@ export function InputEmail({
                 color: applicationColor.readColor1,
               }}
 
-              //        onChange={(e) => handleChange(e, schema, setForm)}
+            //        onChange={(e) => handleChange(e, schema, setForm)}
             />
           </div>
         </div>
@@ -1116,10 +1181,10 @@ export function Date_Input({
           (errors?.[fieldName] &&
             errors?.[fieldName][index] &&
             errors?.[fieldName][index][name])) && (
-          <div className="error-message">
-            <span>{errors[name] || errors?.[fieldName][index][name]}</span>
-          </div>
-        )}
+            <div className="error-message">
+              <span>{errors[name] || errors?.[fieldName][index][name]}</span>
+            </div>
+          )}
       </div>
     </>
   );
@@ -1376,7 +1441,7 @@ export const PDFInput = ({
               onChange={handlePDFUpload}
               ref={inputRef}
               schema={schema}
-              // value={value}
+            // value={value}
             />
           </div>
         </div>

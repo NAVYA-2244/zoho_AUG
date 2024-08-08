@@ -90,7 +90,7 @@ const Headers = () => {
     localStorage.removeItem("zohoEmployeeToken");
 
     navigate("/login");
-    window.location.reload("/login");
+    // window.location.reload("/login");
   };
 
   // const checkingDataThere = async (data) => {

@@ -332,7 +332,7 @@ const EmployeeAttendanceTable = () => {
     if (typeof datetime === "string" && datetime.includes(" ")) {
       let parts = datetime.split(" ");
       return parts[1];
-    }
+    } 
     return "-";
   };
 

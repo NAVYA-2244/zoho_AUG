@@ -57,7 +57,7 @@ const LocationForm = () => {
     },
     {
       label: "india",
-      value: "IST (GMT+4:30)",
+      value: "IST (GMT+5:30)",
     },
   ];
 
