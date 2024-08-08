@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { Toaster } from 'react-hot-toast';
-import { useStateContext } from './components/Contexts/StateContext';
+import React, { useEffect, useState } from "react";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+import { useStateContext } from "./components/Contexts/StateContext";
 
 import {
   isEmployeeRouter,
@@ -9,7 +9,7 @@ import {
   // isManagerRouter,
   // isSuperAdminRouter,
   // isTeamLeadRouter,
-} from './Utils/Routers';
+} from "./Utils/Routers";
 // import AdminProjects from "./components/AdminRoutes/Management/AdminProjects";
 
 const App = () => {
@@ -49,7 +49,7 @@ const App = () => {
   const router = createBrowserRouter(actualRouter);
   return (
     <>
-      <Toaster position='top-center' toastOptions={{ duration: 2000 }} />
+      <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
       <RouterProvider router={router} />
     </>
   );

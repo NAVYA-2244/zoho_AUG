@@ -56,7 +56,7 @@ const Headers = () => {
   const searchMapping = {
     dashboard: "/dashboard",
     admindashboard: "/admin/dashboard",
-    attendance: "/employee/attandance_table",
+    attendance: "admin/today_employees_attendance",
     profile: "/admin/profile",
     profileupdate: "/profile_update",
     applyleave: "/applyleave",
@@ -71,7 +71,12 @@ const Headers = () => {
     calendarview: "attendance/list-view",
     controls: "/admin/admin-controls/roles",
     management: "/admin/management/addNewProject",
-    projects: "/admin/management/projects",
+    projects: "/admin/projects",
+    roles: "/admin/admin-controls/roles",
+    location: "/location",
+    companylogo: "/admin/company",
+    floders: "/admin/folders",
+    chat: "/admin/chat",
   };
 
   const goToThatPage = (e) => {
@@ -156,6 +161,8 @@ const Headers = () => {
       // setOrgLogo(res?.organisation_details.images?.logo);
       // setLocations(res.organisation_details?.locations);
       // setTodayAttendance(res?.organisation_details?.today_attendance);
+
+      console.log(res, "eeee");
       setOrgDetails(res?.dashborad?.organisation_details);
       setOrgLogo(res?.dashborad?.organisation_details.images?.logo);
       setLocations(res.dashborad?.organisation_details?.locations);
