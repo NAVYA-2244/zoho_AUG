@@ -309,7 +309,7 @@ import {
 } from "../../../services/mainService";
 import { FaBullseye } from "react-icons/fa";
 const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
-  const [timeLeft, setTimeLeft] = useState(120);
+  const [timeLeft, setTimeLeft] = useState(160);
 
   const [formData, setFormData] = useState({ email: "", password: "" });
   const { loadingTerm, setLoadingTerm, employeeDetails, loading, setLoading } =
@@ -372,7 +372,7 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
       console.log(response, "loginresponse");
       setResponse(response);
       setOtpType(response.type);
-      setTimeLeft(120);
+      setTimeLeft(160);
       // settingTokens.settingEmployeeToken(response.detail);
       // setLoadingTerm('');
       // if (
@@ -433,6 +433,21 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
     };
     getBrowserId();
   }, []);
+  // const handleResendOtp = async () => {
+  //   try {
+  //     setResendDisabled(true);
+  //     setOtp("");
+  //     const response = await backEndCallObjNothing("/emp/resend_otp", {
+  //       email: formData.email,
+  //     });
+  //     // toastOptions.success(response?.success || "OTP Resent");
+  //     // setTimeout(() => setResendDisabled(false), 60000);
+  //     setTimeLeft(160);
+  //   } catch (error) {
+  //     toastOptions.error(error?.response?.data || "Something went wrong");
+  //     setResendDisabled(false);
+  //   }
+  // };
   const handleResendOtp = async () => {
     try {
       setResendDisabled(true);
@@ -440,15 +455,20 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
       const response = await backEndCallObjNothing("/emp/resend_otp", {
         email: formData.email,
       });
-      // toastOptions.success(response?.success || "OTP Resent");
-      // setTimeout(() => setResendDisabled(false), 60000);
-      setTimeLeft(120);
+      toastOptions.success(response?.success || "OTP Resent");
+      setTimeLeft(160); // Resetting the countdown timer
+      setTimeout(() => setResendDisabled(false), 60000);
     } catch (error) {
       toastOptions.error(error?.response?.data || "Something went wrong");
       setResendDisabled(false);
     }
   };
- 
+
+  const formatTime = (seconds) => {
+    const minutes = String(Math.floor(seconds / 60)).padStart(2, "0");
+    const remainingSeconds = String(seconds % 60).padStart(2, "0");
+    return `${minutes}:${remainingSeconds}`;
+  };
   const validateField = (name, value) => {
     const schema = Joi.object(employeeLoginSchema);
     const { error } = schema.extract(name).validate(value);
@@ -470,11 +490,11 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
     }, 1000);
     return () => clearInterval(timerId);
   }, [timeLeft]);
-  const formatTime = (seconds) => {
-    const minutes = String(Math.floor(seconds / 60)).padStart(2, "0");
-    const remainingSeconds = String(seconds % 60).padStart(2, "0");
-    return `${minutes}:${remainingSeconds}`;
-  };
+  // const formatTime = (seconds) => {
+  //   const minutes = String(Math.floor(seconds / 60)).padStart(2, "0");
+  //   const remainingSeconds = String(seconds % 60).padStart(2, "0");
+  //   return `${minutes}:${remainingSeconds}`;
+  // };
   const employeeLogin = () => {
     localStorage.removeItem("zohoEmployeeToken");
     navigate("/loginForm");
@@ -487,7 +507,7 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
         {/* <div className="comapany-logo">
           <img src={cglogo} alt="logo" />
         </div> */}
-        {response?.type === "OTP" ? (
+        {response?.success === "OTP Sent Successfully" ? (
           <>
             <div className="greetings mb-3">
               <h1 className="welcome mb-1">OTP Verification</h1>
@@ -516,15 +536,19 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
                 </div>
 
                 {timeLeft ? (
-                  <div className="d-flex align-items-center gap-2">
-                    <p className="my-4">OTP Expires in: </p>
-                    <div className="timer-container d-flex align-items-center gap-2">
-                      <span id="timer">{formatTime(timeLeft)}</span>
-                      <div class="loader">
-                        <span class="hour"></span>
-                        <span class="min"></span>
-                        <span class="circel"></span>
+                  <div className="fs-14">
+                    <div className="d-flex align-items-center">
+                      <span className="flex-shrink-0">OTP Expires in</span>
+                      <div
+                        className="circular-progress mx-2 flex-shrink-0"
+                        style={{
+                          background: `conic-gradient(rgb(75, 73, 172) ${timeLeft * (360 / 160)}deg, #d0d0d2 0deg)`,
+                        }}
+                      >
+                        <div className="inner-circle"></div>
+                        <p className="percentage mb-0 fw-semibold">{formatTime(timeLeft)}</p>
                       </div>
+                      <span>Seconds</span>
                     </div>
                   </div>
                 ) : (
@@ -540,6 +564,7 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
                     </button>
                   </div>
                 )}
+
                 <div className="employee-button">
                   <button
                     onClick={(e) => handleLogin(e)}

@@ -33,7 +33,7 @@ const LaptopSidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
 
   const settingsiderbar = () => {
-    if (employeeDetails.collection === "USER") {
+    if (employeeDetails.role_name === "Director") {
 
     return superAdminSidebar;
     }

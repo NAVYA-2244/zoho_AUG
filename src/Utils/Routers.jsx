@@ -431,10 +431,10 @@ export const isSuperAdminRouter = [
   //   path: "/login",
   //   element: <Login />,
   // },
-  {
-    path: "/loginForm",
-    element: <LoginForm />,
-  },
+  // {
+  //   path: "/loginForm",
+  //   element: <LoginForm />,
+  // },
   {
     path: "/login",
     element: <NewLogin />,

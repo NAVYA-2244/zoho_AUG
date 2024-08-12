@@ -96,7 +96,7 @@ const Headers = () => {
 
     window.localStorage.getItem("zohoEmployeeToken")
       ? (window.location = "/dashboard")
-      : (window.location = "/loginForm");
+      : (window.location = "/login");
   };
 
   // const checkingDataThere = async (data) => {

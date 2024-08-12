@@ -12,6 +12,7 @@ import ShiftDetailsForm from "./ShiftDetailsForm";
 import LeavesSettings from "./LeavesSettings";
 import AdminControlesUserDetails from "../../AdminControlesUserDetails";
 import FileUploadForm from "./Folder";
+import Departments from "./Departments";
 
 const Roles = () => {
   const { applicationColor } = useThemeContext();
@@ -431,34 +432,7 @@ const Roles = () => {
   //   }
   // };
 
-  const onFolderAdd = async (data, property, id) => {
-    try {
-      setLoading(true);
-      await checkErrors(folderSchema, data);
-      if (edit) {
-        data[property] = id;
-      }
-      const response = await makeNetworkCall(
-        data,
-        edit ? "updateFolder" : "createFolder",
-        "headers"
-      );
-      const { detail } = await makeNetworkCall({}, "getAdminData1", "headers");
-      setAdminFolders([...detail.foldersData]);
-      toastOptions.success(response?.detail || "Folder created SuccessFully");
-      setLoading(false);
-    } catch (error) {
-      if (error) {
-        toastOptions.error(
-          error?.error?.response?.data?.detail || error[0].message
-        );
-      }
-      return Promise.reject(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
+ 
   // This function is resposibel to delete the role
   const onDeleteRole = async (id) => {
     try {
@@ -910,7 +884,8 @@ const Roles = () => {
           role="tabpanel"
           aria-labelledby="departments-tab"
         >
-          <RolesTable
+          <Departments/>
+          {/* <RolesTable
             heading={"Departments"}
             data={selectedLocation?.departments}
             property1={"department_id"}
@@ -925,7 +900,7 @@ const Roles = () => {
             setValue={value}
             edit={edit}
             setEdit={setEdit}
-          />
+          /> */}
         </div>
         <div
           className="tab-pane fade"
@@ -979,6 +954,36 @@ const Roles = () => {
             // setEdit={setEdit}
           />
         </div>
+        <div
+          className="tab-pane fade"
+          id="shifts"
+          role="tabpanel"
+          aria-labelledby="shifts-tab"
+        >
+          <ShiftDetailsForm
+            selectedLocation={selectedLocation}
+            // heading={"Shifts"}
+            // data={selectedLocation?.shifts}
+            // property1={"shiftId"}
+            // property2={"shift_name"}
+            // fields={["shift_name", "checkin_time", "checkout_time", "grace_time"]}
+            // placeholders={[
+            //   "Shift Name",
+            //   "checkin_time",
+            //   "checkout_time",
+            //   "grace_time",
+            // ]}
+            // types={["text", "time", "time", "tel"]}
+            // schema={shiftsSchema}
+            // onAdd={onShiftAdd}
+            // onDelete={onShiftDelete}
+            // value={value}
+            // setValue={value}
+            // edit={edit}
+            // setEdit={setEdit}
+          />
+        </div>
+        
         <div
           className="tab-pane fade"
           id="Leaves"

@@ -36,14 +36,13 @@ const Companydetails = () => {
     organisation_name: "",
     logo: "",
     organisation_type: "",
-    hr_mail_id: "",
-    address: "",
+    org_mail_id: "",
+    // address: "",
   });
-
   const orgSchema = {
     organisation_name: Joi.string()
       .min(5)
-      .max(15)
+      .max(50)
       .required()
       .messages({
         "string.pattern.base":
@@ -53,7 +52,7 @@ const Companydetails = () => {
       .label("Organisation Name"),
     logo: Joi.string().required().label("Organisation Logo"),
     organisation_type: Joi.string().required().label("Organisation Type"),
-    hr_mail_id: Joi.string()
+    org_mail_id: Joi.string()
       .min(5)
       .max(35)
       .email({ tlds: { allow: ["com", "net", "org"] } })
@@ -63,15 +62,15 @@ const Companydetails = () => {
         "any.required": '"Email" is required',
       })
       .label("Email Id"),
-    address: Joi.string().required().label("Address"),
+    // address: Joi.string().required().label("Address"),
   };
 
   useEffect(() => {
     if (!orgDetails?.organisation_details) return;
     const obj = {
       organisation_name: orgDetails.organisation_name,
-      address: orgDetails.organisation_details?.address,
-      hr_mail_id: orgDetails.organisation_details?.hr_mail_id,
+      // address: orgDetails.organisation_details?.address,
+      org_mail_id: orgDetails.organisation_details?.org_mail_id,
       organisation_type: orgDetails.organisation_details?.organisation_type,
       logo: orgDetails.images.logo,
     };
@@ -90,17 +89,17 @@ const Companydetails = () => {
       console.log(formData, "formData");
 
       const response = await backEndCallObjNothing(
-        "/user/add_update_organisation_details",
+        "/org/add_update_org_details",
         formData
       );
       console.log(response, "resss");
       // const response = await makeNetworkCall(formData, "orgLogo", "headers");
       // const { detail } = await makeNetworkCall({}, "getAdminData1", "headers");
 
-      // setFormData(detail.orgLogo[0]);
-      // setOrgLogo(detail?.orgLogo[0]);
-      // setLoading(false);
-      // setLoadingTerm("");
+      setFormData(response?.orgLogo[0]);
+      setOrgLogo(response?.orgLogo[0]);
+      setLoading(false);
+      setLoadingTerm("");
 
       toastOptions.success(response?.success);
       setLoading(false);
@@ -307,19 +306,19 @@ const Companydetails = () => {
                 />
                 <Input_email
                   type={"email"}
-                  placeholder={"Hr Email Id"}
-                  name={"hr_mail_id"}
-                  value={formData["hr_mail_id"]}
+                  placeholder={"org mail id Id"}
+                  name={"org_mail_id"}
+                  value={formData["org_mail_id"]}
                   setForm={setFormData}
-                  schema={orgSchema.hr_mail_id}
+                  schema={orgSchema.org_mail_id}
                 />
                 {/* <Input_email
                   type={"email"}
                   placeholder={"Hr Email Id"}
-                  name={"hr_mail_id"}
-                  value={formData["hr_mail_id"]}
+                  name={"org_mail_id"}
+                  value={formData["org_mail_id"]}
                   setForm={setFormData}
-                  schema={orgSchema.hr_mail_id}
+                  schema={orgSchema.org_mail_id}
                 />
                 <Select_inputs
                   name={"organisation_type"}
@@ -333,7 +332,7 @@ const Companydetails = () => {
             </div>
           </div>
           <div className="col-md-12 col-12 org-textarea">
-            <Input_area
+            {/* <Input_area
               type={"textarea"}
               name={"address"}
               placeholder={"Organisation Address"}
@@ -341,7 +340,7 @@ const Companydetails = () => {
               setForm={setFormData}
               schema={orgSchema.address}
               length={250}
-            />
+            /> */}
 
             <div className="orgDetailsSubmit d-flex justify-content-end mt-3">
               <button

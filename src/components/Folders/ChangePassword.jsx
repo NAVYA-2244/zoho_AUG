@@ -442,7 +442,7 @@ const ChangePassword = () => {
       };
 
       // Make backend call with token in headers
-      const res = await backEndCallObjNothing("/user/reset_password", payload);
+      const res = await backEndCallObjNothing("/emp/reset_password", payload);
       toastOptions.success(res.success || "Password changed successfully");
 
       // Show the modal on success
