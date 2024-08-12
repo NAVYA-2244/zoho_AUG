@@ -701,14 +701,14 @@ const Roles = () => {
           {selectedLocation?.location_name || ""}
         </h3>
         <div>
-          <button
+          {/* <button
             className="btn btn-secondary dropdown-toggle"
             type="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
             Locations
-          </button>
+          </button> */}
           <ul className="dropdown-menu location-list dropdown-menu-end">
             {allLocations.map((location, location_id) => {
               return (
@@ -777,7 +777,7 @@ const Roles = () => {
             Designations
           </a>
         </li>
-        <li className="nav-item">
+        {/* <li className="nav-item">
           <a
             className="nav-link"
             id="shifts-tab"
@@ -789,7 +789,7 @@ const Roles = () => {
           >
             Shifts
           </a>
-        </li>
+        </li> */}
         <li className="nav-item">
           <a
             className="nav-link"
@@ -803,7 +803,7 @@ const Roles = () => {
             Leaves
           </a>
         </li>
-        <a
+        {/* <a
           className="nav-link"
           id="shifts-tab"
           data-bs-toggle="pill"
@@ -813,8 +813,8 @@ const Roles = () => {
           aria-selected="false"
         >
           Admin Controls
-        </a>
-        <li className="nav-item">
+        </a> */}
+        {/* <li className="nav-item">
           <a
             className="nav-link"
             id="events-tab"
@@ -826,7 +826,7 @@ const Roles = () => {
           >
             Events
           </a>
-        </li>
+        </li> */}
         {/* <li className="nav-item">
           <a
             className="nav-link"
@@ -840,7 +840,7 @@ const Roles = () => {
             Leave Types
           </a>
         </li> */}
-        <li className="nav-item">
+        {/* <li className="nav-item">
           <a
             className="nav-link"
             id="folders-tab"
@@ -852,7 +852,7 @@ const Roles = () => {
           >
             Folders
           </a>
-        </li>
+        </li> */}
       </ul>
       <div className="tab-content" id="pills-tabContent">
         <div

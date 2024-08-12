@@ -127,7 +127,7 @@ const NewForgotPassword = () => {
 
       if (response?.success) {
         toastOptions.success("Password reset successful!");
-        navigate("/dashboard");
+        navigate("/login");
       } else {
         toastOptions.error(response?.error || "Password reset failed");
       }

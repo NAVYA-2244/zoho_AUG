@@ -12,27 +12,13 @@ import { useThemeContext } from "../../Contexts/ThemesContext";
 import ProfilePhoto from "./ProfilePhoto";
 
 const BasicEmployeeData = ({ formData, setFormData, type }) => {
-  const { isAdmin, refs, locations } = useStateContext();
+  const { isAdmin, refs, locations ,  loading, setErrors, setLoading, orgDetails, setOrgDetails } =
+  useStateContext();
   const { applicationColor } = useThemeContext();
   const [employeesList, setEmployeesList] = useState([]);
   const [options, setOptions] = useState({});
 
-  // useEffect(() => {
-  //   console.log("loctions",locations)
-  //   if (locations.length > 0) {
-  //     const departments = locations.flatMap(location => location.departments || []);
-  //     const designations = locations.flatMap(location => location.designations || []);
-  //     const roles = locations.flatMap(location => location.roles || []);
-  //     const shifts = locations.flatMap(location => location.shifts || []);
-
-  //     setOptions({
-  //       departments,
-  //       designations,
-  //       roles,
-  //       shifts,
-  //     });
-  //   }
-  // }, [locations]);
+  
   useEffect(() => {
     const settingOptionsByLoications = locations.filter((item) => {
       return item.location_id === formData.location_id;

@@ -54,7 +54,7 @@ const AddEmployee = () => {
         tags: formData?.tags,
         department_id: formData?.department_id,
         designation_id: formData?.designation_id,
-        role_id: formData?.role_id,
+        role_id: formData?.role_id, 
         // location: formData?.location,
         employment_type: formData?.employment_type,
         source_of_hire: formData?.source_of_hire,

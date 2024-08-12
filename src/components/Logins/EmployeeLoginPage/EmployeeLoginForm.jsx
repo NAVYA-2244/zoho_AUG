@@ -309,7 +309,7 @@ import {
 } from "../../../services/mainService";
 import { FaBullseye } from "react-icons/fa";
 const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
-  const [timeLeft, setTimeLeft] = useState(160);
+  const [timeLeft, setTimeLeft] = useState(120);
 
   const [formData, setFormData] = useState({ email: "", password: "" });
   const { loadingTerm, setLoadingTerm, employeeDetails, loading, setLoading } =
@@ -372,7 +372,7 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
       console.log(response, "loginresponse");
       setResponse(response);
       setOtpType(response.type);
-      setTimeLeft(160);
+      setTimeLeft(120);
       // settingTokens.settingEmployeeToken(response.detail);
       // setLoadingTerm('');
       // if (
@@ -405,6 +405,8 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
     e.preventDefault();
     setLoader(true);
     try {
+      setResendDisabled(false)
+      setLoading(true);
       const obj = {
         otp,
         email: formData.email,
@@ -422,6 +424,7 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
       window.location = "/dashboard";
     } catch (e) {
       setLoader(false);
+      setResendDisabled(false)
       toastOptions.error(e?.response?.data || "SomeThing Got Wrong");
     }
   };
@@ -433,10 +436,7 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
     };
     getBrowserId();
   }, []);
-  // const handleResendOtp = async () => {
-  //   try {
-  //     setResendDisabled(true);
-  //     setOtp("");
+ 
   //     const response = await backEndCallObjNothing("/emp/resend_otp", {
   //       email: formData.email,
   //     });
@@ -450,13 +450,14 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
   // };
   const handleResendOtp = async () => {
     try {
+     
       setResendDisabled(true);
       setOtp("");
       const response = await backEndCallObjNothing("/emp/resend_otp", {
         email: formData.email,
       });
       toastOptions.success(response?.success || "OTP Resent");
-      setTimeLeft(160); // Resetting the countdown timer
+      setTimeLeft(120); // Resetting the countdown timer
       setTimeout(() => setResendDisabled(false), 60000);
     } catch (error) {
       toastOptions.error(error?.response?.data || "Something went wrong");
@@ -519,7 +520,7 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
                 <div className="icon-prefix">
                   <label htmlFor="otp">OTP</label>
                 </div>
-                <div className="input">
+                <div className="input mb-3">
                   <input
                     className="form-control"
                     type="tel"
@@ -542,7 +543,7 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
                       <div
                         className="circular-progress mx-2 flex-shrink-0"
                         style={{
-                          background: `conic-gradient(rgb(75, 73, 172) ${timeLeft * (360 / 160)}deg, #d0d0d2 0deg)`,
+                          background: `conic-gradient(rgb(75, 73, 172) ${timeLeft * (360 / 120)}deg, #d0d0d2 0deg)`,
                         }}
                       >
                         <div className="inner-circle"></div>
@@ -566,13 +567,29 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
                 )}
 
                 <div className="employee-button">
-                  <button
+                  {/* <button
                     onClick={(e) => handleLogin(e)}
+                    disabled={resendDisabled}
                     type="submit"
                     className="employee-form-button"
                   >
                     Verify & Proceed
-                  </button>
+                  </button> */}
+                   <button
+                className="employee-form-button "
+                style={{
+                  background: applicationColor.buttonColor,
+                  // color: applicationColor.readColor1,
+                }}
+                onClick={(e) => handleLogin(e)}
+                disabled={resendDisabled}
+                type="submit"
+              >
+                {" "}
+                {loading ? (
+                  <Loader />
+                ):"Verify & Proceed"}
+              </button>
                 </div>
               </div>
             </div>
@@ -635,12 +652,12 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
                 )}{" "}
               </button>
             </div>
-            <div className="employee-login mt-3">
+            {/* <div className="employee-login mt-3">
               <span>for Employee access?</span>{" "}
               <Link className="fw-semibold" onClick={() => employeeLogin()}>
                 Sign in
               </Link>
-            </div>
+            </div> */}
           </>
         )}
       </form>

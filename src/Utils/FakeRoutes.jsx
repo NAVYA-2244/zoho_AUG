@@ -413,12 +413,12 @@ export const superAdminSidebar = [
         path: "/admin/admin-controls/roles",
       },
 
-      {
-        id: "Location",
-        icon: <GrUserSettings />,
-        label: "Organisation Location",
-        path: "/location",
-      },
+      // {
+      //   id: "Location",
+      //   icon: <GrUserSettings />,
+      //   label: "Organisation Location",
+      //   path: "/location",
+      // },
       // {
       //   id: "admincontrolesuser",
       //   icon: <GrUserSettings />,

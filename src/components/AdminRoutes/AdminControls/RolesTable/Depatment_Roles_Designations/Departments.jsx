@@ -215,6 +215,7 @@ console.log("orgDetails",orgDetails.departments)
                               value={formData[field]}
                               placeholder={placeholders[index]}
                               onChange={handleChange}
+                              maxLength={25}
                             />
                           </div>
                         ))}

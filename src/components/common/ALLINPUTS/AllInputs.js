@@ -298,10 +298,10 @@ export function InputText({
           (errors?.[fieldName] &&
             errors?.[fieldName][index] &&
             errors?.[fieldName][index][name])) && (
-          <div className="error-message">
-            <span>{errors[name] || errors?.[fieldName][index][name]}</span>
-          </div>
-        )}
+            <div className="error-message">
+              <span>{errors[name] || errors?.[fieldName][index][name]}</span>
+            </div>
+          )}
       </div>
     </>
   );
@@ -533,10 +533,10 @@ export function Input_area({
           (errors?.[fieldName] &&
             errors?.[fieldName][index] &&
             errors?.[fieldName][index][name])) && (
-          <div className="error-message">
-            <span>{errors[name] || errors?.[fieldName][index][name]}</span>
-          </div>
-        )}
+            <div className="error-message">
+              <span>{errors[name] || errors?.[fieldName][index][name]}</span>
+            </div>
+          )}
       </div>
     </>
   );
@@ -603,7 +603,7 @@ export function InputEmail({
                 color: applicationColor.readColor1,
               }}
 
-              //        onChange={(e) => handleChange(e, schema, setForm)}
+            //        onChange={(e) => handleChange(e, schema, setForm)}
             />
           </div>
         </div>
@@ -1063,7 +1063,7 @@ export function Select_inputs({
                 No data found
               </option>
             ) : (
-              options.map((option, index) => (
+              options?.map((option, index) => (
                 <option
                   value={option[valueProperty] ? option[valueProperty] : option}
                   style={{ padding: "5px", margin: "10px 0" }}
@@ -1178,10 +1178,10 @@ export function Date_Input({
           (errors?.[fieldName] &&
             errors?.[fieldName][index] &&
             errors?.[fieldName][index][name])) && (
-          <div className="error-message">
-            <span>{errors[name] || errors?.[fieldName][index][name]}</span>
-          </div>
-        )}
+            <div className="error-message">
+              <span>{errors[name] || errors?.[fieldName][index][name]}</span>
+            </div>
+          )}
       </div>
     </>
   );
@@ -1438,7 +1438,7 @@ export const PDFInput = ({
               onChange={handlePDFUpload}
               ref={inputRef}
               schema={schema}
-              // value={value}
+            // value={value}
             />
           </div>
         </div>
