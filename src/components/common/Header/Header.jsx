@@ -147,66 +147,95 @@ const Headers = () => {
   //     console.log(error, "eroor");
   //   }
   // };
-  const fetchData = async () => {
+  // const fetchData = async () => {
+  //   try {
+  //     let res;
+  //     // if (employeeDetails?.employee_id) {
+  //     res = await backEndCallObjNothing("/emp_get/universal");
+  //     console.log("res", res);
+  //     //   console.log("res", res?.dashborad?.recent_hires);
+  //     // } else {
+  //     //   res = await backEndCallObjNothing("/user_get/universal");
+  //     //   console.log(res, "response");
+  //     // }
+  //     // setOrgDetails(res?.organisation_details);
+  //     // setOrgLogo(res?.organisation_details.images?.logo);
+  //     // setLocations(res.organisation_details?.locations);
+  //     // setTodayAttendance(res?.organisation_details?.today_attendance);
+
+  //     console.log(res, "eeee");
+  //     setOrgDetails(res?.dashborad?.organisation_details);
+  //     setOrgLogo(res?.dashborad?.organisation_details.images?.logo);
+  //     setLocations(res.dashborad?.organisation_details?.locations);
+  //     setTodayAttendance(res.dashborad.today_attendance);
+  //     setrecentHire(res?.dashborad?.recent_hires);
+  //     setBirthdays(res?.dashborad.birthdays);
+  //     {
+  //       console.log(res.dashborad.birthdays, "iuytfgh");
+  //     }
+  //     console.log("res?.dashborad?.recent_hires", res?.dashborad?.recent_hires);
+  //     {
+  //       console.log(res.dashboard.birthdays, "poiuy");
+  //     }
+
+  //     let checkInTime = "";
+  //     if (
+  //       todayAttendance.checkin &&
+  //       todayAttendance.checkin[0] &&
+  //       todayAttendance.checkin[0].in_time
+  //     ) {
+  //       checkInTime = formatTime(todayAttendance.checkin[0].in_time);
+  //     }
+
+  //     let checkOutTime = "";
+  //     if (todayAttendance?.checkout && todayAttendance.checkout.length > 0) {
+  //       checkOutTime = formatTime(
+  //         todayAttendance.checkout[todayAttendance.checkout.length - 1].out_time
+  //       );
+  //     }
+
+  //     setCheckOutTime(checkOutTime);
+  //     setCheckInTime(checkInTime);
+
+  //     setCheckIn(
+  //       todayAttendance?.checkin?.length > todayAttendance?.checkout?.length
+  //         ? false
+  //         : true
+  //     );
+  //   } catch (error) {
+  //     console.log(error, "eroor");
+  //   }
+  // };
+const fetchData = async () => {
     try {
       let res;
-      // if (employeeDetails?.employee_id) {
-      res = await backEndCallObjNothing("/emp_get/universal");
+      
+      res = await backEndCallObjNothing("/org/universal");
       console.log("res", res);
-      //   console.log("res", res?.dashborad?.recent_hires);
+        console.log("res", res);
       // } else {
       //   res = await backEndCallObjNothing("/user_get/universal");
       //   console.log(res, "response");
       // }
-      // setOrgDetails(res?.organisation_details);
-      // setOrgLogo(res?.organisation_details.images?.logo);
+      setOrgDetails(res?.organisation_details);
+      setOrgLogo(res?.organisation_details.images?.logo);
       // setLocations(res.organisation_details?.locations);
       // setTodayAttendance(res?.organisation_details?.today_attendance);
 
       console.log(res, "eeee");
-      setOrgDetails(res?.dashborad?.organisation_details);
-      setOrgLogo(res?.dashborad?.organisation_details.images?.logo);
+      setOrgDetails(res?.organisation_details);
+      setOrgLogo(res?.organisation_details?.images?.logo);
       setLocations(res.dashborad?.organisation_details?.locations);
-      setTodayAttendance(res.dashborad.today_attendance);
+      // setTodayAttendance(res.dashborad.today_attendance);
       setrecentHire(res?.dashborad?.recent_hires);
-      setBirthdays(res?.dashborad.birthdays);
-      {
-        console.log(res.dashborad.birthdays, "iuytfgh");
-      }
-      console.log("res?.dashborad?.recent_hires", res?.dashborad?.recent_hires);
-      {
-        console.log(res.dashboard.birthdays, "poiuy");
-      }
+      // setBirthdays(res?.dashborad.birthdays);
+    
 
-      let checkInTime = "";
-      if (
-        todayAttendance.checkin &&
-        todayAttendance.checkin[0] &&
-        todayAttendance.checkin[0].in_time
-      ) {
-        checkInTime = formatTime(todayAttendance.checkin[0].in_time);
-      }
-
-      let checkOutTime = "";
-      if (todayAttendance?.checkout && todayAttendance.checkout.length > 0) {
-        checkOutTime = formatTime(
-          todayAttendance.checkout[todayAttendance.checkout.length - 1].out_time
-        );
-      }
-
-      setCheckOutTime(checkOutTime);
-      setCheckInTime(checkInTime);
-
-      setCheckIn(
-        todayAttendance?.checkin?.length > todayAttendance?.checkout?.length
-          ? false
-          : true
-      );
+      
     } catch (error) {
       console.log(error, "eroor");
     }
   };
-
   useEffect(() => {
     // IsAdmin()
     fetchData();

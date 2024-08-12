@@ -37,7 +37,7 @@ const Companydetails = () => {
     logo: "",
     organisation_type: "",
     org_mail_id: "",
-    // address: "",
+    address: "",
   });
   const orgSchema = {
     organisation_name: Joi.string()
@@ -62,14 +62,14 @@ const Companydetails = () => {
         "any.required": '"Email" is required',
       })
       .label("Email Id"),
-    // address: Joi.string().required().label("Address"),
+    address: Joi.string().required().label("Address"),
   };
 
   useEffect(() => {
     if (!orgDetails?.organisation_details) return;
     const obj = {
       organisation_name: orgDetails.organisation_name,
-      // address: orgDetails.organisation_details?.address,
+      address: orgDetails.organisation_details?.address,
       org_mail_id: orgDetails.organisation_details?.org_mail_id,
       organisation_type: orgDetails.organisation_details?.organisation_type,
       logo: orgDetails.images.logo,
@@ -93,11 +93,12 @@ const Companydetails = () => {
         formData
       );
       console.log(response, "resss");
+      
       // const response = await makeNetworkCall(formData, "orgLogo", "headers");
       // const { detail } = await makeNetworkCall({}, "getAdminData1", "headers");
 
-      setFormData(response?.orgLogo[0]);
-      setOrgLogo(response?.orgLogo[0]);
+      // setFormData(response?.images?.logo);
+      // setOrgLogo(response?.images?.logo);
       setLoading(false);
       setLoadingTerm("");
 
@@ -332,7 +333,7 @@ const Companydetails = () => {
             </div>
           </div>
           <div className="col-md-12 col-12 org-textarea">
-            {/* <Input_area
+            <Input_area
               type={"textarea"}
               name={"address"}
               placeholder={"Organisation Address"}
@@ -340,7 +341,7 @@ const Companydetails = () => {
               setForm={setFormData}
               schema={orgSchema.address}
               length={250}
-            /> */}
+            />
 
             <div className="orgDetailsSubmit d-flex justify-content-end mt-3">
               <button

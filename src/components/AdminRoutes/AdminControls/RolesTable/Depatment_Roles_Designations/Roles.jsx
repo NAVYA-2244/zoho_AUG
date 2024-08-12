@@ -13,6 +13,7 @@ import LeavesSettings from "./LeavesSettings";
 import AdminControlesUserDetails from "../../AdminControlesUserDetails";
 import FileUploadForm from "./Folder";
 import Departments from "./Departments";
+import RoleasAdd from "./RoleasAdd";
 
 const Roles = () => {
   const { applicationColor } = useThemeContext();
@@ -860,7 +861,8 @@ const Roles = () => {
           role="tabpanel"
           aria-labelledby="admin-roles-tab"
         >
-          <RolesTable
+          <RoleasAdd/>
+          {/* <RolesTable
             heading={"Roles"}
             data={selectedLocation?.roles}
             property1={"role_id"}
@@ -876,7 +878,7 @@ const Roles = () => {
             edit={edit}
             setEdit={setEdit}
             options={["0", "1", "2", "3", "4", "5"]}
-          />
+          /> */}
         </div>
         <div
           className="tab-pane fade"
