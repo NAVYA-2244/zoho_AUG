@@ -764,7 +764,7 @@ const Roles = () => {
             Departments
           </a>
         </li>
-        <li className="nav-item">
+        {/* <li className="nav-item">
           <a
             className="nav-link"
             id="designations-tab"
@@ -776,7 +776,7 @@ const Roles = () => {
           >
             Designations
           </a>
-        </li>
+        </li> */}
         {/* <li className="nav-item">
           <a
             className="nav-link"
@@ -800,7 +800,7 @@ const Roles = () => {
             aria-controls="shifts"
             aria-selected="false"
           >
-            Leaves
+            designations
           </a>
         </li>
         {/* <a
@@ -992,7 +992,7 @@ const Roles = () => {
           role="tabpanel"
           aria-labelledby="shifts-tab"
         >
-          <LeavesSettings selectedLocation={selectedLocation} />
+          <LeavesSettings />
         </div>
         <div
           className="tab-pane fade"
