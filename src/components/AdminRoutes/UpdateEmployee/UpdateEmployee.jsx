@@ -35,7 +35,7 @@ const UpdateEmployee = () => {
       try {
         setLoading(true);
         const { employee } = await backEndCallObjNothing(
-          `/user_get/get_emp_by_id`,
+          `/admin_get/get_emp_by_id`,
           { employee_id: employeId }
         );
 
@@ -144,7 +144,10 @@ const UpdateEmployee = () => {
       data.fcm_token = "1234";
       data.device_id = "1234";
       console.log(data, "paylod");
-      const response = await backEndCallObjNothing("/emp/edit_profile", data);
+      const response = await backEndCallObjNothing(
+        "/admin/update_employee_profile",
+        data
+      );
       console.log("response", response);
 
       setRedirect(true);
