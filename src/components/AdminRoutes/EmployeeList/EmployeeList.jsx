@@ -405,8 +405,8 @@ const EmployeeList = () => {
     { name: "Last Name", property: "basic_info.last_name" },
     { name: "Department", property: "work_info.department_name" },
     { name: "Designation", property: "work_info.designation_name" },
-    { name: "Location", property: "work_info.location_name" },
-    { name: "Shift", property: "work_info.shift_name" },
+    // { name: "Location", property: "work_info.location_name" },
+    // { name: "Shift", property: "work_info.shift_name" },
     { name: "Date of Join", property: "work_info.date_of_join" },
     { name: "Action", property: "", type: "string" },
   ];

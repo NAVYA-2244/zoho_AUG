@@ -204,6 +204,7 @@ const ProfilePhoto = () => {
       const response = await backEndCallObjNothing("/emp/update_dp", {
         image: formData.image,
       });
+      console.log(response?.data)
       setProfilePhoto(response?.data || "");
       setFormData({ image: "" });
       setError("");
