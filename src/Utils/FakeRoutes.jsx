@@ -161,6 +161,140 @@ export const employeeSidebar = [
     path: "/admin/projects",
   },
 ];
+export const superAdminSidebar = [
+  {
+    id: "admindashboard",
+    icon: <AiOutlineHome />,
+    label: "Dashboard",
+    path: "/dashboard",
+  },
+
+  // {
+  //   id: "Today's Attendance",
+  //   icon: <IoCalendarOutline />,
+  //   label: "Today's Attendance",
+  //   path: "/admin/today_employees_attendance",
+  // },
+  // {
+  //   id: "attendance",
+  //   label: "Attendance",
+  //   icon: <LuFileSpreadsheet />,
+  //   path: "/admin/employee/attendance",
+  // },
+
+  {
+    id: "add_employeee",
+    // icon: <TiUserAddOutline />,
+    icon: <GrUserAdd />,
+    label: "Add Employee",
+    path: "/admin/add_employee",
+  },
+  // {
+  //   id: "profile",
+  //   // icon: <TiUserAddOutline />,
+  //   icon: <GrUserAdd />,
+  //   label: "Profile",
+  //   path: "/admin/profile",
+  // },
+  {
+    id: "employee_list",
+    icon: <RiListCheck3 />,
+    label: "Employee List",
+    path: "/admin/employee_list",
+  },
+  // {
+  //   id: "leaves list",
+  //   icon: <GrCopy />,
+  //   label: "Leave Applications",
+  //   path: "/admin/employee_leave-applications",
+  // },
+  // {
+  //   id: "LeaveApplications",
+  //   icon: <BsCalendar2EventFill />,
+  //   label: "leave applications  emp",
+  //   path: "/leaveApplications",
+  // },
+
+  {
+    id: "Controls",
+    icon: <GrPerformance />,
+    label: "Controls",
+    children: [
+      {
+        id: "roles",
+        icon: <GrUserSettings />,
+        label: "Roles",
+        path: "/admin/admin-controls/roles",
+      },
+
+      // {
+      //   id: "Location",
+      //   icon: <GrUserSettings />,
+      //   label: "Organisation Location",
+      //   path: "/location",
+      // },
+      // {
+      //   id: "admincontrolesuser",
+      //   icon: <GrUserSettings />,
+      //   label: "Admin Controls users",
+      //   path: "/admincontrolesuser",
+      // },
+      {
+        id: "company",
+        icon: <RiImageCircleLine />,
+        label: "Company Logo",
+        path: "/admin/company",
+      },
+      {
+        id: "folers",
+        icon: <LuFolderClosed />,
+        label: "ChangePassword",
+        path: "/admin/ChangePassword",
+      },
+      // {
+      //   id: "Logout",
+      //   icon: <VscSignOut />,
+      //   label: "Logout",
+      //   path: () => settingTokens.removingEmployeeToken(),
+      // },
+    ],
+  },
+
+  {
+    id: "Chat",
+    icon: <TbMessageChatbot />,
+    label: "Chat",
+    path: "/admin/chat",
+  },
+
+  {
+    id: "Projects",
+    icon: <AiOutlineFundProjectionScreen />,
+    label: "Projects",
+    path: "/admin/projects",
+  },
+
+  // {
+  //   id: "Management",
+  //   icon: <RiTeamFill />,
+  //   label: "Management",
+  //   path: "/admin/management",
+  //   children: [
+  //     {
+  //       id: "addNewProject",
+  //       icon: <SiSaltproject />, // Add appropriate icon
+  //       label: "Add New Project",
+  //       path: "/admin/management/addNewProject", // Add appropriate path
+  //     },
+  //     {
+  //       id: "projects",
+  //       icon: <AiFillProject />,
+  //       label: "Projects",
+  //       path: "/admin/management/projects",
+  //     },
+  //   ],
+  // },
+];
 
 //3
 export const teamLeadSidebar = [
@@ -347,137 +481,3 @@ export const mangerSidebar = [
 ];
 //1
 
-export const superAdminSidebar = [
-  {
-    id: "admindashboard",
-    icon: <AiOutlineHome />,
-    label: "Dashboard",
-    path: "/dashboard",
-  },
-
-  {
-    id: "Today's Attendance",
-    icon: <IoCalendarOutline />,
-    label: "Today's Attendance",
-    path: "/admin/today_employees_attendance",
-  },
-  // {
-  //   id: "attendance",
-  //   label: "Attendance",
-  //   icon: <LuFileSpreadsheet />,
-  //   path: "/admin/employee/attendance",
-  // },
-
-  {
-    id: "add_employeee",
-    // icon: <TiUserAddOutline />,
-    icon: <GrUserAdd />,
-    label: "Add Employee",
-    path: "/admin/add_employee",
-  },
-  // {
-  //   id: "profile",
-  //   // icon: <TiUserAddOutline />,
-  //   icon: <GrUserAdd />,
-  //   label: "Profile",
-  //   path: "/admin/profile",
-  // },
-  {
-    id: "employee_list",
-    icon: <RiListCheck3 />,
-    label: "Employee List",
-    path: "/admin/employee_list",
-  },
-  {
-    id: "leaves list",
-    icon: <GrCopy />,
-    label: "Leave Applications",
-    path: "/admin/employee_leave-applications",
-  },
-  // {
-  //   id: "LeaveApplications",
-  //   icon: <BsCalendar2EventFill />,
-  //   label: "leave applications  emp",
-  //   path: "/leaveApplications",
-  // },
-
-  {
-    id: "Controls",
-    icon: <GrPerformance />,
-    label: "Controls",
-    children: [
-      {
-        id: "roles",
-        icon: <GrUserSettings />,
-        label: "Roles",
-        path: "/admin/admin-controls/roles",
-      },
-
-      // {
-      //   id: "Location",
-      //   icon: <GrUserSettings />,
-      //   label: "Organisation Location",
-      //   path: "/location",
-      // },
-      // {
-      //   id: "admincontrolesuser",
-      //   icon: <GrUserSettings />,
-      //   label: "Admin Controls users",
-      //   path: "/admincontrolesuser",
-      // },
-      {
-        id: "company",
-        icon: <RiImageCircleLine />,
-        label: "Company Logo",
-        path: "/admin/company",
-      },
-      {
-        id: "folers",
-        icon: <LuFolderClosed />,
-        label: "ChangePassword",
-        path: "/admin/ChangePassword",
-      },
-      // {
-      //   id: "Logout",
-      //   icon: <VscSignOut />,
-      //   label: "Logout",
-      //   path: () => settingTokens.removingEmployeeToken(),
-      // },
-    ],
-  },
-
-  {
-    id: "Chat",
-    icon: <TbMessageChatbot />,
-    label: "Chat",
-    path: "/admin/chat",
-  },
-
-  {
-    id: "Projects",
-    icon: <AiOutlineFundProjectionScreen />,
-    label: "Projects",
-    path: "/admin/projects",
-  },
-
-  // {
-  //   id: "Management",
-  //   icon: <RiTeamFill />,
-  //   label: "Management",
-  //   path: "/admin/management",
-  //   children: [
-  //     {
-  //       id: "addNewProject",
-  //       icon: <SiSaltproject />, // Add appropriate icon
-  //       label: "Add New Project",
-  //       path: "/admin/management/addNewProject", // Add appropriate path
-  //     },
-  //     {
-  //       id: "projects",
-  //       icon: <AiFillProject />,
-  //       label: "Projects",
-  //       path: "/admin/management/projects",
-  //     },
-  //   ],
-  // },
-];

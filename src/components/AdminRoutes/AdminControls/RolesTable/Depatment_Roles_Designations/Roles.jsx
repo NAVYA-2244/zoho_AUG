@@ -201,7 +201,7 @@ const Roles = () => {
         data[property] = id;
       }
       data.organisation_id = orgDetails.organisation_id;
-      data.location_id = selectedLocation.location_id;
+      // data.location_id = selectedLocation.location_id;
       const response = await backEndCallObjNothing("/user/add_role", data);
 
       setOrgDetails(response.data);
@@ -219,7 +219,7 @@ const Roles = () => {
     } finally {
       setLoading(false);
       delete data.organisation_id;
-      delete data.location_id;
+      // delete data.location_id;
     }
   };
 

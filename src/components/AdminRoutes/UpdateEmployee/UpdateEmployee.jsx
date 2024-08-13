@@ -56,7 +56,7 @@ const UpdateEmployee = () => {
         delete work_info?.designation_name;
         delete work_info?.department_name;
         delete work_info?.role_name;
-        delete work_info.location_name;
+        // delete work_info.location_name;
 
         const newObj = {
           basic_info,
@@ -73,7 +73,7 @@ const UpdateEmployee = () => {
         // form.shift_id =work_info.shift_id;
         // form.designation_id = work_info.designation_id;
         // form.role_id = work_info.role_id;
-        form.location_id = work_info.location_id;
+        // form.location_id = work_info.location_id;
         form.work_experience = work_experience;
         form.educational_details = educational_details;
         form.dependent_details = dependent_details;
@@ -98,26 +98,26 @@ const UpdateEmployee = () => {
       const data = {
         employee_id: formData?.employee_id,
         // location_id: formData?.location_id,
-        // first_name: formData?.first_name,
-        // last_name: formData?.last_name,
+        first_name: formData?.first_name,
+        last_name: formData?.last_name,
         nick_name: formData?.nick_name,
-        // email: formData?.email,
-        // gender: formData?.gender,
+        email: formData?.email,
+        gender: formData?.gender,
         expertise: formData.expertise,
         // tags: formData?.tags,
-        // department_id: formData?.department_id,
-        // designation_id: formData?.designation_id,
-        // role_id: formData?.role_id,
-        // employment_type: formData?.employment_type,
-        // source_of_hire: formData?.source_of_hire,
-        // date_of_join: formData?.date_of_join,
+        department_id: formData?.department_id,
+        designation_id: formData?.designation_id,
+        role_id: formData?.role_id,
+        employment_type: formData?.employment_type,
+        source_of_hire: formData?.source_of_hire,
+        date_of_join: formData?.date_of_join,
         // shift_id: formData?.shift_id,
 
-        // reporting_manager: {},
-        // employee_status: formData.employee_status,
-        // date_of_birth: format(new Date(formData?.date_of_birth), "ddMMyyyy"),
+        reporting_manager: {},
+        employee_status: formData.employee_status,
+        date_of_birth: format(new Date(formData?.date_of_birth), "ddMMyyyy"),
         marital_status: formData?.marital_status,
-        // about_me: formData?.about_me,
+        about_me: formData?.about_me,
 
         identity_info: {
           uan: formData?.uan,
@@ -129,9 +129,9 @@ const UpdateEmployee = () => {
         work_phone_number: formData?.work_phone_number,
         personal_mobile_number: formData?.personal_mobile_number,
         personal_email_address: formData?.personal_email_address,
-        // seating_location: formData?.seating_location,
-        // permanent_address: formData?.permanent_address,
-        // present_address: formData?.present_address,
+        seating_location: formData?.seating_location,
+        permanent_address: formData?.permanent_address,
+        present_address: formData?.present_address,
 
         work_experience: formData?.work_experience,
         educational_details: formData?.educational_details,
@@ -139,10 +139,10 @@ const UpdateEmployee = () => {
       };
 
       data.organisation_id = orgDetails?.organisation_id;
-      data.last_ip = "0.0.0.0";
-      data.browserid = "1234";
-      data.fcm_token = "1234";
-      data.device_id = "1234";
+      // data.last_ip = "0.0.0.0";
+
+      // data.fcm_token = "1234";
+      // data.device_id = "1234";
       console.log(data, "paylod");
       const response = await backEndCallObjNothing(
         "/admin/update_employee_profile",
