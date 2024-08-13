@@ -140,11 +140,11 @@ let contactDetailsProperties = [
     property: "seating_location",
     type: "string",
   },
-  {
-    name: "Tags",
-    property: "tags",
-    type: "string",
-  },
+  // {
+  //   name: "Tags",
+  //   property: "tags",
+  //   type: "string",
+  // },
   {
     name: "Work Phone Number",
     property: "work_phone_number",

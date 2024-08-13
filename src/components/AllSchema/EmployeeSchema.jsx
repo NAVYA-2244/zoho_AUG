@@ -12,6 +12,7 @@ import { TbCirclesRelation } from "react-icons/tb";
 export const addEmployeeForm = {
   // banner: "",
   // profilePhoto: "",
+  // organisation_id:"",
   employee_id: "",
   first_name: "",
   last_name: "",
@@ -23,10 +24,10 @@ export const addEmployeeForm = {
   employment_type: "",
   employee_status: "",
   source_of_hire: "",
-  shift_id: "",
+  // shift_id: "",
   date_of_join: "",
   reporting_manager: "",
-  location_id: "",
+  // location_id: "",
   date_of_birth: "",
   expertise: "",
   gender: "",
@@ -40,7 +41,7 @@ export const addEmployeeForm = {
   personal_mobile_number: "",
   personal_email_address: "",
   seating_location: "",
-  tags: "",
+
   present_address: "",
   permanent_address: "",
   work_experience: [
@@ -135,13 +136,18 @@ export const ExpirementSchema = {
     })
     .label("NickName"),
 
-  location_id: Joi.string().required().label("Location"),
+  // location_id: Joi.string().required().label("Location"),
 
-  department_id: Joi.string().required().label("Department"),
-  role_id: Joi.string().required().label("Role"),
-  designation_id: Joi.string().required().label("Designation"),
-  employment_type: Joi.string().required().label("Employment Type"),
+  department_id: Joi.string().required().min(3).max(15).label("Department"),
+  role_id: Joi.string().required().min(3).max(15).label("Role"),
+  designation_id: Joi.string().min(3).max(15).required().label("Designation"),
+  employment_type: Joi.string()
+    .min(3)
+    .max(15)
+    .required()
+    .label("Employment Type"),
   employee_status: Joi.string()
+    .valid("active", "disable", "terminated")
     .min(3)
     .max(15)
     .required()
@@ -151,7 +157,7 @@ export const ExpirementSchema = {
     .max(15)
     .required("")
     .label("Source of hire"),
-  shift_id: Joi.string().required().label("Shift"),
+  // shift_id: Joi.string().required().label("Shift"),
   reporting_manager: Joi.string()
     .min(0)
     .max(20)
@@ -306,8 +312,6 @@ export const ExpirementSchema = {
     })
     .label("Seating Location"),
 
-  tags: Joi.string().allow("").optional().label("Tags"),
-
   work_experience: Joi.array()
     .items(
       Joi.object({
@@ -322,7 +326,7 @@ export const ExpirementSchema = {
           .label("Company Name"),
         job_title: Joi.string()
           .min(3)
-          .max(30)
+          .max(25)
           .allow("")
           .messages({
             "string.pattern.base":
@@ -330,18 +334,21 @@ export const ExpirementSchema = {
           })
           .label("Job Title"),
 
-        from_date: Joi.date().max("now").allow("").label("From Date"),
-        to_date: Joi.date().max("now").allow("").label("End Date"),
+        from_date: Joi.date().allow("").label("From Date"),
+        to_date: Joi.date().allow("").label("End Date"),
         job_description: Joi.string()
-          .min(3)
-          .max(250)
+          .min(5)
+          .max(100)
           .allow("")
           .messages({
             "string.pattern.base":
               '"jobDescription" should not include special characters',
           })
           .label("Job Description"),
-        experience: Joi.number().max(50).allow("").label("Relevant Experience"),
+        experience: Joi.number()
+          .positive()
+          .allow("")
+          .label("Relevant Experience"),
       })
     )
     .label("Work Experience"),
@@ -350,8 +357,8 @@ export const ExpirementSchema = {
     .items(
       Joi.object({
         institute_name: Joi.string()
-          .min(10)
-          .max(50)
+          .min(5)
+          .max(30)
           .allow("")
           .messages({
             "string.pattern.base":
@@ -368,8 +375,8 @@ export const ExpirementSchema = {
           })
           .label("Degree or Diploma"),
         specialization: Joi.string()
-          .min(5)
-          .max(100)
+          .min(3)
+          .max(15)
           .allow("")
           .messages({
             "string.pattern.base":
@@ -477,7 +484,7 @@ const EmployeeDataSchema = {
     })
     .label("NickName"),
 
-  location_id: Joi.string().required().label("Location"),
+  // location_id: Joi.string().required().label("Location"),
 
   department_id: Joi.string().required().label("Department"),
   role_id: Joi.string().required().label("Role"),
@@ -493,7 +500,7 @@ const EmployeeDataSchema = {
     .max(15)
     .required("")
     .label("Source of hire"),
-  shift_id: Joi.string().required().label("Shift"),
+  // shift_id: Joi.string().required().label("Shift"),
   reporting_manager: Joi.string()
     .min(0)
     .max(20)
@@ -636,7 +643,7 @@ const EmployeeDataSchema = {
     })
     .label("Seating Location"),
 
-  tags: Joi.string().allow("").optional().label("Tags"),
+  // tags: Joi.string().allow("").optional().label("Tags"),
 
   present_address: Joi.string()
 
@@ -785,7 +792,7 @@ export const inputStepMap = {
   nickName: 0,
   email: 0,
   department: 0,
-  location: 0,
+  // location: 0,
   designation: 0,
   role: 0,
   employmentType: 0,

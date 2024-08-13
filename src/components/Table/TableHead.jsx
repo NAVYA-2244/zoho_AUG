@@ -51,6 +51,7 @@ const TableHead = ({
             >
               <div className="heading">
                 <h6>{heading.name}</h6>
+                {console.log(heading.name, "poiuyghj")}
                 <h6 className="icon">
                   {heading.property &&
                     (sort?.direction === "asc" ? (

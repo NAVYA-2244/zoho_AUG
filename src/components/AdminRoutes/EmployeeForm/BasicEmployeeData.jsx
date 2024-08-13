@@ -12,20 +12,52 @@ import { useThemeContext } from "../../Contexts/ThemesContext";
 import ProfilePhoto from "./ProfilePhoto";
 
 const BasicEmployeeData = ({ formData, setFormData, type }) => {
-  const { isAdmin, refs, locations ,  loading, setErrors, setLoading, orgDetails, setOrgDetails } =
-  useStateContext();
+  const {
+    isAdmin,
+    refs,
+    locations,
+    loading,
+    setErrors,
+    setLoading,
+    orgDetails,
+    setOrgDetails,
+  } = useStateContext();
   const { applicationColor } = useThemeContext();
   const [employeesList, setEmployeesList] = useState([]);
   const [options, setOptions] = useState({});
-
-  
+  const [optionss, setOptionss] = useState({});
+  const [optionsss, setoptionsss] = useState({});
+  {
+    console.log(orgDetails.departments?.department_name, "iuhgbhnkl");
+  }
   useEffect(() => {
-    const settingOptionsByLoications = locations.filter((item) => {
-      return item.location_id === formData.location_id;
-    });
-    setOptions(settingOptionsByLoications[0]);
-    console.log(options, "ee");
-  }, [formData.location_id]);
+    if (orgDetails.departments) {
+      setOptions({
+        departments: orgDetails.departments,
+      });
+    }
+  }, [orgDetails]);
+  useEffect(() => {
+    if (orgDetails.designations) {
+      setOptionss({
+        designations: orgDetails.designations,
+      });
+    }
+  }, [orgDetails]);
+  useEffect(() => {
+    if (orgDetails.roles) {
+      setoptionsss({
+        roles: orgDetails.roles,
+      });
+    }
+  }, [orgDetails]);
+  // useEffect(() => {
+  //   const a = locations.filter((item) => {
+  //     return item.location_id === formData.location_id;
+  //   });
+  //   setOptions(settingOptionsByLoications[0]);
+  //   console.log(options, "ee");
+  // }, [formData.location_id]);
 
   console.log("locations", options);
   return (
@@ -194,9 +226,9 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
         }}
       >
         <h6 className="heading-form"> Work Information</h6>
-
+        {/* 
         <div className="col-lg-4 col-md-4 col-sm-6">
-          <Select_inputs
+          {/* <Select_inputs
             name={"location_id"}
             placeholder={"Location"}
             value={formData?.location_id}
@@ -208,8 +240,8 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             // readOnly={isAdmin}
             imp
             inputRef={(el) => (refs.current.designation = el)}
-          />
-        </div>
+          /> */}
+        {/* </div>  */}
 
         <div className="col-lg-4 col-md-4 col-sm-6">
           <Select_inputs
@@ -218,7 +250,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             value={formData.department_id}
             schema={schema.department_id}
             setForm={setFormData}
-            options={options?.departments || []}
+            options={options.departments || []}
             property={"department_name"}
             valueProperty={"department_id"}
             // readOnly={isAdmin}
@@ -233,7 +265,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             value={formData.designation_id}
             schema={schema.designation_id}
             setForm={setFormData}
-            options={options?.designations || []}
+            options={optionss.designations || []}
             property={"designation_name"}
             valueProperty={"designation_id"}
             // readOnly={isAdmin}
@@ -248,7 +280,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             value={formData.role_id}
             schema={schema.role_id}
             setForm={setFormData}
-            options={options?.roles || []}
+            options={optionsss.roles || []}
             property={"role_name"}
             valueProperty={"role_id"}
             // readOnly={isAdmin}
@@ -323,21 +355,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
         </div>
 
         <div className="col-lg-4 col-md-4 col-sm-6">
-          {" "}
-          <Input_text
-            type={"text"}
-            name={"tags"}
-            placeholder={"Tags"}
-            value={formData["tags"]}
-            setForm={setFormData}
-            schema={schema["tags"]}
-            maxLength={50}
-            inputRef={(el) => (refs.current.tags = el)}
-            // readOnly={isAdmin}
-          />
-        </div>
-        <div className="col-lg-4 col-md-4 col-sm-6">
-          <Select_inputs
+          {/* <Select_inputs
             name={"shift_id"}
             placeholder={"Shift"}
             value={formData.shift_id}
@@ -349,7 +367,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             // readOnly={isAdmin}
             imp
             inputRef={(el) => (refs.current.shift_id = el)}
-          />
+          /> */}
         </div>
 
         <div className="col-lg-4 col-md-4 col-sm-6">

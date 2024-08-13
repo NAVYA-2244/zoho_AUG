@@ -43,7 +43,7 @@ const AddEmployee = () => {
       const data = {
         // banner: formData?.banner,
         employee_id: formData?.employee_id,
-        location_id: formData?.location_id,
+        // location_id: formData?.location_id,
         // profilePhoto: formData?.profilePhoto,
         first_name: formData?.first_name,
         last_name: formData?.last_name,
@@ -51,18 +51,18 @@ const AddEmployee = () => {
         email: formData?.email,
         gender: formData?.gender,
         expertise: formData.expertise,
-        tags: formData?.tags,
+        // tags: formData?.tags,
         department_id: formData?.department_id,
         designation_id: formData?.designation_id,
-        role_id: formData?.role_id, 
+        role_id: formData?.role_id,
         // location: formData?.location,
         employment_type: formData?.employment_type,
         source_of_hire: formData?.source_of_hire,
         date_of_join: formData?.date_of_join,
-        shift_id: formData?.shift_id,
+
         reporting_manager: {},
         employee_status: formData.employee_status,
-        // reportingManager: formData?.reportingManager,
+        reportingManager: formData?.reportingManager,
         date_of_birth: format(new Date(formData?.date_of_birth), "ddMMyyyy"),
         marital_status: formData?.marital_status,
         about_me: formData?.about_me,
@@ -109,9 +109,15 @@ const AddEmployee = () => {
       data.organisation_id = orgDetails?.organisation_id;
 
       console.log(data, "datatas");
-      const response = await backEndCallObjNothing("/user/add_employee", data);
+      const response = await backEndCallObjNothing("/admin/add_employee", data);
+      {
+        console.log("oiuygfghjk");
+      }
 
       setRedirect(true);
+      {
+        console.log(response, "response");
+      }
 
       setFormData({});
       toastOptions.success("Employee Added successfully");
@@ -129,7 +135,7 @@ const AddEmployee = () => {
     }
   };
   if (redirect) {
-    return <Navigate to="/admin/employee_list" />;
+    return <Navigate to="/admin_get/get_employee_list" />;
   }
   return (
     <>

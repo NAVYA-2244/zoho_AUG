@@ -416,11 +416,11 @@ const EmployeeList = () => {
       try {
         setLoading(true);
         let employees = await backEndCallObjNothing(
-          "/user_get/get_employee_list",
+          "/admin_get/get_employee_list",
           { skip: 0 }
         );
-        setEmployeesList(employees);
-        setFilteredEmployees(employees);
+        setEmployeesList(employees.employees);
+        setFilteredEmployees(employees.employees);
         console.log(employees, "employees");
       } catch (error) {
         toastOptions.error(error?.response?.data || "something went wrong");

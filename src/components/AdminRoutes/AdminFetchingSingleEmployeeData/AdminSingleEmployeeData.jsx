@@ -69,7 +69,7 @@ const AdminSingleEmployeeData = ({ employeeProfileData, employeesList }) => {
       setLoading(true);
 
       const { employee } = await backEndCallObjNothing(
-        `/user_get/get_emp_by_id`,
+        `/admin_get/get_emp_by_id`,
         { employee_id: id }
       );
 
@@ -287,7 +287,7 @@ const AdminSingleEmployeeData = ({ employeeProfileData, employeesList }) => {
       setLoadingTerm("");
       toastOptions.error(
         error?.error?.response?.data?.detail ||
-        "Error Occured while Updating Status"
+          "Error Occured while Updating Status"
       );
     } finally {
       setLoading(false);

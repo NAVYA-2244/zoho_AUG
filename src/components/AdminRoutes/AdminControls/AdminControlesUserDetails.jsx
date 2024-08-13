@@ -56,7 +56,7 @@ const AdminControlesUserDetails = ({ selectedLocation }) => {
     if (orgDetails && selectedLocation) {
       setFormData({
         organisation_id: orgDetails?.organisation_id || "",
-        location_id: selectedLocation.location_id || "",
+        // location_id: selectedLocation.location_id || "",
         name_to_be_displayed:
           selectedLocation.display_settings?.name_to_be_displayed ||
           "FIRST_LAST",
@@ -83,7 +83,7 @@ const AdminControlesUserDetails = ({ selectedLocation }) => {
   }, [orgDetails, selectedLocation]);
   const settingsSchema = {
     organisation_id: Joi.string().min(10).max(18).required(),
-    location_id: Joi.string().min(15).max(17).required(),
+    // location_id: Joi.string().min(15).max(17).required(),
     name_to_be_displayed: Joi.string()
       .valid("FIRST_LAST", "LAST_FIRST")
       .required(),
@@ -109,7 +109,7 @@ const AdminControlesUserDetails = ({ selectedLocation }) => {
     if (orgDetails && selectedLocation) {
       setFormData({
         organisation_id: orgDetails?.organisation_id || "",
-        location_id: selectedLocation.location_id || "",
+        // location_id: selectedLocation.location_id || "",
         name_to_be_displayed:
           selectedLocation.display_settings?.name_to_be_displayed ||
           "FIRST_LAST",

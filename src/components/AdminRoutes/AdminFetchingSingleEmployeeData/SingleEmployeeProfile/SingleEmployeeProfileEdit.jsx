@@ -114,7 +114,7 @@ const SingleEmployeeProfileEdit = () => {
         "any.required": '"Email" is required',
       })
       .label("Email Id"),
-    tags: Joi.string().allow(null, "").optional(),
+    // a: Joi.string().allow(null, "").optional(),
 
     company_name: Joi.string()
       .min(10)
@@ -251,7 +251,7 @@ const SingleEmployeeProfileEdit = () => {
       employeeProfileData.profile.contact_details.personal_mobile_number || "",
     personal_email_address:
       employeeProfileData.profile.contact_details.personal_email_address || "",
-    tags: employeeProfileData.profile.contact_details.tags || "",
+    // tags: employeeProfileData.profile.contact_details.tags || "",
 
     company_name:
       employeeProfileData.profile.work_experience &&
@@ -649,18 +649,6 @@ const SingleEmployeeProfileEdit = () => {
               maxLength={50}
               value={formData.personal_email_address}
               schema={schema.personal_email_address}
-            />
-          </div>
-          <div className="col-lg-4 col-md-4 col sm-6">
-            <Input_text
-              type="text"
-              name="tags"
-              placeholder="Tags"
-              onChange={handleChange}
-              setForm={setFormData}
-              value={formData.tags}
-              schema={schema.tags}
-              maxLength={50}
             />
           </div>
 

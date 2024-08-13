@@ -41,7 +41,7 @@ const FileUploadForm = ({ selectedLocation }) => {
   ];
   const filesettingschema = {
     organisation_id: Joi.string().min(10).max(18).required(),
-    location_id: Joi.string().min(15).max(17).required(),
+    // location_id: Joi.string().min(15).max(17).required(),
     file_settings_id: Joi.string().allow(null, "").optional(),
     file_upload_status: Joi.boolean().required(),
     max_file_size: Joi.number().positive().required(), // in KB format
@@ -50,7 +50,7 @@ const FileUploadForm = ({ selectedLocation }) => {
 
   const [formData, setFormData] = useState({
     organisation_id: orgDetails?.organisation_id || "",
-    location_id: selectedLocation?.location_id || "",
+    // location_id: selectedLocation?.location_id || "",
     file_upload_status: false,
     max_file_size: "",
     supported_file_formats: [], // Ensure it's initialized as an array
@@ -61,12 +61,12 @@ const FileUploadForm = ({ selectedLocation }) => {
       setFormData({
         ...editingItem,
         organisation_id: orgDetails?.organisation_id || "",
-        location_id: selectedLocation?.location_id || "",
+        // location_id: selectedLocation?.location_id || "",
       });
     } else {
       setFormData({
         organisation_id: orgDetails?.organisation_id || "",
-        location_id: selectedLocation?.location_id || "",
+        // location_id: selectedLocation?.location_id || "",
         file_upload_status: false,
         max_file_size: "",
         supported_file_formats: [],
@@ -128,7 +128,7 @@ const FileUploadForm = ({ selectedLocation }) => {
 
       setFormData({
         organisation_id: orgDetails?.organisation_id || "",
-        location_id: selectedLocation?.location_id || "",
+        // location_id: selectedLocation?.location_id || "",
         file_upload_status: false,
         max_file_size: "",
         supported_file_formats: [],

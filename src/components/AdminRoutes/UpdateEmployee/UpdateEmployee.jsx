@@ -33,7 +33,6 @@ const UpdateEmployee = () => {
   useEffect(() => {
     const singleEmployeeData = async () => {
       try {
-
         setLoading(true);
         const { employee } = await backEndCallObjNothing(
           `/user_get/get_emp_by_id`,
@@ -74,7 +73,7 @@ const UpdateEmployee = () => {
         // form.shift_id =work_info.shift_id;
         // form.designation_id = work_info.designation_id;
         // form.role_id = work_info.role_id;
-        form.location_id = work_info.location_id
+        form.location_id = work_info.location_id;
         form.work_experience = work_experience;
         form.educational_details = educational_details;
         form.dependent_details = dependent_details;
@@ -92,7 +91,6 @@ const UpdateEmployee = () => {
 
   const handleSubmit = async (formData) => {
     try {
-
       setLoading(true);
       setLoadingTerm("Update Employee");
       console.log({ formData });
@@ -106,7 +104,7 @@ const UpdateEmployee = () => {
         // email: formData?.email,
         // gender: formData?.gender,
         expertise: formData.expertise,
-        tags: formData?.tags,
+        // tags: formData?.tags,
         // department_id: formData?.department_id,
         // designation_id: formData?.designation_id,
         // role_id: formData?.role_id,
@@ -145,10 +143,9 @@ const UpdateEmployee = () => {
       data.browserid = "1234";
       data.fcm_token = "1234";
       data.device_id = "1234";
-      console.log(data, "paylod")
+      console.log(data, "paylod");
       const response = await backEndCallObjNothing("/emp/edit_profile", data);
-      console.log("response", response)
-
+      console.log("response", response);
 
       setRedirect(true);
       toastOptions.success("Employee Updated successfully");
