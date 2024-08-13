@@ -285,15 +285,15 @@ export const isSuperAdminRouter = [
           </IsSuperAdminRoute>
         ),
       },
-      {
-        path: "/admin/profile",
-        element: (
-          <IsSuperAdminRoute>
-            <EmployeeProfile />
-            {/* < /> */}
-          </IsSuperAdminRoute>
-        ),
-      },
+      // {
+      //   path: "/admin/profile",
+      //   element: (
+      //     <IsSuperAdminRoute>
+      //       <EmployeeProfile />
+      //       {/* < /> */}
+      //     </IsSuperAdminRoute>
+      //   ),
+      // },
       {
         path: "/profile_Edit",
         element: (
