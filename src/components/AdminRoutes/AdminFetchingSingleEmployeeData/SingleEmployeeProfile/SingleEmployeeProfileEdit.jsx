@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import {
   Date_Input,
   Input_area,
@@ -9,35 +9,27 @@ import {
 } from "../../../common/ALLINPUTS/AllInputs";
 import { useStateContext } from "../../../Contexts/StateContext";
 import { backEndCallObjNothing } from "../../../../services/mainService";
-
 import { useFunctionContext } from "../../../Contexts/FunctionContext";
-import { ExpirementSchema } from "../../../AllSchema/EmployeeSchema";
 import Joi from "joi";
-import { formatDate } from "date-fns";
 import toast from "react-hot-toast";
 import { toastOptions } from "../../../../Utils/FakeRoutes";
 import { useThemeContext } from "../../../Contexts/ThemesContext";
+import FingerprintJS from "@fingerprintjs/fingerprintjs";
+import { publicIpv4 } from "public-ip";
+import { fullBrowserVersion } from "react-device-detect";
 
 const SingleEmployeeProfileEdit = () => {
   const location = useLocation();
   const [redirect, setRedirect] = useState(false);
-
-  const { setLoadingTerm, setLoading } = useStateContext();
-  const { setEmployeedata, employeeData } = useStateContext();
-
+  const { setLoadingTerm, setLoading, setEmployeedata } = useStateContext();
+  const [browserId, setBrowserId] = useState("");
   const { checkErrors } = useFunctionContext();
   const { applicationColor } = useThemeContext();
   const { loading } = useStateContext();
-
+  
   const { employeeProfileData } = location.state || {};
   const eighteenYearsAgo = new Date();
   eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18);
-
-  // educational_details: Array.isArray(formData?.educational_details);
-  //   ? formData.educational_details.filter((item) =>
-  //       Object.values(item).some((value) => value.length > 0)
-  //     )
-  //   : [],
 
   const schema = {
     organisation_id: Joi.string().min(15).max(17).required(),
@@ -46,303 +38,101 @@ const SingleEmployeeProfileEdit = () => {
     expertise: Joi.string().allow(null, "").optional(),
     marital_status: Joi.string().valid("married", "unmarried").required(),
     about_me: Joi.string().allow(null, "").optional(),
-
-    uan: Joi.string()
-      .length(12)
-      .min(12)
-      .max(12)
-      .allow("")
-      .messages({
-        "string.length": '"UAN" should be exactly 12 characters long',
-        "string.pattern.base": '"UAN" should not include special characters',
-        "any.required": '"UAN" is required',
-      })
-      .label("UAN")
-      .optional(),
-
-    pan: Joi.string()
-      .length(10)
-      .min(10)
-      .max(10)
-      .messages({
-        "string.pattern.base":
-          '"PAN" should consist of 5 letters followed by 4 digits and 1 letter, and should not include special characters',
-        "string.length": '"Pan" should be exactly 10 characters long',
-        "any.required": '"PAN" is required',
-      })
-      .required()
-      .label("PAN"),
-
-    aadhaar: Joi.string()
-      .length(12)
-      .min(12)
-      .max(12)
-      .allow("")
-      .messages({
-        "string.length": '"Aadhaar" should be exactly 12 characters long',
-        "string.pattern.base":
-          '"Aadhaar" should not include special characters',
-        "any.required": '"Aadhaar" is required',
-      })
-      .label("Aadhaar")
-      .required(),
-
-    passport: Joi.string()
-      .length(12)
-      .min(12)
-      .max(12)
-      .allow("")
-      .optional()
-      .messages({
-        "string.length": '"Passport" should be exactly 12 characters long',
-        "string.pattern.base":
-          '"Passport" should not include special characters',
-        "any.required": '"Passport" is required',
-      })
-      .label("Passport"),
-
+    uan: Joi.string().length(12).allow("").optional(),
+    pan: Joi.string().length(10).required(),
+    aadhaar: Joi.string().length(12).required(),
+    passport: Joi.string().length(12).allow("").optional(),
     work_phone_number: Joi.string().allow(null, "").optional().min(10).max(10),
     personal_mobile_number: Joi.string().required().min(10).max(10),
-
-    personal_email_address: Joi.string()
-      .min(5)
-      .max(35)
-      .email({ tlds: { allow: ["com", "net", "org"] } })
-      .required()
-      .messages({
-        "string.pattern.base": '"Email" should not include special characters',
-        "any.required": '"Email" is required',
-      })
-      .label("Email Id"),
-    // a: Joi.string().allow(null, "").optional(),
-
-    company_name: Joi.string()
-      .min(10)
-      .max(30)
-      .allow("")
-      .optional()
-      .messages({
-        "string.pattern.base":
-          '"company" should not include special characters',
-      })
-      .label("Company Name"),
-    job_title: Joi.string()
-      .min(3)
-      .max(30)
-      .allow("")
-      .optional()
-      .messages({
-        "string.pattern.base":
-          '"jobTitle" should not include special characters',
-      })
-      .label("Job Title"),
-
-    from_date: Joi.date().max("now").allow("").label("From Date").optional(),
-    to_date: Joi.date().max("now").allow("").label("End Date").optional(),
-    job_description: Joi.string()
-      .min(3)
-      .max(250)
-      .allow("")
-      .messages({
-        "string.pattern.base":
-          '"jobDescription" should not include special characters',
-      })
-      .label("Job Description")
-      .optional(),
-    experience: Joi.number()
-      .max(50)
-      // // .allow("")
-      .optional()
-      .label("Relevant Experience"),
-
-    institute_name: Joi.string()
-      .min(10)
-      .max(50)
-      .allow("")
-      .optional()
-      .messages({
-        "string.pattern.base":
-          '"instituteName" should not include special characters',
-      })
-      .label("Institute Name"),
-    degree: Joi.string()
-      .min(5)
-      .max(15)
-      .allow("")
-      .optional()
-      .messages({
-        "string.pattern.base":
-          '"degreeOrDiploma" should not include special characters',
-      })
-      .label("Degree or Diploma"),
-    specialization: Joi.string()
-      .min(5)
-      .max(100)
-      .allow("")
-      .optional()
-      .messages({
-        "string.pattern.base":
-          '" Locationspecialization" should not include special characters',
-      })
-      .label("Specialization"),
-    year_of_completion: Joi.number()
-      // .max("now")
-      // .allow("")
-      .optional()
-      // .max(10)
-      .label("Date of Completion"),
-
-    name: Joi.string()
-      .min(3)
-      .max(50)
-      .allow("")
-      .optional()
-      .messages({
-        "string.pattern.base":
-          '"dependentName" should not include special characters',
-      })
-      .label("Dependent Name"),
-
-    relation: Joi.string()
-      .min(3)
-      .max(50)
-      .allow("")
-      .messages({
-        "string.pattern.base":
-          '"dependentName" should not include special characters',
-      })
-      .label("Dependent Name")
-      .label("Relation"),
-    dependent_date_of_birth: Joi.date()
-      .max("now")
-      .less(eighteenYearsAgo)
-      .allow("")
-      .optional()
-      .messages({
-        "date.base": `"Date Of Birth" should be a valid date`,
-        "date.max": `"Date Of Birth" cannot be in the future`,
-        "date.less": `"Date Of Birth" must be at least 18 years ago`,
-        "any.required": `"Date Of Birth" is a required field`,
-      }),
-
+    personal_email_address: Joi.string().email({ tlds: { allow: ["com", "net", "org"] } }).required(),
+    company_name: Joi.string().min(10).max(30).allow("").optional(),
+    job_title: Joi.string().min(3).max(30).allow("").optional(),
+    from_date: Joi.date().max("now").allow("").optional(),
+    to_date: Joi.date().max("now").allow("").optional(),
+    job_description: Joi.string().min(3).max(250).allow("").optional(),
+    experience: Joi.number().max(50).optional(),
+    institute_name: Joi.string().min(10).max(50).allow("").optional(),
+    degree: Joi.string().min(5).max(15).allow("").optional(),
+    specialization: Joi.string().min(5).max(100).allow("").optional(),
+    year_of_completion: Joi.number().optional(),
+    name: Joi.string().min(3).max(50).allow("").optional(),
+    relation: Joi.string().min(3).max(50).allow("").optional(),
+    dependent_date_of_birth: Joi.date().max("now").less(eighteenYearsAgo).allow("").optional(),
     last_ip: Joi.string().ip().required(),
     browserid: Joi.string().min(3).max(50).required(),
     fcm_token: Joi.string().min(3).max(50).required(),
     device_id: Joi.string().min(3).max(50).required(),
   };
 
-  const [formData, setFormData] = useState({
-    organisation_id: employeeProfileData.profile.organisation_id || "",
-    employee_id: employeeProfileData.profile.employee_id || "",
-    nick_name: employeeProfileData.profile.basic_info.nick_name || "",
-    expertise: employeeProfileData.profile.personal_details.expertise || "",
-    marital_status:
-      employeeProfileData.profile.personal_details.marital_status || "",
-    about_me: employeeProfileData.profile.personal_details.about_me || "",
+  useEffect(() => {
+    const getBrowserId = async () => {
+      const fp = await FingerprintJS.load();
+      const result = await fp.get();
+      setBrowserId(result.visitorId.toString());
+    };
+    getBrowserId();
+  }, []);
 
-    aadhaar: employeeProfileData.profile.identity_info.aadhaar || "",
-    pan: employeeProfileData.profile.identity_info.pan || "",
-    passport: employeeProfileData.profile.identity_info.passport || "",
-    uan: employeeProfileData.profile.identity_info.uan || "",
+  useEffect(() => {
+    const fetchIpAndBrowserDetails = async () => {
+      const ip = await publicIpv4();
+      setFormData(prevData => ({
+        ...prevData,
+        last_ip: ip,
+        device_id: fullBrowserVersion,
+        browserid: browserId,
+        fcm_token: "staging"
+      }));
+    };
 
-    work_phone_number:
-      employeeProfileData.profile.contact_details.work_phone_number || "",
-    personal_mobile_number:
-      employeeProfileData.profile.contact_details.personal_mobile_number || "",
-    personal_email_address:
-      employeeProfileData.profile.contact_details.personal_email_address || "",
-    // tags: employeeProfileData.profile.contact_details.tags || "",
+    if (browserId) {
+      fetchIpAndBrowserDetails();
+    }
+  }, [browserId]);
 
-    company_name:
-      employeeProfileData.profile.work_experience &&
-      employeeProfileData.profile.work_experience.length > 0
-        ? employeeProfileData.profile.work_experience[0].company_name || ""
-        : "",
-
-    job_title:
-      employeeProfileData.profile.work_experience &&
-      employeeProfileData.profile.work_experience.length > 0
-        ? employeeProfileData.profile.work_experience[0].job_title || ""
-        : "",
-
-    from_date:
-      employeeProfileData.profile.work_experience &&
-      employeeProfileData.profile.work_experience.length > 0
-        ? employeeProfileData.profile.work_experience[0].from_date || ""
-        : "",
-
-    to_date:
-      employeeProfileData.profile.work_experience &&
-      employeeProfileData.profile.work_experience.length > 0
-        ? employeeProfileData.profile.work_experience[0].to_date || ""
-        : "",
-    experience:
-      employeeProfileData.profile.work_experience &&
-      employeeProfileData.profile.work_experience.length > 0
-        ? employeeProfileData.profile.work_experience[0].experience || 0
-        : 0,
-
-    job_description:
-      employeeProfileData.profile.work_experience &&
-      employeeProfileData.profile.work_experience.length > 0
-        ? employeeProfileData.profile.work_experience[0].job_description || ""
-        : "",
-    institute_name:
-      employeeProfileData.profile.educational_details &&
-      employeeProfileData.profile.educational_details.length > 0
-        ? employeeProfileData.profile.educational_details[0].institute_name ||
-          ""
-        : "",
-
-    degree:
-      employeeProfileData.profile.educational_details &&
-      employeeProfileData.profile.educational_details.length > 0
-        ? employeeProfileData.profile.educational_details[0].degree || ""
-        : "",
-
-    specialization:
-      employeeProfileData.profile.educational_details &&
-      employeeProfileData.profile.educational_details.length > 0
-        ? employeeProfileData.profile.educational_details[0].specialization ||
-          ""
-        : "",
-
-    year_of_completion:
-      employeeProfileData.profile.educational_details &&
-      employeeProfileData.profile.educational_details.length > 0
-        ? employeeProfileData.profile.educational_details[0]
-            .year_of_completion || 0
-        : 0,
-
-    // employeeProfileData.profile.educational_details.year_of_completion || "",
-    dependent_date_of_birth:
-      employeeProfileData.profile.dependent_details &&
-      employeeProfileData.profile.dependent_details.length > 0
-        ? employeeProfileData.profile.dependent_details[0]
-            .dependent_date_of_birth || ""
-        : "",
-    name:
-      employeeProfileData.profile.dependent_details &&
-      employeeProfileData.profile.dependent_details.length > 0
-        ? employeeProfileData.profile.dependent_details[0].name || ""
-        : "",
-
-    relation:
-      employeeProfileData.profile.dependent_details &&
-      employeeProfileData.profile.dependent_details.length > 0
-        ? employeeProfileData.profile.dependent_details[0].relation || ""
-        : "",
-
-    last_ip: employeeProfileData.profile.last_ip || "",
-    browserid: employeeProfileData.profile.browserid || "",
-    fcm_token: employeeProfileData.profile.fcm_token || "",
-    device_id: employeeProfileData.profile.device_id || "",
+  const [formData, setFormData] = useState(() => {
+    if (!employeeProfileData) return {};
+    return {
+      last_ip: "",
+      device_id: "",
+      browserid: "",
+      fcm_token: "staging",
+      organisation_id: employeeProfileData.profile.organisation_id || "",
+      employee_id: employeeProfileData.profile.employee_id || "",
+      nick_name: employeeProfileData.profile.basic_info.nick_name || "",
+      expertise: employeeProfileData.profile.personal_details.expertise || "",
+      marital_status: employeeProfileData.profile.personal_details.marital_status || "",
+      about_me: employeeProfileData.profile.personal_details.about_me || "",
+      aadhaar: employeeProfileData.profile.identity_info.aadhaar || "",
+      pan: employeeProfileData.profile.identity_info.pan || "",
+      passport: employeeProfileData.profile.identity_info.passport || "",
+      uan: employeeProfileData.profile.identity_info.uan || "",
+      work_phone_number: employeeProfileData.profile.contact_details.work_phone_number || "",
+      personal_mobile_number: employeeProfileData.profile.contact_details.personal_mobile_number || "",
+      personal_email_address: employeeProfileData.profile.contact_details.personal_email_address || "",
+      company_name: employeeProfileData.profile.work_experience?.[0]?.company_name || "",
+      job_title: employeeProfileData.profile.work_experience?.[0]?.job_title || "",
+      from_date: employeeProfileData.profile.work_experience?.[0]?.from_date || "",
+      to_date: employeeProfileData.profile.work_experience?.[0]?.to_date || "",
+      experience: employeeProfileData.profile.work_experience?.[0]?.experience || 0,
+      job_description: employeeProfileData.profile.work_experience?.[0]?.job_description || "",
+      institute_name: employeeProfileData.profile.educational_details?.[0]?.institute_name || "",
+      degree: employeeProfileData.profile.educational_details?.[0]?.degree || "",
+      specialization: employeeProfileData.profile.educational_details?.[0]?.specialization || "",
+      year_of_completion: employeeProfileData.profile.educational_details?.[0]?.year_of_completion || 0,
+      dependent_date_of_birth: employeeProfileData.profile.dependent_details?.[0]?.dependent_date_of_birth || "",
+      name: employeeProfileData.profile.dependent_details?.[0]?.name || "",
+      relation: employeeProfileData.profile.dependent_details?.[0]?.relation || "",
+      last_ip: employeeProfileData.profile.last_ip || "",
+      browserid: employeeProfileData.profile.browserid || "",
+      fcm_token: employeeProfileData.profile.fcm_token || "",
+      device_id: employeeProfileData.profile.device_id || "",
+    };
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    setFormData((prevData) => ({
+    setFormData(prevData => ({
       ...prevData,
       [name]: value,
     }));
@@ -355,90 +145,80 @@ const SingleEmployeeProfileEdit = () => {
       setLoading(true);
       setLoadingTerm("Update Profile");
       await checkErrors(schema, formData);
-      const formatYearOnly = (dateString) => {
-        if (!dateString) return "";
-        const date = new Date(dateString);
-        return date.getFullYear().toString();
-      };
 
       const formattedData = {
-        ...formData,
-
+        // ...formData,
+        organisation_id: employeeProfileData.profile.organisation_id || "",
+        employee_id: employeeProfileData.profile.employee_id || "",
+        marital_status: employeeProfileData.profile.personal_details.marital_status || "",
+        personal_mobile_number: employeeProfileData.profile.contact_details.personal_mobile_number || "",
+        personal_email_address: employeeProfileData.profile.contact_details.personal_email_address || "",
+        last_ip: formData.last_ip,
+          browserid: formData.browserid,
+          fcm_token: formData.fcm_token,
+          device_id: formData.device_id,
         identity_info: {
           aadhaar: formData.aadhaar,
           pan: formData.pan,
           uan: formData.uan,
           passport: formData.passport,
         },
-
-        work_experience: [
-          {
-            company_name: formData.company_name,
-
-            job_title: formData.job_title,
-
-            from_date: formData.from_date,
-
-            to_date: formData.to_date,
-
-            experience: formData.experience,
-
-            job_description: formData.job_description,
-          },
-        ],
-        educational_details: [
-          {
-            institute_name: formData.institute_name,
-            degree: formData.degree,
-            specialization: formData.specialization,
-            year_of_completion: formData.year_of_completion,
-          },
-        ],
-        dependent_details: [
-          {
-            dependent_date_of_birth: formData.dependent_date_of_birth,
-            name: formData.name,
-            relation: formData.relation,
-          },
-        ],
+        work_experience: [{
+          company_name: formData.company_name,
+          job_title: formData.job_title,
+          from_date: formData.from_date,
+          to_date: formData.to_date,
+          experience: formData.experience,
+          job_description: formData.job_description,
+        }],
+        educational_details: [{
+          institute_name: formData.institute_name,
+          degree: formData.degree,
+          specialization: formData.specialization,
+          year_of_completion: formData.year_of_completion,
+        }],
+        dependent_details: [{
+          dependent_date_of_birth: formData.dependent_date_of_birth,
+          name: formData.name,
+          relation: formData.relation,
+        }],
       };
 
-      delete formattedData.aadhaar;
-      delete formattedData.pan;
-      delete formattedData.passport;
-      delete formattedData.uan;
-      delete formattedData.company_name;
-      delete formattedData.from_date;
-      delete formattedData.to_date;
-      delete formattedData.experience;
-      delete formattedData.job_title;
-      delete formattedData.job_description;
-      delete formattedData.institute_name;
-      delete formattedData.specialization;
-      delete formattedData.degree;
-      delete formattedData.year_of_completion;
-      delete formattedData.dependent_date_of_birth;
-      delete formattedData.name;
-      delete formattedData.relation;
-      const response = await backEndCallObjNothing(
-        "/emp/edit_profile",
-        formattedData
-      );
-      setEmployeedata(response.data);
-      setRedirect(true);
-
-      toastOptions.success(response.success);
-    } catch (error) {
-      console.log(error);
-
-      toastOptions.error("Please Try Again");
-    } finally {
+      // Clean up redundant properties
+      // const cleanData = {
+      //   ...formattedData,
+      //   identity_info: formattedData.identity_info,
+      //   work_experience: formattedData.work_experience,
+      //   educational_details: formattedData.educational_details,
+      //   dependent_details: formattedData.dependent_details,
+      //   last_ip: formData.last_ip,
+      //   browserid: formData.browserid,
+      //   fcm_token: formData.fcm_token,
+      //   device_id: formData.device_id,
+      // };
+console.log(formattedData,"cleanData")
+      const response = await backEndCallObjNothing(`/emp/edit_profile
+`, formattedData);
       setLoading(false);
+
+     
+        toast.success("Profile updated successfully!", toastOptions);
+        setEmployeedata(response.data);
+        setRedirect(true);
+      
+      
+      
+    } catch (error) {
+      setLoading(false);
+      console.log(error,"error")
+      toast.error("An error occurred during form submission", toastOptions);
     }
   };
+
   if (redirect) {
     return <Navigate to="/admin/profile" />;
   }
+
 
   return (
     <div
@@ -637,6 +417,7 @@ const SingleEmployeeProfileEdit = () => {
               setForm={setFormData}
               schema={schema.year_of_completion}
               maxLength={10}
+              
             />
           </div>
           <div className="col-lg-4 col-md-4 col sm-6">

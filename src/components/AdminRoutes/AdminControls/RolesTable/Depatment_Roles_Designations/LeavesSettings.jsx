@@ -707,6 +707,7 @@ const LeavesSettings = () => {
     designation_name: "",
     designation_id: null,
     leaves: [],
+    organisation_id: orgDetails?.organisation_id || "",
   });
 
   const { applicationColor } = useThemeContext();
@@ -807,6 +808,7 @@ const LeavesSettings = () => {
       setLoading(true);
       await checkErrors(schema, formData);
       const dataToSubmit = { ...formData };
+      
       const response = await backEndCallObjNothing("/org/add_update_designation", dataToSubmit);
       setOrgDetails(response.data);
       toastOptions.success(response.success || "Operation Successful");

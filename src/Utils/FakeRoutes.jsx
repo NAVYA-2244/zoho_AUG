@@ -62,12 +62,12 @@ export const employeeSidebar = [
   //   label: "Today's Attendance",
   //   path: "/admin/today_employees_attendance",
   // },
-  // {
-  //   id: "attendance",
-  //   label: "Attendance",
-  //   icon: <LuFileSpreadsheet />,
-  //   path: "/admin/employee/attendance",
-  // },
+  {
+    id: "attendance",
+    label: "Attendance",
+    icon: <LuFileSpreadsheet />,
+    path: "/admin/employee/attendance",
+  },
 
   // {
   //   id: "add_employeee",
@@ -95,12 +95,12 @@ export const employeeSidebar = [
   //   label: "Leave Applications",
   //   path: "/admin/employee_leave-applications",
   // },
-  // {
-  //   id: "LeaveApplications",
-  //   icon: <BsCalendar2EventFill />,
-  //   label: "leave applications  emp",
-  //   path: "/leaveApplications",
-  // },
+  {
+    id: "LeaveApplications",
+    icon: <BsCalendar2EventFill />,
+    label: "leave applications  emp",
+    path: "/leaveApplications",
+  },
 
   // {
   //   id: "Controls",

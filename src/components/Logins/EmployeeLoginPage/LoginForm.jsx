@@ -97,14 +97,16 @@ const LoginForm = () => {
   }, [otp]);
 
   const handleLogin = async (e) => {
+    e.preventDefault(); // Prevent form submission
+
     if (!otp) {
-      toastOptions.error("OTP is required");
+      toastOptions.error("OTP is required"); // Display an error if OTP is empty
       return;
     }
-    e.preventDefault();
-    setLoader(true);
-    setBtndisabled(true);
+
+    
     try {
+      setBtndisabled(true)
       const obj = {
         otp,
         email: formData.email,
@@ -114,23 +116,53 @@ const LoginForm = () => {
         browserid: browserId,
       };
       const response = await loginCall("/emp/login_verify", obj);
-      console.log(response, "login");
-      toastOptions.success("Success");
-      setLoader(false);
-      window.localStorage.getItem("zohoEmployeeToken")
-        ? (window.location = "/dashboard")
-        : (window.location = "/loginForm");
-        
-    } catch (e) {
-      setLoader(false);
-      toastOptions.error(e?.response?.data || "Something went wrong otp");
+      console.log(response.success, "response");
+      window.location = "/dashboard"; // Redirect on success
+      setBtndisabled(false)
+    } catch (error) {
+      toastOptions.error(error?.response?.data || "Something went wrong");
+      setBtndisabled(false)
     } finally {
-      setBtndisabled(false);
+     
     }
   };
+  // const handleLogin = async (e) => {
+  //   if (!otp) {
+  //     toastOptions.error("OTP is required");
+  //     return;
+  //   }
+  //   e.preventDefault();
+  //   setLoader(true);
+   
+  //   try {
+  //     setBtndisabled(true);
+  //     const obj = {
+  //       otp,
+  //       email: formData.email,
+  //       code2fa: "",
+  //       last_ip: await publicIpv4(),
+  //       device_id: fullBrowserVersion,
+  //       browserid: browserId,
+  //     };
+  //     const response = await loginCall("/emp/login_verify", obj);
+  //     console.log(response, "login");
+  //     toastOptions.success("Success");
+  //     setLoader(false);
+  //     window.localStorage.getItem("zohoEmployeeToken")
+  //       ? (window.location = "/dashboard")
+  //       : (window.location = "/loginForm");
+  //       setBtndisabled(false)
+  //   } catch (e) {
+  //     setLoader(false);
+  //     setBtndisabled(false)
+  //     toastOptions.error(e?.response?.data || "Something went wrong otp");
+  //   } finally {
+  //     setBtndisabled(false);
+  //   }
+  // };
 
   const handleResendOTP = async () => {
-    setLoader(true);
+    // setLoader(true);
     try {
       const obj = {
         email: formData.email,
@@ -140,11 +172,11 @@ const LoginForm = () => {
 
       const response = await backEndCallObjNothing("/emp/resend_otp", obj);
       // toastOptions.success(response.success||"OTP Resent Successfully");
-      setLoader(false);
+      // setLoader(false);
       // Reset timer
       setTimeLeft(120); // Reset timer to 120 seconds after successful resend
     } catch (error) {
-      setLoader(false);
+      // setLoader(false);
       toastOptions.error(
         error?.response?.data || "Something went wrong resending OTP"
       );
@@ -153,9 +185,9 @@ const LoginForm = () => {
 
   const EmployeeLoginSubmit = async (e) => {
     e.preventDefault();
-    setLoadingTerm("login");
-    setLoading(true);
-    setBtndisabled(true);
+    // setLoadingTerm("login");
+    // setLoading(true);
+    // setBtndisabled(true);
     try {
       formData.last_ip = await publicIpv4();
       formData.device_id = fullBrowserVersion;
@@ -168,12 +200,12 @@ const LoginForm = () => {
       setTimeLeft(120);
       // toastOptions.success(response?.success || "");
     } catch (error) {
-      setLoading(false);
+      // setLoading(false);
       toastOptions.error(error?.response?.data || "Something went wrong login");
     } finally {
-      setLoading(false);
-      setLoadingTerm("");
-      setBtndisabled(false);
+      // setLoading(false);
+      // setLoadingTerm("");
+      // setBtndisabled(false);
     }
   };
 
@@ -234,7 +266,7 @@ const LoginForm = () => {
           <div className="login-right-wrapper">
             <form
               className="employee-login-form"
-              onSubmit={EmployeeLoginSubmit}
+              // onSubmit={EmployeeLoginSubmit}
             >
               {response.success ? (
                 <div className="greetings mb-3">
@@ -288,15 +320,18 @@ const LoginForm = () => {
                       </div>
                     )}
 
-                    <div className="employee-button">
-                      <button
-                        onClick={(e) => handleLogin(e)}
-                        className="employee-form-button"
-                        disabled={btndisabled}
-                        // style={{ background: applicationColor.tabColor }}
-                      >
-                        Verify & Proceed
-                      </button>
+<div className="employee-button">
+  <button
+    type="button" // Change to "button" to prevent form submission
+    onClick={handleLogin}
+    className="employee-form-button"
+    disabled={btndisabled}
+    style={{ background: applicationColor.tabColor }}
+  >
+    Verify & Proceed
+  </button>
+{/* </div> */}
+
                     </div>
                   </div>
                 </div>
@@ -347,6 +382,7 @@ const LoginForm = () => {
                     <button
                       className="employee-form-button sign-in"
                       disabled={btndisabled}
+                      onClick={EmployeeLoginSubmit}
                       style={{
                         background: applicationColor.buttonColor,
                         // color: applicationColor.readColor1,
@@ -359,9 +395,9 @@ const LoginForm = () => {
 
                   <div className="isAdminLogin my-4">
                     <span>for Admin access?</span>{" "}
-                    <a className="fw-semibold" onClick={() => adminLogin()}>
+                    {/* <a className="fw-semibold" onClick={() => adminLogin()}>
                       Sign in
-                    </a>
+                    </a> */}
                   </div>
                 </div>
               )}
