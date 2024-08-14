@@ -22,20 +22,20 @@ const Dashbord = () => {
   return (
     <main className="main_content">
       <section className="row-1">
-        <div
+        {/* <div
           className="d_card"
           style={{ background: applicationColor.cardItem }}
         >
           <CheckIn />
-        </div>
+        </div> */}
         <OnlyBirthDaysAndNewHires />
 
-        <div
+        {/* <div
           className="d_card-2"
           style={{ background: applicationColor.cardItem }}
         >
           <EmployeeLeaveApplicationStatus />
-        </div>
+        </div> */}
 
         {/* <div
           className="d_card d_card1"

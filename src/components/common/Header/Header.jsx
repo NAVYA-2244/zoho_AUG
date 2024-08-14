@@ -209,14 +209,14 @@ const Headers = () => {
 const fetchData = async () => {
     try {
       let res;
-      
+      if(employeeDetails.role_name === "Director"){
       res = await backEndCallObjNothing("/org/universal");
       console.log("res", res);
         console.log("res", res);
-      // } else {
-      //   res = await backEndCallObjNothing("/user_get/universal");
-      //   console.log(res, "response");
-      // }
+      } else {
+        res = await backEndCallObjNothing("/emp_get/universal");
+        console.log(res, "response");
+      }
       setOrgDetails(res?.organisation_details);
       setOrgLogo(res?.organisation_details.images?.logo);
       // setLocations(res.organisation_details?.locations);

@@ -204,7 +204,7 @@ const ProfilePhoto = () => {
       const response = await backEndCallObjNothing("/emp/update_dp", {
         image: formData.image,
       });
-      console.log(response?.data)
+      console.log(response?.data,"navyaa")
       setProfilePhoto(response?.data || "");
       setFormData({ image: "" });
       setError("");
@@ -228,8 +228,8 @@ const ProfilePhoto = () => {
         <img
           className="main_profile_photo img-fluid"
           src={
-            profilePhoto?.dp
-              ? profilePhoto?.dp
+            profilePhoto
+              ? profilePhoto
               : "https://cdnb.artstation.com/p/assets/images/images/034/457/389/large/shin-min-jeong-.jpg?1612345145"
           }
           alt="profile_photo"

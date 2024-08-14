@@ -15,9 +15,10 @@ import { format } from "date-fns";
 const AddEmployee = () => {
   const { setOrgData2, setLoadingTerm, setLoading, orgDetails } =
     useStateContext();
-  console.log(orgDetails, "orgDetails");
+  // console.log(orgDetails, "orgDetails");
 
-  console.log(orgDetails, "orgdetails");
+  console.log(orgDetails.organisation_id
+    , "orgdetails");
   const [redirect, setRedirect] = useState(false);
   const { checkErrors } = useFunctionContext();
 
@@ -41,6 +42,7 @@ const AddEmployee = () => {
       await checkErrors(ExpirementSchema, formData);
 
       const data = {
+        organisation_id: orgDetails?.organisation_id,
         // banner: formData?.banner,
         employee_id: formData?.employee_id,
         // location_id: formData?.location_id,
@@ -106,10 +108,10 @@ const AddEmployee = () => {
             : [],
       };
 
-      data.organisation_id = orgDetails?.organisation_id;
+    //  data=orgDetails?.organisation_id;
 
       console.log(data, "datatas");
-      const response = await backEndCallObjNothing("/admin/add_employee", data);
+      const response = await backEndCallObjNothing("/admin/add_employee", data,);
       {
         console.log("oiuygfghjk");
       }
@@ -135,7 +137,7 @@ const AddEmployee = () => {
     }
   };
   if (redirect) {
-    return <Navigate to="/admin_get/get_employee_list" />;
+    return <Navigate to="/admin/employee_list" />;
   }
   return (
     <>

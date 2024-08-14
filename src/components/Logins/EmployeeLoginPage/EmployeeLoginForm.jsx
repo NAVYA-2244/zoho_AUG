@@ -405,8 +405,8 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
     e.preventDefault();
     setLoader(true);
     try {
-      setResendDisabled(false)
-      setLoading(true);
+      // setResendDisabled(false)
+      // setLoading(true);
       const obj = {
         otp,
         email: formData.email,
@@ -419,13 +419,13 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
       console.log(response.success, "response");
       // toastOptions.success(response?.success||"");
       // toastOptions.success("Success");
-      setLoader(false);
+      // setLoader(false);
       // window.location = "/dashboard";
       window.location = "/dashboard";
-    } catch (e) {
-      setLoader(false);
-      setResendDisabled(false)
-      toastOptions.error(e?.response?.data || "SomeThing Got Wrong");
+    } catch (error) {
+      // setLoader(false);
+      // setResendDisabled(false)
+      toastOptions.error(error?.response?.data || "SomeThing Got Wrong");
     }
   };
   useEffect(() => {
@@ -437,17 +437,7 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
     getBrowserId();
   }, []);
  
-  //     const response = await backEndCallObjNothing("/emp/resend_otp", {
-  //       email: formData.email,
-  //     });
-  //     // toastOptions.success(response?.success || "OTP Resent");
-  //     // setTimeout(() => setResendDisabled(false), 60000);
-  //     setTimeLeft(160);
-  //   } catch (error) {
-  //     toastOptions.error(error?.response?.data || "Something went wrong");
-  //     setResendDisabled(false);
-  //   }
-  // };
+  
   const handleResendOtp = async () => {
     try {
      
@@ -475,15 +465,7 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
     const { error } = schema.extract(name).validate(value);
     return !error;
   };
-  // useEffect(() => {
-  //   const emailValid = validateField("email", formData.email);
-  //   const passwordValid = validateField("password", formData.password);
-  //   setTimeout(() => {
-  //     setIsValid({ email: emailValid, password: passwordValid });
-  //   }, 0);
-  // }, [formData]);
-  // console.log(response, "resjun");
-  /// otp timer
+  
   useEffect(() => {
     if (timeLeft === 0) return;
     const timerId = setInterval(() => {
@@ -491,11 +473,7 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
     }, 1000);
     return () => clearInterval(timerId);
   }, [timeLeft]);
-  // const formatTime = (seconds) => {
-  //   const minutes = String(Math.floor(seconds / 60)).padStart(2, "0");
-  //   const remainingSeconds = String(seconds % 60).padStart(2, "0");
-  //   return `${minutes}:${remainingSeconds}`;
-  // };
+  
   const employeeLogin = () => {
     localStorage.removeItem("zohoEmployeeToken");
     navigate("/loginForm");
@@ -581,14 +559,15 @@ const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
                   background: applicationColor.buttonColor,
                   // color: applicationColor.readColor1,
                 }}
-                onClick={(e) => handleLogin(e)}
+                onClick={ handleLogin}
                 disabled={resendDisabled}
                 type="submit"
               >
-                {" "}
+                {/* {" "}
                 {loading ? (
                   <Loader />
-                ):"Verify & Proceed"}
+                ):"Verify & Proceed"} */}
+                Verify & Proceed
               </button>
                 </div>
               </div>

@@ -102,16 +102,16 @@ let workInformationProperties = [
     property: "employee_status",
     type: "string",
   },
-  {
-    name: "Location",
-    property: "location_name",
-    type: "string",
-  },
-  {
-    name: "Shift",
-    property: "shift_name",
-    type: "string",
-  },
+  // {
+  //   name: "Location",
+  //   property: "location_name",
+  //   type: "string",
+  // },
+  // {
+  //   name: "Shift",
+  //   property: "shift_name",
+  //   type: "string",
+  // },
   {
     name: "Source of Hire",
     property: "source_of_hire",
@@ -248,6 +248,7 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
     setOrgData2,
     isAdmin,
     loadingTerm,
+    employeeDetails,
     loading,
   } = useStateContext();
   // profile tabs stored in array of objects and rendering dynamically in tab section views
@@ -422,9 +423,12 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
                   <div className="basic-info-wrapper">
                     <div className="d-flex align-items-center justify-content-between">
                       <h4 className="profile-heading">Profile</h4>
+                      {employeeDetails.role_name === "Director"?"":
                       <button className="btn btn-primary" onClick={handleEdit}>
                         Edit
-                      </button>
+                      </button> 
+
+                      }
                     </div>
                     <div className="basic-information">
                       <div className="basic-info-left">
