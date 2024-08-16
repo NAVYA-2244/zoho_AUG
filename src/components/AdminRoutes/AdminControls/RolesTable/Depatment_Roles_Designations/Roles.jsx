@@ -800,7 +800,7 @@ const Roles = () => {
             aria-controls="shifts"
             aria-selected="false"
           >
-            designations
+            Designations
           </a>
         </li>
         {/* <a

@@ -108,6 +108,7 @@ const RolesAdd = () => {
       setEdit(false);
       setShowModal(false);
     } catch (error) {
+      console.log(error,"error")
       toastOptions.error(
         error?.response?.data || error[0]?.message || "An error occurred"
       );
@@ -133,14 +134,22 @@ const RolesAdd = () => {
           <div className={`role-cards ${showModal ? "d-none" : "d-block"}`}>
             <section className="row">
               <div className="mb-4 text-end">
-                <button
-                  className="dropdown-item d-flex align-items-center justify-content-end"
-                  type="button"
-                  onClick={handleAddItems}
-                >
-                  <span className="add-role me-1">Add</span>
-                  <RiAddCircleFill />
-                </button>
+              {/* <button
+                className="btn btn-primary d-flex align-items-center justify-content-end"
+                type="button"
+                onClick={handleAddItems}
+              >
+                <span className="me-1">Add </span>
+                <RiAddCircleFill />
+              </button> */}
+              <button
+                className="btn btn-primary d-flex align-items-center justify-content-end"
+                type="button"
+                onClick={handleAddItems}
+              >
+                <span className="me-1">Add </span>
+                <RiAddCircleFill />
+              </button>
               </div>
               {orgDetails?.roles?.length > 0 ? (
                 orgDetails?.roles.map((item, index) => (

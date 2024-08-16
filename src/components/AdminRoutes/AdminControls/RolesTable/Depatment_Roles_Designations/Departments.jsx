@@ -133,14 +133,22 @@ console.log("orgDetails",orgDetails.departments)
           <div className={`department-cards ${showModal ? "d-none" : "d-block"}`}>
             <section className="row">
               <div className="mb-4 text-end">
-                <button
+                {/* <button
                   className="dropdown-item d-flex align-items-center justify-content-end"
                   type="button"
                   onClick={handleAddItems}
                 >
                   <span className="add-department me-1">Add</span>
                   <RiAddCircleFill />
-                </button>
+                </button> */}
+                 <button
+                className="btn btn-primary d-flex align-items-center justify-content-end"
+                type="button"
+                onClick={handleAddItems}
+              >
+                <span className="me-1">Add </span>
+                <RiAddCircleFill />
+              </button>
               </div>
               {orgDetails?.departments?.length > 0 ? (
                 orgDetails?.departments.map((item, index) => (

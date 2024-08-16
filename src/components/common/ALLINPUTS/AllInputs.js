@@ -99,6 +99,7 @@ export function InputPassword({
   readOnly,
   icon,
   inputRef,
+  maxLength
 }) {
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => {
@@ -144,6 +145,7 @@ export function InputPassword({
               onChange={(e) => handleChange(e, schema, setForm)}
               readOnly={readOnly}
               ref={inputRef}
+              maxLength={8}
               style={{
                 background: applicationColor.cardBg2,
                 color: applicationColor.readColor1,

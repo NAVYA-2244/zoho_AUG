@@ -489,7 +489,7 @@ const TableBody = ({
         <tbody>
           <tr>
             <td colSpan={tableHeadProperties.length} className="text-center">
-              No Data Available
+              {/* No Data Available */}
             </td>
           </tr>
         </tbody>

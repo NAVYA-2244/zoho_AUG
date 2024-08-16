@@ -734,11 +734,18 @@ const EmployeeLoginForm = ({ setOtpType }) => {
     setLoading(true);
     try {
       setBtndisabled(true)
-      formData.last_ip = await publicIpv4();
-      formData.device_id = fullBrowserVersion;
-      formData.browserid = browserId;
-      formData.fcm_token = "staging";
+      formData.email = formData.email.toLowerCase();
+    formData.last_ip = await publicIpv4();
+    formData.device_id = fullBrowserVersion;
+    formData.browserid = browserId;
+    formData.fcm_token = "staging";
+
+      // formData.last_ip = await publicIpv4();
+      // formData.device_id = fullBrowserVersion;
+      // formData.browserid = browserId;
+      // formData.fcm_token = "staging";
       await checkErrors(employeeLoginSchema, formData);
+      
       const response = await backEndCallObjNothing("/emp/login", formData);
       setResponse(response);
       setOtpType(response.type);
@@ -886,14 +893,36 @@ const EmployeeLoginForm = ({ setOtpType }) => {
             validateField={validateField}
             error={formData.email && !isValid.email}
           />
-          <InputPassword
+          {/* <InputPassword
             placeholder={"Password"}
             name={"password"}
             value={formData.password}
             setForm={setFormData}
             validateField={validateField}
             error={formData.password && !isValid.password}
-          />
+          /> */}
+           {/* <InputPassword
+              type={"password"}
+              placeholder={"Password"}
+              name={"password"}
+              value={formData["password"]}
+              setForm={setFormData}
+              id={"password"}
+              schema={employeeLoginSchema.password}
+              imp
+              icon={<MdOutlineKey />}
+            /> */}
+              <InputPassword
+              type={"password"}
+              placeholder={"Password"}
+              name={"password"}
+              value={formData["password"]}
+              setForm={setFormData}
+              id={"password"}
+              schema={employeeLoginSchema.password}
+              imp
+              icon={<MdOutlineKey />}
+            />
           <div className="setPassword-wrapper">
              <span>Don't have password?</span>
               <h5
