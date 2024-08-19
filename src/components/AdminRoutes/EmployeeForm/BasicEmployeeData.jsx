@@ -178,6 +178,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             value={formData.date_of_birth}
             setForm={setFormData}
             schema={schema.date_of_birth}
+            imp
             inputRef={(el) => (refs.current.date_of_birth = el)}
             min={
               new Date(

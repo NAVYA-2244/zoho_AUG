@@ -1196,7 +1196,8 @@ export const ExpirementSchema = {
       "date.max": `"Date Of Birth" cannot be in the future`,
       "date.less": `"Date Of Birth" must be at least 18 years ago`,
       "any.required": `"Date Of Birth" is a required field`,
-    }),
+    })
+    .label("Date Of Birth"),
   expertise: Joi.string().allow("").optional().label("Expertise"),
 
   gender: Joi.string().required().label("Gender"),
@@ -1541,7 +1542,8 @@ const EmployeeDataSchema = {
       "date.max": `"Date Of Birth" cannot be in the future`,
       "date.less": `"Date Of Birth" must be at least 18 years ago`,
       "any.required": `"Date Of Birth" is a required field`,
-    }),
+    })
+    .label("Date Of Birth"),
   expertise: Joi.string().allow("").optional().label("Expertise"),
 
   gender: Joi.string().required().label("Gender"),

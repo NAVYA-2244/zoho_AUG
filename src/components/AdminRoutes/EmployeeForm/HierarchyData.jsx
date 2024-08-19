@@ -303,7 +303,7 @@ const HierarchyData = ({ formData, setFormData }) => {
                   index={index}
                   type={"textarea"}
                   name={"job_description"}
-                  placeholder={"Job Discription"}
+                  placeholder={"Job Description"}
                   value={data?.job_description}
                   setForm={setFormData}
                   schema={schema?.job_description}

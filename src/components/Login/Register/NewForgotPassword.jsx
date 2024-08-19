@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MdEmail } from "react-icons/md";
 import { InputEmail, InputPassword } from "../../common/ALLINPUTS/AllInputs";
 import Joi from "joi";
@@ -19,6 +19,8 @@ const NewForgotPassword = () => {
     newPassword: "",
     confirmPassword: "",
   });
+  const [resendDisabled, setResendDisabled] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(120);
   const [showOtpFields, setShowOtpFields] = useState(false);
   const [btndisabled, setBtndisabled] = useState(false);
   const [errors, setErrors] = useState({});
@@ -80,6 +82,7 @@ const NewForgotPassword = () => {
       if (response?.success) {
         toastOptions.success("OTP sent to your email!");
         setShowOtpFields(true);
+        setTimeLeft(120);
       } else {
         toastOptions.error(response?.error || "Failed to send OTP");
       }
@@ -137,7 +140,37 @@ const NewForgotPassword = () => {
       setBtndisabled(false);
     }
   };
+  // const formatTime = (seconds) => {
+  //   const minutes = String(Math.floor(seconds / 60)).padStart(2, "0");
+  //   const remainingSeconds = String(seconds % 60).padStart(2, "0");
+  //   return `${minutes}:${remainingSeconds}`;
+  // };
+  const formatTime = (seconds) => {
+    return `${seconds}s`; // Return the time in seconds with an 's' suffix
+  };
+  const handleResendOtp = async () => {
+    try {
+      setResendDisabled(true);
+      setOtpData("");
+      const response = await backEndCallObjNothing("/emp/resend_otp", {
+        email: formData.email,
+      });
+      toastOptions.success(response?.success || "OTP Resent");
+      setTimeLeft(120);
+      setTimeout(() => setResendDisabled(false), 60000);
+    } catch (error) {
+      toastOptions.error(error?.response?.data || "Something went wrong");
+      setResendDisabled(false);
+    }
+  };
 
+  useEffect(() => {
+    if (timeLeft === 0) return;
+    const timerId = setInterval(() => {
+      setTimeLeft((prevTimeLeft) => prevTimeLeft - 1);
+    }, 1000);
+    return () => clearInterval(timerId);
+  }, [timeLeft]);
   const handleOtpChange = (e) => {
     const newValue = e.target.value;
     if (/^\d*$/.test(newValue) && newValue.length <= 6) {
@@ -179,9 +212,28 @@ const NewForgotPassword = () => {
               <>
                 <div className="greetings">
                   <div className="logo-wrapper mb-4">
-                    <img src={logolg} alt="company-logo" width="100" />
+                    <img
+                      src={logolg}
+                      alt="company-logo"
+                      width="100"
+                      style={{ position: "relative", top: "-30px" }}
+                    />
                   </div>
-                  <h2 className="welcome mb-2">Sign in</h2>
+                  <h3
+                    className="welcome mb-2"
+                    style={{
+                      textAlign: "center",
+                      // position: "relative",
+                      // top: "40px",
+                    }}
+                  >
+                    Forgot Password
+                  </h3>
+                  <br />
+                  <p>
+                    lost your password? please enter your email address . then
+                    you can create a new password
+                  </p>
                   <InputEmail
                     type="email"
                     placeholder="Email Address"
@@ -213,12 +265,20 @@ const NewForgotPassword = () => {
             ) : (
               <>
                 <div className="greetings mb-3">
+                  <div className="logo-wrapper mb-4">
+                    <img
+                      src={logolg}
+                      alt="company-logo"
+                      width="100"
+                      style={{ position: "relative", top: "-10px" }}
+                    />
+                  </div>
                   <h1 className="welcome mb-1">OTP Verification</h1>
                   <h4 className="details mb-2 fw-semibold">
                     Please enter the OTP sent to your registered email
                   </h4>
                   <p className="text-primary mb-4">{formData.email}</p>
-                  <div className="main-input">
+                  <div className="main-input" style={{ marginBottom: "10px" }}>
                     <label htmlFor="otp">OTP</label>
                     <input
                       className="form-control"
@@ -232,7 +292,53 @@ const NewForgotPassword = () => {
                     />
                     {errors.otp && <p style={errorStyle}>{errors.otp}</p>}
                   </div>
-                  <div className="main-input">
+                  {timeLeft ? (
+                    <div className="fs-14" style={{ marginBottom: "10px" }}>
+                      <div className="d-flex align-items-center">
+                        <span className="flex-shrink-0">
+                          Resend otp in
+                          {/* <br /> */}
+                          <span
+                            style={{
+                              fontWeight: "bold",
+                              marginLeft: "3px", // Makes the text bold
+                            }}
+                          >
+                            {formatTime(timeLeft)}
+                          </span>
+                        </span>
+                        <div
+                          className=""
+                          // style={{
+                          //   background: `conic-gradient(rgb(75, 73, 172) ${
+                          //     timeLeft * (360 / 120)
+                          //   }deg, #d0d0d2 0deg)`,
+                          // }}
+                        >
+                          {/* <div
+                            className="semi-circle"
+                            // style={{ width: "50px" }}
+                          ></div> */}
+                          <p>{/* {formatTime(timeLeft)} */}</p>
+                        </div>
+                        {/* <span>Seconds</span> */}
+                      </div>
+                    </div>
+                  ) : (
+                    <div>
+                      <p className="mb-0 mt-3">Didn't receive OTP code?</p>
+                      <button
+                        className="btn text-primary p-0 lh-0"
+                        type="button"
+                        onClick={handleResendOtp}
+                        disabled={resendDisabled}
+                        style={{ marginBottom: "10px" }}
+                      >
+                        Resend Code
+                      </button>
+                    </div>
+                  )}
+                  <div className="main-input" style={{ marginBottom: "5px" }}>
                     <label htmlFor="newPassword">New Password</label>
                     <InputPassword
                       id="newPassword"
@@ -248,8 +354,8 @@ const NewForgotPassword = () => {
                       <div style={errorStyle}>{errors.newPassword}</div>
                     )}
                   </div>
-                  <div className="main-input">
-                    <br />
+                  <div className="main-input" style={{ marginBottom: "2px" }}>
+                    {/* <br /> */}
                     <label htmlFor="confirmPassword">Confirm Password</label>
                     <InputPassword
                       id="confirmPassword"
