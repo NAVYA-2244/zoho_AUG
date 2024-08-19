@@ -34,20 +34,14 @@ const LaptopSidebar = () => {
 
   const settingsiderbar = () => {
     if (employeeDetails.role_name === "Director") {
-
-    return superAdminSidebar;
-    }
-    //  else if (employeeDetails.collection === "EMPLOYEE") {
-    //   return employeeSidebar
-    // };
-    // } else if (employeeDetails.adminType === "3") {
-    //   return teamLeadSidebar;
-    // }
-     else {
+      return superAdminSidebar;
+    } else if (employeeDetails.role_name === "Team Incharge") {
       return employeeSidebar;
+    } else {
+      return employeeSidebar; // Default to employeeSidebar if no match
     }
   };
-
+   
   const [menu, setMenu] = useState(settingsiderbar);
 
   useEffect(() => {

@@ -198,6 +198,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
                 .toISOString()
                 .split("T")[0]
             }
+            // imp
             required
           />
         </div>
