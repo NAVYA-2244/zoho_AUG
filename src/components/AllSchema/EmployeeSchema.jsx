@@ -1178,6 +1178,7 @@ export const ExpirementSchema = {
   reporting_manager: Joi.string()
     .min(1)
     .max(20)
+    .email({ tlds: { allow: ["com", "net", "org"] } })
     // .pattern(/^[a-zA-Z0-9@._-]*$/, "valid characters")
     .required()
     .label("Reporting Manager"),
@@ -1524,6 +1525,7 @@ const EmployeeDataSchema = {
   reporting_manager: Joi.string()
     .min(1)
     .max(20)
+    .email({ tlds: { allow: ["com", "net", "org"] } })
     // .pattern(/^[a-zA-Z0-9@._-]*$/, "valid characters")
     .required()
     .label("Reporting Manager"),

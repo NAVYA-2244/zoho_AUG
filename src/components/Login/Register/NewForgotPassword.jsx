@@ -220,17 +220,17 @@ const NewForgotPassword = () => {
                     />
                   </div>
                   <h3
-                    className="welcome mb-2"
+                    className="welcome mb-1"
                     style={{
                       textAlign: "center",
                       // position: "relative",
-                      // top: "40px",
+                      // top: "1px",
                     }}
                   >
                     Forgot Password
                   </h3>
                   <br />
-                  <p>
+                  <p className="mb-8">
                     lost your password? please enter your email address . then
                     you can create a new password
                   </p>
@@ -245,6 +245,9 @@ const NewForgotPassword = () => {
                     autoComplete="email"
                     maxLength={50}
                     icon={<MdEmail />}
+                    className="position-absolute"
+                    style={{ top: "250px", left: "5px" }}
+                    // className="mb-18"
                   />
                   {errors.email && (
                     <p className="error-message">{errors.email}</p>
@@ -327,8 +330,9 @@ const NewForgotPassword = () => {
                   ) : (
                     <div>
                       <p className="mb-0 mt-3">Didn't receive OTP code?</p>
+
                       <button
-                        className="btn text-primary p-0 lh-0"
+                        className="btn text-primary p-0 lh-0 mb-1em"
                         type="button"
                         onClick={handleResendOtp}
                         disabled={resendDisabled}
@@ -370,6 +374,12 @@ const NewForgotPassword = () => {
                     {errors.confirmPassword && (
                       <div style={errorStyle}>{errors.confirmPassword}</div>
                     )}
+                    {otpData.confirmPassword &&
+                      otpData.newPassword !== otpData.confirmPassword && (
+                        <div style={errorStyle}>
+                          Confirm Password does not match New Password
+                        </div>
+                      )}
                   </div>
                   <div className="employee-button">
                     <button

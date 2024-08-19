@@ -302,10 +302,10 @@
 // import { fullBrowserVersion } from "react-device-detect";
 
 // import {
- 
+
 //   backEndCallObjNothing,
 //   loginCall,
-  
+
 // } from "../../../services/mainService";
 // import { FaBullseye } from "react-icons/fa";
 // const EmployeeLoginForm = ({ nextSlide, prevSlide, setOtpType }) => {
@@ -350,8 +350,6 @@
 //   // navigation hook
 //   const navigate = useNavigate();
 
-
-
 //   const EmployeeLoginSubmit = async (e) => {
 //     try {
 //       e.preventDefault();
@@ -362,12 +360,11 @@
 //       formData.browserid = browserId;
 //       formData.fcm_token = "staging";
 //       await checkErrors(employeeLoginSchema, formData);
-     
-     
+
 //       const response = await backEndCallObjNothing(
 //         "/emp/login",
 //         formData,
-        
+
 //       );
 //       console.log(response, "loginresponse");
 //       setResponse(response);
@@ -393,8 +390,6 @@
 //       setLoadingTerm("");
 //     }
 //   };
-
-
 
 //   const handleLogin = async (e) => {
 //     if (!otp) {
@@ -436,11 +431,10 @@
 //     };
 //     getBrowserId();
 //   }, []);
- 
-  
+
 //   const handleResendOtp = async () => {
 //     try {
-     
+
 //       setResendDisabled(true);
 //       setOtp("");
 //       const response = await backEndCallObjNothing("/emp/resend_otp", {
@@ -465,7 +459,7 @@
 //     const { error } = schema.extract(name).validate(value);
 //     return !error;
 //   };
-  
+
 //   useEffect(() => {
 //     if (timeLeft === 0) return;
 //     const timerId = setInterval(() => {
@@ -473,7 +467,7 @@
 //     }, 1000);
 //     return () => clearInterval(timerId);
 //   }, [timeLeft]);
-  
+
 //   const employeeLogin = () => {
 //     localStorage.removeItem("zohoEmployeeToken");
 //     navigate("/loginForm");
@@ -654,12 +648,19 @@ import Joi from "joi";
 import { toastOptions } from "../../../Utils/FakeRoutes";
 import { useStateContext } from "../../Contexts/StateContext";
 import { useFunctionContext } from "../../Contexts/FunctionContext";
-import { backEndCallObjNothing, loginCall } from "../../../services/mainService";
+import {
+  backEndCallObjNothing,
+  loginCall,
+} from "../../../services/mainService";
 import { publicIpv4 } from "public-ip";
 import { fullBrowserVersion } from "react-device-detect";
-import { Input_password, InputEmail, InputPassword } from "../../common/ALLINPUTS/AllInputs";
+import {
+  Input_password,
+  InputEmail,
+  InputPassword,
+} from "../../common/ALLINPUTS/AllInputs";
 import { useThemeContext } from "../../Contexts/ThemesContext";
-import ForgotPassword from './../ForgotPassword/ForgotPassword';
+import ForgotPassword from "./../ForgotPassword/ForgotPassword";
 
 const EmployeeLoginForm = ({ setOtpType }) => {
   const [timeLeft, setTimeLeft] = useState(120);
@@ -671,9 +672,9 @@ const EmployeeLoginForm = ({ setOtpType }) => {
   const [loader, setLoader] = useState(false);
   const [isValid, setIsValid] = useState({ email: false, password: false });
   const [resendDisabled, setResendDisabled] = useState(false);
-  const[btndisabled,setBtndisabled]=useState(false)
+  const [btndisabled, setBtndisabled] = useState(false);
   const [browserId, setBrowserId] = useState("");
-  
+
   const employeeLoginSchema = {
     email: Joi.string()
       .min(10)
@@ -685,9 +686,12 @@ const EmployeeLoginForm = ({ setOtpType }) => {
       .min(8)
       .max(20)
       .required()
-      .pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\|\-=])/)
+      .pattern(
+        /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\|\-=])/
+      )
       .messages({
-        "string.pattern.base": '"Password" Should Contain At Least 1 Capital Letter, 1 Small Letter, 1 Number And 1 Special Character',
+        "string.pattern.base":
+          '"Password" needs 1 uppercase, and 1 special character',
         "any.required": '"Password" is required',
       })
       .label("Password"),
@@ -708,7 +712,9 @@ const EmployeeLoginForm = ({ setOtpType }) => {
     };
     getBrowserId();
   }, []);
-
+  const formatTime = (seconds) => {
+    return `${seconds}s`; // Return the time in seconds with an 's' suffix
+  };
   useEffect(() => {
     if (timeLeft === 0) return;
     const timerId = setInterval(() => {
@@ -717,11 +723,11 @@ const EmployeeLoginForm = ({ setOtpType }) => {
     return () => clearInterval(timerId);
   }, [timeLeft]);
 
-  const formatTime = (seconds) => {
-    const minutes = String(Math.floor(seconds / 60)).padStart(2, "0");
-    const remainingSeconds = String(seconds % 60).padStart(2, "0");
-    return `${minutes}:${remainingSeconds}`;
-  };
+  // const formatTime = (seconds) => {
+  //   const minutes = String(Math.floor(seconds / 60)).padStart(2, "0");
+  //   const remainingSeconds = String(seconds % 60).padStart(2, "0");
+  //   return `${minutes}:${remainingSeconds}`;
+  // };
 
   const validateField = (name, value) => {
     const schema = Joi.object(employeeLoginSchema);
@@ -734,31 +740,31 @@ const EmployeeLoginForm = ({ setOtpType }) => {
     setLoadingTerm("login");
     setLoading(true);
     try {
-      setBtndisabled(true)
+      setBtndisabled(true);
       formData.email = formData.email.toLowerCase();
-    formData.last_ip = await publicIpv4();
-    formData.device_id = fullBrowserVersion;
-    formData.browserid = browserId;
-    formData.fcm_token = "staging";
+      formData.last_ip = await publicIpv4();
+      formData.device_id = fullBrowserVersion;
+      formData.browserid = browserId;
+      formData.fcm_token = "staging";
 
       // formData.last_ip = await publicIpv4();
       // formData.device_id = fullBrowserVersion;
       // formData.browserid = browserId;
       // formData.fcm_token = "staging";
       await checkErrors(employeeLoginSchema, formData);
-      
+
       const response = await backEndCallObjNothing("/emp/login", formData);
       setResponse(response);
       setOtpType(response.type);
       setTimeLeft(120);
-      setBtndisabled(false)
+      setBtndisabled(false);
     } catch (error) {
-      setBtndisabled(false)
+      setBtndisabled(false);
       toastOptions.error(error?.response?.data || "Something went wrong");
     } finally {
       setLoading(false);
       setLoadingTerm("");
-      setBtndisabled(false)
+      setBtndisabled(false);
     }
   };
 
@@ -769,7 +775,7 @@ const EmployeeLoginForm = ({ setOtpType }) => {
       return;
     }
     try {
-      setBtndisabled(true)
+      setBtndisabled(true);
       const obj = {
         otp,
         email: formData.email,
@@ -780,9 +786,9 @@ const EmployeeLoginForm = ({ setOtpType }) => {
       };
       const response = await loginCall("/emp/login_verify", obj);
       window.location = "/dashboard";
-      setBtndisabled(false)
+      setBtndisabled(false);
     } catch (error) {
-      setBtndisabled(false)
+      setBtndisabled(false);
       toastOptions.error(error?.response?.data || "Something went wrong");
     }
   };
@@ -808,7 +814,7 @@ const EmployeeLoginForm = ({ setOtpType }) => {
       {response?.success === "OTP Sent Successfully" ? (
         <>
           <div className="greetings mb-3">
-          <div className="logo-wrapper mb-4 text-right">
+            <div className="logo-wrapper mb-4 text-right">
               <img src={logolg} alt="company-logo" width="100" />
             </div>
             <h1 className="welcome mb-1">OTP Verification</h1>
@@ -821,49 +827,63 @@ const EmployeeLoginForm = ({ setOtpType }) => {
                 <label htmlFor="otp">OTP</label>
               </div>
               <div className="input mb-3">
-              <input
-                    className="form-control"
-                    type="tel"
-                    maxLength={6}
-                    placeholder="Enter your otp"
-                    value={otp}
-                    onChange={(e) => {
-                      const newValue = e.target.value;
-                      if (/^\d*$/.test(newValue)) {
-                        setOtp(newValue);
-                      }
-                    }}
-                  />
+                <input
+                  className="form-control"
+                  type="tel"
+                  maxLength={6}
+                  placeholder="Enter your otp"
+                  value={otp}
+                  onChange={(e) => {
+                    const newValue = e.target.value;
+                    if (/^\d*$/.test(newValue)) {
+                      setOtp(newValue);
+                    }
+                  }}
+                />
               </div>
               {timeLeft ? (
-                  <div className="fs-14">
-                    <div className="d-flex align-items-center">
-                      <span className="flex-shrink-0">OTP Expires in</span>
-                      <div
-                        className="circular-progress mx-2 flex-shrink-0"
+                <div className="fs-14">
+                  <div className="d-flex align-items-center">
+                    <span className="flex-shrink-0">
+                      Resend otp in{" "}
+                      <span
                         style={{
-                          background: `conic-gradient(rgb(75, 73, 172) ${timeLeft * (360 / 120)}deg, #d0d0d2 0deg)`,
+                          fontWeight: "bold",
+                          marginLeft: "3px", // Makes the text bold
                         }}
                       >
-                        <div className="inner-circle "></div>
-                        <span className="percentage mb-0 fs-25 mx-5"> {formatTime(timeLeft)} </span>
-                      </div>
-                      <span>Seconds</span>
-                    </div>
-                  </div>
-                ) : (
-                  <div>
-                    <p className="mb-0 mt-4">Didn't receive OTP code?</p>
-                    <button
-                      className="btn text-primary p-0 lh-0"
-                      type="button"
-                      onClick={handleResendOtp}
-                      disabled={resendDisabled}
+                        {formatTime(timeLeft)}
+                      </span>
+                    </span>
+                    <div
+                      style={{
+                        background: `conic-gradient(rgb(75, 73, 172) ${
+                          timeLeft * (360 / 120)
+                        }deg, #d0d0d2 0deg)`,
+                      }}
                     >
-                      Resend Code
-                    </button>
+                      {/* <div className="inner-circle "></div>
+                      <span className="percentage mb-0 fs-25 mx-5">
+                        {" "}
+                        {formatTime(timeLeft)}{" "}
+                      </span> */}
+                    </div>
+                    {/* <span>Seconds</span> */}
                   </div>
-                )}
+                </div>
+              ) : (
+                <div>
+                  <p className="mb-0 mt-4">Didn't receive OTP code?</p>
+                  <button
+                    className="btn text-primary p-0 lh-0"
+                    type="button"
+                    onClick={handleResendOtp}
+                    disabled={resendDisabled}
+                  >
+                    Resend Code
+                  </button>
+                </div>
+              )}
               <div className="employee-button">
                 <button
                   type="submit"
@@ -883,10 +903,8 @@ const EmployeeLoginForm = ({ setOtpType }) => {
             <div className="logo-wrapper mb-4 text-right">
               <img src={logolg} alt="company-logo" width="100" />
             </div>
-            <h2 className="welcome mb-2">Welcome to  Login</h2>
-            <h4 className="details mb-2">
-              Please enter your account details
-            </h4>
+            <h2 className="welcome mb-2">Welcome to Login</h2>
+            <h4 className="details mb-2">Please enter your account details</h4>
           </div>
           <InputEmail
             type={"email"}
@@ -895,7 +913,8 @@ const EmployeeLoginForm = ({ setOtpType }) => {
             value={formData.email}
             setForm={setFormData}
             validateField={validateField}
-            error={formData.email && !isValid.email}
+            schema={employeeLoginSchema.email}
+            // error={formData.email && !isValid.email}
           />
           {/* <InputPassword
             placeholder={"Password"}
@@ -905,7 +924,7 @@ const EmployeeLoginForm = ({ setOtpType }) => {
             validateField={validateField}
             error={formData.password && !isValid.password}
           /> */}
-           {/* <InputPassword
+          {/* <InputPassword
               type={"password"}
               placeholder={"Password"}
               name={"password"}
@@ -916,26 +935,26 @@ const EmployeeLoginForm = ({ setOtpType }) => {
               imp
               icon={<MdOutlineKey />}
             /> */}
-              <InputPassword
-              type={"password"}
-              placeholder={"Password"}
-              name={"password"}
-              value={formData["password"]}
-              setForm={setFormData}
-              id={"password"}
-              schema={employeeLoginSchema.password}
-              imp
-              icon={<MdOutlineKey />}
-            />
+          <InputPassword
+            type={"password"}
+            placeholder={"Password"}
+            name={"password"}
+            value={formData["password"]}
+            setForm={setFormData}
+            id={"password"}
+            schema={employeeLoginSchema.password}
+            imp
+            icon={<MdOutlineKey />}
+          />
           <div className="setPassword-wrapper text-end">
-             {/* <span>Don't have password?</span> */}
-              <h5
-                className="forgot-password fw-semibold "
-                onClick={() => navigate("/resetpassword")}
-              >
-                Forgot Password ?
-              </h5>
-            </div>
+            {/* <span>Don't have password?</span> */}
+            <h5
+              className="forgot-password fw-semibold "
+              onClick={() => navigate("/resetpassword")}
+            >
+              Forgot Password ?
+            </h5>
+          </div>
           <div className="employee-button mt-3">
             <button
               type="submit"
