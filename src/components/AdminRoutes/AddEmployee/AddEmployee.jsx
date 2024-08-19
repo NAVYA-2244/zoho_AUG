@@ -62,7 +62,7 @@ const AddEmployee = () => {
         source_of_hire: formData?.source_of_hire,
         date_of_join: formData?.date_of_join,
 
-        reporting_manager: {},
+        reporting_manager: formData?.reporting_manager ,
         employee_status: formData.employee_status,
         reportingManager: formData?.reportingManager,
         date_of_birth: format(new Date(formData?.date_of_birth), "ddMMyyyy"),

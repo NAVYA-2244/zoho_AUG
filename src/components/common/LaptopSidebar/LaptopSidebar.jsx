@@ -204,7 +204,7 @@ const LaptopSidebar = () => {
       );
     });
   };
-
+  // console.log(" console.log(orgDetails)",orgDetails.organisation_name)
   return (
     <>
       <nav
@@ -219,12 +219,17 @@ const LaptopSidebar = () => {
       >
         <section className="logo">
           <h2 className="logo-name">codegene</h2>
+         
           {orgLogo ? (
             <img src={orgLogo} alt="company logo" />
+           
+            
           ) : (
             <h2>No - Logo</h2>
           )}
+          
         </section>
+        <span className="fs-20">{orgDetails.organisation_name}</span>
         <hr
           style={{ borderTop: `1px solid ${applicationColor.readColor2} ` }}
         />

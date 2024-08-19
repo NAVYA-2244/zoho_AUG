@@ -57,7 +57,7 @@ export const StateContextProvider = ({ children }) => {
   const [orgDetails, setOrgDetails] = useState({});
   const [recentHire, setrecentHire] = useState([]);
   const [Birthdays, setBirthdays] = useState([]);
-
+  
   // All States for modals
   const [attendanceModal, setAttendanceModal] = useState(false);
   const [attendanceModalData, setAttendanceModalData] = useState({

@@ -28,7 +28,7 @@ const UpdateEmployee = () => {
   const [updateEmployeedata, setUpdateEmployeeData] = useState({});
   const { checkErrors } = useFunctionContext();
   const [redirect, setRedirect] = useState(false);
-
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   //This UseEffect Fetches the single user data based on employee id
   useEffect(() => {
     const singleEmployeeData = async () => {
@@ -38,7 +38,7 @@ const UpdateEmployee = () => {
           `/admin_get/get_emp_by_id`,
           { employee_id: employeId }
         );
-
+console.log("employeupdate",employee)
         const {
           basic_info,
           work_info,
@@ -56,6 +56,7 @@ const UpdateEmployee = () => {
         delete work_info?.designation_name;
         delete work_info?.department_name;
         delete work_info?.role_name;
+        delete work_info?.reporting_manager;
         // delete work_info.location_name;
 
         const newObj = {
@@ -68,7 +69,7 @@ const UpdateEmployee = () => {
 
         const form = flatternObject(newObj);
         form.date_of_birth = convertDate(personal_details?.date_of_birth);
-        form.reporting_manager = "";
+        form.reporting_manager = work_info.reporting_manager;
         // form.department_id = work_info.department_id;
         // form.shift_id =work_info.shift_id;
         // form.designation_id = work_info.designation_id;
@@ -91,6 +92,7 @@ const UpdateEmployee = () => {
 
   const handleSubmit = async (formData) => {
     try {
+      setButtonDisabled(true)
       setLoading(true);
       setLoadingTerm("Update Employee");
       console.log({ formData });
@@ -113,7 +115,7 @@ const UpdateEmployee = () => {
         date_of_join: formData?.date_of_join,
         // shift_id: formData?.shift_id,
 
-        reporting_manager: {},
+        reporting_manager: formData?.reporting_manager ,
         employee_status: formData.employee_status,
         date_of_birth: format(new Date(formData?.date_of_birth), "ddMMyyyy"),
         marital_status: formData?.marital_status,
@@ -154,14 +156,17 @@ const UpdateEmployee = () => {
       toastOptions.success("Employee Updated successfully");
       setLoadingTerm("");
       setLoading(false);
+      setButtonDisabled(false)
     } catch (error) {
       setLoading(false);
       setLoadingTerm("");
+      setButtonDisabled(false)
       toastOptions.error(
         error?.response?.data || error[0].message || "Something went wrong"
       );
     } finally {
       setLoading(false);
+      setButtonDisabled(false)
     }
   };
 
@@ -177,6 +182,7 @@ const UpdateEmployee = () => {
           form={updateEmployeedata}
           type={"Update Employee"}
           submit={handleSubmit}
+          disabled={buttonDisabled}
         />
       ) : (
         <Loader />

@@ -222,7 +222,7 @@ const Companydetails = () => {
                         )}
                       </div>
                     </div>
-                    <div className="delete-editbuttons">
+                    {/* <div className="delete-editbuttons">
                       {formData.logo && (
                         <button
                           className="delete"
@@ -235,7 +235,7 @@ const Companydetails = () => {
                           <MdDeleteOutline />{" "}
                         </button>
                       )}
-                    </div>
+                    </div> */}
                   </label>
                   <ImageInput
                     name="logo"
@@ -307,7 +307,7 @@ const Companydetails = () => {
                 />
                 <Input_email
                   type={"email"}
-                  placeholder={"org mail Id"}
+                  placeholder={"Organisation Email Id"}
                   name={"org_mail_id"}
                   value={formData["org_mail_id"]}
                   setForm={setFormData}

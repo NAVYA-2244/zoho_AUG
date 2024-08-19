@@ -659,6 +659,7 @@ import { publicIpv4 } from "public-ip";
 import { fullBrowserVersion } from "react-device-detect";
 import { Input_password, InputEmail, InputPassword } from "../../common/ALLINPUTS/AllInputs";
 import { useThemeContext } from "../../Contexts/ThemesContext";
+import ForgotPassword from './../ForgotPassword/ForgotPassword';
 
 const EmployeeLoginForm = ({ setOtpType }) => {
   const [timeLeft, setTimeLeft] = useState(120);
@@ -807,6 +808,9 @@ const EmployeeLoginForm = ({ setOtpType }) => {
       {response?.success === "OTP Sent Successfully" ? (
         <>
           <div className="greetings mb-3">
+          <div className="logo-wrapper mb-4 text-right">
+              <img src={logolg} alt="company-logo" width="100" />
+            </div>
             <h1 className="welcome mb-1">OTP Verification</h1>
             <h4 className="details mb-2 fw-semibold">
               Please enter OTP sent to your registered email
@@ -841,8 +845,8 @@ const EmployeeLoginForm = ({ setOtpType }) => {
                           background: `conic-gradient(rgb(75, 73, 172) ${timeLeft * (360 / 120)}deg, #d0d0d2 0deg)`,
                         }}
                       >
-                        <div className="inner-circle"></div>
-                        <p className="percentage mb-0 fw-semibold">{formatTime(timeLeft)}</p>
+                        <div className="inner-circle "></div>
+                        <span className="percentage mb-0 fs-25 mx-5"> {formatTime(timeLeft)} </span>
                       </div>
                       <span>Seconds</span>
                     </div>
@@ -879,7 +883,7 @@ const EmployeeLoginForm = ({ setOtpType }) => {
             <div className="logo-wrapper mb-4 text-right">
               <img src={logolg} alt="company-logo" width="100" />
             </div>
-            <h2 className="welcome mb-2">Welcome to Admin Login</h2>
+            <h2 className="welcome mb-2">Welcome to  Login</h2>
             <h4 className="details mb-2">
               Please enter your account details
             </h4>
@@ -923,13 +927,13 @@ const EmployeeLoginForm = ({ setOtpType }) => {
               imp
               icon={<MdOutlineKey />}
             />
-          <div className="setPassword-wrapper">
-             <span>Don't have password?</span>
+          <div className="setPassword-wrapper text-end">
+             {/* <span>Don't have password?</span> */}
               <h5
-                className="forgot-password fw-semibold"
+                className="forgot-password fw-semibold "
                 onClick={() => navigate("/resetpassword")}
               >
-                Set Password
+                Forgot Password ?
               </h5>
             </div>
           <div className="employee-button mt-3">

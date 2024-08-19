@@ -374,9 +374,11 @@ const EmployeeList = () => {
     limit,
     setImageModal,
     setImageData,
+    employeesList, 
+    setEmployeesList
   } = useStateContext();
   const { applicationColor } = useThemeContext();
-  const [employeesList, setEmployeesList] = useState([]);
+  // const [employeesList, setEmployeesList] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
   const [skip, setSkip] = useState(0);

@@ -14,6 +14,7 @@ export const FunctionContextProvider = ({ children }) => {
   } = useStateContext();
   //  const navigate= useNavigate()
   const handleChange = (e, schema, setForm, index = null, fieldName = null) => {
+    console.log("hiiiiiiiiii")
     const { name, type, checked, id } = e.target;
     let value = e.target.value;
     let max = schema?._rules[1]?.args?.limit || 200;
@@ -81,6 +82,7 @@ export const FunctionContextProvider = ({ children }) => {
   };
 
   const checkErrors = async (schema, formData) => {
+    console.log("hello")
     const mainSchema = Joi.object(schema);
     // console.log(mainSchema, "mainschema")
     const { error } = mainSchema.validate(formData, { abortEarly: false });

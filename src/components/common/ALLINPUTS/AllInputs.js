@@ -1001,6 +1001,91 @@ export function SelectInputs({
 //     </>
 //   );
 // }
+// export function Select_inputs({
+//   placeholder,
+//   name,
+//   value,
+//   schema,
+//   setForm,
+//   options,
+//   property,
+//   valueProperty,
+//   readOnly,
+//   imp,
+//   inputRef,
+// }) {
+//   const { errors } = useStateContext();
+//   const { applicationColor } = useThemeContext();
+//   const { handleChange } = useFunctionContext();
+
+//   return (
+//     <div className="total-form mb-4">
+//       <div className="main_label">
+//         <label
+//           htmlFor={name}
+//           style={{
+//             color: applicationColor.readColor2,
+//           }}
+//         >
+//           {imp ? (
+//             <>
+//               {placeholder}
+//               <sup style={{ color: "red" }}> *</sup>
+//             </>
+//           ) : (
+//             placeholder
+//           )}
+//         </label>
+//       </div>
+//       <div className="main-input">
+//         <div className="icon-prefix">
+//           <label htmlFor={name}>$</label>
+//         </div>
+//         <div className="input custom-select">
+//           <select
+//             name={name}
+//             id={name}
+//             onChange={(e) => handleChange(e, schema, setForm)}
+//             value={value || ""}
+//             ref={inputRef}
+//             style={{
+//               background: applicationColor.cardBg2,
+//               color: value
+//                 ? applicationColor.readColor1
+//                 : applicationColor.readColor2,
+//               textTransform: "none",
+//             }}
+//             disabled={readOnly}
+//           >
+//             <option value="" hidden>
+//               -- select --
+//             </option>
+//             {options && options.length === 0 ? (
+//               <option value="" disabled>
+//                 No data found
+//               </option>
+//             ) : (
+//               options?.map((option, index) => (
+//                 <option
+//                   value={option[valueProperty] ? option[valueProperty] : option}
+//                   style={{ padding: "5px", margin: "10px 0" }}
+//                   key={index}
+//                 >
+//                   {property ? option[property] : option}
+//                 </option>
+//               ))
+//             )}
+//           </select>
+//         </div>
+//       </div>
+//       {errors[name] && (
+//         <div className="error-message">
+//           <span>{errors[name]}</span>
+//         </div>
+//       )}
+//     </div>
+//   );
+// }
 export function Select_inputs({
   placeholder,
   name,
@@ -1038,9 +1123,6 @@ export function Select_inputs({
         </label>
       </div>
       <div className="main-input">
-        <div className="icon-prefix">
-          <label htmlFor={name}>$</label>
-        </div>
         <div className="input custom-select">
           <select
             name={name}
@@ -1053,7 +1135,7 @@ export function Select_inputs({
               color: value
                 ? applicationColor.readColor1
                 : applicationColor.readColor2,
-              textTransform: "none",
+              textTransform: "capitalize", // Ensures first letter is capitalized
             }}
             disabled={readOnly}
           >

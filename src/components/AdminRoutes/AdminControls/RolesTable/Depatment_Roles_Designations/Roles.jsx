@@ -692,7 +692,7 @@ const Roles = () => {
 
   return (
     <section className="roles-department">
-      <div className="add-locations my-4 d-flex justify-content-between align-items-center">
+      {/* <div className="add-locations my-4 d-flex justify-content-between align-items-center">
         <h3
           style={{
             color: applicationColor.readColor1,
@@ -701,14 +701,14 @@ const Roles = () => {
           {selectedLocation?.location_name || ""}
         </h3>
         <div>
-          {/* <button
+          <button
             className="btn btn-secondary dropdown-toggle"
             type="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
             Locations
-          </button> */}
+          </button>
           <ul className="dropdown-menu location-list dropdown-menu-end">
             {allLocations.map((location, location_id) => {
               return (
@@ -728,7 +728,7 @@ const Roles = () => {
             })}
           </ul>
         </div>
-      </div>
+      </div> */}
       <ul
         className="nav nav-pills d-inline-flex px-3 flex-nowrap categorys rounded-3 py-2 default-shadow"
         id="pills-tab"

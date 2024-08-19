@@ -1178,7 +1178,7 @@ export const ExpirementSchema = {
   reporting_manager: Joi.string()
     .min(1)
     .max(20)
-    .pattern(/^[a-zA-Z0-9@._-]*$/, "valid characters")
+    // .pattern(/^[a-zA-Z0-9@._-]*$/, "valid characters")
     .required()
     .label("Reporting Manager"),
 
@@ -1205,7 +1205,7 @@ export const ExpirementSchema = {
 
   present_address: Joi.string()
     .min(10)
-    .max(250)
+    .max(100)
     .required()
     .messages({
       "string.pattern.base":
@@ -1220,7 +1220,7 @@ export const ExpirementSchema = {
 
   permanent_address: Joi.string()
     .min(10)
-    .max(250)
+    .max(100)
     .required()
 
     .messages({
@@ -1524,7 +1524,7 @@ const EmployeeDataSchema = {
   reporting_manager: Joi.string()
     .min(1)
     .max(20)
-    .pattern(/^[a-zA-Z0-9@._-]*$/, "valid characters")
+    // .pattern(/^[a-zA-Z0-9@._-]*$/, "valid characters")
     .required()
     .label("Reporting Manager"),
 
@@ -1669,7 +1669,7 @@ const EmployeeDataSchema = {
   present_address: Joi.string()
 
     .min(10)
-    .max(250)
+    .max(100)
     .required()
     .pattern(/^[a-zA-Z0-9 ,.]*$/, {
       name: "'alphanumeric with spaces, commas, and dots'",
@@ -1698,7 +1698,7 @@ const EmployeeDataSchema = {
     // })
     // .label("Permanent Address"),
     .min(10)
-    .max(250)
+    .max(100)
     .required()
     .pattern(/^[a-zA-Z0-9 ,.]*$/, {
       name: "'alphanumeric with spaces, commas, and dots'",

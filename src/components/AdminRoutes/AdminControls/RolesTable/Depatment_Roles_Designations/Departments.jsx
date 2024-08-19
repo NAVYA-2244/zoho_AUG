@@ -181,7 +181,7 @@ console.log("orgDetails",orgDetails.departments)
             </section>
           </div>
 
-          <div className={`department-form ${showModal ? "d-block" : "d-none"}`}>
+          {/* <div className={`department-form ${showModal ? "d-block" : "d-none"}`}>
             {showModal && (
               <>
                 <div className="fs-3">
@@ -231,6 +231,79 @@ console.log("orgDetails",orgDetails.departments)
                     </div>
                   </div>
                 </form>
+              </>
+            )}
+          </div> */}
+          <div className={`role-form ${showModal ? "d-block" : "d-none"}`}>
+            {showModal && (
+              <>
+                <div className="fs-3 mb-3">
+                  <IoArrowBackSharp
+                    onClick={handleGoBack}
+                    style={{ cursor: "pointer" }}
+                  />
+                </div>
+                <div
+                  className="admin-controls-card col-lg-6 mx-auto"
+                  style={{
+                    background: applicationColor.cardBg1,
+                    color: applicationColor.readColor1,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    padding: "20px",
+                    borderRadius: "10px",
+                  }}
+                >
+                   <h3 className="mb-4">
+                    {edit ? "Edit deparments Details" : "Add New deparments"}
+                  </h3>
+                  <p className="text-muted mb-4">
+                    Please fill out the form below to{" "}
+                    {edit ? "update the deparments" : "add a new deparments"}.
+                  </p>
+                  <form
+                    onSubmit={handleSubmit}
+                    style={{ width: "100%", textAlign: "center" }}
+                  >
+                    <div className="row mb-4">
+                      <div className="col-12">
+                        {fields.map((field, index) => (
+                          <div className="form-group mb-3" key={field}>
+                            <Input_text
+                              type={types[index]}
+                              name={field}
+                              setForm={setFormData}
+                              value={formData[field]}
+                              placeholder={placeholders[index]}
+                              onChange={handleChange}
+                              maxLength={25}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="form-button">
+                      <button
+                        className="py-2 px-3 w-100"
+                        type="submit"
+                        disabled={loading}
+                        style={{
+                          background: applicationColor.buttonColor,
+                          color: "white",
+                        }}
+                      >
+                        {loading ? (
+                          <Loader />
+                        ) : edit ? (
+                          "Update deparments"
+                        ) : (
+                          "Add deparments"
+                        )}
+                      </button>
+                    </div>
+                  </form>
+                </div>
               </>
             )}
           </div>
