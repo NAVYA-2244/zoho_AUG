@@ -8,7 +8,7 @@ const AuthenticatedRoute = ({ children }) => {
   return employeeDetails?.role_name || employeeDetails?.role_name ? (
     <>{children}</>
   ) : (
-    <Navigate to="/loginForm" />
+    <Navigate to="/login" />
   );
 };
 

@@ -10,6 +10,8 @@ import schema from "../../AllSchema/EmployeeSchema";
 import { useStateContext } from "../../Contexts/StateContext";
 import { useThemeContext } from "../../Contexts/ThemesContext";
 import ProfilePhoto from "./ProfilePhoto";
+import { backEndCallObjNothing } from "../../../services/mainService";
+import { toastOptions } from "../../../Utils/FakeRoutes";
 
 const BasicEmployeeData = ({ formData, setFormData, type }) => {
   const {
@@ -24,12 +26,12 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
   } = useStateContext();
   const { applicationColor } = useThemeContext();
   const [employeesList, setEmployeesList] = useState([]);
+  const [filteredEmployees, setFilteredEmployees] = useState([]);
   const [options, setOptions] = useState({});
   const [optionss, setOptionss] = useState({});
   const [optionsss, setoptionsss] = useState({});
-  {
-    console.log(orgDetails.departments?.department_name, "iuhgbhnkl");
-  }
+
+  console.log("filteredEmployees",filteredEmployees)
   useEffect(() => {
     if (orgDetails.departments) {
       setOptions({
@@ -59,7 +61,37 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
   //   console.log(options, "ee");
   // }, [formData.location_id]);
 
-  console.log("locations", options);
+  useEffect(() => {
+    const fetchingData = async () => {
+      try {
+        setLoading(true);
+        let employees = await backEndCallObjNothing(
+          "/admin_get/get_employee_list",
+          { skip: 0 }
+        );
+        console.log("employee", employees);
+        setEmployeesList(employees.employees);
+  
+        // Filter employees with role "Director" or "Manager"
+        const managers = employees.employees.filter((employee) => {
+          const roleName = employee?.work_info?.role_name?.toLowerCase();
+          return roleName === "director" || roleName === "manager";
+        });
+  
+        setFilteredEmployees(managers);
+  
+        console.log(managers, "managers");
+      } catch (error) {
+        toastOptions.error(error?.response?.data || "Something went wrong");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchingData();
+  }, []);
+  
+
+ 
   return (
     <>
       <div
@@ -86,10 +118,10 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             // readOnly={isAdmin || type === "Update Employee"}
             inputRef={(el) => (refs.current.employee_id = el)}
           />
-          {/* <p className="note-heading" style={{ color: "yellow" }}>
-            This should be a recent employee ID "
+          <p className="note-heading" style={{ color: "green" }}>
+            This should be a recent employee Id "
             {employeesList.length > 0 ? employeesList[0].  employee_id : null}".
-          </p> */}
+          </p>
         </div>
         <div className="col-lg-4 col-md-4 col-sm-6">
           <Input_text
@@ -400,7 +432,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             // readOnly={isAdmin}
             inputRef={(el) => (refs.current.reporting_manager = el)}
           /> */}
-          <Input_email
+          {/* <Input_email
             type={"email"}
             name={"reporting_manager"}
             placeholder={"Reporting Manager Email"}
@@ -411,7 +443,35 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             imp={true}
             // readOnly={isAdmin}
             inputRef={(el) => (refs.current.reporting_manager = el)}
-          />
+          /> */}
+          {/* <Select_inputs
+            name={"reporting_manager"}
+            placeholder={"Reporting Manager"}
+            value={formData.reporting_manager}
+            schema={schema.reporting_manager}
+            setForm={setFormData}
+            options={filteredEmployees}
+            property={"email"} // Assuming you want to display email in the dropdown
+            valueProperty={"employee_id"} // Assuming you want to store the employee_id
+            imp
+            inputRef={(el) => (refs.current.reporting_manager = el)}
+          /> */}
+          <Select_inputs
+  name={"reporting_manager"}
+  placeholder={"Reporting Manager"}
+  value={formData.reporting_manager}
+  schema={schema.reporting_manager}
+  setForm={setFormData}
+  options={filteredEmployees.map((employee) => ({
+    ...employee,
+    displayName: `${employee.basic_info.first_name} ${employee.basic_info.last_name}`, // Create a new property for display
+  }))}
+  property={"displayName"} // Use the new displayName property
+  valueProperty={"displayName"} // Store the employee_id
+  imp
+  inputRef={(el) => (refs.current.reporting_manager = el)}
+/>
+
         </div>
       </div>
     </>

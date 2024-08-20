@@ -6,6 +6,7 @@ import { useStateContext } from "./components/Contexts/StateContext";
 import {
   isEmployeeRouter,
   isSuperAdminRouter,
+  isTeamLeadRouter,
   // isManagerRouter,
   // isSuperAdminRouter,
   // isTeamLeadRouter,
@@ -16,22 +17,31 @@ const App = () => {
   const { employeeDetails } = useStateContext(); // Getting the Employeedetails to render the routter
 
   //This function will create the router based on the employee type and admin status
+  // const mainRouter = () => {
+  //   // if (employeeDetails && employeeDetails.collection === 'USER') {
+  //   //   return isSuperAdminRouter;
+  //     // } else if (
+  //     //   employeeDetails.employeeId &&
+  //     //   employeeDetails.adminType === '2'
+  //     // ) {
+  //     //   return isManagerRouter;
+  //     // } else if (
+  //     //   employeeDetails.employeeId &&
+  //     //   employeeDetails.adminType === '3'
+  //     // ) {
+  //     //   return isTeamLeadRouter;
+  //     // } else {
+  //     //   return isEmployeeRouter;
+  //     // }
+  //   };
   const mainRouter = () => {
-    // if (employeeDetails && employeeDetails.collection === 'USER') {
-    return isSuperAdminRouter;
-    // } else if (
-    //   employeeDetails.employeeId &&
-    //   employeeDetails.adminType === '2'
-    // ) {
-    //   return isManagerRouter;
-    // } else if (
-    //   employeeDetails.employeeId &&
-    //   employeeDetails.adminType === '3'
-    // ) {
-    //   return isTeamLeadRouter;
-    // } else {
-    //   return isEmployeeRouter;
-    // }
+    if (employeeDetails.role_name === "Director") {
+      return isSuperAdminRouter;
+    } else if (employeeDetails.role_name === "Team Incharge") {
+      return isTeamLeadRouter;
+    } else {
+      return isEmployeeRouter;
+    }
   };
 
   const [actualRouter, setActualRouter] = useState(mainRouter());

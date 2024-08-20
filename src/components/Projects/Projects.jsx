@@ -372,6 +372,7 @@ const Projects = () => {
       ) : isTeamModalVisible ? (
         <TeamAssignmentModal
           projectId={currentProject?.project_id}
+
           setIsTeamModalVisible={setIsTeamModalVisible}
           fetchProjects={fetchProjects}
         />
@@ -398,7 +399,9 @@ const Projects = () => {
                 Add Projects
               </button>
             </div>
-            { projects.length > 0 &&
+               {loading ? (
+              <Loader />
+            ) : projects.length > 0 ? (
               projects.map((project, index) => (
                 <div className="col-xl-4 col-md-6 mb-3" key={index}>
                   <div
@@ -428,6 +431,29 @@ const Projects = () => {
                       Project Status:{" "}
                       <span className="fw-bold">{project.project_status}</span>
                     </p>
+                    {project.assign_track && project.assign_track.length > 0 && (
+                      <div className="assign-track mt-3">
+                        <h6>Assigned Team:</h6>
+                        <ul>
+                          {project.assign_track.map((assignment, index) => (
+                            <li key={index}>
+                              {/* <p>
+                                Assigned by:{" "}
+                                <strong>
+                                  {assignment.assigned_by?.employee_email || "Unknown"}
+                                </strong>
+                              </p> */}
+                              <p>
+                                Assigned to:{" "}
+                                <strong>
+                                  {assignment.assigned_to?.employee_name || "Unknown"}
+                                </strong>
+                              </p>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                     <div className="mt-auto d-flex justify-content-between align-items-center">
                       <button
                         className="btn btn-outline-primary btn-sm"
@@ -447,16 +473,10 @@ const Projects = () => {
                   </div>
                 </div>
               ))
-}
-          
-          {loading && projects.length > 0 && (<Loader/>)}
-          {!loading && projects.length === 0 && (
+            ) : (
               <div className="col-12 text-center">No projects found.</div>
             )}
           </div>
-           
-           
-          
         </>
       )}
     </section>

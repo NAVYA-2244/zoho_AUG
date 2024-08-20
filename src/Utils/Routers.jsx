@@ -42,6 +42,8 @@ import AdminControlesUserDetails from "./../components/AdminRoutes/AdminControls
 import LoginForm from "../components/Logins/EmployeeLoginPage/LoginForm.jsx";
 import SingleEmployeeProfileEdit from "../components/AdminRoutes/AdminFetchingSingleEmployeeData/SingleEmployeeProfile/SingleEmployeeProfileEdit.jsx";
 import ChangePassword from "../components/Folders/ChangePassword.jsx";
+import EmployeeProjects from "../components/Projects/EmployeeProjects.jsx";
+// import { EmployeeRoute } from './../HOC_protectingRoutes/ProtectedRoute';
 
 // AdminType "0" //Team member or normal employee
 export const isEmployeeRouter = [
@@ -94,7 +96,14 @@ export const isEmployeeRouter = [
           </EmployeeRoute>
         ),
       },
-
+      {
+        path: "/profile_Edit",
+        element: (
+          <EmployeeRoute>
+            <SingleEmployeeProfileEdit />
+          </EmployeeRoute>
+        ),
+      },
       {
         path: "/profile",
         element: (
@@ -112,22 +121,22 @@ export const isEmployeeRouter = [
           </EmployeeRoute>
         ),
       },
-      {
-        path: "/applyleave",
-        element: (
-          <EmployeeRoute>
-            <ApplyLeave />
-          </EmployeeRoute>
-        ),
-      },
-      {
-        path: "/leaveApplications",
-        element: (
-          <EmployeeRoute>
-            <EmployeeLeavesSelecteId />
-          </EmployeeRoute>
-        ),
-      },
+      // {
+      //   path: "/applyleave",
+      //   element: (
+      //     <EmployeeRoute>
+      //       <ApplyLeave />
+      //     </EmployeeRoute>
+      //   ),
+      // },
+      // {
+      //   path: "/leaveApplications",
+      //   element: (
+      //     <EmployeeRoute>
+      //       <EmployeeLeavesSelecteId />
+      //     </EmployeeRoute>
+      //   ),
+      // },
       {
         path: "/attendance/list-view",
         element: (
@@ -136,6 +145,31 @@ export const isEmployeeRouter = [
           </EmployeeRoute>
         ),
       },
+      {
+        path: "/employee/chat",
+        element: (
+          <EmployeeRoute>
+            <Chat />
+          </EmployeeRoute>
+        ),
+      },
+      {
+        path: "/employee/projects",
+        element: (
+          <EmployeeRoute>
+            <EmployeeProjects/>
+          </EmployeeRoute>
+        ),
+      },
+      {
+        path: "/admin/ChangePassword",
+        element: (
+          <EmployeeRoute>
+            <ChangePassword />
+          </EmployeeRoute>
+        ),
+      },
+      
       {
         path: "/employee/folders",
         element: (
@@ -161,14 +195,14 @@ export const isEmployeeRouter = [
   //   element: <Login />,
   // },
 
-  // {
-  //   path: "/login",
-  //   element: <NewLogin />,
-  // },
   {
-    path: "/loginForm",
-    element: <LoginForm />,
+    path: "/login",
+    element: <NewLogin />,
   },
+  // {
+  //   path: "/loginForm",
+  //   element: <LoginForm />,
+  // },
   {
     path: "/register",
     element: <Register />,
@@ -294,14 +328,7 @@ export const isSuperAdminRouter = [
           </IsSuperAdminRoute>
         ),
       },
-      {
-        path: "/profile_Edit",
-        element: (
-          <IsSuperAdminRoute>
-            <SingleEmployeeProfileEdit />
-          </IsSuperAdminRoute>
-        ),
-      },
+     
       {
         path: "/admin/employee_list",
         element: (

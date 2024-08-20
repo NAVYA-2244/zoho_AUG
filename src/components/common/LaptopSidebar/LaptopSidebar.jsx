@@ -73,8 +73,8 @@ const LaptopSidebar = () => {
 
   const logout = (path) => {
     path();
-    navigate("/loginForm");
-    window.location.reload("/loginForm");
+    navigate("/login");
+    window.location.reload("/login");
     setErrors({});
   };
 
