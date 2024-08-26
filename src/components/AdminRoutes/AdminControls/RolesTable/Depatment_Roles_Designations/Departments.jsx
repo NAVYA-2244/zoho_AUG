@@ -131,16 +131,9 @@ console.log("orgDetails",orgDetails.departments)
           }}
         >
           <div className={`department-cards ${showModal ? "d-none" : "d-block"}`}>
-            <section className="row">
+            {/* <section className="row">
               <div className="mb-4 text-end">
-                {/* <button
-                  className="dropdown-item d-flex align-items-center justify-content-end"
-                  type="button"
-                  onClick={handleAddItems}
-                >
-                  <span className="add-department me-1">Add</span>
-                  <RiAddCircleFill />
-                </button> */}
+          
                  <button
                 className="btn btn-primary d-flex align-items-center justify-content-end"
                 type="button"
@@ -178,7 +171,57 @@ console.log("orgDetails",orgDetails.departments)
                   There is no data in your location
                 </div>
               )}
-            </section>
+            </section> */}
+            <section className="row">
+      <div className="mb-4 d-flex justify-content-end">
+        <button
+          className="btn btn-primary d-flex align-items-center"
+          type="button"
+          onClick={handleAddItems}
+        >
+          <RiAddCircleFill size={24} className="me-2" />
+          <span>Add Deparments</span>
+        </button>
+      </div>
+
+      {orgDetails?.departments?.length > 0 ? (
+        orgDetails.departments.map((item, index) => (
+          <div className="col-lg-4 col-md-6 mb-4" key={index}>
+            <div
+              className="card"
+              style={{
+                background: applicationColor.cardBg1,
+                color: applicationColor.readColor1,
+                borderRadius: '12px',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                transition: 'transform 0.2s, box-shadow 0.2s',
+                cursor: 'pointer'
+              }}
+              // onClick={() => handleEditItems(item.role_id, item)}
+            >
+              <div className="card-body d-flex flex-column p-4">
+              <h5 className="card-title mb-3" style={{ fontSize: '1.25rem' }}>
+                  {item.department_name}
+                </h5>
+                <p className="card-text text-muted mb-4">
+                  Department ID: {item.department_id}
+                </p>
+                <button
+                  className="btn btn-outline-primary mt-auto"
+                  onClick={() => handleEditItems(item.department_id, item)}
+                >
+                  Edit deparment
+                </button>
+              </div>
+            </div>
+          </div>
+        ))
+      ) : (
+        <div className="col-12 text-center">
+          No roles available.
+        </div>
+      )}
+    </section>
           </div>
 
           {/* <div className={`department-form ${showModal ? "d-block" : "d-none"}`}>
@@ -237,73 +280,78 @@ console.log("orgDetails",orgDetails.departments)
           <div className={`role-form ${showModal ? "d-block" : "d-none"}`}>
             {showModal && (
               <>
-                <div className="fs-3 mb-3">
-                  <IoArrowBackSharp
-                    onClick={handleGoBack}
-                    style={{ cursor: "pointer" }}
-                  />
-                </div>
-                <div
-                  className="admin-controls-card col-lg-6 mx-auto"
-                  style={{
-                    background: applicationColor.cardBg1,
-                    color: applicationColor.readColor1,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    padding: "20px",
-                    borderRadius: "10px",
-                  }}
-                >
-                   <h3 className="mb-4">
-                    {edit ? "Edit deparments Details" : "Add New deparments"}
-                  </h3>
-                  <p className="text-muted mb-4">
-                    Please fill out the form below to{" "}
-                    {edit ? "update the deparments" : "add a new deparments"}.
-                  </p>
-                  <form
-                    onSubmit={handleSubmit}
-                    style={{ width: "100%", textAlign: "center" }}
-                  >
-                    <div className="row mb-4">
-                      <div className="col-12">
-                        {fields.map((field, index) => (
-                          <div className="form-group mb-3" key={field}>
-                            <Input_text
-                              type={types[index]}
-                              name={field}
-                              setForm={setFormData}
-                              value={formData[field]}
-                              placeholder={placeholders[index]}
-                              onChange={handleChange}
-                              maxLength={25}
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="form-button">
-                      <button
-                        className="py-2 px-3 w-100"
-                        type="submit"
-                        disabled={loading}
-                        style={{
-                          background: applicationColor.buttonColor,
-                          color: "white",
-                        }}
-                      >
-                        {loading ? (
-                          <Loader />
-                        ) : edit ? (
-                          "Update deparments"
-                        ) : (
-                          "Add deparments"
-                        )}
-                      </button>
-                    </div>
-                  </form>
-                </div>
+                <div className="modal fade show" style={{ display: 'block' }}>
+           <div className="modal-dialog modal-dialog-centered">
+             <div
+               className="modal-content"
+               style={{
+                 background: applicationColor.cardBg1,
+                 color: applicationColor.readColor1,
+                 borderRadius: '10px',
+                 padding: '20px',
+               }}
+             >
+               <div className="modal-header">
+                 <h5 className="modal-title">{edit ? "Edit Department" : "Add Department"}</h5>
+                 <button
+                   type="button"
+                   className="btn-close"
+                   aria-label="Close"
+                   onClick={handleCloseModal}
+                 >
+                   <span>&times;</span>
+                 </button>
+               </div>
+               <div className="modal-body">
+                 <p className="text-muted mb-4">
+                   Please fill out the form below to {edit ? "Edit Department" : "add Deparment"}.
+                 </p>
+                 <form onSubmit={handleSubmit} >
+                   <div className="row mb-4">
+                     <div className="col-12 "style={{ padding:'0'}}>
+                       {fields.map((field, index) => (
+                         <div className="form-group mb-3" key={field}>
+                           <Input_text
+                             type={types[index]}
+                             name={field}
+                             setForm={setFormData}
+                             value={formData[field]}
+                             placeholder={placeholders[index]}
+                             onChange={handleChange}
+                             maxLength={25}
+                           />
+                         </div>
+                       ))}
+                     </div>
+                   </div>
+                   <div className="form-button">
+                     <button
+                       className="py-2 px-3 w-100"
+                       type="submit"
+                       disabled={loading}
+                       style={{
+                         background: applicationColor.buttonColor,
+                         color: 'white',
+                       }}
+                     >
+                       {loading ? <Loader /> : edit ? "Edit Department" : "Add Department"}
+                     </button>
+                   </div>
+                 </form>
+               </div>
+               {/* <div className="modal-footer">
+                 <button
+                   type="button"
+                   className="btn btn-secondary"
+                   onClick={handleCloseModal}
+                 >
+                   Close
+                 </button>
+               </div> */}
+             </div>
+           </div>
+         </div>
+         
               </>
             )}
           </div>

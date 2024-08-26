@@ -643,7 +643,10 @@ const ChangePassword = () => {
   };
 
   return (
-    <main className="folders" style={{ background: applicationColor.cardItem }}>
+     <section
+    className="company-details"
+    style={{ background: applicationColor.cardBg1 }}
+  >
       <form className="all-folders" onSubmit={handleSubmit}>
         <div className="row">
           <div className="col-xl-4 mx-auto">
@@ -696,7 +699,7 @@ const ChangePassword = () => {
 
       {/* Render modal if showModal is true */}
       {showModal && <Modal onLogout={handleLogout} />}
-    </main>
+    </section>
   );
 };
 

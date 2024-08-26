@@ -14,6 +14,7 @@ import { IoMdArrowDropup, IoMdArrowDropdown } from "react-icons/io";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
 import { useThemeContext } from "../../Contexts/ThemesContext";
 import dummyUser from "../../../assets/Header/dummy-user.jpg";
+// import { isManagerRouter, isTeamLeadRouter } from "../../../Utils/Routers";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -33,7 +34,10 @@ const Sidebar = () => {
     if (employeeDetails.role_name === "Director") {
       return superAdminSidebar;
     } else if (employeeDetails.role_name === "Team Incharge") {
-      return employeeSidebar;
+      return teamLeadSidebar;
+    }
+    else if (employeeDetails.role_name === "Manager") {
+      return mangerSidebar;
     } else {
       return employeeSidebar; // Default to employeeSidebar if no match
     

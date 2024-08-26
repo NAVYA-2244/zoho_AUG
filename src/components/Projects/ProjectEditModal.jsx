@@ -7,6 +7,7 @@ import Loader from "../Loader/Loader";
 import { IoArrowBackSharp } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { Date_Input, Input_area, Input_text, Select_inputs } from "../common/ALLINPUTS/AllInputs";
+import { toastOptions } from "../../Utils/FakeRoutes";
 
 const ProjectEditPage = ({ project, setIsFormVisible, fetchProjects }) => {
   const [loading, setLoading] = useState(false);
@@ -92,11 +93,13 @@ const ProjectEditPage = ({ project, setIsFormVisible, fetchProjects }) => {
 
     try {
       await checkErrors(projectschema, formData);
-      await backEndCallObjNothing("/admin/add_update_project", formData);
+     const response= await backEndCallObjNothing("/admin/add_update_project", formData);
+    toastOptions.success(response)
       fetchProjects();
       setIsFormVisible(false);
     } catch (error) {
       console.error("API error:", error);
+      toastOptions.error(error?.response?.data)
     } finally {
       setLoading(false);
     }

@@ -1,1539 +1,72 @@
-
-// // import React, { useState, useEffect } from "react";
-// // import { RiAddCircleFill } from "react-icons/ri";
-// // import { IoArrowBackSharp } from "react-icons/io5";
-// // import { RiDeleteBin6Line } from "react-icons/ri";
-// // import { useStateContext } from "../../../../Contexts/StateContext";
-// // import { useThemeContext } from "../../../../Contexts/ThemesContext";
-// // import { Input_text } from "../../../../common/ALLINPUTS/AllInputs";
-// // import { useFunctionContext } from "../../../../Contexts/FunctionContext";
-// // import { backEndCallObjNothing } from "../../../../../services/mainService";
-// // import { toastOptions } from "../../../../../Utils/FakeRoutes";
-// // import Loader from "../../../../Loader/Loader";
-// // import Joi from "joi";
-
-// // const LeavesSettings = () => {
-// //   const [showModal, setShowModal] = useState(false);
-// //   const [edit, setEdit] = useState(false);
-// //   const [editingItem, setEditingItem] = useState({});
-// //   const [formData, setFormData] = useState({
-// //     designation_name: "",
-// //     designation_id: null,
-// //     leaves: [],
-// //   });
-// //   const { applicationColor } = useThemeContext();
-// //   const { loading, setErrors, setLoading, orgDetails, setOrgDetails } = useStateContext();
-// //   const { checkErrors } = useFunctionContext();
-
-// //   // Define Joi schema for validation
-// //   const leaves_obj = {
-// //     leave_name: Joi.string()
-// //     .required()
-// //     .pattern(/^[a-zA-Z0-9 ,._-]+$/) // Allow only specific characters
-// //     .min(4)
-// //     .max(15)
-// //     .messages({
-// //       "string.pattern.base": "Leave Name contains invalid characters",
-// //     }),
-// //   total_leaves: Joi.number().required().min(1).max(10),
-// // };
-
-// //   const schema = {
-// //     organisation_id: Joi.string().min(10).max(18).required(),
-// //     designation_name: Joi.string().trim().strip().min(5).max(20).required(),
-// //     designation_id: Joi.string().allow(null, "").optional(),
-// //     leaves: Joi.array().items(leaves_obj).required(),
-// //   };
-
-// //   useEffect(() => {
-// //     if (edit && editingItem) {
-// //       setFormData({
-// //         ...editingItem,
-// //         organisation_id: orgDetails?.organisation_id || "",
-// //       });
-// //     } else {
-// //       setFormData({
-// //         designation_name: "",
-// //         designation_id: null,
-// //         leaves: [],
-// //         organisation_id: orgDetails?.organisation_id || "",
-// //       });
-// //     }
-// //   }, [edit, editingItem, orgDetails]);
-
-// //   const handleAddItems = () => {
-// //     setShowModal(true);
-// //     setEdit(false);
-// //   };
-
-// //   const handleEditItems = (id, item) => {
-// //     setEditingItem(item);
-// //     setEdit(true);
-// //     setShowModal(true);
-// //   };
-
-// //   const handleCloseModal = () => {
-// //     setErrors({});
-// //     setShowModal(false);
-// //     setLoading(false);
-// //     setEdit(false);
-// //   };
-
-// //   const handleChange = (e) => {
-// //     const { name, value, type } = e.target;
-// //     setFormData((prev) => ({
-// //       ...prev,
-// //       [name]: type === "checkbox" ? value === "true" : value,
-// //     }));
-// //   };
-
-// //   // const handleLeaveChange = (index, field, value) => {
-// //   //   setFormData((prev) => {
-// //   //     const updatedLeaves = [...prev.leaves];
-// //   //     updatedLeaves[index] = { ...updatedLeaves[index], [field]: value };
-// //   //     return { ...prev, leaves: updatedLeaves };
-// //   //   });
-// //   // };
-// //   const handleLeaveChange = (index, field, value) => {
-// //     const filteredValue = value.replace(/[^a-zA-Z0-9 ,._-]/g, ""); // Filter out unwanted characters
-// //     setFormData((prev) => {
-// //       const updatedLeaves = [...prev.leaves];
-// //       updatedLeaves[index] = { ...updatedLeaves[index], [field]: filteredValue };
-// //       return { ...prev, leaves: updatedLeaves };
-// //     });
-// //   };
-// //   const handleAddLeave = () => {
-// //     setFormData((prev) => ({
-// //       ...prev,
-// //       leaves: [...prev.leaves, { leave_name: "", total_leaves: "" }],
-// //     }));
-// //   };
-
-// //   const handleDeleteLeave = (index) => {
-// //     setFormData((prev) => {
-// //       const updatedLeaves = prev.leaves.filter((_, i) => i !== index);
-// //       return { ...prev, leaves: updatedLeaves };
-// //     });
-// //   };
-
-// //   const handleSubmit = async (e) => {
-// //     e.preventDefault();
-// //     try {
-// //       setLoading(true);
-// //       await checkErrors(schema, formData);
-// //       const dataToSubmit = { ...formData };
-// //       const response = await backEndCallObjNothing("/org/add_update_designation", dataToSubmit);
-// //       setOrgDetails(response.data);
-// //       toastOptions.success(response.success || "Operation Successful");
-
-// //       setFormData({
-// //         designation_name: "",
-// //         designation_id: null,
-// //         leaves: [],
-// //         organisation_id: orgDetails?.organisation_id || "",
-// //       });
-// //       setEdit(false);
-// //       setShowModal(false);
-// //     } catch (error) {
-// //       toastOptions.error(error?.response?.data || error[0]?.message || "An error occurred");
-// //     } finally {
-// //       setLoading(false);
-// //     }
-// //   };
-
-// //   const handleGoBack = () => {
-// //     setShowModal(false);
-// //   };
-
-// //   return (
-// //     <div>
-// //       <section
-// //         className="roles-table"
-// //         style={{
-// //           background: applicationColor.cardBg1,
-// //           color: applicationColor.readColor1,
-// //         }}
-// //       >
-// //         <div className={`leave-cards ${showModal ? "d-none" : "d-block"}`}>
-// //           <section className="row">
-// //             <div className="mb-4 text-end">
-// //               <button
-// //                 className="dropdown-item d-flex align-items-center justify-content-end"
-// //                 type="button"
-// //                 onClick={handleAddItems}
-// //               >
-// //                 <span className="add-role me-1">Add</span>
-// //                 <RiAddCircleFill />
-// //               </button>
-// //             </div>
-
-// //             {orgDetails?.designations?.length > 0 ? (
-// //               orgDetails.designations.map((designation, index) => (
-// //                 <div className="col-12 mb-4" key={index}>
-// //                   <h4 className="text-primary fw-bold">{designation.designation_name}</h4>
-// //                   {designation.leaves?.length > 0 ? (
-// //                     designation.leaves.map((item, leaveIndex) => (
-// //                       <div className="col-xl-4 mb-3" key={leaveIndex}>
-// //                         <div className="card">
-// //                           <div
-// //                             className="card-body"
-// //                             onClick={() => handleEditItems(item.leave_id, item)}
-// //                             style={{
-// //                               background: applicationColor.cardBg1,
-// //                               color: applicationColor.readColor1,
-// //                             }}
-// //                           >
-// //                             <h5 className="card-title text-primary fw-bold">
-// //                               {item.leave_name}
-// //                             </h5>
-// //                             <p>
-// //                               <strong>Total Leaves:</strong> {item.total_leaves}
-// //                             </p>
-// //                           </div>
-// //                         </div>
-// //                       </div>
-// //                     ))
-// //                   ) : (
-// //                     <div className="col-12 text-center">
-// //                       No leaves data available for this designation
-// //                     </div>
-// //                   )}
-// //                 </div>
-// //               ))
-// //             ) : (
-// //               <div className="col-12 text-center">
-// //                 There is no data in your location
-// //               </div>
-// //             )}
-// //           </section>
-// //         </div>
-
-// //         <div className={`leave-form ${showModal ? "d-block" : "d-none"}`}>
-// //           {showModal && (
-// //             <>
-// //               <div className="fs-3 mb-3">
-// //                 <IoArrowBackSharp
-// //                   onClick={handleGoBack}
-// //                   style={{ cursor: "pointer" }}
-// //                 />
-// //               </div>
-// //               <form onSubmit={handleSubmit}>
-// //                 <div className="row mb-2 justify-content-center">
-// //                   <div className="col-md-6">
-// //                     <div className="form-group mb-3">
-// //                       <Input_text
-// //                         type="text"
-// //                         name="designation_name"
-// //                         setForm={setFormData}
-// //                         value={formData.designation_name}
-// //                         placeholder="Designation Name"
-// //                         onChange={handleChange}
-// //                         maxLength={25}
-// //                       />
-// //                     </div>
-
-// //                     {formData.leaves.map((leave, index) => (
-// //                       <div key={index} className="leave-item">
-// //                         <div className="d-flex align-items-center">
-// //                           <div className="form-group mb-3 me-2 flex-grow-1">
-// //                             <input
-// //                               type="text"
-// //                               name="leave_name"
-// //                               className="form-control"
-// //                               placeholder="Leave Name"
-// //                               value={leave.leave_name}
-// //                               onChange={(e) =>
-// //                                 handleLeaveChange(index, "leave_name", e.target.value)
-// //                               }
-// //                               maxLength={15} 
-// //                             />
-// //                           </div>
-// //                           <div className="form-group mb-3 me-2 flex-grow-1">
-// //                             <input
-// //                               type="number"
-// //                               name="total_leaves"
-// //                               className="form-control"
-// //                               placeholder="Total Leaves"
-// //                               value={leave.total_leaves}
-// //                               onChange={(e) =>
-// //                                 handleLeaveChange(index, "total_leaves", e.target.value)
-// //                               }
-// //                             />
-// //                           </div>
-// //                           <button
-// //                             type="button"
-// //                             className="btn btn-outline-danger"
-// //                             onClick={() => handleDeleteLeave(index)}
-// //                           >
-// //                             <RiDeleteBin6Line />
-// //                           </button>
-// //                         </div>
-// //                       </div>
-// //                     ))}
-
-// //                     <button
-// //                       type="button"
-// //                       className="btn btn-outline-primary mb-3"
-// //                       onClick={handleAddLeave}
-// //                     >
-// //                       Add Another Leave
-// //                     </button>
-// //                   </div>
-// //                 </div>
-// //                 <div className="form-button text-center">
-// //                   <button
-// //                     type="submit"
-// //                     className="btn btn-outline-success btn-block me-2"
-// //                   >
-// //                     {edit ? "Update Designation" : "Save Designation"}
-// //                   </button>
-// //                 </div>
-// //               </form>
-// //             </>
-// //           )}
-// //         </div>
-// //       </section>
-// //       {loading && <Loader />}
-// //     </div>
-// //   );
-// // };
-
-// // export default LeavesSettings;
-// // import React, { useState, useEffect } from "react";
-// // import { RiAddCircleFill } from "react-icons/ri";
-// // import { IoArrowBackSharp } from "react-icons/io5";
-// // import { RiDeleteBin6Line } from "react-icons/ri";
-// // import { useStateContext } from "../../../../Contexts/StateContext";
-// // import { useThemeContext } from "../../../../Contexts/ThemesContext";
-// // import { Input_text } from "../../../../common/ALLINPUTS/AllInputs";
-// // import { useFunctionContext } from "../../../../Contexts/FunctionContext";
-// // import { backEndCallObjNothing } from "../../../../../services/mainService";
-// // import { toastOptions } from "../../../../../Utils/FakeRoutes";
-// // import Loader from "../../../../Loader/Loader";
-// // import Joi from "joi";
-
-// // const LeavesSettings = () => {
-// //   const [showModal, setShowModal] = useState(false);
-// //   const [edit, setEdit] = useState(false);
-// //   const [editingItem, setEditingItem] = useState({});
-// //   const [formData, setFormData] = useState({
-// //     designation_name: "",
-// //     designation_id: null,
-// //     leaves: [],
-// //   });
-// //   const { applicationColor } = useThemeContext();
-// //   const { loading, setErrors, setLoading, orgDetails, setOrgDetails } = useStateContext();
-// //   const { checkErrors } = useFunctionContext();
-
-// //   // Define Joi schema for validation
-// //   const leaves_obj = {
-// //     leave_name: Joi.string()
-// //       .required()
-// //       .pattern(/^[a-zA-Z0-9 ,._-]+$/) // Allow only specific characters
-// //       .min(4)
-// //       .max(15)
-// //       .messages({
-// //         "string.pattern.base": "Leave Name contains invalid characters",
-// //       }),
-// //     total_leaves: Joi.number().required().min(1).max(10),
-// //   };
-
-// //   const schema = {
-// //     organisation_id: Joi.string().min(10).max(18).required(),
-// //     designation_name: Joi.string().trim().strip().min(5).max(20).required(),
-// //     designation_id: Joi.string().allow(null, "").optional(),
-// //     leaves: Joi.array().items(leaves_obj).required(),
-// //   };
-
-// //   // useEffect(() => {
-// //   //   if (edit && editingItem) {
-// //   //     setFormData({
-// //   //       ...editingItem,
-// //   //       leaves: editingItem.leaves || [], // Ensure leaves is an array
-// //   //       organisation_id: orgDetails?.organisation_id || "",
-// //   //     });
-// //   //   } else {
-// //   //     setFormData({
-// //   //       designation_name: "",
-// //   //       designation_id: null,
-// //   //       leaves: [],
-// //   //       organisation_id: orgDetails?.organisation_id || "",
-// //   //     });
-// //   //   }
-// //   // }, [edit, editingItem, orgDetails]);
-// //   useEffect(() => {
-// //     if (edit && editingItem) {
-// //       setFormData({
-// //         designation_name: editingItem.designation_name || "",
-// //         designation_id: editingItem.designation_id || null,
-// //         leaves: editingItem.leaves || [], // Ensure leaves are populated
-// //         organisation_id: orgDetails?.organisation_id || "",
-// //       });
-// //       console.log("Form Data Set for Edit:", {
-// //         designation_name: editingItem.designation_name || "",
-// //         designation_id: editingItem.designation_id || null,
-// //         leaves: editingItem.leaves || [],
-// //         organisation_id: orgDetails?.organisation_id || "",
-// //       });
-// //     } else {
-// //       setFormData({
-// //         designation_name: "",
-// //         designation_id: null,
-// //         leaves: [],
-// //         organisation_id: orgDetails?.organisation_id || "",
-// //       });
-// //     }
-// //   }, [edit, editingItem, orgDetails]);
-  
-// //   const handleAddItems = () => {
-// //     setShowModal(true);
-// //     setEdit(false);
-// //   };
-
-// //   // const handleEditItems = (id, item) => {
-// //   //   setEditingItem({
-// //   //     ...item,
-// //   //     leaves: item.leaves || [], // Ensure leaves is an array
-// //   //   });
-// //   //   setEdit(true);
-// //   //   setShowModal(true);
-// //   // };
-// //  // When you call handleEditItems, make sure you pass the entire designation object
-// // const handleEditItems = (id, item) => {
-// //   console.log("Editing Item:", item); // Debugging line
-// //   if (item && item.leaves) {
-// //     setEditingItem({
-// //       designation_name: item.designation_name,
-// //       designation_id: id,  // Ensure you pass the correct ID
-// //       leaves: item.leaves,
-// //     });
-// //     setEdit(true);
-// //     setShowModal(true);
-// //   } else {
-// //     console.error("Invalid item or leaves array:", item);
-// //   }
-// // };
-
-  
-// //   const handleCloseModal = () => {
-// //     setErrors({});
-// //     setShowModal(false);
-// //     setLoading(false);
-// //     setEdit(false);
-// //   };
-
-// //   const handleChange = (e) => {
-// //     const { name, value, type } = e.target;
-// //     setFormData((prev) => ({
-// //       ...prev,
-// //       [name]: type === "checkbox" ? value === "true" : value,
-// //     }));
-// //   };
-
-// //   const handleLeaveChange = (index, field, value) => {
-// //     const filteredValue = value.replace(/[^a-zA-Z0-9 ,._-]/g, ""); // Filter out unwanted characters
-// //     setFormData((prev) => {
-// //       const updatedLeaves = [...prev.leaves];
-// //       updatedLeaves[index] = { ...updatedLeaves[index], [field]: filteredValue };
-// //       return { ...prev, leaves: updatedLeaves };
-// //     });
-// //   };
-
-// //   const handleAddLeave = () => {
-// //     setFormData((prev) => ({
-// //       ...prev,
-// //       leaves: [...prev.leaves, { leave_name: "", total_leaves: "" }],
-// //     }));
-// //   };
-
-// //   const handleDeleteLeave = (index) => {
-// //     setFormData((prev) => {
-// //       const updatedLeaves = prev.leaves.filter((_, i) => i !== index);
-// //       return { ...prev, leaves: updatedLeaves };
-// //     });
-// //   };
-
-// //   const handleSubmit = async (e) => {
-// //     e.preventDefault();
-// //     try {
-// //       setLoading(true);
-// //       await checkErrors(schema, formData);
-// //       const dataToSubmit = { ...formData };
-// //       const response = await backEndCallObjNothing("/org/add_update_designation", dataToSubmit);
-// //       setOrgDetails(response.data);
-// //       toastOptions.success(response.success || "Operation Successful");
-
-// //       setFormData({
-// //         designation_name: "",
-// //         designation_id: null,
-// //         leaves: [],
-// //         organisation_id: orgDetails?.organisation_id || "",
-// //       });
-// //       setEdit(false);
-// //       setShowModal(false);
-// //     } catch (error) {
-// //       toastOptions.error(error?.response?.data || error[0]?.message || "An error occurred");
-// //     } finally {
-// //       setLoading(false);
-// //     }
-// //   };
-
-// //   const handleGoBack = () => {
-// //     setShowModal(false);
-// //   };
-
-// //   return (
-// //     <div>
-// //       <section
-// //         className="roles-table"
-// //         style={{
-// //           background: applicationColor.cardBg1,
-// //           color: applicationColor.readColor1,
-// //         }}
-// //       >
-// //         <div className={`leave-cards ${showModal ? "d-none" : "d-block"}`}>
-// //           <section className="row">
-// //             <div className="mb-4 text-end">
-// //               <button
-// //                 className="dropdown-item d-flex align-items-center justify-content-end"
-// //                 type="button"
-// //                 onClick={handleAddItems}
-// //               >
-// //                 <span className="add-role me-1">Add</span>
-// //                 <RiAddCircleFill />
-// //               </button>
-// //             </div>
-
-// //             {orgDetails?.designations?.length > 0 ? (
-// //               orgDetails.designations.map((designation, index) => (
-// //                 <div className="col-12 mb-4" key={index}>
-// //                   <h4 className="text-primary fw-bold">{designation.designation_name}</h4>
-// //                   {designation.leaves?.length > 0 ? (
-// //                     designation.leaves.map((item, leaveIndex) => (
-// //                       <div className="col-xl-4 mb-3" key={leaveIndex}>
-// //                         <div className="card">
-// //                           <div
-// //                             className="card-body"
-// //                             onClick={() => handleEditItems(item.leave_id, item)}
-// //                             style={{
-// //                               background: applicationColor.cardBg1,
-// //                               color: applicationColor.readColor1,
-// //                             }}
-// //                           >
-// //                             <h5 className="card-title text-primary fw-bold">
-// //                               {item.leave_name}
-// //                             </h5>
-// //                             <p>
-// //                               <strong>Total Leaves:</strong> {item.total_leaves}
-// //                             </p>
-// //                           </div>
-// //                         </div>
-// //                       </div>
-// //                     ))
-// //                   ) : (
-// //                     <div className="col-12 text-center">
-// //                       No leaves data available for this designation
-// //                     </div>
-// //                   )}
-// //                 </div>
-// //               ))
-// //             ) : (
-// //               <div className="col-12 text-center">
-// //                 There is no data in your location
-// //               </div>
-// //             )}
-// //           </section>
-// //         </div>
-
-// //         <div className={`leave-form ${showModal ? "d-block" : "d-none"}`}>
-// //           {showModal && (
-// //             <>
-// //               <div className="fs-3 mb-3">
-// //                 <IoArrowBackSharp
-// //                   onClick={handleGoBack}
-// //                   style={{ cursor: "pointer" }}
-// //                 />
-// //               </div>
-// //               <form onSubmit={handleSubmit}>
-// //                 <div className="row mb-2 justify-content-center">
-// //                   <div className="col-md-6">
-// //                     <div className="form-group mb-3">
-// //                       {/* <Input_text
-// //                         type="text"
-// //                         name="designation_name"
-// //                         setForm={setFormData}
-// //                         value={formData.designation_name}
-// //                         placeholder="Designation Name"
-// //                         onChange={handleChange}
-// //                         maxLength={25}
-// //                       /> */}
-// //                       <Input_text
-// //   type="text"
-// //   name="designation_name"
-// //   setForm={setFormData}
-// //   value={formData.designation_name}
-// //   placeholder="Designation Name"
-// //   onChange={handleChange}
-// //   maxLength={25}
-// // />
-
-// //                     </div>
-
-// //                     {/* {formData.leaves && formData.leaves.length > 0 && formData.leaves.map((leave, index) => (
-// //                       <div key={index} className="leave-item">
-// //                         <div className="d-flex align-items-center">
-// //                           <div className="form-group mb-3 me-2 flex-grow-1">
-// //                             <input
-// //                               type="text"
-// //                               name="leave_name"
-// //                               className="form-control"
-// //                               placeholder="Leave Name"
-// //                               value={leave.leave_name}
-// //                               onChange={(e) =>
-// //                                 handleLeaveChange(index, "leave_name", e.target.value)
-// //                               }
-// //                               maxLength={15} 
-// //                             />
-// //                           </div>
-// //                           <div className="form-group mb-3 me-2 flex-grow-1">
-// //                             <input
-// //                               type="number"
-// //                               name="total_leaves"
-// //                               className="form-control"
-// //                               placeholder="Total Leaves"
-// //                               value={leave.total_leaves}
-// //                               onChange={(e) =>
-// //                                 handleLeaveChange(index, "total_leaves", e.target.value)
-// //                               }
-// //                             />
-// //                           </div>
-// //                           <button
-// //                             type="button"
-// //                             className="btn btn-outline-danger"
-// //                             onClick={() => handleDeleteLeave(index)}
-// //                           >
-// //                             <RiDeleteBin6Line />
-// //                           </button>
-// //                         </div>
-// //                       </div>
-// //                     ))} */}
-// // {formData.leaves && formData.leaves.length > 0 && formData.leaves.map((leave, index) => (
-// //   <div key={index} className="leave-item">
-// //     <div className="d-flex align-items-center">
-// //       <div className="form-group mb-3 me-2 flex-grow-1">
-// //         <input
-// //           type="text"
-// //           name="leave_name"
-// //           className="form-control"
-// //           placeholder="Leave Name"
-// //           value={leave.leave_name}
-// //           onChange={(e) =>
-// //             handleLeaveChange(index, "leave_name", e.target.value)
-// //           }
-// //           maxLength={15} 
-// //         />
-// //       </div>
-// //       <div className="form-group mb-3 me-2 flex-grow-1">
-// //         <input
-// //           type="number"
-// //           name="total_leaves"
-// //           className="form-control"
-// //           placeholder="Total Leaves"
-// //           value={leave.total_leaves}
-// //           onChange={(e) =>
-// //             handleLeaveChange(index, "total_leaves", e.target.value)
-// //           }
-// //         />
-// //       </div>
-// //       <button
-// //         type="button"
-// //         className="btn btn-outline-danger"
-// //         onClick={() => handleDeleteLeave(index)}
-// //       >
-// //         <RiDeleteBin6Line />
-// //       </button>
-// //     </div>
-// //   </div>
-// // ))}
-
-// //                     <div className="text-center mb-3">
-// //                       <button
-// //                         type="button"
-// //                         className="btn btn-outline-primary"
-// //                         onClick={handleAddLeave}
-// //                       >
-// //                         Add Leave
-// //                       </button>
-// //                     </div>
-
-// //                     <div className="text-center">
-// //                       <button
-// //                         type="submit"
-// //                         className="btn btn-primary"
-// //                         disabled={loading}
-// //                       >
-// //                         {loading ? <Loader /> : edit ? "Update" : "Save"}
-// //                       </button>
-// //                     </div>
-// //                   </div>
-// //                 </div>
-// //               </form>
-// //             </>
-// //           )}
-// //         </div>
-// //       </section>
-// //     </div>
-// //   );
-// // };
-
-// // export default LeavesSettings;
-// import React, { useState, useEffect } from "react";
-// import { RiAddCircleFill } from "react-icons/ri";
-// import { IoArrowBackSharp } from "react-icons/io5";
-// import { RiDeleteBin6Line } from "react-icons/ri";
-// import { useStateContext } from "../../../../Contexts/StateContext";
-// import { useThemeContext } from "../../../../Contexts/ThemesContext";
-// import { Input_text } from "../../../../common/ALLINPUTS/AllInputs";
-// import { useFunctionContext } from "../../../../Contexts/FunctionContext";
-// import { backEndCallObjNothing } from "../../../../../services/mainService";
-// import { toastOptions } from "../../../../../Utils/FakeRoutes";
-// import Loader from "../../../../Loader/Loader";
-// import Joi from "joi";
-
-// const LeavesSettings = () => {
-//   const [showModal, setShowModal] = useState(false);
-//   const [edit, setEdit] = useState(false);
-//   const [formData, setFormData] = useState({
-//     // organisation_id: orgDetails?.organisation_id || "",
-//     designation_name: "",
-//     designation_id: null,
-//     leaves: [],
-    
-//   });
-
-//   const { applicationColor } = useThemeContext();
-//   const { loading, setErrors, setLoading, orgDetails, setOrgDetails } = useStateContext();
-//   const { checkErrors } = useFunctionContext();
-
-//   // Joi schema for validation
-//   const leaves_obj = {
-//     leave_name: Joi.string()
-//       .required()
-//       .pattern(/^[a-zA-Z0-9 ,._-]+$/)
-//       .min(4)
-//       .max(15)
-//       .messages({
-//         "string.pattern.base": "Leave Name contains invalid characters",
-//       }),
-//     total_leaves: Joi.number().required().min(1).max(10),
-//   };
-
-//   const schema = {
-//     organisation_id: Joi.string().min(10).max(18).required(),
-//     designation_name: Joi.string().trim().strip().min(5).max(20).required(),
-//     designation_id: Joi.string().allow(null, "").optional(),
-//     leaves: Joi.array().items(leaves_obj).required(),
-//   };
-
-//   useEffect(() => {
-//     if (edit) {
-//       setFormData((prev) => ({
-//         ...prev,
-//         organisation_id: orgDetails?.organisation_id || "",
-//       }));
-//     }
-//   }, [edit, orgDetails]);
-
-//   const handleAddItems = () => {
-//     setFormData({
-//       designation_name: "",
-//       designation_id: null,
-//       leaves: [],
-//     });
-//     setShowModal(true);
-//     setEdit(false);
-//   };
-
-//   const handleEditItems = (designation) => {
-//     setFormData({
-//       designation_name: designation.designation_name || "",
-//       designation_id: designation.designation_id || null,
-//       leaves: designation.leaves || [],
-//       organisation_id: orgDetails?.organisation_id || "",
-//     });
-//     setEdit(true);
-//     setShowModal(true);
-//   };
-
-//   const handleCloseModal = () => {
-//     setErrors({});
-//     setShowModal(false);
-//     setLoading(false);
-//     setEdit(false);
-//   };
-
-//   const handleChange = (e) => {
-//     const { name, value, type } = e.target;
-//     setFormData((prev) => ({
-//       ...prev,
-//       [name]: type === "checkbox" ? value === "true" : value,
-//     }));
-//   };
-
-//   const handleLeaveChange = (index, field, value) => {
-//     const filteredValue = value.replace(/[^a-zA-Z0-9 ,._-]/g, "");
-//     setFormData((prev) => {
-//       const updatedLeaves = [...prev.leaves];
-//       updatedLeaves[index] = { ...updatedLeaves[index], [field]: filteredValue };
-//       return { ...prev, leaves: updatedLeaves };
-//     });
-//   };
-
-//   const handleAddLeave = () => {
-//     setFormData((prev) => ({
-//       ...prev,
-//       leaves: [...prev.leaves, { leave_name: "", total_leaves: "" }],
-//     }));
-//   };
-
-//   const handleDeleteLeave = (index) => {
-//     setFormData((prev) => {
-//       const updatedLeaves = prev.leaves.filter((_, i) => i !== index);
-//       return { ...prev, leaves: updatedLeaves };
-//     });
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       setLoading(true);
-//       await checkErrors(schema, formData);
-//       const dataToSubmit = { ...formData ,organisation_id: orgDetails?.organisation_id || "",};
-      
-//       const response = await backEndCallObjNothing("/org/add_update_designation", dataToSubmit);
-//       setOrgDetails(response.data);
-//       toastOptions.success(response.success || "Operation Successful");
-
-//       setFormData({
-//         designation_name: "",
-//         designation_id: null,
-//         leaves: [],
-//         organisation_id: orgDetails?.organisation_id || "",
-//       });
-//       setEdit(false);
-//       setShowModal(false);
-//     } catch (error) {
-//       toastOptions.error(error?.response?.data || error[0]?.message || "An error occurred");
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   const handleGoBack = () => {
-//     setShowModal(false);
-//   };
-
-//   return (
-//     <div>
-//       <section
-//         className="roles-table"
-//         style={{
-//           background: applicationColor.cardBg1,
-//           color: applicationColor.readColor1,
-//         }}
-//       >
-//         <div className={`leave-cards ${showModal ? "d-none" : "d-block"}`}>
-//           <section className="row">
-//             <div className="mb-4 text-end">
-//               <button
-//                 className="btn btn-primary d-flex align-items-center justify-content-end"
-//                 type="button"
-//                 onClick={handleAddItems}
-//               >
-//                 <span className="me-1">Add Designation</span>
-//                 <RiAddCircleFill />
-//               </button>
-//             </div>
-
-//             {orgDetails?.designations?.length > 0 ? (
-//               orgDetails.designations.map((designation, index) => (
-//                 <div className="col-12 mb-4" key={index}>
-//                   <h4 className="text-primary fw-bold">{designation.designation_name}</h4>
-//                   <div className="row">
-//                     {designation.leaves?.length > 0 ? (
-//                       designation.leaves.map((item, leaveIndex) => (
-//                         <div className="col-md-4 mb-3" key={leaveIndex}>
-//                           <div className="card h-100">
-//                             <div
-//                               className="card-body"
-//                               onClick={() => handleEditItems(designation)}
-//                               style={{
-//                                 background: applicationColor.cardBg1,
-//                                 color: applicationColor.readColor1,
-//                                 cursor: "pointer",
-//                               }}
-//                             >
-//                               <h5 className="card-title text-primary fw-bold">
-//                                 {item.leave_name}
-//                               </h5>
-//                               <p>
-//                                 <strong>Total Leaves:</strong> {item.total_leaves}
-//                               </p>
-//                             </div>
-//                           </div>
-//                         </div>
-//                       ))
-//                     ) : (
-//                       <div className="col-12 text-center">
-//                         No leaves data available for this designation
-//                       </div>
-//                     )}
-//                   </div>
-//                 </div>
-//               ))
-//             ) : (
-//               <div className="col-12 text-center">
-//                 There is no data in your location
-//               </div>
-//             )}
-//           </section>
-//         </div>
-
-//         <div className={`leave-form ${showModal ? "d-block" : "d-none"}`}>
-//           {showModal && (
-//             <>
-//               <div className="fs-3 mb-3">
-//                 <IoArrowBackSharp
-//                   onClick={handleGoBack}
-//                   style={{ cursor: "pointer" }}
-//                 />
-//               </div>
-//               <form onSubmit={handleSubmit}>
-//                 <div className="row mb-2 justify-content-center">
-//                   <div className="col-md-6">
-//                     <div className="form-group mb-3">
-//                       <Input_text
-//                         type="text"
-//                         name="designation_name"
-//                         setForm={setFormData}
-//                         value={formData.designation_name}
-//                         placeholder="Designation Name"
-//                         onChange={handleChange}
-//                         maxLength={25}
-//                       />
-//                     </div>
-
-//                     {formData.leaves.length > 0 &&
-//                       formData.leaves.map((leave, index) => (
-//                         <div key={index} className="leave-item">
-//                           <div className="d-flex align-items-center mb-2">
-//                             <div className="form-group me-2 flex-grow-1">
-//                               <input
-//                                 type="text"
-//                                 name="leave_name"
-//                                 className="form-control"
-//                                 placeholder="Leave Name"
-//                                 value={leave.leave_name}
-//                                 // maxLength={25}
-//                                 onChange={(e) =>
-//                                   handleLeaveChange(index, "leave_name", e.target.value)
-//                                 }
-//                                 maxLength={15} 
-//                               />
-//                             </div>
-//                             <div className="form-group flex-grow-1">
-//                               <input
-//                                 type="number"
-//                                 name="total_leaves"
-//                                 className="form-control"
-//                                 placeholder="Total Leaves"
-                               
-//                                 value={leave.total_leaves}
-//                                 // onChange={(e) =>
-//                                 //   handleLeaveChange(index, "total_leaves", e.target.value)
-//                                 // }
-//                                 onChange={(e) => {
-//                                   const value = e.target.value;
-//                                   // Ensure value is within valid range and has the right length
-//                                   if (value.length <= 3 && /^[0-9]*$/.test(value)) {
-//                                     handleLeaveChange(index, "total_leaves", value);
-//                                   }
-//                                 }}
-//                               />
-//                             </div>
-//                             <div className="ms-2">
-//                               <RiDeleteBin6Line
-//                                 className="text-danger fs-4 cursor-pointer"
-//                                 onClick={() => handleDeleteLeave(index)}
-//                               />
-//                             </div>
-//                           </div>
-//                         </div>
-//                       ))}
-//                     <div className="text-center">
-//                       <button
-//                         type="button"
-//                         className="btn btn-success"
-//                         onClick={handleAddLeave}
-//                       >
-//                         Add Leave
-//                       </button>
-//                     </div>
-//                   </div>
-//                 </div>
-//                 <div className="text-center">
-//                   <button type="submit" className="btn btn-primary">
-//                     {edit ? "Update Designation" : "Add Designation"}
-//                   </button>
-//                 </div>
-//               </form>
-//             </>
-//           )}
-//         </div>
-
-//         {loading && <Loader />}
-//       </section>
-//     </div>
-//   );
-// };
-
-// export default LeavesSettings;
-
-
-
-// import React, { useState, useEffect } from "react";
-// import { RiAddCircleFill, RiDeleteBin6Line } from "react-icons/ri";
-// import { IoArrowBackSharp } from "react-icons/io5";
-// import { useStateContext } from "../../../../Contexts/StateContext";
-// import { useThemeContext } from "../../../../Contexts/ThemesContext";
-// import { Input_text } from "../../../../common/ALLINPUTS/AllInputs";
-// import { useFunctionContext } from "../../../../Contexts/FunctionContext";
-// import { backEndCallObjNothing } from "../../../../../services/mainService";
-// import { toastOptions } from "../../../../../Utils/FakeRoutes";
-// import Loader from "../../../../Loader/Loader";
-// import Joi from "joi";
-
-// const LeavesSettings = () => {
-//   const [showModal, setShowModal] = useState(false);
-//   const [edit, setEdit] = useState(false);
-//   const [formData, setFormData] = useState({
-//     designation_name: "",
-//     designation_id: null,
-//     leaves: [],
-//     organisation_id: "", // Make sure this is initialized properly
-//   });
-
-//   const { applicationColor } = useThemeContext();
-//   const { loading, setErrors, setLoading, orgDetails, setOrgDetails } = useStateContext();
-//   const { checkErrors } = useFunctionContext();
-// const[btndisabled,setBtndisabled]=useState(false)
-//   // Joi schema for validation
-//   const leaves_obj = {
-//     leave_name: Joi.string()
-//       .required()
-//       .pattern(/^[a-zA-Z0-9 ,._-]+$/)
-//       .min(4)
-//       .max(15)
-//       .messages({
-//         "string.pattern.base": "Leave Name contains invalid characters",
-//       }),
-//     total_leaves: Joi.number().required().min(1).max(10),
-//   };
-
-//   const schema = {
-//     organisation_id: Joi.string().min(10).max(18).required(),
-//     designation_name: Joi.string().trim().strip().min(5).max(20).required(),
-//     designation_id: Joi.string().allow(null, "").optional(),
-//     leaves: Joi.array().items(leaves_obj).required(),
-//   };
-
-//   useEffect(() => {
-//     if (edit) {
-//       setFormData((prev) => ({
-//         ...prev,
-//         organisation_id: orgDetails?.organisation_id || "",
-//       }));
-//     }
-//   }, [edit, orgDetails]);
-
-//   const handleAddItems = () => {
-//     setFormData({
-//       designation_name: "",
-//       designation_id: null,
-//       leaves: [],
-//       organisation_id: orgDetails?.organisation_id || "", // Ensure this is set
-//     });
-//     setShowModal(true);
-//     setEdit(false);
-//   };
-
-//   const handleEditItems = (designation) => {
-//     setFormData({
-//       designation_name: designation.designation_name || "",
-//       designation_id: designation.designation_id || null,
-//       leaves: designation.leaves || [],
-//       organisation_id: orgDetails?.organisation_id || "", // Ensure this is set
-//     });
-//     setEdit(true);
-//     setShowModal(true);
-//   };
-
-//   const handleCloseModal = () => {
-//     setErrors({});
-//     setShowModal(false);
-//     setLoading(false);
-//     setEdit(false);
-//   };
-
-//   const handleChange = (e) => {
-//     const { name, value, type } = e.target;
-//     setFormData((prev) => ({
-//       ...prev,
-//       [name]: type === "checkbox" ? value === "true" : value,
-//     }));
-//   };
-
-//   const handleLeaveChange = (index, field, value) => {
-//     const filteredValue = value.replace(/[^a-zA-Z0-9 ,._-]/g, "");
-//     setFormData((prev) => {
-//       const updatedLeaves = [...prev.leaves];
-//       updatedLeaves[index] = { ...updatedLeaves[index], [field]: filteredValue };
-//       return { ...prev, leaves: updatedLeaves };
-//     });
-//   };
-
-//   const handleAddLeave = () => {
-//     setFormData((prev) => ({
-//       ...prev,
-//       leaves: [...prev.leaves, { leave_name: "", total_leaves: "" }],
-//     }));
-//   };
-
-//   const handleDeleteLeave = (index) => {
-//     setFormData((prev) => {
-//       const updatedLeaves = prev.leaves.filter((_, i) => i !== index);
-//       return { ...prev, leaves: updatedLeaves };
-//     });
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       setLoading(true);
-//       setBtndisabled(true)
-//       await checkErrors(schema, formData);
-//       const dataToSubmit = { ...formData, organisation_id: orgDetails?.organisation_id || "" };
-      
-//       const response = await backEndCallObjNothing("/org/add_update_designation", dataToSubmit);
-//       setOrgDetails(response.data);
-//       toastOptions.success(response.success || "Operation Successful");
-
-//       setFormData({
-//         designation_name: "",
-//         designation_id: null,
-//         leaves: [],
-//         organisation_id: orgDetails?.organisation_id || "",
-//       });
-//       setEdit(false);
-//       setShowModal(false);
-//       setBtndisabled(false)
-//     } catch (error) {
-//       setBtndisabled(false)
-//       toastOptions.error(error?.response?.data || error[0]?.message || "An error occurred");
-//     } finally {
-//       setLoading(false);
-//       setBtndisabled(false)
-//     }
-//   };
-
-//   const handleGoBack = () => {
-//     setShowModal(false);
-//   };
-
-//   return (
-//     <div className="">
-//         <section
-//           className="roles-table"
-//           style={{
-//             background: applicationColor.cardBg1,
-//             color: applicationColor.readColor1,
-//           }}
-//         >
-//         <div className={`leave-cards ${showModal ? "d-none" : "d-block"}`}>
-//           <section className="row">
-//             <div className="mb-4 text-end">
-//               <button
-//                 className="btn btn-primary d-flex align-items-center justify-content-end"
-//                 type="button"
-//                 onClick={handleAddItems}
-//               >
-//                 <span className="me-1">Add </span>
-//                 <RiAddCircleFill />
-//               </button>
-//             </div>
-
-//             {/* {orgDetails?.designations?.length > 0 ? (
-//               orgDetails.designations.map((designation, index) => (
-//                 <div className="col-12 mb-4" key={index}>
-//                   <h4 className="text-primary fw-bold">{designation.designation_name}</h4>
-//                   <div className="row">
-//                     {designation.leaves?.length > 0 ? (
-//                       designation.leaves.map((item, leaveIndex) => (
-//                         <div className="col-md-4 mb-3" key={leaveIndex}>
-//                           <div className="card h-100">
-//                             <div
-//                               className="card-body"
-//                               onClick={() => handleEditItems(designation)}
-//                               style={{
-//                                 background: applicationColor.cardBg1,
-//                                 color: applicationColor.readColor1,
-//                                 cursor: "pointer",
-//                               }}
-//                             >
-//                               <h5 className="card-title text-primary fw-bold">
-//                                 {item.leave_name}
-//                               </h5>
-//                               <p>
-//                                 <strong>Total Leaves:</strong> {item.total_leaves}
-//                               </p>
-//                             </div>
-//                           </div>
-//                         </div>
-//                       ))
-//                     ) : (
-//                       <div className="col-12 text-center">
-//                         No leaves data available for this designation
-//                       </div>
-//                     )}
-//                   </div>
-//                 </div>
-//               ))
-//             ) : (
-//               <div className="col-12 text-center">
-//                 There is no data in your location
-//               </div>
-//             )} */}
-//             {orgDetails?.designations?.length > 0 ? (
-//             // <div className="row">
-//             //   {orgDetails.designations.map((designation, index) => (
-//             //     <div className="col-xl-4 mb-3" key={index}>
-//             //     <div
-//             //       className="admin-controls-card"
-//             //       style={{
-//             //         background: applicationColor.cardBg1,
-//             //         color: applicationColor.readColor1,
-//             //       }}
-//             //     >
-//             //         <div
-//             //           className="card-body"
-//             //           onClick={() => handleEditItems(designation)}
-//             //           style={{ cursor: "pointer" }}
-//             //         >
-                       
-//             //           {/* <h5 className="card-title text-primary">{designation.designation_name}</h5> */}
-//             //           <h5 className="mt-1 mb-4">
-//             //               Designation Name:&nbsp;
-//             //               <span className="text-primary fw-semi-bold">
-//             //               {designation.designation_name}
-//             //               </span>
-//             //             </h5>
-//             //           <div className="row">
-//             //             {designation.leaves?.length > 0 ? (
-//             //               designation.leaves.map((item, leaveIndex) => (
-//             //                 <div className="col-12 mb-2" key={leaveIndex}>
-//             //                   <div className="d-flex justify-content-between align-items-center">
-//             //                     <div>
-//             //                       <h6 className="card-title">{item.leave_name}: {item.total_leaves}</h6>
-//             //                       <p className="mb-0"><strong>Total Leaves:</strong> {item.total_leaves}</p>
-//             //                     </div>
-//             //                     {/* <RiDeleteBin6Line
-//             //                       className="text-danger"
-//             //                       onClick={() => handleDeleteLeave(leaveIndex)}
-//             //                       style={{ cursor: "pointer" }}
-//             //                     /> */}
-//             //                   </div>
-//             //                 </div>
-//             //               ))
-//             //             ) : (
-//             //               <p>No leaves data available for this designation</p>
-//             //             )}
-//             //           </div>
-//             //         </div>
-//             //       </div>
-//             //     </div>
-//             //   ))}
-//             // </div>
-//             <div className="row">
-//   {orgDetails.designations.map((designation, index) => (
-//     <div className="col-xl-4 mb-3" key={index}>
-//       <div
-//         className="admin-controls-card d-flex flex-column"
-//         style={{
-//           background: applicationColor.cardBg1,
-//           color: applicationColor.readColor1,
-//           minHeight: '150px', // Optional: Set a minimum height to ensure uniformity
-//           display: 'flex',
-//           flexDirection: 'column'
-//         }}
-//       >
-//         <div
-//           className="card-body d-flex flex-column flex-grow-1"
-//           onClick={() => handleEditItems(designation)}
-//           style={{ cursor: 'pointer' }}
-//         >
-//           <h5 className="mt-1 mb-4">
-//             Designation Name:&nbsp;
-//             <span className="text-primary fw-semi-bold">
-//               {designation.designation_name}
-//             </span>
-//           </h5>
-//           <div className="flex-grow-1">
-//             {designation.leaves?.length > 0 ? (
-//               designation.leaves.map((item, leaveIndex) => (
-//                 <div className="mb-2" key={leaveIndex}>
-//                   <div className="d-flex justify-content-between align-items-center">
-//                     <div>
-//                       <h6 className="card-title">{item.leave_name}: {item.total_leaves}</h6>
-//                       {/* <p className="mb-0"><strong>Total Leaves:</strong> {item.total_leaves}</p> */}
-//                     </div>
-//                     {/* Uncomment this if you want to add delete functionality
-//                     <RiDeleteBin6Line
-//                       className="text-danger"
-//                       onClick={() => handleDeleteLeave(leaveIndex)}
-//                       style={{ cursor: "pointer" }}
-//                     /> */}
-//                   </div>
-//                 </div>
-//               ))
-//             ) : (
-//               <p>No leaves data available for this designation</p>
-//             )}
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   ))}
-// </div>
-
-//           ) : (
-//             <p className="text-center">There is no data in your location</p>
-//           )}
-//           </section>
-//         </div>
-
-//         <div className={`leave-form ${showModal ? "d-block" : "d-none"}`}>
-//           {showModal && (
-//             <>
-//               <div className="fs-3 mb-3">
-//                 <IoArrowBackSharp
-//                   onClick={handleGoBack}
-//                   style={{ cursor: "pointer" }}
-//                 />
-//               </div>
-//               <div
-//                   className="admin-controls-card col-lg-6 mx-auto"
-//                   style={{
-//                     background: applicationColor.cardBg1,
-//                     color: applicationColor.readColor1,
-//                     // display: "flex",
-//                     // flexDirection: "column",
-//                     // alignItems: "center",
-//                     // padding: "20px",
-//                     // borderRadius: "10px",
-//                   }}>
-//                      <h3 className="mb-4 text-center">
-//                     {edit ? "Edit designations" : "Add designations"}
-//                   </h3>
-//                   <p className="text-muted mb-4 text-center">
-//                     Please fill out the form below to{" "}
-//                     {edit ? "update the designations" : "add a new designations"}.
-//                   </p>
-//               <form onSubmit={handleSubmit}>
-//                 <div className="row mb-2 justify-content-center">
-//                   {/* <div className="col-md-6"> */}
-//                     <div className="form-group mb-3">
-//                       <Input_text
-//                         type="text"
-//                         name="designation_name"
-//                         setForm={setFormData}
-//                         value={formData.designation_name}
-//                         placeholder="Designation Name"
-//                         onChange={handleChange}
-//                         maxLength={25}
-//                       />
-//                     </div>
-
-//                     {formData.leaves.length > 0 &&
-//                       formData.leaves.map((leave, index) => (
-//                         <div key={index} className="leave-item">
-//                           <div className="d-flex align-items-center mb-2">
-//                             <div className="form-group me-2 flex-grow-1">
-//                               <input
-//                                 type="text"
-//                                 name="leave_name"
-//                                 className="form-control"
-//                                 placeholder="Leave Name"
-//                                 value={leave.leave_name}
-//                                 onChange={(e) =>
-//                                   handleLeaveChange(index, "leave_name", e.target.value)
-//                                 }
-//                                 maxLength={15} 
-//                               />
-//                             </div>
-//                             <div className="form-group me-2 flex-grow-1">
-//                               <input
-//                                 type="number"
-//                                 name="total_leaves"
-//                                 className="form-control"
-//                                 placeholder="Total Leaves"
-//                                 value={leave.total_leaves}
-//                                 // onChange={(e) =>
-//                                 //   handleLeaveChange(index, "total_leaves", e.target.value)
-//                                 // }
-//                                 onChange={(e) => {
-//                                                                     const value = e.target.value;
-//                                                                     // Ensure value is within valid range and has the right length
-//                                                                     if (value.length <= 3 && /^[0-9]*$/.test(value)) {
-//                                                                       handleLeaveChange(index, "total_leaves", value);
-//                                                                     }
-//                                                                   }}
-//                               />
-//                             </div>
-//                             <button
-//                               type="button"
-//                               className="btn btn-danger"
-//                               onClick={() => handleDeleteLeave(index)}
-//                             >
-//                               <RiDeleteBin6Line />
-//                             </button>
-//                           </div>
-//                         </div>
-//                       ))}
-//                       <div className="text-end">
-//                     <button
-//                       type="button"
-//                       className="btn btn-success"
-//                       onClick={handleAddLeave}
-//                     >
-//                       Add Leave
-//                     </button>
-//                     </div>
-//                   {/* </div> */}
-//                   {/* <div className="text-end">
-//                   <button type="submit" className="btn btn-success" disabled={btndisabled}>
-//                     {edit ? "Update" : "Add"} Designation
-//                   </button> */}
-//                    <div className="form-button">
-//                       <button
-//                         className="py-2 px-3 w-100"
-//                         type="submit"
-//                         disabled={loading}
-//                         style={{
-//                           background: applicationColor.buttonColor,
-//                           color: "white",
-//                         }}
-//                       >
-//                         {loading ? (
-//                           <Loader />
-//                         ) : edit ? (
-//                           "Update deparments"
-//                         ) : (
-//                           "Add deparments"
-//                         )}
-//                       </button>
-//                     {/* </div> */}
-//                 </div>
-//                 </div>
-
-               
-//               </form>
-//               </div>
-//             </>
-//           )}
-//         </div>
-//       </section>
-//       {loading && <Loader />}
-//     </div>
-//   );
-// };
-
-// export default LeavesSettings;
-import React, { useState, useEffect } from "react";
-import { RiAddCircleFill, RiDeleteBin6Line } from "react-icons/ri";
-import { IoArrowBackSharp } from "react-icons/io5";
-import { useStateContext } from "../../../../Contexts/StateContext";
+import React, { useState } from "react";
 import { useThemeContext } from "../../../../Contexts/ThemesContext";
-import { Input_text } from "../../../../common/ALLINPUTS/AllInputs";
+import { useStateContext } from "../../../../Contexts/StateContext";
 import { useFunctionContext } from "../../../../Contexts/FunctionContext";
 import { backEndCallObjNothing } from "../../../../../services/mainService";
 import { toastOptions } from "../../../../../Utils/FakeRoutes";
 import Loader from "../../../../Loader/Loader";
 import Joi from "joi";
+import { RiEdit2Fill } from "react-icons/ri";
 
 const LeavesSettings = () => {
   const [showModal, setShowModal] = useState(false);
   const [edit, setEdit] = useState(false);
   const [formData, setFormData] = useState({
-    designation_name: "",
-    designation_id: null,
-    leaves: [],
-    organisation_id: "", // Ensure this is initialized properly
+    leave_name: "",
+    total_leaves: 0,
+    leave_id: "",
+    designation_id: "", // This is hidden but used in payload
   });
-
-  const { applicationColor } = useThemeContext();
-  const { loading, setErrors, setLoading, orgDetails, setOrgDetails } = useStateContext();
-  const { checkErrors } = useFunctionContext();
+  const [errors, setErrors] = useState({});
   const [btndisabled, setBtndisabled] = useState(false);
 
+  const { applicationColor } = useThemeContext();
+  const { loading, setLoading, orgDetails, setOrgDetails } = useStateContext();
+  const { checkErrors } = useFunctionContext();
+
   // Joi schema for validation
-  const leaves_obj = {
+  const schema = Joi.object({
+    organisation_id: Joi.string().min(5).max(20).required(),
+    designation_id: Joi.string().min(5).max(12).required(),
     leave_name: Joi.string()
       .required()
-      .pattern(/^[a-zA-Z0-9 ,._-]+$/)
       .min(4)
       .max(15)
+      .regex(/^[a-zA-Z0-9\s]+$/)
       .messages({
-        "string.pattern.base": "Leave Name contains invalid characters",
+        "string.pattern.base": "Leave name can only contain alphanumeric characters and spaces.",
       }),
-    total_leaves: Joi.number().required().min(1).max(10),
-  };
+    total_leaves: Joi.number()
+      .required()
+      .min(1)
+      .max(10)
+      .messages({
+        "number.min": "Total leaves must be at least 1.",
+        "number.max": "Total leaves cannot exceed 10.",
+      }),
+    leave_id: Joi.string().optional().allow(""),
+  });
 
-  const schema = {
-    organisation_id: Joi.string().min(10).max(18).required(),
-    designation_name: Joi.string().trim().strip().min(5).max(20).required(),
-    designation_id: Joi.string().allow(null, "").optional(),
-    leaves: Joi.array().items(leaves_obj).required(),
-  };
-
-  useEffect(() => {
-    if (edit) {
-      setFormData((prev) => ({
-        ...prev,
-        organisation_id: orgDetails?.organisation_id || "",
-      }));
-    }
-  }, [edit, orgDetails]);
-
-  const handleAddItems = () => {
+  const handleAddItems = (designation_id) => {
     setFormData({
-      designation_name: "",
-      designation_id: null,
-      leaves: [],
-      organisation_id: orgDetails?.organisation_id || "",
+      leave_name: "",
+      total_leaves: 0,
+      leave_id: "",
+      designation_id: designation_id,
     });
     setShowModal(true);
     setEdit(false);
   };
 
-  const handleEditItems = (designation) => {
+  const handleEditItems = (leave, designation_id) => {
     setFormData({
-      designation_name: designation.designation_name || "",
-      designation_id: designation.designation_id || null,
-      leaves: designation.leaves || [],
-      organisation_id: orgDetails?.organisation_id || "",
+      leave_name: leave.leave_name,
+      total_leaves: leave.total_leaves,
+      leave_id: leave.leave_id,
+      designation_id:designation_id, // Pass designation_id directly
     });
-    setEdit(true);
     setShowModal(true);
+    setEdit(true);
   };
 
   const handleCloseModal = () => {
@@ -1543,69 +76,84 @@ const LeavesSettings = () => {
     setEdit(false);
   };
 
-  const handleChange = (e) => {
-    const { name, value, type } = e.target;
+  const handleLeaveChange = (field, value) => {
+    let sanitizedValue = value;
+
+    if (field === "leave_name") {
+      sanitizedValue = value.replace(/[^a-zA-Z\s]/g, "");
+    }
+
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? value === "true" : value,
+      [field]: sanitizedValue,
     }));
-  };
 
-  const handleLeaveChange = (index, field, value) => {
-    const filteredValue = value.replace(/[^a-zA-Z0-9 ,._-]/g, "");
-    setFormData((prev) => {
-      const updatedLeaves = [...prev.leaves];
-      updatedLeaves[index] = { ...updatedLeaves[index], [field]: filteredValue };
-      return { ...prev, leaves: updatedLeaves };
-    });
-  };
-
-  const handleAddLeave = () => {
-    setFormData((prev) => ({
-      ...prev,
-      leaves: [...prev.leaves, { leave_name: "", total_leaves: "" }],
-    }));
-  };
-
-  const handleDeleteLeave = (index) => {
-    setFormData((prev) => {
-      const updatedLeaves = prev.leaves.filter((_, i) => i !== index);
-      return { ...prev, leaves: updatedLeaves };
-    });
+    const { error } = schema.validate({ ...formData, [field]: sanitizedValue }, { abortEarly: false });
+    if (error) {
+      const errorsObj = error.details.reduce((acc, curr) => {
+        acc[curr.path[0]] = curr.message;
+        return acc;
+      }, {});
+      setErrors(errorsObj);
+    } else {
+      setErrors((prev) => {
+        const { [field]: _, ...rest } = prev;
+        return rest;
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Perform full form validation
+    const { error } = schema.validate({
+      ...formData,
+      organisation_id: orgDetails?.organisation_id,
+    }, { abortEarly: false });
+
+    // if (error) {
+    //   const errorsObj = error.details.reduce((acc, curr) => {
+    //     acc[curr.path[0]] = curr.message;
+    //     return acc;
+    //   }, {});
+    //   setErrors(errorsObj);
+    //   return;
+    // }
+
     try {
       setLoading(true);
       setBtndisabled(true);
-      await checkErrors(schema, formData);
-      const dataToSubmit = { ...formData, organisation_id: orgDetails?.organisation_id || "" };
 
-      const response = await backEndCallObjNothing("/org/add_update_designation", dataToSubmit);
+      const dataToSubmit = {
+        organisation_id: orgDetails?.organisation_id,
+        designation_id: formData.designation_id, // Include designation_id in payload
+        leave_name: formData.leave_name,
+        total_leaves: formData.total_leaves,
+        leave_id: formData.leave_id || "",
+      };
+
+      const response = await backEndCallObjNothing("/org/add_update_leave", dataToSubmit);
       setOrgDetails(response.data);
       toastOptions.success(response.success || "Operation Successful");
 
       setFormData({
-        designation_name: "",
-        designation_id: null,
-        leaves: [],
-        organisation_id: orgDetails?.organisation_id || "",
+        leave_name: "",
+        total_leaves: 0,
+        leave_id: "",
+        designation_id: "", // Reset designation_id
       });
+      setErrors({});
       setEdit(false);
       setShowModal(false);
       setBtndisabled(false);
     } catch (error) {
       setBtndisabled(false);
-      toastOptions.error(error?.response?.data || error[0]?.message || "An error occurred");
+      toastOptions.error(error?.response?.data || error[0] || "An error occurred");
     } finally {
       setLoading(false);
       setBtndisabled(false);
     }
-  };
-
-  const handleGoBack = () => {
-    setShowModal(false);
   };
 
   return (
@@ -1617,205 +165,148 @@ const LeavesSettings = () => {
           color: applicationColor.readColor1,
         }}
       >
-        <div className={`leave-cards ${showModal ? "d-none" : "d-block"}`}>
-          <section className="row">
-            <div className="mb-4 text-end">
-              <button
-                className="btn btn-primary d-flex align-items-center justify-content-end"
-                type="button"
-                onClick={handleAddItems}
-              >
-                <span className="me-1">Add </span>
-                <RiAddCircleFill />
-              </button>
-            </div>
-
-            {orgDetails?.designations?.length > 0 ? (
-              <div className="row">
-                {orgDetails.designations.map((designation, index) => (
-                  <div className="col-12 col-md-6 col-lg-4 mb-3" key={index}>
+   <section className="row">
+  {orgDetails?.designations?.length > 0 ? (
+    <div className="row">
+      {orgDetails.designations.map((designation, index) => (
+        <div className="col-12 col-md-6 col-lg-4 mb-4" key={index}>
+          <div
+            className="admin-controls-card position-relative"
+            style={{
+              background: '#f8f9fa', // Clean background color
+              color: '#343a40', // Dark text color for readability
+              padding: '20px',
+              borderRadius: '8px',
+              boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+              minHeight: '220px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+            }}
+          >
+            <div>
+              <h5 className="mb-3 d-flex justify-content-between align-items-center" style={{ fontWeight: '600' }}>
+                {designation.designation_name}
+                <button
+                  className="btn btn-sm btn-primary"
+                  onClick={() => handleAddItems(designation.designation_id)}
+                >
+                  Add Leave
+                </button>
+              </h5>
+              <div>
+                {designation.leaves?.length > 0 ? (
+                  designation.leaves.map((item, leaveIndex) => (
                     <div
-                      className="admin-controls-card d-flex flex-column"
+                      className="leave-item d-flex justify-content-between align-items-center mb-2"
+                      key={leaveIndex}
                       style={{
-                        background: applicationColor.cardBg1,
-                        color: applicationColor.readColor1,
-                        minHeight: '170px',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        padding: '15px',
+                        padding: '10px',
+                        backgroundColor: '#ffffff', // White background for leave items
+                        borderRadius: '5px',
+                        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                         position: 'relative',
                       }}
+                      onClick={() => handleEditItems(item, designation.designation_id)}
                     >
-                      <div
-                        className="card-body d-flex flex-column flex-grow-1"
-                        onClick={() => handleEditItems(designation)}
-                        style={{ cursor: 'pointer' }}
-                      >
-                        <h5 className="mt-1 mb-4">
-                          Designation Name:&nbsp;
-                          <span className="text-primary fw-semi-bold">
-                            {designation.designation_name}
-                          </span>
-                        </h5>
-                        <div className="flex-grow-1">
-                          {designation.leaves?.length > 0 ? (
-                            designation.leaves.map((item, leaveIndex) => (
-                              <div className="mb-2" key={leaveIndex}>
-                                <div className="d-flex justify-content-between align-items-center">
-                                  <div>
-                                    <h6 className="card-title">{item.leave_name}: {item.total_leaves}</h6>
-                                  </div>
-                                </div>
-                              </div>
-                            ))
-                          ) : (
-                            <p>No leaves data available for this designation</p>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p className="text-center">There is no data in your location</p>
-            )}
-          </section>
-        </div>
-
-        <div className={`leave-form ${showModal ? "d-block" : "d-none"}`}>
-          {showModal && (
-            <>
-              <div className="fs-3 mb-3">
-                <IoArrowBackSharp
-                  onClick={handleGoBack}
-                  style={{ cursor: "pointer" }}
-                />
-              </div>
-              <div
-                className="admin-controls-card mx-auto"
-                style={{
-                  background: applicationColor.cardBg1,
-                  color: applicationColor.readColor1,
-                  maxWidth: '600px',
-                  width: '100%',
-                  padding: '20px',
-                  position: 'relative',
-                }}
-              >
-                <h3 className="mb-4 text-center">
-                  {edit ? "Edit Designations" : "Add Designations"}
-                </h3>
-                <p className="text-muted mb-4 text-center">
-                  Please fill out the form below to{" "}
-                  {edit ? "update the designations" : "add a new designation"}.
-                </p>
-                <form onSubmit={handleSubmit}>
-                  <div className="mb-4">
-                  {/* <Input_text
-                        type="text"
-                        name="designation_name"
-                        setForm={setFormData}
-                        value={formData.designation_name}
-                        placeholder="Designation Name"
-                        onChange={handleChange}
-                        maxLength={25}
+                      <h6 className="mb-0" style={{ fontSize: '1rem', marginRight: 'auto' }}>
+                        {item.leave_name}
+                      </h6>
+                      <span style={{ fontSize: '0.9rem' }}>{item.total_leaves}</span>
+                      {/* <RiEdit2Fill
+                     
+                        
                       /> */}
-              <div className="form-group mb-3">
-                   <Input_text
+                    </div>
+                  ))
+                ) : (
+                  <p>No leaves data available for this designation</p>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  ) : (
+    <div className="no-data">No Designations Available</div>
+  )}
+</section>
+
+
+        {showModal && (
+          <div className="modal fade show" style={{ display: 'block' }}>
+            <div className="modal-dialog modal-dialog-centered">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title">{edit ? "Edit Leave" : "Add Leave"}</h5>
+                  <button
+                    type="button"
+                    className="btn-close"
+                    aria-label="Close"
+                    onClick={handleCloseModal}
+                  >
+                    <span>&times;</span>
+                  </button>
+                </div>
+                <div className="modal-body">
+                  <form onSubmit={handleSubmit}>
+                    <div className="form-group mb-3">
+                      <label htmlFor="leave_name">Leave Name:</label>
+                      <input
                         type="text"
-                        name="designation_name"
-                        setForm={setFormData}
-                        value={formData.designation_name}
-                        placeholder="Designation Name"
-                        onChange={handleChange}
-                        maxLength={25}
+                        id="leave_name"
+                        className="form-control"
+                        value={formData.leave_name}
+                        maxLength={30}
+                        onChange={(e) => handleLeaveChange("leave_name", e.target.value)}
+                      />
+                      {errors.leave_name && <div className="text-danger">{errors.leave_name}</div>}
+                    </div>
+                    <div className="form-group mb-3">
+                      <label htmlFor="total_leaves">Total Leaves:</label>
+                      <input
+                        type="number"
+                        id="total_leaves"
+                        className="form-control"
+                        value={formData.total_leaves}
+                        min={1}
+                        max={10}
+                        onChange={(e) => handleLeaveChange("total_leaves", e.target.value)}
+                      />
+                      {errors.total_leaves && <div className="text-danger">{errors.total_leaves}</div>}
+                    </div>
+                    <div className="form-group mb-3">
+                      <input
+                        type="hidden"
+                        id="designation_id"
+                        value={formData.designation_id} // Hidden field
                       />
                     </div>
-                  </div>
-                   {formData.leaves.length > 0 &&
-                      formData.leaves.map((leave, index) => (
-                        <div key={index} className="leave-item">
-                          {/* <div className="d-flex align-items-center mb-2"> */}
-                            <div className="form-group me-2">
-                              <input
-                                type="text"
-                                name="leave_name"
-                                className="form-control"
-                                placeholder="Leave Name"
-                                value={leave.leave_name}
-                                onChange={(e) =>
-                                  handleLeaveChange(index, "leave_name", e.target.value)
-                                }
-                                maxLength={15} 
-                              />
-                            </div>
-                            <div className="form-group me-2 ">
-                              <input
-                                type="number"
-                                name="total_leaves"
-                                className="form-control"
-                                placeholder="Total Leaves"
-                                value={leave.total_leaves}
-                                // onChange={(e) =>
-                                //   handleLeaveChange(index, "total_leaves", e.target.value)
-                                // }
-                                onChange={(e) => {
-                                                                    const value = e.target.value;
-                                                                    // Ensure value is within valid range and has the right length
-                                                                    if (value.length <= 3 && /^[0-9]*$/.test(value)) {
-                                                                      handleLeaveChange(index, "total_leaves", value);
-                                                                    }
-                                                                  }}
-                              />
-                            </div>
-                            <button
-                              type="button"
-                              className="btn btn-danger mb-2"
-                              onClick={() => handleDeleteLeave(index)}
-                            >
-                              <RiDeleteBin6Line />
-                            </button>
-                          {/* </div> */}
-                        </div>
-                      ))}
-
-                  <div className="text-end">
-                    <button
-                      type="button"
-                      className="btn btn-secondary mb-3"
-                      onClick={handleAddLeave}
-                    >
-                      Add Leave
-                    </button>
-                    <div className="form-button mb-5">
+                    {/* <div className="modal-footer"> */}
                       <button
-                        className="py-2 px-3 w-100"
-                        type="submit"
-                        disabled={loading}
-                        style={{
-                          background: applicationColor.buttonColor,
-                          color: "white",
-                        }}
+                        type="button"
+                        className="btn btn-secondary"
+                        onClick={handleCloseModal}
                       >
-                        {loading ? (
-                          <Loader />
-                        ) : edit ? (
-                          "Update deparments"
-                        ) : (
-                          "Add deparments"
-                        )}
+                        Close
                       </button>
-                    </div>
-                  </div>
-                 
-                </form>
+                      <button
+                        type="submit"
+                        className="btn btn-primary"
+                        disabled={btndisabled}
+                      >
+                        {edit ? "Update" : "Add"} Leave
+                      </button>
+                    {/* </div> */}
+                  </form>
+                </div>
               </div>
-            </>
-          )}
-        </div>
+            </div>
+          </div>
+        )}
+        {loading && <Loader />}
       </section>
-      {/* {loading && <Loader />} */}
     </div>
   );
 };

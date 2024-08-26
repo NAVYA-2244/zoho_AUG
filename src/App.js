@@ -5,6 +5,7 @@ import { useStateContext } from "./components/Contexts/StateContext";
 
 import {
   isEmployeeRouter,
+  isManagerRouter,
   isSuperAdminRouter,
   isTeamLeadRouter,
   // isManagerRouter,
@@ -39,6 +40,9 @@ const App = () => {
       return isSuperAdminRouter;
     } else if (employeeDetails.role_name === "Team Incharge") {
       return isTeamLeadRouter;
+    }
+    else if (employeeDetails.role_name === "Manager") {
+      return isManagerRouter;
     } else {
       return isEmployeeRouter;
     }

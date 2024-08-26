@@ -43,7 +43,11 @@ import LoginForm from "../components/Logins/EmployeeLoginPage/LoginForm.jsx";
 import SingleEmployeeProfileEdit from "../components/AdminRoutes/AdminFetchingSingleEmployeeData/SingleEmployeeProfile/SingleEmployeeProfileEdit.jsx";
 import ChangePassword from "../components/Folders/ChangePassword.jsx";
 import EmployeeProjects from "../components/Projects/EmployeeProjects.jsx";
+import Totaltasks from "../components/Projects/Totaltasks.jsx";
+import TeaminchargeProjects from "../components/Projects/TeaminchargeProjects.jsx";
+
 // import { EmployeeRoute } from './../HOC_protectingRoutes/ProtectedRoute';
+import { mangerSidebar } from './FakeRoutes';
 
 // AdminType "0" //Team member or normal employee
 export const isEmployeeRouter = [
@@ -137,14 +141,14 @@ export const isEmployeeRouter = [
       //     </EmployeeRoute>
       //   ),
       // },
-      {
-        path: "/attendance/list-view",
-        element: (
-          <EmployeeRoute>
-            <EmployeeAttendanceCalendar />
-          </EmployeeRoute>
-        ),
-      },
+      // {
+      //   path: "/attendance/list-view",
+      //   element: (
+      //     <EmployeeRoute>
+      //       <EmployeeAttendanceCalendar />
+      //     </EmployeeRoute>
+      //   ),
+      // },
       {
         path: "/employee/chat",
         element: (
@@ -170,20 +174,28 @@ export const isEmployeeRouter = [
         ),
       },
       
-      {
-        path: "/employee/folders",
-        element: (
-          <EmployeeRoute>
-            <Folders />
-          </EmployeeRoute>
-        ),
-      },
+      // {
+      //   path: "/employee/folders",
+      //   element: (
+      //     <EmployeeRoute>
+      //       <Folders />
+      //     </EmployeeRoute>
+      //   ),
+      // },
 
+      // {
+      //   path: "/employee/folders/:folderName/:folderId",
+      //   element: (
+      //     <EmployeeRoute>
+      //       <EmployeeFilesById />
+      //     </EmployeeRoute>
+      //   ),
+      // },
       {
-        path: "/employee/folders/:folderName/:folderId",
+        path: "/employee/tasks",
         element: (
           <EmployeeRoute>
-            <EmployeeFilesById />
+            <Totaltasks />
           </EmployeeRoute>
         ),
       },
@@ -629,7 +641,31 @@ export const isManagerRouter = [
           </IsManagerRoute>
         ),
       },
+      {
+        path: "/admin/chat",
+        element: (
+          <IsManagerRoute>
+            <Chat />
+          </IsManagerRoute>
+        ),
+      },
 
+      {
+        path: "/admin/projects",
+        element: (
+          <IsManagerRoute>
+            <Projects />
+          </IsManagerRoute>
+        ),
+      },
+      {
+        path: "/admin/tasks",
+        element: (
+          <IsManagerRoute>
+            <Totaltasks />
+          </IsManagerRoute>
+        ),
+      },
       {
         path: "/admin/employee_leave-applications",
         element: (
@@ -719,47 +755,80 @@ export const isTeamLeadRouter = [
           </IsTeamLeadRoute>
         ),
       },
-      {
-        path: "/applyleave",
-        element: (
-          <IsTeamLeadRoute>
-            <ApplyLeave />
-          </IsTeamLeadRoute>
-        ),
-      },
+      // {
+      //   path: "/applyleave",
+      //   element: (
+      //     <IsTeamLeadRoute>
+      //       <ApplyLeave />
+      //     </IsTeamLeadRoute>
+      //   ),
+      // },
 
+      // {
+      //   path: "/applyleavefrom",
+      //   element: (
+      //     <isTeamLeadRouter>
+      //       <ApplyLeaveForm />
+      //     </isTeamLeadRouter>
+      //   ),
+      // },
+      // {
+      //   path: "/leaveApplications",
+      //   element: (
+      //     <isTeamLeadRouter>
+      //       <EmployeeLeavesSelecteId />
+      //     </isTeamLeadRouter>
+      //   ),
+      // },
+      // {
+      //   path: "/attendance/list-view",
+      //   element: (
+      //     <IsTeamLeadRoute>
+      //       <EmployeeAttendanceCalendar />
+      //     </IsTeamLeadRoute>
+      //   ),
+      // },
+      // {
+      //   path: "/admin/employee_leave-applications",
+      //   element: (
+      //     <IsTeamLeadRoute>
+      //       <AdminAcceptedEmployeeLeavesApplications />
+      //     </IsTeamLeadRoute>
+      //   ),
+      // },
+      // {
+      //   path: "/employee/folders",
+      //   element: (
+      //     <IsTeamLeadRoute>
+      //       <Folders />
+      //     </IsTeamLeadRoute>
+      //   ),
+      // },
       {
-        path: "/applyleavefrom",
-        element: (
-          <isTeamLeadRouter>
-            <ApplyLeaveForm />
-          </isTeamLeadRouter>
-        ),
-      },
-      {
-        path: "/leaveApplications",
-        element: (
-          <IsManagerRoute>
-            <EmployeeLeavesSelecteId />
-          </IsManagerRoute>
-        ),
-      },
-      {
-        path: "/attendance/list-view",
+        path: "/employee/projects",
         element: (
           <IsTeamLeadRoute>
-            <EmployeeAttendanceCalendar />
+            <TeaminchargeProjects/>
           </IsTeamLeadRoute>
         ),
       },
       {
-        path: "/admin/employee_leave-applications",
+        path: "/admin/ChangePassword",
         element: (
           <IsTeamLeadRoute>
-            <AdminAcceptedEmployeeLeavesApplications />
+            <ChangePassword />
           </IsTeamLeadRoute>
         ),
       },
+      {
+        path: "/employee/chat",
+        element: (
+          <EmployeeRoute>
+            <Chat />
+          </EmployeeRoute>
+        ),
+      },
+      
       {
         path: "/employee/folders",
         element: (
@@ -768,11 +837,20 @@ export const isTeamLeadRouter = [
           </IsTeamLeadRoute>
         ),
       },
+
       {
         path: "/employee/folders/:folderName/:folderId",
         element: (
           <IsTeamLeadRoute>
             <EmployeeFilesById />
+          </IsTeamLeadRoute>
+        ),
+      },
+      {
+        path: "/employee/tasks",
+        element: (
+          <IsTeamLeadRoute>
+            <Totaltasks />
           </IsTeamLeadRoute>
         ),
       },

@@ -845,7 +845,7 @@ const EmployeeLoginForm = ({ setOtpType }) => {
                 <div className="fs-14">
                   <div className="d-flex align-items-center">
                     <span className="flex-shrink-0">
-                      Resend otp in{" "}
+                      Expire otp in{" "}
                       <span
                         style={{
                           fontWeight: "bold",

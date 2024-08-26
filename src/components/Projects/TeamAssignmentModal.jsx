@@ -24,7 +24,7 @@ const[btndisabled,setBtndisabled]=useState(false)
   const refs = useRef({});
 
   const schema = {
-    status: Joi.string().valid("remove", "add").required(),
+    action: Joi.string().valid("remove", "add").required(),
     employee_id: Joi.string().min(5).max(12).required(),
     project_id: Joi.string().min(5).max(12).required(),
   };
@@ -33,14 +33,15 @@ const[btndisabled,setBtndisabled]=useState(false)
     event.preventDefault();
     // setLoading(true);
     const payload = {
-      status: formData.status,
+      action: formData.action,
       employee_id: formData.employee_id,
       project_id: projectId,
     };
     try {
         setBtndisabled(true)
       await checkErrors(schema, payload);
-      await backEndCallObjNothing("/admin/add_remove_team", payload);
+    const res=  await backEndCallObjNothing("/admin/add_remove_team", payload);
+      toastOptions.success(res);
       fetchProjects();
       setIsTeamModalVisible(false);
       setBtndisabled(false)
@@ -87,75 +88,7 @@ const handleGoBack=()=>{
     setIsTeamModalVisible(false)
 }
   return (
-//     <div className="team-assignment-modal">
-//       <div
-//         className="modal-content"
-//         style={{
-//           background: applicationColor.cardBg1,
-//           color: applicationColor.readColor1,
-//         }}
-//       >
-//          <div className="fs-3 mb-3">
-//         <button
-//           onClick={handleGoBack}
-//           style={{ background: "none", border: "none", cursor: "pointer" }}
-//         >
-//           <IoArrowBackSharp />
-//         </button>
-//       </div>
-       
-//           <form onSubmit={handleSubmit}>
-//             <h5>Assign or Remove Team Member</h5>
-//             <div className="mb-3">
-//               <Select_inputs
-//                 name="employee_id"
-//                 placeholder="Select Team Incharge"
-//                 value={formData.employee_id}
-//                 schema={schema.employee_id}
-//                 setForm={setFormData}
-//                 options={filteredEmployees?.map((employee) => ({
-//                   ...employee,
-//                   displayName: `${employee.basic_info.first_name} ${employee.basic_info.last_name}`,
-//                 }))}
-//                 property="displayName"
-//                 valueProperty="employee_id"
-//                 error={errors.employee_id}
-//                 inputRef={(el) => (refs.current.employee_id = el)}
-//               />
-//             </div>
-//             <div className="mb-3">
-//             <Select_inputs
-//   name="status"
-//   placeholder="Select Action"
-//   value={formData.status}
-//   options={[
-//     { label: "Add", value: "add" },
-//     { label: "Remove", value: "remove" },
-//   ]}
-//   setForm={setFormData}
-//   onChange={handleChange}
-//   property="label" // Render the 'label' for display
-//   valueProperty="value" // Use 'value' for the value attribute
-//   error={errors.action}
-// />
 
-//             </div>
-//             <div className="d-flex justify-content-end">
-//               {/* <button
-//                 className="btn btn-secondary me-2"
-//                 type="button"
-//                 onClick={() => setIsTeamModalVisible(false)}
-//               >
-//                 Cancel
-//               </button> */}
-//               <button className="btn btn-primary" type="submit" disabled={btndisabled}>
-//                 Submit
-//               </button>
-//             </div>
-//           </form>
-       
-//       </div>
-//     </div>
 <div className="team-assignment-modal">
 <div className="fs-3 mb-3">
     <IoArrowBackSharp
@@ -200,9 +133,9 @@ const handleGoBack=()=>{
     </div>
     <div className="mb-3">
       <Select_inputs
-        name="status"
+        name="action"
         placeholder="Select Action"
-        value={formData.status}
+        value={formData.action}
         options={[
           { label: "Add", value: "add" },
           { label: "Remove", value: "remove" },
@@ -211,7 +144,7 @@ const handleGoBack=()=>{
         onChange={handleChange}
         property="label"
         valueProperty="value"
-        error={errors.status}
+        error={errors.action}
       />
     </div>
     <div className="form-button">

@@ -36,7 +36,10 @@ const LaptopSidebar = () => {
     if (employeeDetails.role_name === "Director") {
       return superAdminSidebar;
     } else if (employeeDetails.role_name === "Team Incharge") {
-      return employeeSidebar;
+      return teamLeadSidebar;
+    }
+    else if (employeeDetails.role_name === "Manager") {
+      return mangerSidebar;
     } else {
       return employeeSidebar; // Default to employeeSidebar if no match
     }
