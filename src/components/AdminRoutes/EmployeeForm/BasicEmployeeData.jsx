@@ -114,7 +114,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             setForm={setFormData}
             schema={schema?.employee_id}
             imp={true}
-            maxLength={15}
+            maxLength={10}
             // readOnly={isAdmin || type === "Update Employee"}
             inputRef={(el) => (refs.current.employee_id = el)}
           />
@@ -456,7 +456,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             imp
             inputRef={(el) => (refs.current.reporting_manager = el)}
           /> */}
-          <Select_inputs
+          {/* <Select_inputs
   name={"reporting_manager"}
   placeholder={"Reporting Manager"}
   value={formData.reporting_manager}
@@ -464,13 +464,30 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
   setForm={setFormData}
   options={filteredEmployees.map((employee) => ({
     ...employee,
-    displayName: `${employee.basic_info.first_name} ${employee.basic_info.last_name}`, // Create a new property for display
+    displayName: `${employee.basic_info.email} ${employee.basic_info.last_name}`, // Create a new property for display
   }))}
   property={"displayName"} // Use the new displayName property
   valueProperty={"displayName"} // Store the employee_id
   imp
   inputRef={(el) => (refs.current.reporting_manager = el)}
+/> */}
+<Select_inputs
+  name={"reporting_manager"}
+  placeholder={"Reporting Manager"}
+  value={formData.reporting_manager}
+  schema={schema.reporting_manager}
+  setForm={setFormData}
+  options={filteredEmployees.map((employee) => ({
+    displayName: `${employee.basic_info.email} `, // Display email and last name
+    employeeId: employee.employee_id, // Store employee ID for payload
+    email: employee.basic_info.email, // Store email for payload
+  }))}
+  property={"displayName"} // Display email and last name
+  valueProperty={"email"} // Store email in the formData
+  imp
+  inputRef={(el) => (refs.current.reporting_manager = el)}
 />
+
 
         </div>
       </div>

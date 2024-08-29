@@ -152,7 +152,7 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                   setForm={setFormData}
                   schema={schema.year_of_completion}
                   maxLength={10}
-                  // inputRef={(el) => (refs.current.dateOfCompletion = el)}
+                  inputRef={(el) => (refs.current.dateOfCompletion = el)}
                   index={index}
                   fieldName="educational_details"
                   // min={

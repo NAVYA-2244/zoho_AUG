@@ -26,37 +26,39 @@ function EmployeeLeavesSelecteId() {
   const [leaveApplications, setLeaveApplications] = useState([]);
   const [status, setStatus] = useState("");
 
-  useEffect(() => {
-    const gettingEmployeeById = async () => {
-      try {
-        const response = await backEndCallObjNothing("/emp_get/get_profile", {
-          employee_id: employeeDetails?.employee_id || "",
-        });
-        console.log("profile", response);
-        setEmployeedata(response.profile.leaves);
-        setSelectedEmployeeData(response.profile.leaves);
-      } catch (error) {
-        console.error("Error fetching employee data:", error);
-      }
-    };
-    gettingEmployeeById();
-  }, [employeeDetails]);
-console.log(selectedEmployeeData,"selectedEmployeeData")
+  // useEffect(() => {
+  //   const gettingEmployeeById = async () => {
+  //     try {
+  //       const response = await backEndCallObjNothing("/emp_get/get_profile", {
+  //         employee_id: employeeDetails?.employee_id || "",
+  //       });
+  //       console.log("profile", response);
+  //       setEmployeedata(response.profile.leaves);
+  //       setSelectedEmployeeData(response.profile.leaves);
+  //     } catch (error) {
+  //       console.error("Error fetching employee data:", error);
+  //     }
+  //   };
+  //   gettingEmployeeById();
+  // }, [employeeDetails]);
+// console.log(selectedEmployeeData,"selectedEmployeeData")
   useEffect(() => {
     const fetchLeaveApplications = async () => {
       try {
         const payload = {
           skip: 0,
-          limit: 50,
+          // limit: 50,
         };
         if (status) {
           payload.status = status;
         }
         const response = await backEndCallObjNothing(
-          "/emp_get/get_leaves",
+          "/emp_get/leave_applications",
           payload
-        );
-        setLeaveApplications(response.data);
+        );  
+
+        console.log(response,"leaves")
+        setLeaveApplications(response);
         setEmployeeLeaveApplications(response.data);
         console.log("response", response);
         setLoading(false);
@@ -94,11 +96,11 @@ console.log(selectedEmployeeData,"selectedEmployeeData")
           </select>
         </div>
         <div className="d-flex align-items-end justify-content-end">
-          {selectedEmployeeData && (
+          {/* {selectedEmployeeData && ( */}
             <button onClick={ApplyLeave} className="btn btn-primary">
               Apply Leave
             </button>
-          )}
+          {/* )} */}
         </div>
       </div>
 

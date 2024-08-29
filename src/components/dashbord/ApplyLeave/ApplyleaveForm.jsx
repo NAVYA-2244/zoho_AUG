@@ -19,8 +19,8 @@ import { backEndCallObjNothing } from "../../../services/mainService";
 
 function ApplyLeaveForm() {
   const Navigate = useNavigate();
-  const location = useLocation();
-  const leaveTypes = location.state?.leaveTypes || [];
+  // const location = useLocation();
+  // const leaveTypes = location.state?.leaveTypes || [];
   const {
     loading,
     setLoading,
@@ -31,7 +31,7 @@ function ApplyLeaveForm() {
   } = useStateContext();
   const { checkErrors, employeeDetails } = useFunctionContext();
   const { applicationColor } = useThemeContext();
-
+  const [employeedataleaves, setEmployeedataleave] = useState()
   const [formData, setFormData] = useState({
     from_date: "",
     to_date: "",
@@ -47,7 +47,7 @@ function ApplyLeaveForm() {
           employee_id: employeeDetails?.employee_id || "",
         });
         console.log("profile", response);
-        setEmployeedata(response.profile.leaves);
+        setEmployeedataleave(response.profile.leaves);
         // setSelectedEmployeeData(response.profile.leaves);
       } catch (error) {
         console.error("Error fetching employee data:", error);
@@ -55,7 +55,7 @@ function ApplyLeaveForm() {
     };
     gettingEmployeeById();
   }, [employeeDetails]);
-
+console.log(employeedataleaves)
   // useEffect(() => {
   //   if (formData.from_date && formData.to_date) {
   //     const from_dateObj = parse(formData.from_date, 'yyyy-MM-dd', new Date());
@@ -145,7 +145,7 @@ function ApplyLeaveForm() {
                 <Select_inputs
                   name="leave_type"
                   placeholder="Leave Type"
-                  options={employeedata?.map((leave) => ({
+                  options={employeedataleaves?.map((leave) => ({
                     leave_typeId: leave.leave_id,
                     leave_type: leave.leave_name,
                   }))}

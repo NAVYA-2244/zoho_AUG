@@ -9,18 +9,18 @@ import { useStateContext } from "../../Contexts/StateContext";
 import { Navigate } from "react-router-dom";
 
 function Piachart() {
-  const [selectedEmployeeData, setSelectedEmployeeData] = useState(null);
-  const [Employeedata] = useState([]);
+  const [selectedEmployeeDataleave, setEmployeedataleave] = useState(null);
+  // const [Employeedata] = useState([]);
   const {
     setLoading,
     loading,
     employeeDetails,
-    setEmployeedata,
+    // setEmployeedata,
     setEmployeeLeaveApplications,
     employeeLeaveApplications,
   } = useStateContext();
 
-  console.log(setEmployeedata, "setEmployeedata");
+  console.log(selectedEmployeeDataleave, "setEmployeedata");
 
   useEffect(() => {
     const gettingEmployeeById = async () => {
@@ -29,22 +29,22 @@ function Piachart() {
           employee_id: employeeDetails?.employee_id || "",
         });
         console.log("response", response);
-        setEmployeedata(response.profile.leaves);
-        setSelectedEmployeeData(response.profile.leaves);
+        // setEmployeedataleave(response.profile.leaves);
+        setEmployeedataleave(response.profile.leaves);
       } catch (error) {
         console.error("Error fetching employee data:", error);
       }
     };
     gettingEmployeeById();
-  }, [employeeDetails]);
+  }, [selectedEmployeeDataleave]);
 
   const { applicationColor } = useThemeContext();
 
   return (
     <div>
       <section className="leave-types">
-        {selectedEmployeeData && selectedEmployeeData.length > 0 ? (
-          selectedEmployeeData.map((item) => (
+        {selectedEmployeeDataleave && selectedEmployeeDataleave.length > 0 ? (
+          selectedEmployeeDataleave.map((item) => (
             <section
               className="type"
               key={item.leave_name}
@@ -53,34 +53,38 @@ function Piachart() {
                 color: applicationColor.readColor1,
               }}
             >
+              {console.log(item, "item")}
               {/* {console.log("items", leave_name)} */}
               <div className="leave-img d-flex flex-column">
-                <i className={`${item.type}`} alt={item.type}>
-                  {item.leave_name === "casual leave" ? (
-                    <FcLeave />
-                  ) : (
+                <i className={`${item.leave_name}`} alt={item.leave_name}>
+                  {item.leave_name === "sick" ? (
                     <FaUserDoctor />
+                  ) : (
+
+                    <FcLeave />
                   )}
                 </i>
-                <h5 className={`leave-type-${item.type}`}>{item.type}</h5>
+                <h5 className={`leave-type-${item.leave_name}`}>{item.leave_name}</h5>
               </div>
               <div className="leave-availability">
                 <div className="available">
+
                   <span className="leaves-available">
                     Available : &nbsp;{" "}
                     <b>
-                      {item.default_leaves == "" ? "0" : item.default_leaves}
+                      {item.total_leaves == "" ? "0" : item.total_leaves}
                     </b>
                   </span>
                   <br />
                   <span className="leave-used">
                     Used : &nbsp;
                     <b>{item.used_leaves == "" ? "0" : item.used_leaves}</b>
+                    {console.log(item.used_leaves)}
                   </span>
                 </div>
               </div>
               <CircularLoader
-                max={item?.default_leaves}
+                max={item?.total_leaves}
                 min={item.used_leaves}
               />
             </section>
