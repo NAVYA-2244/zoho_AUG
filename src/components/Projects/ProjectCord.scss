@@ -1,0 +1,57 @@
+// Define normal colors
+$cardBg1: #f8f9fa; // Light background for cards
+$cardBg2: #ffffff; // White background for task cards
+$primaryColor: #007bff; // Primary button color
+$readColor1: #212529; // Primary text color
+$readColor2: #343a40; // Secondary text color
+$mutedColor: #6c757d; // Muted text color
+
+.manager-projects {
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .admin-controls-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 350px; // Set a minimum height for uniformity
+    background: $cardBg1; // Use defined color
+    color: $readColor1; // Use defined color
+    border-radius: 10px;
+    overflow: hidden; // Ensure overflow is handled properly
+    padding: 20px;
+    margin-bottom: 20px;
+
+    .task-container {
+      flex: 1; // Allows the task container to grow and take available space
+      overflow-y: auto; // Makes the task container scrollable
+      max-height: 200px; // Adjust the maximum height as needed
+      margin-top: 10px;
+    }
+
+    .btn-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+    }
+  }
+
+  .task-card {
+    background: $cardBg2; // Use defined color
+    color: $readColor2; // Use defined color
+    margin-bottom: 10px; // Add spacing between task cards
+    height: 100%; // Ensure the task card takes full available height
+  }
+
+  .priority-badge {
+    &.priority-high { background-color: #dc3545; } // Red
+    &.priority-medium { background-color: #ffc107; } // Yellow
+    &.priority-low { background-color: #28a745; } // Green
+  }
+
+  .due-date {
+    color: $mutedColor; // Use defined color
+  }
+}

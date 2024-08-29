@@ -151,3 +151,113 @@
 .due-date {
   font-size: 0.85rem;
 }
+.status-badge {
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 0.85rem;
+  color: #fff; /* Text color for better readability */
+  
+}
+
+.priority-new {
+  background-color: #007bff; /* Blue: Represents a new task */
+}
+
+.priority-in_progress {
+  background-color: #ffc107; /* Amber/Orange: Indicates ongoing work */
+}
+
+.priority-under_review {
+  background-color: #17a2b8; /* Teal: Shows that the task is being reviewed */
+}
+
+.priority-completed {
+  background-color: #28a745; /* Green: Indicates the task is finished */
+}
+
+.priority-manager {
+  background-color: #6f42c1; /* Purple: Specific for manager's tasks, distinct yet authoritative */
+}
+
+.profile-img-container {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #e0e0e0; /* Light gray background for missing images */
+}
+
+.profile-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-icon {
+  font-size: 1rem;
+  color: #ffffff;
+  background-color: #007bff; /* Blue background for fallback icons */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: bold;
+}
+.task-card {
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 8px; /* Reduce padding */
+  margin-bottom: 8px; /* Reduce margin */
+  border-radius: 6px; /* Slightly smaller border-radius */
+  background-color: #f8f9fa; /* Light background color for better visibility */
+}
+
+.card-shadow {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.card-shadow:hover {
+  transform: scale(1.02);
+}
+
+.priority-badge {
+  border-radius: 4px;
+  padding: 2px 4px; /* Reduce padding */
+  font-size: 0.75rem; /* Smaller font size */
+}
+
+.status-badge {
+  border-radius: 4px;
+  padding: 2px 4px; /* Reduce padding */
+  font-size: 0.75rem; /* Smaller font size */
+}
+
+.profile-img-container {
+  width: 24px; /* Smaller size */
+  height: 24px; /* Smaller size */
+}
+
+.profile-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-icon {
+  font-size: 0.75rem; /* Smaller font size */
+  color: #ffffff;
+  background-color: #007bff; /* Blue background for fallback icons */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: bold;
+}

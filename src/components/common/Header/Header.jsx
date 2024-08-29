@@ -45,6 +45,8 @@ const Headers = () => {
     setTodayAttendance,
     setrecentHire,
     setBirthdays,
+    stats,
+    setStats
   } = useStateContext();
   const { checkingDataThere } = useFunctionContext();
   const { applicationColor } = useThemeContext();
@@ -216,7 +218,10 @@ const fetchData = async () => {
       } else {
         res = await backEndCallObjNothing("/emp_get/universal");
         console.log(res, "response");
+        
       }
+    setStats(res?.stats)
+    console.log("stats",res?.stats)
       setOrgDetails(res?.organisation_details);
       setOrgLogo(res?.organisation_details.images?.logo);
       // setLocations(res.organisation_details?.locations);
@@ -227,8 +232,9 @@ const fetchData = async () => {
       setOrgLogo(res?.organisation_details?.images?.logo);
       setLocations(res.dashborad?.organisation_details?.locations);
       // setTodayAttendance(res.dashborad.today_attendance);
-      setrecentHire(res?.dashborad?.recent_hires);
-      // setBirthdays(res?.dashborad.birthdays);
+      setrecentHire(res?.recent_hires);
+      
+      setBirthdays(res?.birthdays);
     
 
       
@@ -320,12 +326,15 @@ const fetchData = async () => {
         <div className="user-details">
           <Themes />
 
+         
+
           {/* <div className="user-image">
             <img src={dummyUser} alt="userimage" />
           </div> */}
           <div className="details">
             <span className="email">{employeeDetails?.email || ""}</span>
             <span className="id">{employeeDetails?.employeeId || ""}</span>
+            <span>{employeeDetails?.role_name}</span>
           </div>
 
           <div className="dropdown">
@@ -342,7 +351,7 @@ const fetchData = async () => {
               {employeeDetails.collection === "USER" ? (
                 ""
               ) : (
-                <Link to={"/admin/profile"} className="dropdown-item">
+                <Link to={"/profile"} className="dropdown-item">
                   <CgProfile />
                   Profile
                 </Link>

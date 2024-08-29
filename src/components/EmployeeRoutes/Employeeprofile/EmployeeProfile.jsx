@@ -41,9 +41,10 @@ import { useNavigate } from "react-router-dom";
 function EmployeeProfile({ employeesList }) {
   // Getting the Employeedetails to render the routter
   const { setProfilePhoto } = useStateContext();
-  const [employeedata, setEmployeedata] = useState(null);
+  // const [employeedata, setEmployeedata] = useState(null);
 
-  const { employeeDetails } = useStateContext();
+  const { employeeDetails ,employeedata, setEmployeedata} = useStateContext();
+console.log(employeedata,"employeedata")
 
   const gettingEmployeeById = async () => {
     try {

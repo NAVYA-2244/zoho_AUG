@@ -88,12 +88,23 @@ const ProjectStatusEditModal = ({ onClose, project, onSubmit }) => {
           </div>
 
           <div className="row">
-            <div className="col-md-6">
+            {/* <div className="col-md-6">
               <strong>Status:</strong>
               <Select_inputs
                 name="status"
                 options={["new", "in_progress", "under_review", "completed"]}
                 value={status}
+                setForm={setFormData}
+                onChange={(e) => setStatus(e.target.value)}
+                className="form-control mt-2"
+              />
+            </div> */}
+            <div className="col-md-6">
+              <strong>Status:</strong>
+              <Select_inputs
+                name="status"
+                options={["new", "in_progress", "under_review", "completed"]}
+                value={formData.status}
                 setForm={setFormData}
                 onChange={(e) => setStatus(e.target.value)}
                 className="form-control mt-2"

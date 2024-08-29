@@ -92,10 +92,15 @@ console.log("edtitem",editingItem)
       
       await checkErrors(designationSchema, formData);
       
+      // const dataToSubmit = {
+      //   ...formData,
+      // };
       const dataToSubmit = {
         ...formData,
+        designation_name: formData.designation_name.trim(),
+        organisation_id: formData.organisation_id.trim(),
+        designation_id: formData.designation_id ? formData.designation_id.trim() : "",
       };
-
       const response = await backEndCallObjNothing(
         "/org/add_update_designation", // Updated route
         dataToSubmit

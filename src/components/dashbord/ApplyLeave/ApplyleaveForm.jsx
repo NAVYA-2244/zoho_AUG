@@ -46,7 +46,7 @@ function ApplyLeaveForm() {
         const response = await backEndCallObjNothing("/emp_get/get_profile", {
           employee_id: employeeDetails?.employee_id || "",
         });
-        console.log("response", response);
+        console.log("profile", response);
         setEmployeedata(response.profile.leaves);
         // setSelectedEmployeeData(response.profile.leaves);
       } catch (error) {
@@ -71,7 +71,7 @@ function ApplyLeaveForm() {
   const leaveFormSchema = {
     from_date: Joi.date().required().label("From Date"),
     to_date: Joi.date().required().label("to date"),
-    leave_type: Joi.string().min(10).required().label("Leave Type"),
+    leave_type: Joi.string().min(3).max(25).required().label("Leave Type"),
     reason: Joi.string()
       .pattern(/[a-zA-Z0-9 ]*/)
       .required()

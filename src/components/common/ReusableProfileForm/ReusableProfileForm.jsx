@@ -126,7 +126,7 @@ const ReusableProfileForm = ({ form, type, submit }) => {
   useEffect(() => {
     setInitialEmployeeId(form.employee_id);
   }, [form]);
-
+console.log(form,"form")
   // Check if employee_id is edited
   const isEmployeeIdEdited = formData.employee_id !== initialEmployeeId;
 
@@ -155,6 +155,7 @@ const ReusableProfileForm = ({ form, type, submit }) => {
         setFormData={setFormData}
         className={"workInformationData"}
       />
+
       <HierarchyData formData={formData} setFormData={setFormData} />
       <PersonalDetailsData formData={formData} setFormData={setFormData} />
       <div className="edit-details">

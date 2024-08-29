@@ -15,6 +15,7 @@ import { makeNetworkCall } from "../../../HttpServices/HttpService";
 import { useFunctionContext } from "../../Contexts/FunctionContext";
 import { toastOptions } from "../../../Utils/FakeRoutes";
 import Birthday from "../BirthdaysAndNewHires/Birthday";
+import Dashbordstats from "./Dashbordstats";
 
 const Dashbord = () => {
   const { applicationColor } = useThemeContext(); //applicalion color to apply the colors based on white theme or dark theme
@@ -63,7 +64,8 @@ export default Dashbord;
 export const OnlyBirthDaysAndNewHires = () => {
   const [newHires, setNewHires] = useState([]);
   const [todayBirthdays, setTodayBirthdays] = useState([]);
-  const { setLoading, loading, setLoadingTerm, setrecentHire ,Birthdays,recentHire} =
+  const { setLoading, loading, setLoadingTerm, setrecentHire ,Birthdays,recentHire,stats,
+    setStats} =
     useStateContext();
   const { fetchMoreData } = useFunctionContext();
   const { applicationColor } = useThemeContext();
@@ -215,7 +217,7 @@ export const OnlyBirthDaysAndNewHires = () => {
   //     setNewHiresSkip,
   //   ]
   // );
-
+console.log(stats,"navyaa")
   return (
     <>
       <div className="d_card" style={{ background: applicationColor.cardItem }}>
@@ -242,6 +244,18 @@ export const OnlyBirthDaysAndNewHires = () => {
         <BirthdaysAndNewHires
           data={newHires}
           heading={"New Hires"}
+          img={randomPic}
+          // loadMoreRef={newHiresRef}
+          getMoreDataType="getMoreNewHires"
+        />
+      </div>
+      <div
+        className="d_card new-hires-card"
+        style={{ background: applicationColor.cardItem }}
+      >
+        <Dashbordstats
+          data={stats}
+          heading={"Daily Tasks"}
           img={randomPic}
           // loadMoreRef={newHiresRef}
           getMoreDataType="getMoreNewHires"

@@ -64,7 +64,19 @@ export const employeeSidebar = [
     label: "Profile",
     path: "/profile",
   },
- 
+  // {
+  //   id: "ApplyLeave",
+  //   icon: <BsCalendar2EventFill />,
+  //   label: "Apply Leave",
+  //   path: "/applyleave",
+  // },
+  
+  {
+    id: "LeaveApplications",
+    icon: <BsCalendar2EventFill />,
+    label: "leave applications emp",
+    path: "/leaveApplications",
+  },
  
   {
     id: "Chat",
@@ -85,6 +97,18 @@ export const employeeSidebar = [
     icon: <GrUserAdd />,
     label: "TotalTask",
     path: "/employee/tasks",
+  },
+  {
+    id: "folers",
+    icon: <LuFolderClosed />,
+    label: "ChangePassword",
+    path: "/admin/ChangePassword",
+  },
+  {
+    id: "Logout",
+    icon: <VscSignOut />,
+    label: "Logout",
+    path: () => settingTokens.removingEmployeeToken(),
   },
 ];
 export const superAdminSidebar = [
@@ -112,6 +136,12 @@ export const superAdminSidebar = [
     path: "/admin/employee_list",
   },
  
+  {
+    id: "leaves list",
+    icon: <GrCopy />,
+    label: "Leave Applications",
+    path: "/admin/employee_leave-applications",
+  },
 
   {
     id: "Controls",
@@ -161,7 +191,12 @@ export const superAdminSidebar = [
     path: "/admin/projects",
   },
 
-
+  {
+    id: "Logout",
+    icon: <VscSignOut />,
+    label: "Logout",
+    path: () => settingTokens.removingEmployeeToken(),
+  },
 ];
 
 //3
@@ -204,6 +239,18 @@ export const teamLeadSidebar = [
     label: "TotalTask",
     path: "/employee/tasks",
   },
+  {
+    id: "folers",
+    icon: <LuFolderClosed />,
+    label: "ChangePassword",
+    path: "/admin/ChangePassword",
+  },
+  {
+    id: "Logout",
+    icon: <VscSignOut />,
+    label: "Logout",
+    path: () => settingTokens.removingEmployeeToken(),
+  },
 ];
 
 //2
@@ -242,18 +289,19 @@ export const mangerSidebar = [
     label: "TotalTask",
     path: "/admin/tasks",
   },
-  // {
-  //   id: "ApplyLeave",
-  //   icon: <BsCalendar2EventFill />,
-  //   label: "Apply Leave",
-  //   path: "/applyleave",
-  // },
-  // {
-  //   id: "LeaveApplications",
-  //   icon: <BsCalendar2EventFill />,
-  //   label: "leave applications  emp",
-  //   path: "/leaveApplications",
-  // },
+  {
+    id: "ApplyLeave",
+    icon: <BsCalendar2EventFill />,
+    label: "Apply Leave",
+    path: "/applyleave",
+  },
+  
+  {
+    id: "LeaveApplications",
+    icon: <BsCalendar2EventFill />,
+    label: "leave applications  emp",
+    path: "/leaveApplications",
+  },
 
   // {
   //   id: "attendanceTabularView",
@@ -317,7 +365,12 @@ export const mangerSidebar = [
   //     },
   //   ],
   // },
-
+  {
+    id: "folers",
+    icon: <LuFolderClosed />,
+    label: "ChangePassword",
+    path: "/admin/ChangePassword",
+  },
   {
     id: "Logout",
     icon: <VscSignOut />,

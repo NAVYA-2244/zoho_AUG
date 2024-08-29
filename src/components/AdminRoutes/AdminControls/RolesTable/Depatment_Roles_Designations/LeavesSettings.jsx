@@ -127,11 +127,17 @@ const LeavesSettings = () => {
 
       const dataToSubmit = {
         organisation_id: orgDetails?.organisation_id,
-        designation_id: formData.designation_id, // Include designation_id in payload
-        leave_name: formData.leave_name,
+        designation_id: formData.designation_id.trim(), // Include designation_id in payload
+        leave_name: formData.leave_name.trim(),
         total_leaves: formData.total_leaves,
-        leave_id: formData.leave_id || "",
+        leave_id: formData.leave_id ? formData.leave_id.trim(): "",
       };
+      // const dataToSubmit = {
+      //   ...formData,
+      //   designation_name: formData.designation_name.trim(),
+      //   organisation_id: formData.organisation_id.trim(),
+      //   designation_id: formData.designation_id ? formData.designation_id.trim() : "",
+      // };
 
       const response = await backEndCallObjNothing("/org/add_update_leave", dataToSubmit);
       setOrgDetails(response.data);

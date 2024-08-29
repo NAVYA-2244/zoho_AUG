@@ -70,7 +70,7 @@ const HierarchyData = ({ formData, setFormData }) => {
           <Input_text
             type={"tel"}
             name={"work_phone_number"}
-            placeholder={"Mobile Number work"}
+            placeholder={"Mobile Number"}
             value={formData.work_phone_number}
             setForm={setFormData}
             schema={schema.work_phone_number}
@@ -159,7 +159,7 @@ const HierarchyData = ({ formData, setFormData }) => {
       >
         <div className="heading-button">
           <h6 className="heading-form pb-2"> Work Experience Data</h6>
-          {formData?.work_experience.length === 0 && (
+          {formData?.work_experience?.length === 0 && (
             <div className="additional-btns">
               <button
                 className="add-button"

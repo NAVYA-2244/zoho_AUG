@@ -455,7 +455,6 @@
 // export default TeaminchargeTaskDetailsModal;
 
 
-
 import React, { useState, useEffect } from "react";
 import { useThemeContext } from "../Contexts/ThemesContext";
 import { Date_Input, Input_area, Input_text, Select_inputs } from "../common/ALLINPUTS/AllInputs";
@@ -499,7 +498,7 @@ const TeaminchargeTaskDetailsModal = ({ onClose, mode, task, onSubmit }) => {
           "can only contain letters, numbers, spaces, periods, commas, and hyphens.",
       }),
     status: Joi.string()
-      .valid("new", "in_progress", "under_review", "completed")
+      .valid("new", "in_progress", "under_review", "completed","manager")
       .required(),
     due_date: Joi.date().required(),
     priority: Joi.string().valid("high", "medium", "low").required(),
@@ -655,8 +654,8 @@ console.log(task.project_id,"task")
                 <div className="mb-3 col-lg-6 col-md-6">
                   <Select_inputs
                     name="status"
-                    placeholder="Status"
-                    options={["new", "in_progress", "under_review", "completed"]}
+                    placeholder="Task Status"
+                    options={["new", "in_progress", "under_review", "completed","manager"]}
                     value={formData.status}
                     setForm={setFormData}
                     onChange={handleChange}
@@ -666,7 +665,7 @@ console.log(task.project_id,"task")
                 <div className="mb-3 col-lg-6 col-md-6">
                   <Select_inputs
                     name="task_status"
-                    placeholder="Task Status"
+                    placeholder="Status"
                     options={["active", "in_active", "completed"]}
                     value={formData.task_status}
                     setForm={setFormData}
@@ -746,7 +745,7 @@ console.log(task.project_id,"task")
             </div>
           </div>
 
-              {loading && <Loader />}
+              
               <section className="text-center">
                 <button
                   type="button"
@@ -760,6 +759,7 @@ console.log(task.project_id,"task")
                   disabled={loading}
                   className="btn btn-primary mt-2 px-2"
                 >
+                  {loading && <Loader />}
                   {isEditMode ? "Update Task" : "Add Task"}
                 </button>
               </section>

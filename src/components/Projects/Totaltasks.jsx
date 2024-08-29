@@ -129,7 +129,7 @@ toastOptions.success(response)
         </div>
 
         {/* Error Message */}
-        {error && <div className="alert alert-danger">{error}</div>}
+        {/* {error && <div className="alert alert-danger">{error}</div>} */}
 
         {/* Tasks Table */}
         <div className="table-responsive text-center">

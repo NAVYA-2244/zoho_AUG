@@ -32,7 +32,7 @@ function EmployeeLeavesSelecteId() {
         const response = await backEndCallObjNothing("/emp_get/get_profile", {
           employee_id: employeeDetails?.employee_id || "",
         });
-        console.log("response", response);
+        console.log("profile", response);
         setEmployeedata(response.profile.leaves);
         setSelectedEmployeeData(response.profile.leaves);
       } catch (error) {
@@ -41,7 +41,7 @@ function EmployeeLeavesSelecteId() {
     };
     gettingEmployeeById();
   }, [employeeDetails]);
-
+console.log(selectedEmployeeData,"selectedEmployeeData")
   useEffect(() => {
     const fetchLeaveApplications = async () => {
       try {

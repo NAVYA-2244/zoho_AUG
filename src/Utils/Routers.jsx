@@ -48,6 +48,7 @@ import TeaminchargeProjects from "../components/Projects/TeaminchargeProjects.js
 
 // import { EmployeeRoute } from './../HOC_protectingRoutes/ProtectedRoute';
 import { mangerSidebar } from './FakeRoutes';
+import ManagerProjects from "../components/Projects/ManagerProjects.jsx";
 
 // AdminType "0" //Team member or normal employee
 export const isEmployeeRouter = [
@@ -84,27 +85,43 @@ export const isEmployeeRouter = [
           </EmployeeRoute>
         ),
       },
+      // {
+      //   path: "/employee/attandance_table",
+      //   element: (
+      //     <EmployeeRoute>
+      //       <EmployeeAttendanceTable />
+      //     </EmployeeRoute>
+      //   ),
+      // },
+      // {
+      //   path: "/employee/attendance",
+      //   element: (
+      //     <EmployeeRoute>
+      //       <EmployeeAttendance />
+      //     </EmployeeRoute>
+      //   ),
+      // },
       {
-        path: "/employee/attandance_table",
+        path: "/leaveApplications",
         element: (
           <EmployeeRoute>
-            <EmployeeAttendanceTable />
+            <EmployeeLeavesSelecteId />
           </EmployeeRoute>
         ),
       },
-      {
-        path: "/employee/attendance",
-        element: (
-          <EmployeeRoute>
-            <EmployeeAttendance />
-          </EmployeeRoute>
-        ),
-      },
+      // {
+      //   path: "/profile_Edit",
+      //   element: (
+      //     <EmployeeRoute>
+      //       <SingleEmployeeProfileEdit />
+      //     </EmployeeRoute>
+      //   ),
+      // },
       {
         path: "/profile_Edit",
         element: (
           <EmployeeRoute>
-            <SingleEmployeeProfileEdit />
+            <EmployeeProfileUpdate />
           </EmployeeRoute>
         ),
       },
@@ -332,7 +349,7 @@ export const isSuperAdminRouter = [
         ),
       },
       {
-        path: "/admin/profile",
+        path: "/profile",
         element: (
           <IsSuperAdminRoute>
             <EmployeeProfile />
@@ -556,6 +573,7 @@ export const isManagerRouter = [
           </IsManagerRoute>
         ),
       },
+     
       {
         path: "/profile_update",
         element: (
@@ -642,6 +660,14 @@ export const isManagerRouter = [
         ),
       },
       {
+        path: "/profile_Edit",
+        element: (
+          <IsManagerRoute>
+            <SingleEmployeeProfileEdit />
+          </IsManagerRoute>
+        ),
+      },
+      {
         path: "/admin/chat",
         element: (
           <IsManagerRoute>
@@ -654,7 +680,7 @@ export const isManagerRouter = [
         path: "/admin/projects",
         element: (
           <IsManagerRoute>
-            <Projects />
+            <ManagerProjects />
           </IsManagerRoute>
         ),
       },
@@ -664,6 +690,14 @@ export const isManagerRouter = [
           <IsManagerRoute>
             <Totaltasks />
           </IsManagerRoute>
+        ),
+      },
+      {
+        path: "/admin/ChangePassword",
+        element: (
+          <IsSuperAdminRoute>
+            <ChangePassword />
+          </IsSuperAdminRoute>
         ),
       },
       {
@@ -719,6 +753,14 @@ export const isTeamLeadRouter = [
         element: (
           <IsTeamLeadRoute>
             <Dashboard />
+          </IsTeamLeadRoute>
+        ),
+      },
+      {
+        path: "/profile_Edit",
+        element: (
+          <IsTeamLeadRoute>
+            <SingleEmployeeProfileEdit />
           </IsTeamLeadRoute>
         ),
       },

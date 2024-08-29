@@ -587,8 +587,13 @@ const RolesAdd = () => {
     try {
       setLoading(true);
       await checkErrors(roleSchema, formData);
-      const dataToSubmit = { ...formData };
-
+      // const dataToSubmit = { ...formData };
+      const dataToSubmit = {
+        ...formData,
+        role_name: formData.role_name.trim(),
+        organisation_id: formData.organisation_id.trim(),
+        role_id: formData.role_id ? formData.role_id.trim() : "",
+      };
       const response = await backEndCallObjNothing("/org/add_update_role", dataToSubmit);
       setOrgDetails(response.data);
       toastOptions.success(response.success || "Operation Successful");

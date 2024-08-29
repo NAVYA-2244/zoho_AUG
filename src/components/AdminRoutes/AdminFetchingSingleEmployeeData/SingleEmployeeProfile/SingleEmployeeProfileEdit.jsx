@@ -35,12 +35,14 @@ const SingleEmployeeProfileEdit = () => {
     organisation_id: Joi.string().min(15).max(17).required(),
     employee_id: Joi.string().min(5).max(10).required(),
     nick_name: Joi.string().max(15).allow(null, "").optional(),
+
     expertise: Joi.string().allow(null, "").optional(),
+    
     marital_status: Joi.string().valid("married", "unmarried").required(),
     about_me: Joi.string().allow(null, "").optional(),
     uan: Joi.string().length(12).allow("").optional(),
     pan: Joi.string().length(10).required(),
-    aadhaar: Joi.string().length(12).required(),
+    aadhaar: Joi.string().length(12).optional(),
     passport: Joi.string().length(12).allow("").optional(),
     work_phone_number: Joi.string().allow(null, "").optional().min(10).max(10),
     personal_mobile_number: Joi.string().required().min(10).max(10),
@@ -50,11 +52,11 @@ const SingleEmployeeProfileEdit = () => {
     from_date: Joi.date().max("now").allow("").optional(),
     to_date: Joi.date().max("now").allow("").optional(),
     job_description: Joi.string().min(3).max(250).allow("").optional(),
-    experience: Joi.number().max(50).optional(),
-    institute_name: Joi.string().min(10).max(50).allow("").optional(),
-    degree: Joi.string().min(5).max(15).allow("").optional(),
-    specialization: Joi.string().min(5).max(100).allow("").optional(),
-    year_of_completion: Joi.number().optional(),
+    experience: Joi.number().max(50).required(),
+    institute_name: Joi.string().min(10).max(50).allow("").required(),
+    degree: Joi.string().min(5).max(15).allow("").required(),
+    specialization: Joi.string().min(5).max(100).allow("").required(),
+    year_of_completion: Joi.number().required(),
     name: Joi.string().min(3).max(50).allow("").optional(),
     relation: Joi.string().min(3).max(50).allow("").optional(),
     dependent_date_of_birth: Joi.date().max("now").less(eighteenYearsAgo).allow("").optional(),
@@ -110,19 +112,23 @@ const SingleEmployeeProfileEdit = () => {
       work_phone_number: employeeProfileData.profile.contact_details.work_phone_number || "",
       personal_mobile_number: employeeProfileData.profile.contact_details.personal_mobile_number || "",
       personal_email_address: employeeProfileData.profile.contact_details.personal_email_address || "",
+
       company_name: employeeProfileData.profile.work_experience?.[0]?.company_name || "",
       job_title: employeeProfileData.profile.work_experience?.[0]?.job_title || "",
       from_date: employeeProfileData.profile.work_experience?.[0]?.from_date || "",
       to_date: employeeProfileData.profile.work_experience?.[0]?.to_date || "",
       experience: employeeProfileData.profile.work_experience?.[0]?.experience || 0,
+      
       job_description: employeeProfileData.profile.work_experience?.[0]?.job_description || "",
       institute_name: employeeProfileData.profile.educational_details?.[0]?.institute_name || "",
       degree: employeeProfileData.profile.educational_details?.[0]?.degree || "",
       specialization: employeeProfileData.profile.educational_details?.[0]?.specialization || "",
       year_of_completion: employeeProfileData.profile.educational_details?.[0]?.year_of_completion || 0,
       dependent_date_of_birth: employeeProfileData.profile.dependent_details?.[0]?.dependent_date_of_birth || "",
+
       name: employeeProfileData.profile.dependent_details?.[0]?.name || "",
       relation: employeeProfileData.profile.dependent_details?.[0]?.relation || "",
+
       last_ip: employeeProfileData.profile.last_ip || "",
       browserid: employeeProfileData.profile.browserid || "",
       fcm_token: employeeProfileData.profile.fcm_token || "",
@@ -147,42 +153,42 @@ const SingleEmployeeProfileEdit = () => {
       await checkErrors(schema, formData);
 
       const formattedData = {
-        // ...formData,
         organisation_id: employeeProfileData.profile.organisation_id || "",
         employee_id: employeeProfileData.profile.employee_id || "",
         marital_status: employeeProfileData.profile.personal_details.marital_status || "",
         personal_mobile_number: employeeProfileData.profile.contact_details.personal_mobile_number || "",
         personal_email_address: employeeProfileData.profile.contact_details.personal_email_address || "",
         last_ip: formData.last_ip,
-          browserid: formData.browserid,
-          fcm_token: formData.fcm_token,
-          device_id: formData.device_id,
+        browserid: formData.browserid,
+        fcm_token: formData.fcm_token,
+        device_id: formData.device_id,
         identity_info: {
           aadhaar: formData.aadhaar,
           pan: formData.pan,
           uan: formData.uan,
           passport: formData.passport,
         },
-        work_experience: [{
+        work_experience: formData.company_name ? [{
           company_name: formData.company_name,
           job_title: formData.job_title,
           from_date: formData.from_date,
           to_date: formData.to_date,
           experience: formData.experience,
           job_description: formData.job_description,
-        }],
-        educational_details: [{
+        }] : [],
+        educational_details: formData.institute_name ? [{
           institute_name: formData.institute_name,
           degree: formData.degree,
           specialization: formData.specialization,
           year_of_completion: formData.year_of_completion,
-        }],
-        dependent_details: [{
+        }] : [],
+        dependent_details: formData.name ? [{
           dependent_date_of_birth: formData.dependent_date_of_birth,
           name: formData.name,
           relation: formData.relation,
-        }],
+        }] : [],
       };
+      
 
       // Clean up redundant properties
       // const cleanData = {
@@ -203,7 +209,7 @@ console.log(formattedData,"cleanData")
 
      
         toast.success("Profile updated successfully!", toastOptions);
-        setEmployeedata(response.data);
+        setEmployeedata(response?.data);
         setRedirect(true);
       
       
@@ -211,12 +217,12 @@ console.log(formattedData,"cleanData")
     } catch (error) {
       setLoading(false);
       console.log(error,"error")
-      toast.error("An error occurred during form submission", toastOptions);
+   toastOptions.error(error?.response?.data||"samething went wrong")
     }
   };
 
   if (redirect) {
-    return <Navigate to="/admin/profile" />;
+    return <Navigate to="/profile" />;
   }
 
 

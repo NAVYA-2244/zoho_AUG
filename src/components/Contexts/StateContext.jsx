@@ -90,7 +90,8 @@ export const StateContextProvider = ({ children }) => {
   const [files, setFiles] = useState([]);
   const [editingFile, setEditingFile] = useState({});
   const [employeedata, setEmployeedata] = useState(null);
-
+  const [ stats,setStats,] = useState(null);
+  
   return (
     <StateContext.Provider
       value={{
@@ -182,7 +183,9 @@ export const StateContextProvider = ({ children }) => {
         employeedata,
         setEmployeedata,
         todayAttendanceAdmin,
-        setTodayAttendanceAdmin
+        setTodayAttendanceAdmin,
+        stats,
+        setStats
       }}
     >
       {children}

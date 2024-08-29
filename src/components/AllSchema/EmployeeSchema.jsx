@@ -1671,16 +1671,12 @@ const EmployeeDataSchema = {
   // tags: Joi.string().allow("").optional().label("Tags"),
 
   present_address: Joi.string()
-
     .min(10)
     .max(100)
     .required()
-    .pattern(/^[a-zA-Z0-9 ,.]*$/, {
-      name: "'alphanumeric with spaces, commas, and dots'",
-    })
     .messages({
       "string.pattern.base":
-        '"Present Address" should only include alphanumeric characters, spaces, commas, and dots',
+        '"Present Address" should not include special characters',
       "any.required": '"Present Address" is required',
     })
     .label("Present Address"),
@@ -1689,30 +1685,16 @@ const EmployeeDataSchema = {
   // }),
 
   permanent_address: Joi.string()
-    // .min(10)
-    // .max(250)
-    // .required()
-    // .pattern(/^[a-zA-Z0-9 ,]*$/, {
-    //   name: "'alphanumeric with spaces, commas, and dots'",
-    // })
-    // .messages({
-    //   "string.pattern.base":
-    //     '"Permanent Address" should not include special characters',
-    //   "any.required": '"Permanent Address" is required',
-    // })
-    // .label("Permanent Address"),
-    .min(10)
-    .max(100)
-    .required()
-    .pattern(/^[a-zA-Z0-9 ,.]*$/, {
-      name: "'alphanumeric with spaces, commas, and dots'",
-    })
-    .messages({
-      "string.pattern.base":
-        '"Permanent Address" should only include alphanumeric characters, spaces, commas, and dots',
-      "any.required": '"Permanent Address" is required',
-    })
-    .label("Permanent Address"),
+  .min(10)
+  .max(100)
+  .required()
+
+  .messages({
+    "string.pattern.base":
+      '"Permanent Address" should not include special characters',
+    "any.required": '"Permanent Address" is required',
+  })
+  .label("Permanent Address"),
 
   company_name: Joi.string()
     .min(10)

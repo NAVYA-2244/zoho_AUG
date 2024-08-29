@@ -248,9 +248,11 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
     setOrgData2,
     isAdmin,
     loadingTerm,
-    employeeDetails,
+    employeedata,
     loading,
+    
   } = useStateContext();
+  console.log(employeedata,"navya")
   // profile tabs stored in array of objects and rendering dynamically in tab section views
   const tabs = [{ name: "profile", label: "Profile" }];
 
@@ -423,12 +425,12 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
                   <div className="basic-info-wrapper">
                     <div className="d-flex align-items-center justify-content-between">
                       <h4 className="profile-heading">Profile</h4>
-                      {employeeDetails.role_name === "Director"?"":
+                      {/* {employeeDetails.role_name === "Director"?"": */}
                       <button className="btn btn-primary" onClick={handleEdit}>
                         Edit
                       </button> 
 
-                      }
+                      {/* } */}
                     </div>
                     <div className="basic-information">
                       <div className="basic-info-left">

@@ -524,10 +524,189 @@
 
 
 
-import React, { useState } from "react";
+// import React, { useState } from "react";
+// import { MdOutlineKey } from "react-icons/md";
+// import { useThemeContext } from "../Contexts/ThemesContext";
+// // import { toast } from "react-toastify"; // Import toast from react-toastify
+// import { InputPassword } from "../common/ALLINPUTS/AllInputs";
+// import { backEndCallObjNothing } from "../../services/mainService";
+// import { useNavigate } from "react-router-dom";
+// import Joi from "joi";
+// import { toastOptions } from "../../Utils/FakeRoutes";
+
+// // Modal component
+// const Modal = ({ onLogout }) => (
+//   <div className="modal">
+//     <div className="modal-content">
+//       <h2>Password Changed Successfully!</h2>
+//       <button onClick={onLogout}>Logout</button>
+//     </div>
+//   </div>
+// );
+
+// const ChangePassword = () => {
+//   const { applicationColor } = useThemeContext();
+//   const navigate = useNavigate();
+//   const [formData, setFormData] = useState({
+//     oldPassword: "",
+//     newPassword: "",
+//     confirmPassword: "",
+//   });
+
+//   const [showModal, setShowModal] = useState(false);
+
+//   // Define individual Joi schemas
+//   const oldPasswordSchema = Joi.string().min(6).max(10).required().label("Old Password");
+//   const newPasswordSchema = Joi.string()
+//     .min(8)
+//     .max(10)
+//     .pattern(new RegExp("^(?=.*[A-Z])(?=.*[!@#$%^&*])"))
+//     .required()
+//     .label("New Password")
+//     .messages({
+//       "string.min": "Password must be at least 8 characters long",
+//       "string.pattern.base":
+//         "Password must contain at least one capital letter and one special character",
+//     });
+//   const confirmPasswordSchema = Joi.string().min(8).max(10).required().label("Confirm Password");
+
+//   // Validate individual fields
+//   const validateField = (field, value) => {
+//     let schema;
+//     switch (field) {
+//       case "oldPassword":
+//         schema = oldPasswordSchema;
+//         break;
+//       case "newPassword":
+//         schema = newPasswordSchema;
+//         break;
+//       case "confirmPassword":
+//         schema = confirmPasswordSchema;
+//         break;
+//       default:
+//         return;
+//     }
+
+//     const { error } = schema.validate(value);
+//     return error ? error.details[0].message : null;
+//   };
+
+//   const validateForm = () => {
+//     const newErrors = {};
+
+//     // Validate all fields
+//     Object.keys(formData).forEach((key) => {
+//       const errorMessage = validateField(key, formData[key]);
+//       if (errorMessage) {
+//         newErrors[key] = errorMessage;
+//         toastOptions.error(errorMessage); // Show error messages using toast
+//       }
+//     });
+
+//     // Special validation for confirmPassword
+//     if (formData.confirmPassword !== formData.newPassword) {
+//       newErrors.confirmPassword = "Confirm Password must match New Password";
+//       toastOptions.error(newErrors.confirmPassword);
+//     }
+
+//     return Object.keys(newErrors).length === 0;
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+
+//     if (!validateForm()) {
+//       return;
+//     }
+
+//     try {
+//       const payload = {
+//         old_password: formData.oldPassword,
+//         new_password: formData.newPassword,
+//       };
+
+//       // Make backend call with token in headers
+//       const res = await backEndCallObjNothing("/emp/reset_password", payload);
+//       toastOptions.success(res.success || "Password changed successfully");
+
+//       // Show the modal on success
+//       setShowModal(true);
+//     } catch (error) {
+//       console.log(error,"error")
+//       toastOptions.error(error.response.data || "Error changing password");
+//     }
+//   };
+
+//   const handleLogout = () => {
+//     localStorage.removeItem("zohoEmployeeToken");
+//     navigate("/login");
+//   };
+
+//   return (
+//      <section
+//     className="company-details"
+//     style={{ background: applicationColor.cardBg1 }}
+//   >
+//       <form className="all-folders" onSubmit={handleSubmit}>
+//         <div className="row">
+//           <div className="col-xl-4 mx-auto">
+//             <h5 className="text-center mb-4">Change Password</h5>
+//             <InputPassword
+//               id="oldPassword"
+//               type={"password"}
+//               name="oldPassword"
+//               placeholder="Old Password"
+//               value={formData.oldPassword}
+//               setForm={setFormData}
+//               maxLength={10}
+//               schema={oldPasswordSchema}
+//               imp
+//               icon={<MdOutlineKey />}
+//               readOnly={false}
+//             />
+
+//             <InputPassword
+//             type={"password"}
+//               id="newPassword"
+//               name="newPassword"
+//               placeholder="New Password"
+//               value={formData.newPassword}
+//               setForm={setFormData}
+//               maxLength={10}
+//               schema={newPasswordSchema}
+//               imp
+//               icon={<MdOutlineKey />}
+//               readOnly={false}
+//             />
+
+//             <InputPassword
+//               id="confirmPassword"
+//               type={"password"}
+//               name="confirmPassword"
+//               placeholder="Confirm Password"
+//               value={formData.confirmPassword}
+//               setForm={setFormData}
+//               schema={confirmPasswordSchema}
+//               maxLength={10}
+//               imp
+//               icon={<MdOutlineKey />}
+//               readOnly={false}
+//             />
+//             <button type="submit">Change Password</button>
+//           </div>
+//         </div>
+//       </form>
+
+//       {/* Render modal if showModal is true */}
+//       {showModal && <Modal onLogout={handleLogout} />}
+//     </section>
+//   );
+// };
+
+// export default ChangePassword;
+import React, { useState, useEffect } from "react";
 import { MdOutlineKey } from "react-icons/md";
 import { useThemeContext } from "../Contexts/ThemesContext";
-// import { toast } from "react-toastify"; // Import toast from react-toastify
 import { InputPassword } from "../common/ALLINPUTS/AllInputs";
 import { backEndCallObjNothing } from "../../services/mainService";
 import { useNavigate } from "react-router-dom";
@@ -536,10 +715,21 @@ import { toastOptions } from "../../Utils/FakeRoutes";
 
 // Modal component
 const Modal = ({ onLogout }) => (
-  <div className="modal">
-    <div className="modal-content">
-      <h2>Password Changed Successfully!</h2>
-      <button onClick={onLogout}>Logout</button>
+  <div className="modal fade show d-block" tabIndex="-1" role="dialog">
+    <div className="modal-dialog modal-dialog-centered" role="document">
+      <div className="modal-content">
+        <div className="modal-header">
+          <h5 className="modal-title">Password Changed Successfully!</h5>
+        </div>
+        <div className="modal-body">
+          <p>Your password has been updated. Please log in again for security purposes.</p>
+        </div>
+        <div className="modal-footer">
+          <button onClick={onLogout} className="btn btn-primary">
+            Logout
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 );
@@ -554,6 +744,7 @@ const ChangePassword = () => {
   });
 
   const [showModal, setShowModal] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
 
   // Define individual Joi schemas
   const oldPasswordSchema = Joi.string().min(6).max(10).required().label("Old Password");
@@ -593,23 +784,27 @@ const ChangePassword = () => {
 
   const validateForm = () => {
     const newErrors = {};
+    let isValid = true;
 
     // Validate all fields
     Object.keys(formData).forEach((key) => {
       const errorMessage = validateField(key, formData[key]);
       if (errorMessage) {
         newErrors[key] = errorMessage;
-        toastOptions.error(errorMessage); // Show error messages using toast
+        isValid = false;
+        // toastOptions.error(errorMessage); // Show error messages using toast
       }
     });
 
     // Special validation for confirmPassword
     if (formData.confirmPassword !== formData.newPassword) {
       newErrors.confirmPassword = "Confirm Password must match New Password";
-      toastOptions.error(newErrors.confirmPassword);
+      isValid = false;
+      // toastOptions.error(newErrors.confirmPassword);
     }
 
-    return Object.keys(newErrors).length === 0;
+    setIsFormValid(isValid);
+    return isValid;
   };
 
   const handleSubmit = async (e) => {
@@ -642,61 +837,73 @@ const ChangePassword = () => {
     navigate("/login");
   };
 
+  useEffect(() => {
+    validateForm(); // Validate form on every change
+  }, [formData]);
+
   return (
-     <section
-    className="company-details"
-    style={{ background: applicationColor.cardBg1 }}
-  >
-      <form className="all-folders" onSubmit={handleSubmit}>
-        <div className="row">
-          <div className="col-xl-4 mx-auto">
-            <h5 className="text-center mb-4">Change Password</h5>
-            <InputPassword
-              id="oldPassword"
-              type={"password"}
-              name="oldPassword"
-              placeholder="Old Password"
-              value={formData.oldPassword}
-              setForm={setFormData}
-              maxLength={10}
-              schema={oldPasswordSchema}
-              imp
-              icon={<MdOutlineKey />}
-              readOnly={false}
-            />
-
-            <InputPassword
-            type={"password"}
-              id="newPassword"
-              name="newPassword"
-              placeholder="New Password"
-              value={formData.newPassword}
-              setForm={setFormData}
-              maxLength={10}
-              schema={newPasswordSchema}
-              imp
-              icon={<MdOutlineKey />}
-              readOnly={false}
-            />
-
-            <InputPassword
-              id="confirmPassword"
-              type={"password"}
-              name="confirmPassword"
-              placeholder="Confirm Password"
-              value={formData.confirmPassword}
-              setForm={setFormData}
-              schema={confirmPasswordSchema}
-              maxLength={10}
-              imp
-              icon={<MdOutlineKey />}
-              readOnly={false}
-            />
-            <button type="submit">Change Password</button>
+    <section
+      className="company-details p-3"
+      style={{ background: applicationColor.cardBg1 }}
+    >
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-md-6">
+            <div className="card p-4">
+              <h5 className="text-center mb-4">Change Password</h5>
+              <form onSubmit={handleSubmit}>
+                <div className="form-group mb-3">
+                  <InputPassword
+                    id="oldPassword"
+                    name="oldPassword"
+                    placeholder="Old Password"
+                    value={formData.oldPassword}
+                    setForm={setFormData}
+                    maxLength={10}
+                    schema={oldPasswordSchema}
+                    imp
+                    icon={<MdOutlineKey />}
+                    readOnly={false}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <InputPassword
+                    id="newPassword"
+                    name="newPassword"
+                    placeholder="New Password"
+                    value={formData.newPassword}
+                    setForm={setFormData}
+                    maxLength={10}
+                    schema={newPasswordSchema}
+                    imp
+                    icon={<MdOutlineKey />}
+                    readOnly={false}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <InputPassword
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    placeholder="Confirm Password"
+                    value={formData.confirmPassword}
+                    setForm={setFormData}
+                    schema={confirmPasswordSchema}
+                    maxLength={10}
+                    imp
+                    icon={<MdOutlineKey />}
+                    readOnly={false}
+                  />
+                </div>
+                <div className="text-center">
+                  <button type="submit" className="btn btn-primary" disabled={!isFormValid}>
+                    Change Password
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-      </form>
-
+      </div>
       {/* Render modal if showModal is true */}
       {showModal && <Modal onLogout={handleLogout} />}
     </section>

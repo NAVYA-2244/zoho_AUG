@@ -88,8 +88,12 @@ console.log("orgDetails",orgDetails.departments)
     try {
       setLoading(true);
       await checkErrors(departmentSchema, formData);
+      
       const dataToSubmit = {
         ...formData,
+        department_name: formData.department_name.trim(),
+        organisation_id: formData.organisation_id.trim(),
+        department_id: formData.department_id ? formData.department_id.trim() : "",
       };
 
       const response = await backEndCallObjNothing(
