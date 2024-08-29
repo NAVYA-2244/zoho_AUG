@@ -133,6 +133,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             schema={schema.first_name}
             imp={true}
             // readOnly={isAdmin}
+            maxLength={20}
             inputRef={(el) => (refs.current.first_name = el)}
           />
         </div>
@@ -145,6 +146,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             setForm={setFormData}
             schema={schema["last_name"]}
             imp={true}
+            maxLength={20}
             // readOnly={isAdmin}
             inputRef={(el) => (refs.current.last_name = el)}
           />

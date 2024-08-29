@@ -704,16 +704,221 @@
 // };
 
 // export default ChangePassword;
+// import React, { useState, useEffect } from "react";
+// import { MdOutlineKey } from "react-icons/md";
+// import { useThemeContext } from "../Contexts/ThemesContext";
+// import { InputPassword } from "../common/ALLINPUTS/AllInputs";
+// import { backEndCallObjNothing } from "../../services/mainService";
+// import { useNavigate } from "react-router-dom";
+// import Joi from "joi";
+// import { toastOptions } from "../../Utils/FakeRoutes";
+
+// // Modal component
+// const Modal = ({ onLogout }) => (
+//   <div className="modal fade show d-block" tabIndex="-1" role="dialog">
+//     <div className="modal-dialog modal-dialog-centered" role="document">
+//       <div className="modal-content">
+//         <div className="modal-header">
+//           <h5 className="modal-title">Password Changed Successfully!</h5>
+//         </div>
+//         <div className="modal-body">
+//           <p>Your password has been updated. Please log in again for security purposes.</p>
+//         </div>
+//         <div className="modal-footer">
+//           <button onClick={onLogout} className="btn btn-primary">
+//             Logout
+//           </button>
+//         </div>
+//       </div>
+//     </div>
+//   </div>
+// );
+
+// const ChangePassword = () => {
+//   const { applicationColor } = useThemeContext();
+//   const navigate = useNavigate();
+//   const [formData, setFormData] = useState({
+//     oldPassword: "",
+//     newPassword: "",
+//     confirmPassword: "",
+//   });
+
+//   const [showModal, setShowModal] = useState(false);
+//   const [isFormValid, setIsFormValid] = useState(false);
+
+//   // Define individual Joi schemas
+//   const oldPasswordSchema = Joi.string().min(6).max(10).required().label("Old Password");
+//   const newPasswordSchema = Joi.string()
+//     .min(8)
+//     .max(10)
+//     .pattern(new RegExp("^(?=.*[A-Z])(?=.*[!@#$%^&*])"))
+//     .required()
+//     .label("New Password")
+//     .messages({
+//       "string.min": "Password must be at least 8 characters long",
+//       "string.pattern.base":
+//         "Password must contain at least one capital letter and one special character",
+//     });
+//   const confirmPasswordSchema = Joi.string().min(8).max(10).required().label("Confirm Password");
+
+//   // Validate individual fields
+//   const validateField = (field, value) => {
+//     let schema;
+//     switch (field) {
+//       case "oldPassword":
+//         schema = oldPasswordSchema;
+//         break;
+//       case "newPassword":
+//         schema = newPasswordSchema;
+//         break;
+//       case "confirmPassword":
+//         schema = confirmPasswordSchema;
+//         break;
+//       default:
+//         return;
+//     }
+
+//     const { error } = schema.validate(value);
+//     return error ? error.details[0].message : null;
+//   };
+
+//   const validateForm = () => {
+//     const newErrors = {};
+//     let isValid = true;
+
+//     // Validate all fields
+//     Object.keys(formData).forEach((key) => {
+//       const errorMessage = validateField(key, formData[key]);
+//       if (errorMessage) {
+//         newErrors[key] = errorMessage;
+//         isValid = false;
+//         // toastOptions.error(errorMessage); // Show error messages using toast
+//       }
+//     });
+
+//     // Special validation for confirmPassword
+//     if (formData.confirmPassword !== formData.newPassword) {
+//       newErrors.confirmPassword = "Confirm Password must match New Password";
+//       isValid = false;
+//       // toastOptions.error(newErrors.confirmPassword);
+//     }
+
+//     setIsFormValid(isValid);
+//     return isValid;
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+
+//     if (!validateForm()) {
+//       return;
+//     }
+
+//     try {
+//       const payload = {
+//         old_password: formData.oldPassword,
+//         new_password: formData.newPassword,
+//       };
+
+//       // Make backend call with token in headers
+//       const res = await backEndCallObjNothing("/emp/reset_password", payload);
+//       toastOptions.success(res.success || "Password changed successfully");
+
+//       // Show the modal on success
+//       setShowModal(true);
+//     } catch (error) {
+//       console.log(error,"error")
+//       toastOptions.error(error.response.data || "Error changing password");
+//     }
+//   };
+
+//   const handleLogout = () => {
+//     localStorage.removeItem("zohoEmployeeToken");
+//     navigate("/login");
+//   };
+
+//   useEffect(() => {
+//     validateForm(); // Validate form on every change
+//   }, [formData]);
+
+//   return (
+//     <section
+//       className="company-details p-3"
+//       style={{ background: applicationColor.cardBg1 }}
+//     >
+//       <div className="container">
+//         <div className="row justify-content-center">
+//           <div className="col-md-6">
+//             <div className="card p-4">
+//               <h5 className="text-center mb-4">Change Password</h5>
+//               <form onSubmit={handleSubmit}>
+//                 <div className="form-group mb-3">
+//                   <InputPassword
+//                     id="oldPassword"
+//                     name="oldPassword"
+//                     placeholder="Old Password"
+//                     value={formData.oldPassword}
+//                     setForm={setFormData}
+//                     maxLength={10}
+//                     schema={oldPasswordSchema}
+//                     imp
+//                     icon={<MdOutlineKey />}
+//                     readOnly={false}
+//                   />
+//                 </div>
+//                 <div className="form-group mb-3">
+//                   <InputPassword
+//                     id="newPassword"
+//                     name="newPassword"
+//                     placeholder="New Password"
+//                     value={formData.newPassword}
+//                     setForm={setFormData}
+//                     maxLength={10}
+//                     schema={newPasswordSchema}
+//                     imp
+//                     icon={<MdOutlineKey />}
+//                     readOnly={false}
+//                   />
+//                 </div>
+//                 <div className="form-group mb-3">
+//                   <InputPassword
+//                     id="confirmPassword"
+//                     name="confirmPassword"
+//                     placeholder="Confirm Password"
+//                     value={formData.confirmPassword}
+//                     setForm={setFormData}
+//                     schema={confirmPasswordSchema}
+//                     maxLength={10}
+//                     imp
+//                     icon={<MdOutlineKey />}
+//                     readOnly={false}
+//                   />
+//                 </div>
+//                 <div className="text-center">
+//                   <button type="submit" className="btn btn-primary" disabled={!isFormValid}>
+//                     Change Password
+//                   </button>
+//                 </div>
+//               </form>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//       {/* Render modal if showModal is true */}
+//       {showModal && <Modal onLogout={handleLogout} />}
+//     </section>
+//   );
+// };
+
+// export default ChangePassword;
 import React, { useState, useEffect } from "react";
-import { MdOutlineKey } from "react-icons/md";
-import { useThemeContext } from "../Contexts/ThemesContext";
-import { InputPassword } from "../common/ALLINPUTS/AllInputs";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import Joi from "joi";
 import { backEndCallObjNothing } from "../../services/mainService";
 import { useNavigate } from "react-router-dom";
-import Joi from "joi";
 import { toastOptions } from "../../Utils/FakeRoutes";
+import { useThemeContext } from "../Contexts/ThemesContext";
 
-// Modal component
 const Modal = ({ onLogout }) => (
   <div className="modal fade show d-block" tabIndex="-1" role="dialog">
     <div className="modal-dialog modal-dialog-centered" role="document">
@@ -722,7 +927,10 @@ const Modal = ({ onLogout }) => (
           <h5 className="modal-title">Password Changed Successfully!</h5>
         </div>
         <div className="modal-body">
-          <p>Your password has been updated. Please log in again for security purposes.</p>
+          <p>
+            Your password has been updated. Please log in again for security
+            purposes.
+          </p>
         </div>
         <div className="modal-footer">
           <button onClick={onLogout} className="btn btn-primary">
@@ -743,11 +951,25 @@ const ChangePassword = () => {
     confirmPassword: "",
   });
 
+  const [errors, setErrors] = useState({});
+  const [showOldPassword, setShowOldPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
 
   // Define individual Joi schemas
-  const oldPasswordSchema = Joi.string().min(6).max(10).required().label("Old Password");
+  const oldPasswordSchema = Joi.string()
+    .min(6)
+    .max(10)
+    .required()
+    .label("Old Password")
+    .messages({
+      "string.min": "Old Password must be at least 6 characters long",
+      "string.max": "Old Password must be less than 11 characters long",
+      "any.required": "Old Password is required",
+    });
+
   const newPasswordSchema = Joi.string()
     .min(8)
     .max(10)
@@ -755,11 +977,21 @@ const ChangePassword = () => {
     .required()
     .label("New Password")
     .messages({
-      "string.min": "Password must be at least 8 characters long",
+      "string.min": "New Password must be at least 8 characters long",
+      "string.max": "New Password must be less than 11 characters long",
       "string.pattern.base":
-        "Password must contain at least one capital letter and one special character",
+        "New Password must contain at least one capital letter and one special character",
+      "any.required": "New Password is required",
     });
-  const confirmPasswordSchema = Joi.string().min(8).max(10).required().label("Confirm Password");
+
+  const confirmPasswordSchema = Joi.string()
+    // .valid(Joi.ref("newPassword"))
+    .required()
+    .label("Confirm Password")
+    .messages({
+      "any.only": "Confirm Password must match New Password",
+      "any.required": "Confirm Password is required",
+    });
 
   // Validate individual fields
   const validateField = (field, value) => {
@@ -778,8 +1010,27 @@ const ChangePassword = () => {
         return;
     }
 
-    const { error } = schema.validate(value);
-    return error ? error.details[0].message : null;
+    const { error } = schema.validate(value, { abortEarly: false });
+    return error
+      ? error.details.map((detail) => detail.message).join(", ")
+      : null;
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    const errorMessage = validateField(name, value);
+
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+
+    setErrors({
+      ...errors,
+      [name]: errorMessage,
+    });
+
+    validateForm();
   };
 
   const validateForm = () => {
@@ -792,7 +1043,6 @@ const ChangePassword = () => {
       if (errorMessage) {
         newErrors[key] = errorMessage;
         isValid = false;
-        // toastOptions.error(errorMessage); // Show error messages using toast
       }
     });
 
@@ -800,9 +1050,9 @@ const ChangePassword = () => {
     if (formData.confirmPassword !== formData.newPassword) {
       newErrors.confirmPassword = "Confirm Password must match New Password";
       isValid = false;
-      // toastOptions.error(newErrors.confirmPassword);
     }
 
+    setErrors(newErrors);
     setIsFormValid(isValid);
     return isValid;
   };
@@ -820,14 +1070,12 @@ const ChangePassword = () => {
         new_password: formData.newPassword,
       };
 
-      // Make backend call with token in headers
       const res = await backEndCallObjNothing("/emp/reset_password", payload);
       toastOptions.success(res.success || "Password changed successfully");
 
-      // Show the modal on success
       setShowModal(true);
     } catch (error) {
-      console.log(error,"error")
+      console.log(error, "error");
       toastOptions.error(error.response.data || "Error changing password");
     }
   };
@@ -838,7 +1086,7 @@ const ChangePassword = () => {
   };
 
   useEffect(() => {
-    validateForm(); // Validate form on every change
+    validateForm();
   }, [formData]);
 
   return (
@@ -853,58 +1101,130 @@ const ChangePassword = () => {
               <h5 className="text-center mb-4">Change Password</h5>
               <form onSubmit={handleSubmit}>
                 <div className="form-group mb-3">
-                  <InputPassword
-                    id="oldPassword"
-                    name="oldPassword"
-                    placeholder="Old Password"
-                    value={formData.oldPassword}
-                    setForm={setFormData}
-                    maxLength={10}
-                    schema={oldPasswordSchema}
-                    imp
-                    icon={<MdOutlineKey />}
-                    readOnly={false}
-                  />
+                  <label htmlFor="oldPassword">Old Password</label>
+                  <div className="input-group" style={{ position: "relative" }}>
+                    <input
+                      type={showOldPassword ? "text" : "password"}
+                      id="oldPassword"
+                      name="oldPassword"
+                      placeholder="Old Password"
+                      value={formData.oldPassword}
+                      style={{
+                        borderRadius: "10px",
+                        width: "450px",
+                        height: "50px",
+                      }}
+                      onChange={handleInputChange}
+                      maxLength={10}
+                    />
+                    <span
+                      onClick={() => setShowOldPassword(!showOldPassword)}
+                      style={{
+                        position: "absolute",
+                        top: "40%",
+                        left: "420px",
+                        transform: "translateY(-50%)",
+                        cursor: "pointer",
+                        fontSize: "1.25rem",
+                      }}
+                    >
+                      {showOldPassword ? <FaRegEye /> : <FaRegEyeSlash />}
+                    </span>
+                    {errors.oldPassword && (
+                      <small className="form-text text-danger">
+                        {errors.oldPassword}
+                      </small>
+                    )}
+                  </div>
                 </div>
                 <div className="form-group mb-3">
-                  <InputPassword
-                    id="newPassword"
-                    name="newPassword"
-                    placeholder="New Password"
-                    value={formData.newPassword}
-                    setForm={setFormData}
-                    maxLength={10}
-                    schema={newPasswordSchema}
-                    imp
-                    icon={<MdOutlineKey />}
-                    readOnly={false}
-                  />
+                  <label htmlFor="newPassword">New Password</label>
+                  <div className="input-group" style={{ position: "relative" }}>
+                    <input
+                      type={showNewPassword ? "text" : "password"}
+                      id="newPassword"
+                      name="newPassword"
+                      placeholder="New Password"
+                      value={formData.newPassword}
+                      style={{
+                        borderRadius: "10px",
+                        width: "450px",
+                        height: "50px",
+                      }}
+                      onChange={handleInputChange}
+                      maxLength={8}
+                    />
+                    <span
+                      onClick={() => setShowNewPassword(!showNewPassword)}
+                      style={{
+                        position: "absolute",
+                        top: "40%",
+                        left: "420px",
+                        transform: "translateY(-50%)",
+                        cursor: "pointer",
+                        fontSize: "1.25rem",
+                      }}
+                    >
+                      {showNewPassword ? <FaRegEye /> : <FaRegEyeSlash />}
+                    </span>
+                    {errors.newPassword && (
+                      <small className="form-text text-danger">
+                        {errors.newPassword}
+                      </small>
+                    )}
+                  </div>
                 </div>
                 <div className="form-group mb-3">
-                  <InputPassword
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    placeholder="Confirm Password"
-                    value={formData.confirmPassword}
-                    setForm={setFormData}
-                    schema={confirmPasswordSchema}
-                    maxLength={10}
-                    imp
-                    icon={<MdOutlineKey />}
-                    readOnly={false}
-                  />
+                  <label htmlFor="confirmPassword">Confirm Password</label>
+                  <div className="input-group" style={{ position: "relative" }}>
+                    <input
+                      type={showConfirmPassword ? "text" : "password"}
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      placeholder="Confirm Password"
+                      value={formData.confirmPassword}
+                      style={{
+                        borderRadius: "10px",
+                        width: "450px",
+                        height: "50px",
+                      }}
+                      onChange={handleInputChange}
+                      maxLength={8}
+                    />
+                    <span
+                      onClick={() =>
+                        setShowConfirmPassword(!showConfirmPassword)
+                      }
+                      style={{
+                        position: "absolute",
+                        top: "40%",
+                        left: "420px",
+                        transform: "translateY(-50%)",
+                        cursor: "pointer",
+                        fontSize: "1.25rem",
+                      }}
+                    >
+                      {showConfirmPassword ? <FaRegEye /> : <FaRegEyeSlash />}
+                    </span>
+                    {errors.confirmPassword && (
+                      <small className="form-text text-danger">
+                        {errors.confirmPassword}
+                      </small>
+                    )}
+                  </div>
                 </div>
-                <div className="text-center">
-                  <button type="submit" className="btn btn-primary" disabled={!isFormValid}>
-                    Change Password
-                  </button>
-                </div>
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  disabled={!isFormValid}
+                >
+                  Submit
+                </button>
               </form>
             </div>
           </div>
         </div>
       </div>
-      {/* Render modal if showModal is true */}
       {showModal && <Modal onLogout={handleLogout} />}
     </section>
   );

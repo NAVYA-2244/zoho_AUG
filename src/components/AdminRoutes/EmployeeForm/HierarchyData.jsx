@@ -201,7 +201,7 @@ const HierarchyData = ({ formData, setFormData }) => {
               </div>
               <div className="col-lg-4 col-md-4 col-sm-6">
                 <Input_text
-                  type={"text"}
+                  type={"pan"}
                   name={"company_name"}
                   placeholder={"Company Name"}
                   value={data?.company_name}

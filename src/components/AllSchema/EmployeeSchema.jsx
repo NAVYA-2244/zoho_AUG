@@ -1396,7 +1396,7 @@ export const ExpirementSchema = {
           })
           .label("Degree or Diploma"),
         specialization: Joi.string()
-          .min(3)
+          .min(2)
           .max(15)
           .allow("")
           .messages({
@@ -1438,7 +1438,7 @@ export const ExpirementSchema = {
           .label("Relation"),
         dependent_date_of_birth: Joi.date()
           .max("now")
-          .less(eighteenYearsAgo)
+          // .less(eighteenYearsAgo)
           .allow("")
           .messages({
             "date.base": `"Date Of Birth" should be a valid date`,
@@ -1745,7 +1745,7 @@ const EmployeeDataSchema = {
     })
     .label("Degree or Diploma"),
   specialization: Joi.string()
-    .min(5)
+    .min(2)
     .max(100)
     .allow("")
     .messages({
@@ -1781,7 +1781,7 @@ const EmployeeDataSchema = {
     .label("Relation"),
   dependent_date_of_birth: Joi.date()
     .max("now")
-    .less(eighteenYearsAgo)
+    // .less(eighteenYearsAgo)
     .required()
     .messages({
       "date.base": `"Date Of Birth" should be a valid date`,

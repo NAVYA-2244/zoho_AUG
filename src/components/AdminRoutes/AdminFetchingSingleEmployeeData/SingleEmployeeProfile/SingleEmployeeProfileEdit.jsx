@@ -59,7 +59,7 @@ const SingleEmployeeProfileEdit = () => {
     year_of_completion: Joi.number().required(),
     name: Joi.string().min(3).max(50).allow("").optional(),
     relation: Joi.string().min(3).max(50).allow("").optional(),
-    dependent_date_of_birth: Joi.date().max("now").less(eighteenYearsAgo).allow("").optional(),
+    dependent_date_of_birth: Joi.date().max("now").allow("").optional(),
     last_ip: Joi.string().ip().required(),
     browserid: Joi.string().min(3).max(50).required(),
     fcm_token: Joi.string().min(3).max(50).required(),
@@ -441,7 +441,7 @@ console.log(formattedData,"cleanData")
 
           <div className="col-lg-4 col-md-4 col-sm-6">
             <Input_text
-              type={"text"}
+              type={"pan"}
               name={"company_name"}
               placeholder={"Company Name"}
               value={formData?.company_name}
