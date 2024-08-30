@@ -525,9 +525,16 @@ input[type="date"] {
 
   h5 {
     // text-align: center;
-    border-bottom: 1px solid #bcbcbc83;
+    // border-bottom: 1px solid #bcbcbc83;
     padding-bottom: 10px;
     text-transform: capitalize;
+  }
+
+  hr{
+    border: 1px solid #dcdcdc;
+    margin:8px 0px;
+    
+
   }
 }
 

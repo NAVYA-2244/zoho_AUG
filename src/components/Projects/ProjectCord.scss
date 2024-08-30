@@ -27,6 +27,7 @@ $mutedColor: #6c757d; // Muted text color
       flex: 1; // Allows the task container to grow and take available space
       overflow-y: auto; // Makes the task container scrollable
       max-height: 200px; // Adjust the maximum height as needed
+    
       margin-top: 10px;
     }
 
@@ -55,3 +56,22 @@ $mutedColor: #6c757d; // Muted text color
     color: $mutedColor; // Use defined color
   }
 }
+
+.btn-icon {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0 5px;
+  position: relative;
+}
+
+.btn-icon .fs-5 {
+  color: #4f4f4f;
+}
+
+.btn-icon:hover .fs-5 {
+  color: #6c63fc;
+}
+
+
+

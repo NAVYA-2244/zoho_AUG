@@ -874,6 +874,9 @@ import { backEndCallObjNothing } from "../../services/mainService";
 import Loader from "../Loader/Loader";
 import TeaminchargeTaskDetailsModal from "./TeaminchargeTaskDetailsModal";
 import ProjectStatusEditModal from "./ProjectStatusEditModal";
+import "react-tooltip/dist/react-tooltip.css";
+import { Tooltip } from "react-tooltip";
+import { RiAddFill, RiEdit2Fill } from "react-icons/ri";
 
 const TeaminchargeProjects = () => {
   const [projects, setProjects] = useState([]);
@@ -1038,7 +1041,30 @@ const TeaminchargeProjects = () => {
                         {project.project_status}
                       </span>
                     </h5>
-                    <div className="d-flex gap-2 mt-1 mb-2">
+                    <hr />
+                    <div className="btn-container d-flex justify-content-end">
+                      <button
+                        data-tooltip-id={`tooltip-add-${index}`}
+                        data-tooltip-content="Add Task"
+                        className="btn-icon"
+                        onClick={() => handleAddTaskClick(project.project_id)}
+                      >
+                        <RiAddFill className="fs-5" />
+                      </button>
+
+                      <button
+                        data-tooltip-id={`tooltip-edit-${index}`}
+                        data-tooltip-content="Edit Status"
+                        className="btn-icon"
+                        onClick={() => handleUpdateProjectStatusClick(project)}
+                      >
+                        <RiEdit2Fill className="fs-5" />
+                      </button>
+                    </div>
+                    <Tooltip id={`tooltip-add-${index}`} place="top" />
+                    <Tooltip id={`tooltip-edit-${index}`} place="top" />
+
+                    {/* <div className="d-flex gap-2 mt-1 mb-2">
                       <button
                         className="btn btn-primary mt-2"
                         onClick={() => handleAddTaskClick(project.project_id)}
@@ -1057,7 +1083,7 @@ const TeaminchargeProjects = () => {
                       >
                         Edit Status
                       </button>
-                    </div>
+                    </div> */}
                   </div>
                   <div
                     className="task-list-container"
@@ -1070,7 +1096,7 @@ const TeaminchargeProjects = () => {
                     {getTasksByProjectId(project.project_id).map(
                       (task, index) => (
                         <div
-                          className="task-card card mb-3 rounded-2 card-shadow "
+                          className="task-card card mb-3 rounded-2 card-shadow mt-2"
                           key={index}
                           onClick={() => handleEditTaskClick(task)}
                           style={{

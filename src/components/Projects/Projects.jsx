@@ -7,6 +7,8 @@ import TeamAssignmentModal from "./TeamAssignmentModal";
 import { backEndCallObjNothing } from "../../services/mainService";
 import { useFunctionContext } from "../Contexts/FunctionContext";
 import Loader from "../Loader/Loader";
+import "react-tooltip/dist/react-tooltip.css";
+import { Tooltip } from "react-tooltip";
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
@@ -137,7 +139,31 @@ const Projects = () => {
                         {console.log(project, "projects")}
                       </span>
                     </h5>
-                    <p className="description-box">{project.description}</p>
+                    <hr />
+                    <div className="btn-container d-flex justify-content-end">
+                      <button
+                        data-tooltip-id={`tooltip-edit-${index}`}
+                        data-tooltip-content="Edit Project"
+                        className="btn-icon "
+                        onClick={() => handleEdit(project)}
+                      >
+                        <RiEdit2Fill className="fs-5" />
+                      </button>
+
+                      <button
+                        data-tooltip-id={`tooltip-assign-${index}`}
+                        data-tooltip-content="Assign Team"
+                        className="btn-icon"
+                        onClick={() => handleAssignTeam(project.project_id)}
+                      >
+                        <RiTeamFill className="fs-5" />
+                      </button>
+                    </div>
+                    <Tooltip id={`tooltip-edit-${index}`} place="top" />
+                    <Tooltip id={`tooltip-assign-${index}`} place="top" />
+                    <p className="description-box mt-1">
+                      {project.description}
+                    </p>
                     <p>
                       {new Date(project.start_date).toLocaleDateString()} -{" "}
                       {new Date(project.end_date).toLocaleDateString()}
@@ -172,7 +198,7 @@ const Projects = () => {
                         </ul>
                       </div>
                     )} */}
-                    <div className="mt-auto d-flex justify-content-between align-items-center">
+                    {/* <div className="mt-auto d-flex justify-content-between align-items-center">
                       <button
                         className="btn btn-outline-primary btn-sm"
                         onClick={() => handleEdit(project)}
@@ -187,7 +213,7 @@ const Projects = () => {
                         <RiTeamFill className="me-1" />
                         Assign Team
                       </button>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               ))

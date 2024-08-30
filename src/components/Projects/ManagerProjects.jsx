@@ -260,7 +260,7 @@
 // export default ManagerProjects;
 import React, { useState, useEffect } from "react";
 import "./ProjectCord.scss";
-import { RiEdit2Fill, RiTeamFill } from "react-icons/ri";
+import { RiAddFill, RiEdit2Fill, RiTeamFill } from "react-icons/ri";
 import { useThemeContext } from "../Contexts/ThemesContext";
 import ProjectEditModal from "./ProjectEditModal";
 import TeamAssignmentModal from "./TeamAssignmentModal";
@@ -268,7 +268,9 @@ import { backEndCallObjNothing } from "../../services/mainService";
 import Loader from "../Loader/Loader";
 import TeaminchargeTaskDetailsModal from "./TeaminchargeTaskDetailsModal";
 import ManagerEditModel from "./ManagerEditModel";
-import Draggable from "react-draggable";
+import "react-tooltip/dist/react-tooltip.css";
+import { Tooltip } from "react-tooltip";
+
 const ManagerProjects = () => {
   const [projects, setProjects] = useState([]);
   const [isFormVisible, setIsFormVisible] = useState(false);
@@ -641,33 +643,39 @@ const ManagerProjects = () => {
                           {project.project_name}
                         </span>
                       </h5>
-                      <button
-                        className="btn btn-primary btn-sm mt-2"
-                        onClick={() => handleAddTaskClick(project.project_id)}
-                        style={{
-                          backgroundColor: applicationColor.primaryColor,
-                        }}
-                      >
-                        Add Task
-                      </button>
                     </div>
 
-                    <div className="btn-container mt-3">
+                    <div className="btn-container d-flex justify-content-end">
                       <button
-                        className="btn btn-outline-primary btn-sm"
+                        data-tooltip-id={`tooltip-add-${index}`}
+                        data-tooltip-content="Add Task"
+                        className="btn-icon"
+                        onClick={() => handleAddTaskClick(project.project_id)}
+                      >
+                        <RiAddFill className="fs-5" />
+                      </button>
+
+                      <button
+                        data-tooltip-id={`tooltip-edit-${index}`}
+                        data-tooltip-content="Edit Project"
+                        className="btn-icon"
                         onClick={() => handleEdit(project)}
                       >
-                        <RiEdit2Fill className="me-1" />
-                        Edit Project
+                        <RiEdit2Fill className="fs-5" />
                       </button>
+
                       <button
-                        className="btn btn-outline-success btn-sm"
+                        data-tooltip-id={`tooltip-assign-${index}`}
+                        data-tooltip-content="Assign Team"
+                        className="btn-icon"
                         onClick={() => handleAssignTeam(project.project_id)}
                       >
-                        <RiTeamFill className="me-1" />
-                        Assign Team
+                        <RiTeamFill className="fs-5" />
                       </button>
                     </div>
+                    <Tooltip id={`tooltip-add-${index}`} place="top" />
+                    <Tooltip id={`tooltip-edit-${index}`} place="top" />
+                    <Tooltip id={`tooltip-assign-${index}`} place="top" />
 
                     <div
                       className="task-list-container mt-2"
