@@ -1,4 +1,3 @@
-
 // import React, { useState, useEffect } from "react";
 // import "./Projects.scss";
 // import { RiEdit2Fill, RiTeamFill } from "react-icons/ri";
@@ -10,8 +9,6 @@
 // import Loader from "../Loader/Loader";
 // import ManagerProjectModel from "./ManagerprojectModel";
 // import TeaminchargeTaskDetailsModal from "./TeaminchargeTaskDetailsModal";
-
-
 
 // const ManagerProjects = () => {
 //   const [projects, setProjects] = useState([]);
@@ -271,7 +268,7 @@ import { backEndCallObjNothing } from "../../services/mainService";
 import Loader from "../Loader/Loader";
 import TeaminchargeTaskDetailsModal from "./TeaminchargeTaskDetailsModal";
 import ManagerEditModel from "./ManagerEditModel";
-import Draggable from 'react-draggable';
+import Draggable from "react-draggable";
 const ManagerProjects = () => {
   const [projects, setProjects] = useState([]);
   const [isFormVisible, setIsFormVisible] = useState(false);
@@ -283,6 +280,8 @@ const ManagerProjects = () => {
   const [modalMode, setModalMode] = useState(null);
   const [taskToEdit, setTaskToEdit] = useState(null);
   const { applicationColor } = useThemeContext();
+
+  const [draggedIndex, setDraggedIndex] = useState(null);
 
   const fetchProjects = async () => {
     try {
@@ -323,6 +322,25 @@ const ManagerProjects = () => {
     setIsTeamModalVisible(true);
   };
 
+  const handleDragStart = (index) => {
+    setDraggedIndex(index);
+  };
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
+  };
+
+  const handleDrop = (index) => {
+    const newProjects = [...projects];
+
+    const temp = newProjects[index];
+    newProjects[index] = newProjects[draggedIndex];
+    newProjects[draggedIndex] = temp;
+
+    setProjects(newProjects);
+
+    setDraggedIndex(null);
+  };
   const handleEditTaskClick = (task) => {
     setModalMode("edit_task");
     setTaskToEdit(task);
@@ -341,12 +359,12 @@ const ManagerProjects = () => {
   };
 
   const getTasksByProjectId = (projectId) => {
-    return tasks.filter(task => task.project_id === projectId);
+    return tasks.filter((task) => task.project_id === projectId);
   };
-  const handleRefresh=()=>{
+  const handleRefresh = () => {
     fetchProjects();
     fetchTasks();
-  }
+  };
   return (
     // <section className="manager-projects" style={{ background: applicationColor.cardBg1 }}>
     //   {isFormVisible ? (
@@ -402,7 +420,7 @@ const ManagerProjects = () => {
     //                   <span className="text-primary fw-semi-bold">
     //                     {project.project_name}
     //                   </span>
-                     
+
     //                 </h5>
     //                 <button
     //                   className="btn btn-primary btn-sm mt-2"
@@ -412,7 +430,7 @@ const ManagerProjects = () => {
     //                   Add Task
     //                 </button>
     //                 </div>
-                    
+
     //                 <div className="btn-container mt-3">
     //                   <button
     //                     className="btn btn-outline-primary btn-sm"
@@ -536,194 +554,251 @@ const ManagerProjects = () => {
     //   )}
     // </section>
     <section
-    className="company-details p-3"
-    style={{ background: applicationColor.cardBg1 }}
-  >
-  {isFormVisible ? (
-    <ManagerEditModel
-      project={currentProject}
-      setIsFormVisible={setIsFormVisible}
-      fetchProjects={fetchProjects}
-    />
-  ) : isTeamModalVisible ? (
-    <TeamAssignmentModal
-      projectId={currentProject?.project_id}
-      setIsTeamModalVisible={setIsTeamModalVisible}
-      fetchProjects={fetchProjects}
-    />
-  ) : (
-    <>
-      <div className="row">
-      <div className="d-flex justify-content-between align-items-center w-100">
-          <h4>Project Details</h4>
-          <div onClick={handleRefresh} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-            {loading ? (
-              <div className="spinner-border text-primary" role="status" style={{ height: "20px", width: "20px" }}>
-              </div>
-            ) : (
-              <i className="ri-loop-right-line text-primary fs-5 cursor-pointer"></i>
-            )}
-          </div>
-          </div>
-        <div className="mb-4 text-end">
-          <button
-            className="btn btn-primary"
-            type="button"
-            onClick={() => {
-              setCurrentProject({
-                project_name: "",
-                description: "",
-                start_date: "",
-                end_date: "",
-                status: "",
-                project_status: "active",
-                project_id: "",
-              });
-              setIsFormVisible(true);
-            }}
-          >
-            Add Projects
-          </button>
-        </div>
-        {loading ? (
-          <Loader />
-        ) : projects.length > 0 ? (
-          projects.map((project, index) => (
-            <Draggable key={index}>
-            <div className="col-xl-4 col-md-6 mb-3" >
+      className="company-details p-3"
+      style={{ background: applicationColor.cardBg1 }}
+    >
+      {isFormVisible ? (
+        <ManagerEditModel
+          project={currentProject}
+          setIsFormVisible={setIsFormVisible}
+          fetchProjects={fetchProjects}
+        />
+      ) : isTeamModalVisible ? (
+        <TeamAssignmentModal
+          projectId={currentProject?.project_id}
+          setIsTeamModalVisible={setIsTeamModalVisible}
+          fetchProjects={fetchProjects}
+        />
+      ) : (
+        <>
+          <div className="row">
+            <div className="d-flex justify-content-between align-items-center w-100">
+              <h4>Project Details</h4>
               <div
-                className="admin-controls-card"
+                onClick={handleRefresh}
                 style={{
-                  background: applicationColor.cardBg1,
-                  color: applicationColor.readColor1,
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
                 }}
               >
-                <div className="btn-container mt-3">
-                  <h5>
-                    Project Name:&nbsp;
-                    <span className="text-primary fw-semi-bold">
-                      {project.project_name}
-                    </span>
-                  </h5>
-                  <button
-                    className="btn btn-primary btn-sm mt-2"
-                    onClick={() => handleAddTaskClick(project.project_id)}
-                    style={{ backgroundColor: applicationColor.primaryColor }}
-                  >
-                    Add Task
-                  </button>
-                </div>
-
-                <div className="btn-container mt-3">
-                  <button
-                    className="btn btn-outline-primary btn-sm"
-                    onClick={() => handleEdit(project)}
-                  >
-                    <RiEdit2Fill className="me-1" />
-                    Edit Project
-                  </button>
-                  <button
-                    className="btn btn-outline-success btn-sm"
-                    onClick={() => handleAssignTeam(project.project_id)}
-                  >
-                    <RiTeamFill className="me-1" />
-                    Assign Team
-                  </button>
-                </div>
-
+                {loading ? (
+                  <div
+                    className="spinner-border text-primary"
+                    role="status"
+                    style={{ height: "20px", width: "20px" }}
+                  ></div>
+                ) : (
+                  <i className="ri-loop-right-line text-primary fs-5 cursor-pointer"></i>
+                )}
+              </div>
+            </div>
+            <div className="mb-4 text-end">
+              <button
+                className="btn btn-primary"
+                type="button"
+                onClick={() => {
+                  setCurrentProject({
+                    project_name: "",
+                    description: "",
+                    start_date: "",
+                    end_date: "",
+                    status: "",
+                    project_status: "active",
+                    project_id: "",
+                  });
+                  setIsFormVisible(true);
+                }}
+              >
+                Add Projects
+              </button>
+            </div>
+            {loading ? (
+              <Loader />
+            ) : projects.length > 0 ? (
+              projects.map((project, index) => (
                 <div
-                  className="task-list-container mt-2"
-                  style={{
-                    overflowY: 'auto',
-                    maxHeight: '150px', // Set a fixed height for the scrollable area
-                    flex: '1 1 auto',
-                  }}
+                  className="col-xl-4 col-md-6 mb-3
+                
+                
+                "
+                  draggable
+                  onDragStart={() => handleDragStart(index)}
+                  onDragOver={handleDragOver}
+                  onDrop={() => handleDrop(index)}
                 >
-                  {getTasksByProjectId(project.project_id).map((task, index) => (
+                  <div
+                    className="admin-controls-card"
+                    style={{
+                      background: applicationColor.cardBg1,
+                      color: applicationColor.readColor1,
+                    }}
+                  >
+                    <div className="btn-container mt-3">
+                      <h5>
+                        Project Name:&nbsp;
+                        <span className="text-primary fw-semi-bold">
+                          {project.project_name}
+                        </span>
+                      </h5>
+                      <button
+                        className="btn btn-primary btn-sm mt-2"
+                        onClick={() => handleAddTaskClick(project.project_id)}
+                        style={{
+                          backgroundColor: applicationColor.primaryColor,
+                        }}
+                      >
+                        Add Task
+                      </button>
+                    </div>
+
+                    <div className="btn-container mt-3">
+                      <button
+                        className="btn btn-outline-primary btn-sm"
+                        onClick={() => handleEdit(project)}
+                      >
+                        <RiEdit2Fill className="me-1" />
+                        Edit Project
+                      </button>
+                      <button
+                        className="btn btn-outline-success btn-sm"
+                        onClick={() => handleAssignTeam(project.project_id)}
+                      >
+                        <RiTeamFill className="me-1" />
+                        Assign Team
+                      </button>
+                    </div>
+
                     <div
-                      className="task-card card mb-3 rounded-2 card-shadow"
-                      key={index}
-                      onClick={() => handleEditTaskClick(task)}
+                      className="task-list-container mt-2"
                       style={{
-                        color: applicationColor.readColor2,
+                        overflowY: "auto",
+                        maxHeight: "150px", // Set a fixed height for the scrollable area
+                        flex: "1 1 auto",
                       }}
                     >
-                      <div className="d-flex justify-content-between">
-                        <span className={`priority-badge priority-${task.priority}`}>
-                          {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}
-                        </span>
-                        <span className="due-date text-muted">
-                          Due Date: {new Date(task.due_date).toLocaleDateString()}
-                        </span>
-                      </div>
-                      <h6 className="mt-2">
-                        <strong className="text-secondary">Task:</strong> {task.task_name}
-                      </h6>
-                      <div className="d-flex justify-content-between">
-                        <div>
-                          {task?.team?.map((member) => (
-                            <div key={member.employee_id} className="d-flex align-items-center me-3 mb-2">
-                              <div className="profile-img-container me-2">
-                                {member.profile_image_url ? (
-                                  <img
-                                    src={member.profile_image_url}
-                                    alt={member.employee_name}
-                                    className="rounded-circle"
-                                  />
-                                ) : (
-                                  <span className="profile-icon">{member.employee_name.charAt(0)}</span>
-                                )}
-                              </div>
-                              <span>{member.employee_name}</span>
+                      {getTasksByProjectId(project.project_id).map(
+                        (task, index) => (
+                          <div
+                            className="task-card card mb-3 rounded-2 card-shadow"
+                            key={index}
+                            onClick={() => handleEditTaskClick(task)}
+                            style={{
+                              color: applicationColor.readColor2,
+                            }}
+                          >
+                            <div className="d-flex justify-content-between">
+                              <span
+                                className={`priority-badge priority-${task.priority}`}
+                              >
+                                {task.priority.charAt(0).toUpperCase() +
+                                  task.priority.slice(1)}
+                              </span>
+                              <span className="due-date text-muted">
+                                Due Date:{" "}
+                                {new Date(task.due_date).toLocaleDateString()}
+                              </span>
                             </div>
-                          ))}
-                          {/* <div className="text-secondary" style={{ fontSize: "0.8rem", marginBottom: "0.5rem" }}>
+                            <h6 className="mt-2">
+                              <strong className="text-secondary">Task:</strong>{" "}
+                              {task.task_name}
+                            </h6>
+                            <div className="d-flex justify-content-between">
+                              <div>
+                                {task?.team?.map((member) => (
+                                  <div
+                                    key={member.employee_id}
+                                    className="d-flex align-items-center me-3 mb-2"
+                                  >
+                                    <div className="profile-img-container me-2">
+                                      {member.profile_image_url ? (
+                                        <img
+                                          src={member.profile_image_url}
+                                          alt={member.employee_name}
+                                          className="rounded-circle"
+                                        />
+                                      ) : (
+                                        <span className="profile-icon">
+                                          {member.employee_name.charAt(0)}
+                                        </span>
+                                      )}
+                                    </div>
+                                    <span>{member.employee_name}</span>
+                                  </div>
+                                ))}
+                                {/* <div className="text-secondary" style={{ fontSize: "0.8rem", marginBottom: "0.5rem" }}>
             <p><strong>Assigned at: </strong>{new Date(task?.assign_track[0]?.assigned_to?.date_time).toLocaleString()}</p>
             {task?.modified_by?.length > 0 && (
               <span> <strong>Updated at: </strong> {new Date(task?.updatedAt).toLocaleString()}</span>
             )}
           </div> */}
-          <div className="text-secondary" style={{ fontSize: "0.8rem", marginBottom: "0.5rem" }}>
-  {task?.assign_track && task.assign_track.length > 0 && task?.assign_track[0]?.assigned_to?.date_time ? (
-    <p><strong>Assigned at: </strong>{new Date(task.assign_track[0].assigned_to.date_time).toLocaleString()}</p>
-  ) : (
-    <p><strong>This task is not assigned to anyone.</strong></p>
-  )}
-  
-  {task?.modified_by?.length > 0 && (
-    <span><strong>Updated at: </strong> {new Date(task?.updatedAt).toLocaleString()}</span>
-  )}
-</div>
-                        </div>
-                      </div>
-                      <div className="text-end">
-                        <span className={`status-badge priority-${task.status}`}>
-                          Status: {task.status.charAt(0).toUpperCase() + task.status.slice(1)}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-            </Draggable>
-          ))
-        ) : (
-          <div className="col-12 text-center">No projects found.</div>
-        )}
-      </div>
-    </>
-  )}
-  {showTaskDetailsModal && (
-    <TeaminchargeTaskDetailsModal
-      onClose={() => setShowTaskDetailsModal(false)}
-      mode={modalMode}
-      task={taskToEdit}
-      onSubmit={handleModalSubmit}
-    />
-  )}
-</section>
+                                <div
+                                  className="text-secondary"
+                                  style={{
+                                    fontSize: "0.8rem",
+                                    marginBottom: "0.5rem",
+                                  }}
+                                >
+                                  {task?.assign_track &&
+                                  task.assign_track.length > 0 &&
+                                  task?.assign_track[0]?.assigned_to
+                                    ?.date_time ? (
+                                    <p>
+                                      <strong>Assigned at: </strong>
+                                      {new Date(
+                                        task.assign_track[0].assigned_to.date_time
+                                      ).toLocaleString()}
+                                    </p>
+                                  ) : (
+                                    <p>
+                                      <strong>
+                                        This task is not assigned to anyone.
+                                      </strong>
+                                    </p>
+                                  )}
 
+                                  {task?.modified_by?.length > 0 && (
+                                    <span>
+                                      <strong>Updated at: </strong>{" "}
+                                      {new Date(
+                                        task?.updatedAt
+                                      ).toLocaleString()}
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                            <div className="text-end">
+                              <span
+                                className={`status-badge priority-${task.status}`}
+                              >
+                                Status:{" "}
+                                {task.status.charAt(0).toUpperCase() +
+                                  task.status.slice(1)}
+                              </span>
+                            </div>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="col-12 text-center">No projects found.</div>
+            )}
+          </div>
+        </>
+      )}
+      {showTaskDetailsModal && (
+        <TeaminchargeTaskDetailsModal
+          onClose={() => setShowTaskDetailsModal(false)}
+          mode={modalMode}
+          task={taskToEdit}
+          onSubmit={handleModalSubmit}
+        />
+      )}
+    </section>
   );
 };
 

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import "./Projects.scss";
 import { RiEdit2Fill, RiTeamFill } from "react-icons/ri";
@@ -15,6 +14,7 @@ const Projects = () => {
   const [isTeamModalVisible, setIsTeamModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [currentProject, setCurrentProject] = useState(null);
+  const [draggedIndex, setDraggedIndex] = useState(null);
 
   const { applicationColor } = useThemeContext();
 
@@ -24,7 +24,7 @@ const Projects = () => {
       setLoading(true);
       const response = await backEndCallObjNothing("/admin_get/get_projects");
 
-      console.log("projects",response,)
+      console.log("projects", response);
 
       setProjects(response || []);
     } catch (error) {
@@ -37,7 +37,7 @@ const Projects = () => {
   useEffect(() => {
     fetchProjects();
   }, []);
-console.log(projects,"projects")
+  console.log(projects, "projects");
   // Handle project edit
   const handleEdit = (project) => {
     setCurrentProject(project);
@@ -50,6 +50,25 @@ console.log(projects,"projects")
     setIsTeamModalVisible(true);
   };
 
+  const handleDragStart = (index) => {
+    setDraggedIndex(index);
+  };
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
+  };
+
+  const handleDrop = (index) => {
+    const newProjects = [...projects];
+
+    const temp = newProjects[index];
+    newProjects[index] = newProjects[draggedIndex];
+    newProjects[draggedIndex] = temp;
+
+    setProjects(newProjects);
+
+    setDraggedIndex(null);
+  };
   return (
     <section
       className="company-details"
@@ -64,7 +83,6 @@ console.log(projects,"projects")
       ) : isTeamModalVisible ? (
         <TeamAssignmentModal
           projectId={currentProject?.project_id}
-
           setIsTeamModalVisible={setIsTeamModalVisible}
           fetchProjects={fetchProjects}
         />
@@ -91,11 +109,18 @@ console.log(projects,"projects")
                 Add Projects
               </button>
             </div>
-               {loading ? (
+            {loading ? (
               <Loader />
             ) : projects.length > 0 ? (
               projects.map((project, index) => (
-                <div className="col-xl-4 col-md-6 mb-3" key={index}>
+                <div
+                  className="col-xl-4 col-md-6 mb-3"
+                  key={project.project_id}
+                  draggable
+                  onDragStart={() => handleDragStart(index)}
+                  onDragOver={handleDragOver}
+                  onDrop={() => handleDrop(index)}
+                >
                   <div
                     className="admin-controls-card"
                     style={{
@@ -109,7 +134,7 @@ console.log(projects,"projects")
                       Project Name:&nbsp;
                       <span className="text-primary fw-semi-bold">
                         {project.project_name}
-                        {console.log(project,"projects")}
+                        {console.log(project, "projects")}
                       </span>
                     </h5>
                     <p className="description-box">{project.description}</p>
