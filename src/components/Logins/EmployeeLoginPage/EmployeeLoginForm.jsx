@@ -678,7 +678,7 @@ const EmployeeLoginForm = ({ setOtpType }) => {
   const employeeLoginSchema = {
     email: Joi.string()
       .min(10)
-      .max(25)
+      .max(55)
       .email({ tlds: { allow: ["com", "net", "org"] } })
       .required()
       .label("Email"),
@@ -914,6 +914,7 @@ const EmployeeLoginForm = ({ setOtpType }) => {
             setForm={setFormData}
             validateField={validateField}
             schema={employeeLoginSchema.email}
+            maxLength={50}
             // error={formData.email && !isValid.email}
           />
           {/* <InputPassword

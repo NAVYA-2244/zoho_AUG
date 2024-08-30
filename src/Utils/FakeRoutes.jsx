@@ -217,7 +217,18 @@ export const teamLeadSidebar = [
     path: "/profile",
   },
  
- 
+  {
+    id: "LeaveApplications",
+    icon: <BsCalendar2EventFill />,
+    label: "leave applications emp",
+    path: "/leaveApplications",
+  },
+  {
+    id: "leaves list",
+    icon: <GrCopy />,
+    label: "Leave Applications",
+    path: "/admin/employee_leave-applications",
+  },
 
   {
     id: "Chat",
@@ -330,13 +341,13 @@ export const mangerSidebar = [
   //   label: "Employee List",
   //   path: "/admin/employee_list",
   // },
-  // {
-  //   id: "leaves list",
-  //   icon: <GrCopy />,
-  //   label: "Leave Applications",
+  {
+    id: "leaves list",
+    icon: <GrCopy />,
+    label: "Leave Applications",
 
-  //   path: "/admin/employee_leave-applications",
-  // },
+    path: "/admin/employee_leave-applications",
+  },
 
   // {
   //   id: "folers",

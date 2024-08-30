@@ -286,7 +286,7 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                   schema={schema.dependent_date_of_birth}
                   min={
                     new Date(
-                      new Date().getFullYear() - 60,
+                      new Date().getFullYear() - 90,
                       new Date().getMonth(),
                       new Date().getDate()
                     )
@@ -295,7 +295,7 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                   }
                   max={
                     new Date(
-                      new Date().getFullYear() - 21,
+                      new Date().getFullYear() - 2,
                       new Date().getMonth(),
                       new Date().getDate()
                     )

@@ -40,13 +40,13 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
     try {
       console.log("formData.status", formData.status);
       const response = await backEndCallObjNothing(
-        "/user_get/leave_applications_list",
+        "/emp_get/leave_applications",
         {
           skip: 0, // Adjust skip to match API expectations (if needed)
-          status: formData.status,
-          from_date: formData.from_date,
-          to_date: formData.to_date,
-          employee_id: formData.employee_id, // Pass employee_id filter if needed
+          // status: formData.status,
+          // from_date: formData.from_date,
+          // to_date: formData.to_date,
+          // employee_id: formData.employee_id, // Pass employee_id filter if needed
         }
       );
       if (response.data.length < limit) {

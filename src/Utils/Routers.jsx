@@ -806,22 +806,22 @@ export const isTeamLeadRouter = [
       //   ),
       // },
 
-      // {
-      //   path: "/applyleavefrom",
-      //   element: (
-      //     <isTeamLeadRouter>
-      //       <ApplyLeaveForm />
-      //     </isTeamLeadRouter>
-      //   ),
-      // },
-      // {
-      //   path: "/leaveApplications",
-      //   element: (
-      //     <isTeamLeadRouter>
-      //       <EmployeeLeavesSelecteId />
-      //     </isTeamLeadRouter>
-      //   ),
-      // },
+      {
+        path: "/applyleavefrom",
+        element: (
+          <isTeamLeadRouter>
+            <ApplyLeaveForm />
+          </isTeamLeadRouter>
+        ),
+      },
+      {
+        path: "/leaveApplications",
+        element: (
+          <isTeamLeadRouter>
+            <EmployeeLeavesSelecteId />
+          </isTeamLeadRouter>
+        ),
+      },
       // {
       //   path: "/attendance/list-view",
       //   element: (
@@ -830,14 +830,14 @@ export const isTeamLeadRouter = [
       //     </IsTeamLeadRoute>
       //   ),
       // },
-      // {
-      //   path: "/admin/employee_leave-applications",
-      //   element: (
-      //     <IsTeamLeadRoute>
-      //       <AdminAcceptedEmployeeLeavesApplications />
-      //     </IsTeamLeadRoute>
-      //   ),
-      // },
+      {
+        path: "/admin/employee_leave-applications",
+        element: (
+          <IsTeamLeadRoute>
+            <AdminAcceptedEmployeeLeavesApplications />
+          </IsTeamLeadRoute>
+        ),
+      },
       // {
       //   path: "/employee/folders",
       //   element: (

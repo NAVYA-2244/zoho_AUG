@@ -54,7 +54,7 @@ const Companydetails = () => {
     organisation_type: Joi.string().required().label("Organisation Type"),
     org_mail_id: Joi.string()
       .min(5)
-      .max(35)
+      .max(55)
       .email({ tlds: { allow: ["com", "net", "org"] } })
       .required()
       .messages({
@@ -312,6 +312,7 @@ const Companydetails = () => {
                   value={formData["org_mail_id"]}
                   setForm={setFormData}
                   schema={orgSchema.org_mail_id}
+                  maxLength={55}
                 />
                 {/* <Input_email
                   type={"email"}

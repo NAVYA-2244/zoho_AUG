@@ -159,7 +159,7 @@ const HierarchyData = ({ formData, setFormData }) => {
       >
         <div className="heading-button">
           <h6 className="heading-form pb-2"> Work Experience Data</h6>
-          {formData?.work_experience?.length === 0 && (
+          {formData?.work_experience.length === 0 && (
             <div className="additional-btns">
               <button
                 className="add-button"
@@ -201,7 +201,7 @@ const HierarchyData = ({ formData, setFormData }) => {
               </div>
               <div className="col-lg-4 col-md-4 col-sm-6">
                 <Input_text
-                  type={"pan"}
+                  type={"text"}
                   name={"company_name"}
                   placeholder={"Company Name"}
                   value={data?.company_name}

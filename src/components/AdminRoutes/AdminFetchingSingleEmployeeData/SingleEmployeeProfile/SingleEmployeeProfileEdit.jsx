@@ -47,7 +47,7 @@ const SingleEmployeeProfileEdit = () => {
     work_phone_number: Joi.string().allow(null, "").optional().min(10).max(10),
     personal_mobile_number: Joi.string().required().min(10).max(10),
     personal_email_address: Joi.string().email({ tlds: { allow: ["com", "net", "org"] } }).required(),
-    company_name: Joi.string().min(10).max(30).allow("").optional(),
+    company_name: Joi.string().min(10).max(40).allow("").optional(),
     job_title: Joi.string().min(3).max(30).allow("").optional(),
     from_date: Joi.date().max("now").allow("").optional(),
     to_date: Joi.date().max("now").allow("").optional(),
@@ -441,7 +441,7 @@ console.log(formattedData,"cleanData")
 
           <div className="col-lg-4 col-md-4 col-sm-6">
             <Input_text
-              type={"pan"}
+             
               name={"company_name"}
               placeholder={"Company Name"}
               value={formData?.company_name}
@@ -449,6 +449,14 @@ console.log(formattedData,"cleanData")
               schema={schema.company_name}
               maxLength={30}
             />
+            {/* <Input_text
+              name="pan"
+              placeholder="PAN Number"
+              setForm={setFormData}
+              onChange={handleChange}
+              value={formData.pan}
+              schema={schema.pan}
+            /> */}
           </div>
 
           <div className="col-lg-4 col-md-4 col-sm-6">
