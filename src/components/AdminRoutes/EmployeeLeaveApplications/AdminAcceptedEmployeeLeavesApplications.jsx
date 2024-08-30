@@ -183,18 +183,19 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
     // Get the matching role's status
     let roleStatus = null;
 
-    if (employeeRole === "hr" && hr) {
+    if (employeeRole === "hr"||"hr" && hr) {
         roleStatus = hr.leave_status;
-    } else if (employeeRole === "manager" && manager) {
+    } else if (employeeRole === "manager"||"Manager" && manager) {
         roleStatus = manager.leave_status;
-    } else if (employeeRole === "team_incharge" && team_incharge) {
+    } else if (employeeRole === "team_incharge"||"Team Incharges" && team_incharge) {
         roleStatus = team_incharge.leave_status;
+       
     }
 
     if (!roleStatus) {
         return <p>Role mismatch or no action available for this role.</p>;
     }
-
+console.log(roleStatus,"roleStatus")
     if (roleStatus === "Pending") {
         return (
             <>
