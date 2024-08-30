@@ -582,14 +582,14 @@ export const isManagerRouter = [
           </IsManagerRoute>
         ),
       },
-      {
-        path: "/applyleave",
-        element: (
-          <IsManagerRoute>
-            <ApplyLeave />
-          </IsManagerRoute>
-        ),
-      },
+      // {
+      //   path: "/applyleave",
+      //   element: (
+      //     <IsManagerRoute>
+      //       <ApplyLeave />
+      //     </IsManagerRoute>
+      //   ),
+      // },
 
       {
         path: "/admin/add_employee",
@@ -608,14 +608,14 @@ export const isManagerRouter = [
           </IsManagerRoute>
         ),
       },
-      {
-        path: "/admin/employee_leave-applications",
-        element: (
-          <IsManagerRoute>
-            <AdminAcceptedEmployeeLeavesApplications />
-          </IsManagerRoute>
-        ),
-      },
+      // {
+      //   path: "/admin/employee_leave-applications",
+      //   element: (
+      //     <IsManagerRoute>
+      //       <AdminAcceptedEmployeeLeavesApplications />
+      //     </IsManagerRoute>
+      //   ),
+      // },
 
       {
         path: "/admin/employee_list",
@@ -703,9 +703,9 @@ export const isManagerRouter = [
       {
         path: "/admin/employee_leave-applications",
         element: (
-          <IsManagerRoute>
+          <IsTeamLeadRoute>
             <AdminAcceptedEmployeeLeavesApplications />
-          </IsManagerRoute>
+          </IsTeamLeadRoute>
         ),
       },
     ],

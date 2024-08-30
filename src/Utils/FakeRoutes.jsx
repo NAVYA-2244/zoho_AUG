@@ -300,12 +300,12 @@ export const mangerSidebar = [
     label: "TotalTask",
     path: "/admin/tasks",
   },
-  {
-    id: "ApplyLeave",
-    icon: <BsCalendar2EventFill />,
-    label: "Apply Leave",
-    path: "/applyleave",
-  },
+  // {
+  //   id: "ApplyLeave",
+  //   icon: <BsCalendar2EventFill />,
+  //   label: "Apply Leave",
+  //   path: "/applyleave",
+  // },
   
   {
     id: "LeaveApplications",

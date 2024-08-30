@@ -18,7 +18,10 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
     showModal,
     adminGettingLeaveApplications,
     setAdminGettingLeaveApplications,
+    employeeDetails
   } = useStateContext();
+  
+
   const { applicationColor } = useThemeContext();
   const [currentTab, setCurrentTab] = useState("calendar-view");
   const [employeesList, setEmployeesList] = useState([]);
@@ -33,37 +36,38 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
     employee_id: "",
   });
   const navigate = useNavigate();
+  console.log(adminGettingLeaveApplications,"adminGettingLeaveApplications")
   const observer = useRef();
 
-  const fetchLeaveApplications = useCallback(async () => {
-    setLoading(true);
-    try {
-      console.log("formData.status", formData.status);
-      const response = await backEndCallObjNothing(
-        "/emp_get/leave_applications",
-        {
-          skip: 0, // Adjust skip to match API expectations (if needed)
-          // status: formData.status,
-          // from_date: formData.from_date,
-          // to_date: formData.to_date,
-          // employee_id: formData.employee_id, // Pass employee_id filter if needed
-        }
-      );
-      if (response.data.length < limit) {
-        setHasMore(false);
-      }
+  // const fetchLeaveApplications = useCallback(async () => {
+  //   setLoading(true);
+  //   try {
+  //     console.log("formData.status", formData.status);
+  //     const response = await backEndCallObjNothing(
+  //       "/user_get/leave_applications_list",
+  //       {
+  //         skip: 0, // Adjust skip to match API expectations (if needed)
+  //         status: formData.status,
+  //         from_date: formData.from_date,
+  //         to_date: formData.to_date,
+  //         employee_id: formData.employee_id, // Pass employee_id filter if needed
+  //       }
+  //     );
+  //     if (response.data.length < limit) {
+  //       setHasMore(false);
+  //     }
 
-      setAdminGettingLeaveApplications((prev) => [...response.data]);
-    } catch (error) {
-      console.error("Error fetching leave applications:", error);
-    } finally {
-      setLoading(false);
-    }
-  }, [skip, limit, formData, setAdminGettingLeaveApplications]);
+  //     setAdminGettingLeaveApplications((prev) => [...response.data]);
+  //   } catch (error) {
+  //     console.error("Error fetching leave applications:", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }, [skip, limit, formData, setAdminGettingLeaveApplications]);
 
-  useEffect(() => {
-    fetchLeaveApplications();
-  }, [skip, fetchLeaveApplications]);
+  // useEffect(() => {
+  //   fetchLeaveApplications();
+  // }, [skip, fetchLeaveApplications]);
 
   // const gettingMoreDataRef = useCallback(
   //   (node) => {
@@ -96,33 +100,9 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
     e.preventDefault();
     setSkip(0);
     setHasMore(true);
-    fetchLeaveApplications(); // fetch with updated filters
+    // fetchLeaveApplications(); // fetch with updated filters
   };
 
-  let tableHeadProperties = [
-    {
-      name: "Employee ID",
-      property: "employee_id",
-      type: "string",
-      onClick: (item) => {
-        navigate(`/admin/employee/${item?.employee_id}`);
-      },
-      style: {
-        color: "#6c63fc",
-        cursor: "pointer",
-        textTransform: "uppercase",
-        fontWeight: "bold",
-      },
-    },
-    { name: "Employee Name", property: "employee_name" },
-    { name: "Leave Type", property: "leave_type", type: "string" },
-    { name: "From Date", property: "from_date", type: "string" },
-    { name: "To Date", property: "to_date", type: "string" },
-    { name: "Days Taken", property: "days_taken" },
-    { name: "Reason", property: "reason" },
-    { name: "Leave Status", property: "leave_status", type: "string" },
-    { name: "Actions", property: "actions" },
-  ];
 
   const tabs = [
     { name: "calendar-view", label: <FaCalendarCheck /> },
@@ -132,7 +112,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
   const onLeaveAccept = async (leave_application_id) => {
     try {
       const data = { leave_application_id, leave_status: "Approved" };
-      const response = await backEndCallObjNothing("/user/update_leave", data);
+      const response = await backEndCallObjNothing("/admin/update_leave_application", data);
       const updatedApplication = response.data;
       // setAdminGettingLeaveApplications((prev) =>
       //   prev.map((app) =>
@@ -141,7 +121,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
       //       : app
       //   )
       // );
-      setAdminGettingLeaveApplications(response);
+      // setAdminGettingLeaveApplications(response); 
       toastOptions.success("Success");
     } catch (error) {
       toastOptions.error(
@@ -154,7 +134,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
   const onLeaveReject = async (leave_application_id) => {
     try {
       const data = { leave_application_id, leave_status: "Rejected" };
-      const response = await backEndCallObjNothing("/user/update_leave", data);
+      const response = await backEndCallObjNothing("/admin/update_leave_application", data);
       const updatedApplication = response.data;
       console.log(
         adminGettingLeaveApplications,
@@ -167,7 +147,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
       //       : app
       //   )
       // );
-      setAdminGettingLeaveApplications(response);
+      // setAdminGettingLeaveApplications(response);
       toastOptions.error("Rejected");
     } catch (error) {
       toastOptions.error(
@@ -183,10 +163,11 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
         setLoading(true);
 
         let employees = await backEndCallObjNothing(
-          "/user_get/get_employee_list",
+          "/admin_get/all_leave_applications",
           { skip: 0 }
         );
-        setEmployeesList(employees);
+        console.log(employees,"employees")
+        setAdminGettingLeaveApplications(employees);
       } catch (error) {
         toastOptions.error(error?.response?.data || "something went wrong");
       } finally {
@@ -195,6 +176,42 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
     };
     fetchingData();
   }, []);
+  const renderLeaveStatusButtons = (application) => {
+    const { hr, manager, team_incharge } = application.approved_by;
+    const employeeRole = employeeDetails?.role_name;
+
+    // Get the matching role's status
+    let roleStatus = null;
+
+    if (employeeRole === "hr" && hr) {
+        roleStatus = hr.leave_status;
+    } else if (employeeRole === "manager" && manager) {
+        roleStatus = manager.leave_status;
+    } else if (employeeRole === "team_incharge" && team_incharge) {
+        roleStatus = team_incharge.leave_status;
+    }
+
+    if (!roleStatus) {
+        return <p>Role mismatch or no action available for this role.</p>;
+    }
+
+    if (roleStatus === "Pending") {
+        return (
+            <>
+                <button className="actions-btn approve" onClick={() => onLeaveAccept(application.leave_application_id)}>
+                    Approve
+                </button>
+                <button className="actions-btn reject" onClick={() => onLeaveReject(application.leave_application_id)}>
+                    Reject
+                </button>
+            </>
+        );
+    } else if (roleStatus === "Approved") {
+        return <button className="actions-btn approve">Approved</button>;
+    } else if (roleStatus === "Rejected") {
+        return <button className="actions-btn reject">Rejected</button>;
+    }
+};
 
   console.log(adminGettingLeaveApplications, "Admin");
 
@@ -220,11 +237,11 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
               onChange={handleFormChange}
             >
               <option value="">--select--</option>
-              {employeesList.map((employee) => (
-                <option key={employee.employee_id} value={employee.employee_id}>
-                  {employee.employee_id} - {employee.basic_info.first_name}
-                </option>
-              ))}
+              {/* {adminGettingLeaveApplications.map((employee) => ( */}
+                {/* <option key={employee.employee_id} value={employee.employee_id}> */}
+                  {/* {employee.employee_id} - {employee.basic_info.first_name} */}
+                {/* </option> */}
+              {/* ))} */}
             </select>
           </div>
           <div className="col-lg-3 col-md-3 col-sm-6 admin-leave-filters">
@@ -235,7 +252,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
               className="form-control"
               onChange={handleFormChange}
             >
-              {/* <option value="">All</option> */}
+              <option value="">All</option>
               <option value="Pending">Pending</option>
               <option value="Approved">Approved</option>
               <option value="Rejected">Rejected</option>
@@ -248,7 +265,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
               name="from_date"
               value={formData.from_date}
               className="form-control"
-              // max={moment().format("YYYY-MM-DD")}
+              max={moment().format("YYYY-MM-DD")}
               onChange={handleFormChange}
             />
           </div>
@@ -259,7 +276,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
               name="to_date"
               value={formData.to_date}
               className="form-control"
-              // max={moment().format("YYYY-MM-DD")}
+              max={moment().format("YYYY-MM-DD")}
               onChange={handleFormChange}
             />
           </div>
@@ -335,7 +352,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
                         <p>Remaining Leaves:</p>
                         <p>{item.remaining_leaves}</p>
                       </div>
-                      <section className="status g-2">
+                      {/* <section className="status g-2">
                         {item.leave_status === "Pending" && (
                           <>
                             <button
@@ -364,7 +381,10 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
                             Rejected
                           </button>
                         )}
-                      </section>
+                      </section> */}
+                          <section className="status g-2">
+                      {renderLeaveStatusButtons(item)}
+                    </section>
                     </div>
                   </div>
                 </div>
