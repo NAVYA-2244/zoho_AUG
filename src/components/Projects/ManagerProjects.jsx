@@ -260,7 +260,7 @@
 // export default ManagerProjects;
 import React, { useState, useEffect } from "react";
 import "./ProjectCord.scss";
-import { RiAddFill, RiEdit2Fill, RiTeamFill } from "react-icons/ri";
+import { RiEdit2Fill, RiTeamFill, RiAddFill } from "react-icons/ri";
 import { useThemeContext } from "../Contexts/ThemesContext";
 import ProjectEditModal from "./ProjectEditModal";
 import TeamAssignmentModal from "./TeamAssignmentModal";
@@ -268,9 +268,9 @@ import { backEndCallObjNothing } from "../../services/mainService";
 import Loader from "../Loader/Loader";
 import TeaminchargeTaskDetailsModal from "./TeaminchargeTaskDetailsModal";
 import ManagerEditModel from "./ManagerEditModel";
+import Draggable from "react-draggable";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
-
 const ManagerProjects = () => {
   const [projects, setProjects] = useState([]);
   const [isFormVisible, setIsFormVisible] = useState(false);
@@ -643,22 +643,40 @@ const ManagerProjects = () => {
                           {project.project_name}
                         </span>
                       </h5>
+                      <hr />
                     </div>
+
+                    {/* <div className="btn-container mt-3">
+                      <button
+                        className="btn btn-outline-primary btn-sm"
+                        onClick={() => handleEdit(project)}
+                      >
+                        <RiEdit2Fill className="me-1" />
+                        Edit Project
+                      </button>
+                      <button
+                        className="btn btn-outline-success btn-sm"
+                        onClick={() => handleAssignTeam(project.project_id)}
+                      >
+                        <RiTeamFill className="me-1" />
+                        Assign Team
+                      </button>
+                      <button
+                        className="btn btn-primary btn-sm mt-2"
+                        onClick={() => handleAddTaskClick(project.project_id)}
+                        style={{
+                          backgroundColor: applicationColor.primaryColor,
+                        }}
+                      >
+                        Add Task
+                      </button>
+                    </div> */}
 
                     <div className="btn-container d-flex justify-content-end">
                       <button
-                        data-tooltip-id={`tooltip-add-${index}`}
-                        data-tooltip-content="Add Task"
-                        className="btn-icon"
-                        onClick={() => handleAddTaskClick(project.project_id)}
-                      >
-                        <RiAddFill className="fs-5" />
-                      </button>
-
-                      <button
                         data-tooltip-id={`tooltip-edit-${index}`}
                         data-tooltip-content="Edit Project"
-                        className="btn-icon"
+                        className="btn-icon "
                         onClick={() => handleEdit(project)}
                       >
                         <RiEdit2Fill className="fs-5" />
@@ -672,10 +690,18 @@ const ManagerProjects = () => {
                       >
                         <RiTeamFill className="fs-5" />
                       </button>
+                      <button
+                        data-tooltip-id={`tooltip-add-${index}`}
+                        data-tooltip-content="Add Task"
+                        className="btn-icon"
+                        onClick={() => handleAddTaskClick(project.project_id)}
+                      >
+                        <RiAddFill className="fs-5" />
+                      </button>
                     </div>
-                    <Tooltip id={`tooltip-add-${index}`} place="top" />
                     <Tooltip id={`tooltip-edit-${index}`} place="top" />
                     <Tooltip id={`tooltip-assign-${index}`} place="top" />
+                    <Tooltip id={`tooltip-add-${index}`} place="top" />
 
                     <div
                       className="task-list-container mt-2"

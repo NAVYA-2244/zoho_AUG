@@ -71,6 +71,8 @@ const Projects = () => {
 
     setDraggedIndex(null);
   };
+
+  console.log(projects);
   return (
     <section
       className="company-details"
@@ -133,7 +135,7 @@ const Projects = () => {
                     }}
                   >
                     <h5>
-                      Project Name:&nbsp;
+                      Project Name :&nbsp;
                       <span className="text-primary fw-semi-bold">
                         {project.project_name}
                         {console.log(project, "projects")}

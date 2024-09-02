@@ -37,14 +37,13 @@ const LaptopSidebar = () => {
       return superAdminSidebar;
     } else if (employeeDetails.role_name === "Team Incharge") {
       return teamLeadSidebar;
-    }
-    else if (employeeDetails.role_name === "Manager") {
+    } else if (employeeDetails.role_name === "Manager") {
       return mangerSidebar;
     } else {
       return employeeSidebar; // Default to employeeSidebar if no match
     }
   };
-   
+
   const [menu, setMenu] = useState(settingsiderbar);
 
   useEffect(() => {
@@ -216,22 +215,22 @@ const LaptopSidebar = () => {
       >
         <section className="logo">
           <h2 className="logo-name">codegene</h2>
-         
+
           {orgLogo ? (
             <img src={orgLogo} alt="company logo" />
-           
-            
           ) : (
             <h2>No - Logo</h2>
           )}
-          
         </section>
-        <span className="fs-20">{orgDetails.organisation_name}</span>
+        <span className="fs-20 org-name">{orgDetails.organisation_name}</span>
         <hr
-          style={{ borderTop: `1px solid ${applicationColor.readColor2} ` }}
+          style={{
+            borderTop: `1px solid ${applicationColor.readColor2} `,
+            marginTop: "3px",
+          }}
         />
 
-        <ul className="menu-list">{renderingMenuItems(menu)}</ul>
+        <ul className="menu-list ">{renderingMenuItems(menu)}</ul>
 
         {/* <section
           className="user-details"

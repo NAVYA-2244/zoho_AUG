@@ -56,7 +56,6 @@ export const employeeSidebar = [
     path: "/dashboard",
   },
 
-  
   {
     id: "profile",
     // icon: <TiUserAddOutline />,
@@ -70,14 +69,14 @@ export const employeeSidebar = [
   //   label: "Apply Leave",
   //   path: "/applyleave",
   // },
-  
+
   {
     id: "LeaveApplications",
     icon: <BsCalendar2EventFill />,
     label: "leave applications emp",
     path: "/leaveApplications",
   },
- 
+
   {
     id: "Chat",
     icon: <TbMessageChatbot />,
@@ -95,13 +94,13 @@ export const employeeSidebar = [
     id: "tasks",
     // icon: <TiUserAddOutline />,
     icon: <GrUserAdd />,
-    label: "TotalTask",
+    label: "Total Task",
     path: "/employee/tasks",
   },
   {
     id: "folers",
     icon: <LuFolderClosed />,
-    label: "ChangePassword",
+    label: "Change Password",
     path: "/admin/ChangePassword",
   },
   {
@@ -119,8 +118,6 @@ export const superAdminSidebar = [
     path: "/dashboard",
   },
 
- 
-
   {
     id: "add_employeee",
     // icon: <TiUserAddOutline />,
@@ -128,14 +125,14 @@ export const superAdminSidebar = [
     label: "Add Employee",
     path: "/admin/add_employee",
   },
- 
+
   {
     id: "employee_list",
     icon: <RiListCheck3 />,
     label: "Employee List",
     path: "/admin/employee_list",
   },
- 
+
   {
     id: "leaves list",
     icon: <GrCopy />,
@@ -155,7 +152,6 @@ export const superAdminSidebar = [
         path: "/admin/admin-controls/roles",
       },
 
-    
       {
         id: "company",
         icon: <RiImageCircleLine />,
@@ -165,7 +161,7 @@ export const superAdminSidebar = [
       {
         id: "folers",
         icon: <LuFolderClosed />,
-        label: "ChangePassword",
+        label: "Change Password",
         path: "/admin/ChangePassword",
       },
       // {
@@ -208,7 +204,6 @@ export const teamLeadSidebar = [
     path: "/dashboard",
   },
 
-  
   {
     id: "profile",
     // icon: <TiUserAddOutline />,
@@ -216,7 +211,7 @@ export const teamLeadSidebar = [
     label: "Profile",
     path: "/profile",
   },
- 
+
   {
     id: "LeaveApplications",
     icon: <BsCalendar2EventFill />,
@@ -247,13 +242,13 @@ export const teamLeadSidebar = [
     id: "tasks",
     // icon: <TiUserAddOutline />,
     icon: <GrUserAdd />,
-    label: "TotalTask",
+    label: "Total Task",
     path: "/employee/tasks",
   },
   {
     id: "folers",
     icon: <LuFolderClosed />,
-    label: "ChangePassword",
+    label: "Change Password",
     path: "/admin/ChangePassword",
   },
   {
@@ -297,7 +292,7 @@ export const mangerSidebar = [
     id: "tasks",
     // icon: <TiUserAddOutline />,
     icon: <GrUserAdd />,
-    label: "TotalTask",
+    label: "Total Task",
     path: "/admin/tasks",
   },
   // {
@@ -306,7 +301,7 @@ export const mangerSidebar = [
   //   label: "Apply Leave",
   //   path: "/applyleave",
   // },
-  
+
   {
     id: "LeaveApplications",
     icon: <BsCalendar2EventFill />,
@@ -379,7 +374,7 @@ export const mangerSidebar = [
   {
     id: "folers",
     icon: <LuFolderClosed />,
-    label: "ChangePassword",
+    label: "Change Password",
     path: "/admin/ChangePassword",
   },
   {
@@ -390,4 +385,3 @@ export const mangerSidebar = [
   },
 ];
 //1
-

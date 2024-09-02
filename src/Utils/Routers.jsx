@@ -47,7 +47,7 @@ import Totaltasks from "../components/Projects/Totaltasks.jsx";
 import TeaminchargeProjects from "../components/Projects/TeaminchargeProjects.jsx";
 
 // import { EmployeeRoute } from './../HOC_protectingRoutes/ProtectedRoute';
-import { mangerSidebar } from './FakeRoutes';
+import { mangerSidebar } from "./FakeRoutes";
 import ManagerProjects from "../components/Projects/ManagerProjects.jsx";
 
 // AdminType "0" //Team member or normal employee
@@ -178,7 +178,7 @@ export const isEmployeeRouter = [
         path: "/employee/projects",
         element: (
           <EmployeeRoute>
-            <EmployeeProjects/>
+            <EmployeeProjects />
           </EmployeeRoute>
         ),
       },
@@ -190,7 +190,7 @@ export const isEmployeeRouter = [
           </EmployeeRoute>
         ),
       },
-      
+
       // {
       //   path: "/employee/folders",
       //   element: (
@@ -357,7 +357,7 @@ export const isSuperAdminRouter = [
           </IsSuperAdminRoute>
         ),
       },
-     
+
       {
         path: "/admin/employee_list",
         element: (
@@ -573,7 +573,7 @@ export const isManagerRouter = [
           </IsManagerRoute>
         ),
       },
-     
+
       {
         path: "/profile_update",
         element: (
@@ -850,7 +850,7 @@ export const isTeamLeadRouter = [
         path: "/employee/projects",
         element: (
           <IsTeamLeadRoute>
-            <TeaminchargeProjects/>
+            <TeaminchargeProjects />
           </IsTeamLeadRoute>
         ),
       },
@@ -870,7 +870,7 @@ export const isTeamLeadRouter = [
           </EmployeeRoute>
         ),
       },
-      
+
       {
         path: "/employee/folders",
         element: (

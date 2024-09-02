@@ -1035,7 +1035,7 @@ const TeaminchargeProjects = () => {
                     }}
                   >
                     <h5 className="project-title m-0">
-                      <strong className="text-primary">Project Name:</strong>{" "}
+                      <strong className="text-primary">Project Name :</strong>{" "}
                       {project.project_name}
                       <span className="task-status text-muted d-block text-end">
                         {project.project_status}
