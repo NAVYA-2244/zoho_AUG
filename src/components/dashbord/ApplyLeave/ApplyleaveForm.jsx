@@ -55,6 +55,7 @@ function ApplyLeaveForm() {
     };
     gettingEmployeeById();
   }, [employeeDetails]);
+  
 console.log(employeedataleaves)
   // useEffect(() => {
   //   if (formData.from_date && formData.to_date) {

@@ -413,14 +413,14 @@ console.log(projectId,"navya")
         return;
       }
 
-      await backEndCallObjNothing("/admin/add_remove_team", payload);
+    const response= await backEndCallObjNothing("/admin/add_remove_team", payload);
       fetchProjects();
-      toastOptions.success("Team member assigned successfully");
+      toastOptions.success(response||"Team member assigned successfully");
       setIsTeamModalVisible(false);
       fetchProjects();
     } catch (error) {
       console.error("Error assigning team member:", error);
-      toastOptions.error("Failed to assign team member");
+      toastOptions.error(error?.response?.data||"Failed to assign team member");
     } finally {
       setLoading(false);
     }

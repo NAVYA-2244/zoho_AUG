@@ -9,7 +9,8 @@ import { useStateContext } from "../../Contexts/StateContext";
 import { Navigate } from "react-router-dom";
 
 function Piachart() {
-  const [selectedEmployeeDataleave, setEmployeedataleave] = useState(null);
+  // const [selectedEmployeeDataleave, setEmployeedataleave] = useState(null);
+  const [employeedataleaves, setEmployeedataleave] = useState()
   // const [Employeedata] = useState([]);
   const {
     setLoading,
@@ -20,7 +21,7 @@ function Piachart() {
     employeeLeaveApplications,
   } = useStateContext();
 
-  console.log(selectedEmployeeDataleave, "setEmployeedata");
+  // console.log(selectedEmployeeDataleave, "setEmployeedata");
 
   useEffect(() => {
     const gettingEmployeeById = async () => {
@@ -36,15 +37,15 @@ function Piachart() {
       }
     };
     gettingEmployeeById();
-  }, [selectedEmployeeDataleave]);
+  }, [employeeDetails]);
 
   const { applicationColor } = useThemeContext();
 
   return (
     <div>
       <section className="leave-types">
-        {selectedEmployeeDataleave && selectedEmployeeDataleave.length > 0 ? (
-          selectedEmployeeDataleave.map((item) => (
+        {employeedataleaves && employeedataleaves.length > 0 ? (
+          employeedataleaves.map((item) => (
             <section
               className="type"
               key={item.leave_name}
@@ -53,7 +54,7 @@ function Piachart() {
                 color: applicationColor.readColor1,
               }}
             >
-              {console.log(item, "item")}
+              {/* {console.log(item, "item")} */}
               {/* {console.log("items", leave_name)} */}
               <div className="leave-img d-flex flex-column">
                 <i className={`${item.leave_name}`} alt={item.leave_name}>

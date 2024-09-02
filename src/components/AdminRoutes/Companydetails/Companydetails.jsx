@@ -98,7 +98,8 @@ const Companydetails = () => {
       // const { detail } = await makeNetworkCall({}, "getAdminData1", "headers");
 
       // setFormData(response?.images?.logo);
-      // setOrgLogo(response?.images?.logo);
+
+      setOrgLogo(response?.data?.images?.logo);
       setLoading(false);
       setLoadingTerm("");
 
