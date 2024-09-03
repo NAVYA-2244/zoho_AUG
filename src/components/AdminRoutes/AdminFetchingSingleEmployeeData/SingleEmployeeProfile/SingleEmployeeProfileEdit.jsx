@@ -441,7 +441,7 @@ console.log(formattedData,"cleanData")
 
           <div className="col-lg-4 col-md-4 col-sm-6">
             <Input_text
-             
+             type={"text"}
               name={"company_name"}
               placeholder={"Company Name"}
               value={formData?.company_name}

@@ -38,7 +38,9 @@ const UpdateEmployee = () => {
           `/admin_get/get_emp_by_id`,
           { employee_id: employeId }
         );
-console.log("employeupdate",employee)
+console.log(employee,"employeupdate")
+
+
         const {
           basic_info,
           work_info,
@@ -89,7 +91,7 @@ console.log("employeupdate",employee)
     };
     singleEmployeeData();
   }, [employeId]);
-
+// console.log(delete work_info?.reporting_manager,"dfshdfjsdfjkhsdkj")
   const handleSubmit = async (formData) => {
     try {
       setButtonDisabled(true)
@@ -131,6 +133,7 @@ console.log("employeupdate",employee)
         work_phone_number: formData?.work_phone_number,
         personal_mobile_number: formData?.personal_mobile_number,
         personal_email_address: formData?.personal_email_address,
+        reporting_manager: formData?.reporting_manager,
         seating_location: formData?.seating_location,
         permanent_address: formData?.permanent_address,
         present_address: formData?.present_address,
@@ -145,7 +148,7 @@ console.log("employeupdate",employee)
 
       // data.fcm_token = "1234";
       // data.device_id = "1234";
-      console.log(data, "paylod");
+      console.log(formData?.reporting_manager, "paylod");
       const response = await backEndCallObjNothing(
         "/admin/update_employee_profile",
         data
@@ -173,7 +176,7 @@ console.log("employeupdate",employee)
   if (redirect) {
     return <Navigate to="/admin/employee_list" />;
   }
-
+console.log(updateEmployeedata,"updateEmployeedata")
   return (
     <>
       {/* hello world */}

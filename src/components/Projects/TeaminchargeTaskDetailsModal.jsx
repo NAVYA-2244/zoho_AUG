@@ -674,8 +674,8 @@ console.log(task.project_id,"task")
                   />
                 </div>
               </div>
-              <div className="row mt-4">
-            {/* Team Information Section */}
+              {/* <div className="row mt-4">
+         
             <div className="col-md-6 mb-3">
               <h6 className="mb-3" style={{ fontWeight: "600" }}>
                 Team Information
@@ -701,7 +701,7 @@ console.log(task.project_id,"task")
               </div>
             </div>
 
-            {/* Dates Section */}
+            
             <div className="col-md-6 mb-3">
               <h6 className="mb-3" style={{ fontWeight: "600" }}>
                 Task Dates
@@ -743,7 +743,86 @@ console.log(task.project_id,"task")
                 </div>
               </div>
             </div>
+          </div> */}
+<div className="row">
+  {/* Team Information Section */}
+  {task?.created_by || task?.team?.length > 0 ? (
+    <div className="col-md-6 mb-3">
+      <h6 className="mb-3" style={{ fontWeight: "600" }}>
+        Team Information
+      </h6>
+      {task?.created_by && (
+        <div className="mb-3">
+          <strong>Created By:</strong>
+          <ul className="pl-3 mt-2">
+            <li>
+              {task.created_by.email} (ID: {task.created_by.employee_id})
+            </li>
+          </ul>
+        </div>
+      )}
+      {task?.team?.length > 0 && (
+        <div>
+          <strong>Assigned To:</strong>
+          <ul className="pl-3 mt-2">
+            {task.team.map((member) => (
+              <li key={member.employee_id} className="mb-2">
+                {member.employee_name} (ID: {member.employee_id})
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  ) : null}
+
+  {/* Dates Section */}
+  {(task?.due_date || task?.completed_date || task?.createdAt || task?.updatedAt) && (
+    <div className="col-md-6 mb-3">
+      <h6 className="mb-3" style={{ fontWeight: "600" }}>
+        Task Dates
+      </h6>
+      <div className="row">
+        {task?.due_date && (
+          <div className="col-md-6 mb-3">
+            <strong style={{ display: "block", marginBottom: "0.5rem" }}>
+              Due Date:
+            </strong>
+            <span>{new Date(task.due_date).toLocaleDateString()}</span>
           </div>
+        )}
+        {task?.completed_date && (
+          <div className="col-md-6 mb-3">
+            <strong style={{ display: "block", marginBottom: "0.5rem" }}>
+              Completed Date:
+            </strong>
+            <span>
+              {task.completed_date
+                ? new Date(task.completed_date).toLocaleDateString()
+                : "Not completed"}
+            </span>
+          </div>
+        )}
+        {task?.createdAt && (
+          <div className="col-md-6 mb-3">
+            <strong style={{ display: "block", marginBottom: "0.5rem" }}>
+              Created At:
+            </strong>
+            <span>{new Date(task.createdAt).toLocaleDateString()}</span>
+          </div>
+        )}
+        {task?.updatedAt && (
+          <div className="col-md-6 mb-3">
+            <strong style={{ display: "block", marginBottom: "0.5rem" }}>
+              Updated At:
+            </strong>
+            <span>{new Date(task.updatedAt).toLocaleDateString()}</span>
+          </div>
+        )}
+      </div>
+    </div>
+  )}
+</div>
 
               
               <section className="text-center">

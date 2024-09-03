@@ -63,13 +63,13 @@ const ProjectStatusEditModal = ({ onClose, project, onSubmit }) => {
           }}
         >
           <h4 className="mb-4" style={{ fontWeight: "bold" }}>
-            Task Details
+            Project Details
           </h4>
 
           <div className="row">
             <div className="col-md-6 mb-4">
-              <strong>Task Name:</strong>
-              <h5 className="card-title mt-2">{project.task_name}</h5>
+              <strong>Project Name:</strong>
+              <h5 className="card-title mt-2">{project.project_name}</h5>
             </div>
             <div className="col-md-12 mb-3">
               <strong>Description:</strong>
@@ -145,7 +145,7 @@ const ProjectStatusEditModal = ({ onClose, project, onSubmit }) => {
               </div>
             </div>
 
-            <div className="col-md-6 mb-3">
+            <div className="col-md-6">
               <h6 className="mb-3" style={{ fontWeight: "600" }}>
                 Task Dates
               </h6>
@@ -180,7 +180,7 @@ const ProjectStatusEditModal = ({ onClose, project, onSubmit }) => {
             </div>
           </div>
 
-          <div className="d-flex justify-content-end mt-4">
+          <div className="d-flex justify-content-end">
             <button
               type="submit"
               className="btn btn-primary"
@@ -192,7 +192,7 @@ const ProjectStatusEditModal = ({ onClose, project, onSubmit }) => {
               onClick={handleSubmit}
               disabled={loading} // Disable the button when loading is true
             >
-              {loading ? "Updating..." : "Update Task"} {/* Show loading text */}
+              {loading ? "Updating..." : "Update "} {/* Show loading text */}
             </button>
           </div>
         </div>

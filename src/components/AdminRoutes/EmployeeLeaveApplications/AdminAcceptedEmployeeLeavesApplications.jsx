@@ -219,7 +219,7 @@ const renderLeaveStatusButtons = useCallback((application) => {
   else if (employeeRole === "Manager" && manager) roleStatus = manager.leave_status;
   else if (employeeRole === "Team Incharge" && team_incharge) roleStatus = team_incharge.leave_status;
 
-  if (!roleStatus) return <p>Role mismatch or no action available for this role.</p>;
+  if (!roleStatus) return "";
 
   return (
     <section className="status g-2">
@@ -242,14 +242,24 @@ const renderLeaveStatusButtons = useCallback((application) => {
 }, [employeeDetails]);
   console.log(adminGettingLeaveApplications, "Admin");
   
+  // const handleReset = () => {
+  //   setFormData("");
+  //   setSkip(0);
+  //   setHasMore(true);
+   
+  //   fetchLeaveApplications(); // refetch with reset filters
+  // };
   const handleReset = () => {
-    setFormData("");
+    setFormData({
+      leave_status: "Pending",
+      from_date: "",
+      to_date: "",
+      employee_id: "",
+    });
     setSkip(0);
     setHasMore(true);
-   
-    fetchLeaveApplications(); // refetch with reset filters
+    fetchLeaveApplications();
   };
-
   return (
     <section
       className="admin-accepted-leave-applications"
@@ -376,10 +386,22 @@ const renderLeaveStatusButtons = useCallback((application) => {
                       >
                         {item.employee_name}
                       </p>
-                      <div className="leave-card-data">
+                      {/* <div className="leave-card-data">
                         <p>Type: {item.leave_type}</p>
                         <p>Status: {item.leave_status}</p>
-                      </div>
+                      </div> */}
+                      <div className="leave-card-data">
+  <p>Type: {item.leave_type}</p>
+  <p><span className="me-2">Status :  </span>
+      <span className={`leave-status ${item.leave_status.toLowerCase()}`}>
+   
+    {item.leave_status === "Pending" && <span className="status-pending me-1">Pending</span>}
+    {item.leave_status === "Approved" && <span className="status-approved me-1">Approved</span>}
+    {item.leave_status === "Rejected" && <span className="status-rejected me-1">Rejected</span>}
+  </span>
+  </p>
+</div>
+
                       <div className="leave-card-data">
                         <p>From: {item.from_date}</p>
                         <p>To : {item.to_date}</p>
@@ -389,8 +411,12 @@ const renderLeaveStatusButtons = useCallback((application) => {
                         <p>Days Taken: {item.days_taken}</p>
                       </div>
                       <div className="leave-card-data">
-                        <p>Remaining Leaves:</p>
-                        <p>{item.remaining_leaves}</p>
+                        <p>Reason: {item.reason}</p>
+                        
+                      </div>
+                      <div className="leave-card-data">
+                        <p>Applyed At:</p>
+                        <p>{item.createdAt}</p>
                       </div>
                       {/* <section className="status g-2">
                         {item.leave_status === "Pending" && (
@@ -449,6 +475,7 @@ const renderLeaveStatusButtons = useCallback((application) => {
                 }}
               >
                 <th>Employee ID</th>
+                <th>Applyed At </th>
                 <th>Employee Name</th>
                 <th>Leave Type</th>
                 <th>From Date</th>
@@ -456,7 +483,12 @@ const renderLeaveStatusButtons = useCallback((application) => {
                 <th>Days Taken</th>
                 <th>Reason</th>
                 <th>Leave Status</th>
-                <th>Actions</th>
+                {employeeDetails?.role_name === "hr" ||
+      employeeDetails?.role_name === "Manager" ||
+      employeeDetails?.role_name === "Team Incharge" ? (
+        <th>Action</th>
+      ) : null}
+                
               </thead>
               <tbody className="admin-leaves-table-body">
                 {adminGettingLeaveApplications.map((item) => (
@@ -472,6 +504,7 @@ const renderLeaveStatusButtons = useCallback((application) => {
                       ))} */}
 
                     <td>{item.employee_id}</td>
+                    <td>{item.createdAt}</td>
                     <td>{item.employee_name}</td>
                     <td>{item.leave_type}</td>
                     <td>{item.from_date}</td>
@@ -480,7 +513,15 @@ const renderLeaveStatusButtons = useCallback((application) => {
                    <td style={{ maxWidth: '200px', wordWrap: 'break-word', whiteSpace: 'normal' }}>
         {item.reason}
       </td>
-                    <td>{item.leave_status}</td>
+                    {/* <td>{item.leave_status}</td> */}
+                    <td>
+  <span className={`leave-status ${item.leave_status.toLowerCase()}`}>
+    {item.leave_status === "Pending" && <span className="status-pending">Pending</span>}
+    {item.leave_status === "Approved" && <span className="status-approved">Approved</span>}
+    {item.leave_status === "Rejected" && <span className="status-rejected">Rejected</span>}
+  </span>
+</td>
+
                     <td>{renderLeaveStatusButtons(item)}</td>
                     {/* <td className="leave-actions"> */}
                       {/* {application.leave_status === "Pending" && (

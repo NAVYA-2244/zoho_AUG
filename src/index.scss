@@ -839,3 +839,20 @@ input[type="date"] {
   font-size: 12px;
   font-weight: bold;
 }
+
+
+.leave-status {
+  font-weight: bold;
+}
+
+.status-pending {
+  color: orange;
+}
+
+.status-approved {
+  color: green;
+}
+
+.status-rejected {
+  color: red;
+}

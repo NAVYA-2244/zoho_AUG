@@ -110,116 +110,308 @@ console.log(project,"project")
   };
 
   return (
-    <div
-      className="modal d-flex justify-content-center align-items-center show"
-      style={{ backgroundColor: "rgba(0, 0, 0, 0.5)", zIndex: 1050 }}
-    >
-      <div
-        className="card w-100 shadow"
-        style={{
-          maxWidth: "900px",
-          borderRadius: "0.5rem",
-          maxHeight: "90vh",
-          overflowY: "auto",
-        }}
-      >
-        <div className="card-header" style={{ position: 'relative' }}>
-          <h5 style={{ textAlign: 'center', width: '100%' }}>
-            {formData.project_id ? "Edit Project" : "Add New Project"}
-          </h5>
-          <button
-            type="button"
-            className="btn-close"
-            aria-label="Close"
-            onClick={handleGoBack}
-            style={{ position: 'absolute', top: '10px', left: '10px' }}
-          ></button>
-        </div>
+    // <div
+    //   className="modal d-flex justify-content-center align-items-center show"
+    //   style={{ backgroundColor: "rgba(0, 0, 0, 0.5)", zIndex: 1050 }}
+    // >
+    //   <div
+    //     className="card w-100 shadow"
+    //     style={{
+    //       maxWidth: "900px",
+    //       borderRadius: "0.5rem",
+    //       maxHeight: "90vh",
+    //       overflowY: "auto",
+    //     }}
+    //   >
+    //     <div className="card-header" style={{ position: 'relative' }}>
+    //       <h5 style={{ textAlign: 'center', width: '100%' }}>
+    //         {formData.project_id ? "Edit Project" : "Add New Project"}
+    //       </h5>
+    //       <button
+    //         type="button"
+    //         className="btn-close"
+    //         aria-label="Close"
+    //         onClick={handleGoBack}
+    //         style={{ position: 'absolute', top: '10px', left: '10px' }}
+    //       ></button>
+    //     </div>
 
-        <div className="card-body">
-          <form className="project-form" onSubmit={handleSubmit}>
+    //     <div className="card-body">
+    //       <form className="project-form" onSubmit={handleSubmit}>
+    //         <div className="row">
+    //           <div className="mb-3 col-lg-6 col-md-6">
+    //             <Input_text
+    //               name="project_name"
+    //               value={formData.project_name}
+    //               placeholder="Project Name"
+    //               onChange={handleChange}
+    //               setForm={setFormData}
+    //               maxLength={50}
+    //               error={errors.project_name}
+    //             />
+    //           </div>
+    //           <div className="mb-3 col-lg-6 col-md-6">
+    //             <Input_area
+    //               value={formData.description}
+    //               name="description"
+    //               placeholder="Description"
+    //               setForm={setFormData}
+    //               onChange={handleChange}
+    //               length={200}
+    //               error={errors.description}
+    //             />
+    //           </div>
+    //           <div className="mb-3 col-lg-6 col-md-6">
+    //             <Date_Input
+    //               type="date"
+    //               value={formData.start_date}
+    //               name="start_date"
+    //               placeholder="Start Date"
+    //               setForm={setFormData}
+    //               onChange={handleChange}
+    //               error={errors.start_date}
+    //             />
+    //           </div>
+    //           <div className="mb-3 col-lg-6 col-md-6">
+    //             <Date_Input
+    //               type="date"
+    //               value={formData.end_date}
+    //               name="end_date"
+    //               placeholder="End Date"
+    //               setForm={setFormData}
+    //               onChange={handleChange}
+    //               error={errors.end_date}
+    //             />
+    //           </div>
+    //           <div className="mb-3 col-lg-6 col-md-6">
+    //             <Select_inputs
+    //               name="status"
+    //               placeholder="Status"
+    //               options={["new", "in_progress", "under_review", "completed"]}
+    //               value={formData.status}
+    //               setForm={setFormData}
+    //               onChange={handleChange}
+    //               error={errors.status}
+    //             />
+    //           </div>
+    //           <div className="mb-3 col-lg-6 col-md-6">
+    //             <Select_inputs
+    //               name="project_status"
+    //               placeholder="Project Status"
+    //               options={["active", "in_active", "completed"]}
+    //               value={formData.project_status}
+    //               setForm={setFormData}
+    //               onChange={handleChange}
+    //               error={errors.project_status}
+    //             />
+    //           </div>
+              
+    //         </div>
+            
+    //         {loading && <Loader />}
+            
+    //         <section className="text-center">
+    //           <button
+    //             type="submit"
+    //             disabled={loading}
+    //             className="btn btn-primary mt-2 px-2"
+    //           >
+    //             {formData.project_id ? "Update Project" : "Add Project"}
+    //           </button>
+    //         </section>
+    //       </form>
+    //     </div>
+    //   </div>
+    // </div>
+    <div
+    className="modal d-flex justify-content-center align-items-center show"
+    style={{ backgroundColor: "rgba(0, 0, 0, 0.5)", zIndex: 1050 }}
+  >
+    <div
+      className="card w-100 shadow"
+      style={{
+        maxWidth: "900px",
+        borderRadius: "0.5rem",
+        maxHeight: "90vh",
+        overflowY: "auto",
+      }}
+    >
+      <div className="card-header" style={{ position: 'relative' }}>
+        <h5 style={{ textAlign: 'center', width: '100%' }}>
+          {formData.project_id ? "Edit Project" : "Add New Project"}
+        </h5>
+        <button
+          type="button"
+          className="btn-close"
+          aria-label="Close"
+          onClick={handleGoBack}
+          style={{ position: 'absolute', top: '10px', left: '10px' }}
+        ></button>
+      </div>
+
+      <div className="card-body">
+        <form className="project-form" onSubmit={handleSubmit}>
+          <div className="row">
+            <div className="mb-3 col-lg-6 col-md-6">
+              <Input_text
+                name="project_name"
+                value={formData.project_name}
+                placeholder="Project Name"
+                onChange={handleChange}
+                setForm={setFormData}
+                maxLength={50}
+                error={errors.project_name}
+              />
+            </div>
+            <div className="mb-3 col-lg-6 col-md-6">
+              <Input_area
+                value={formData.description}
+                name="description"
+                placeholder="Description"
+                setForm={setFormData}
+                onChange={handleChange}
+                length={200}
+                error={errors.description}
+              />
+            </div>
+            <div className="mb-3 col-lg-6 col-md-6">
+              <Date_Input
+                type="date"
+                value={formData.start_date}
+                name="start_date"
+                placeholder="Start Date"
+                setForm={setFormData}
+                onChange={handleChange}
+                error={errors.start_date}
+              />
+            </div>
+            <div className="mb-3 col-lg-6 col-md-6">
+              <Date_Input
+                type="date"
+                value={formData.end_date}
+                name="end_date"
+                placeholder="End Date"
+                setForm={setFormData}
+                onChange={handleChange}
+                error={errors.end_date}
+              />
+            </div>
+            <div className="mb-3 col-lg-6 col-md-6">
+              <Select_inputs
+                name="status"
+                placeholder="Status"
+                options={["new", "in_progress", "under_review", "completed"]}
+                value={formData.status}
+                setForm={setFormData}
+                onChange={handleChange}
+                error={errors.status}
+              />
+            </div>
+            <div className="mb-3 col-lg-6 col-md-6">
+              <Select_inputs
+                name="project_status"
+                placeholder="Project Status"
+                options={["active", "in_active", "completed"]}
+                value={formData.project_status}
+                setForm={setFormData}
+                onChange={handleChange}
+                error={errors.project_status}
+              />
+            </div>
+            <div className="mb-3 col-lg-6 col-md-6">
+            {project.assign_track && project.assign_track.length > 0 && (
+                    <div className="assign-track mt-3">
+                      <h6>Assigned Team:</h6>
+                      <ul>
+                        {project.assign_track.map((assignment, index) => (
+                          <li key={index}>
+                         
+                            {/* <p>
+                              Assigned by:{" "}
+                              <strong>
+                                {assignment.assigned_by?.employee_email || "Unknown"}
+                              </strong>
+                            </p> */}
+                            <p>
+                              Assigned to:{" "}
+                              <strong>
+                                {assignment.assigned_to?.employee_name || "Unknown"}
+                              </strong>
+                            </p>
+                          </li>
+                        ))}
+                      </ul>
+                    
+                    </div>
+                  )}
+          </div>
+          {/* <div className="mb-3 col-lg-6 col-md-6 mt-4">
+           
+            <h6 className="mb-3" style={{ fontWeight: "600" }}>
+              Task Dates
+            </h6>
             <div className="row">
-              <div className="mb-3 col-lg-6 col-md-6">
-                <Input_text
-                  name="project_name"
-                  value={formData.project_name}
-                  placeholder="Project Name"
-                  onChange={handleChange}
-                  setForm={setFormData}
-                  maxLength={50}
-                  error={errors.project_name}
-                />
+                             <div className="col-md-6 mb-3">
+              
+                <strong style={{ display: "block", marginBottom: "0.5rem" }}>
+                  Created At:
+                </strong>
+                <span>
+                  {new Date(project.createdAt).toLocaleDateString()}
+                </span>
               </div>
-              <div className="mb-3 col-lg-6 col-md-6">
-                <Input_area
-                  value={formData.description}
-                  name="description"
-                  placeholder="Description"
-                  setForm={setFormData}
-                  onChange={handleChange}
-                  length={200}
-                  error={errors.description}
-                />
-              </div>
-              <div className="mb-3 col-lg-6 col-md-6">
-                <Date_Input
-                  type="date"
-                  value={formData.start_date}
-                  name="start_date"
-                  placeholder="Start Date"
-                  setForm={setFormData}
-                  onChange={handleChange}
-                  error={errors.start_date}
-                />
-              </div>
-              <div className="mb-3 col-lg-6 col-md-6">
-                <Date_Input
-                  type="date"
-                  value={formData.end_date}
-                  name="end_date"
-                  placeholder="End Date"
-                  setForm={setFormData}
-                  onChange={handleChange}
-                  error={errors.end_date}
-                />
-              </div>
-              <div className="mb-3 col-lg-6 col-md-6">
-                <Select_inputs
-                  name="status"
-                  placeholder="Status"
-                  options={["new", "in_progress", "under_review", "completed"]}
-                  value={formData.status}
-                  setForm={setFormData}
-                  onChange={handleChange}
-                  error={errors.status}
-                />
-              </div>
-              <div className="mb-3 col-lg-6 col-md-6">
-                <Select_inputs
-                  name="project_status"
-                  placeholder="Project Status"
-                  options={["active", "in_active", "completed"]}
-                  value={formData.project_status}
-                  setForm={setFormData}
-                  onChange={handleChange}
-                  error={errors.project_status}
-                />
+              <div className="col-md-6 mb-3">
+                <strong style={{ display: "block", marginBottom: "0.5rem" }}>
+                  Updated At:
+                </strong>
+                <span>
+                  {new Date(project.updatedAt).toLocaleDateString()}
+                </span>
               </div>
             </div>
-            {loading && <Loader />}
-            <section className="text-center">
-              <button
-                type="submit"
-                disabled={loading}
-                className="btn btn-primary mt-2 px-2"
-              >
-                {formData.project_id ? "Update Project" : "Add Project"}
-              </button>
-            </section>
-          </form>
-        </div>
+        
+          </div> */}
+          {project.createdAt || project.updatedAt ? (
+<div className="mb-3 col-lg-6 col-md-6 mt-4">
+  <h6 className="mb-3" style={{ fontWeight: "600" }}>
+    Task Dates
+  </h6>
+  <div className="row">
+    {project.createdAt && (
+      <div className="col-md-6 mb-3">
+        <strong style={{ display: "block", marginBottom: "0.5rem" }}>
+          Created At:
+        </strong>
+        <span>{new Date(project.createdAt).toLocaleString()}</span>
+      </div>
+    )}
+    {project.updatedAt && (
+      <div className="col-md-6 mb-3">
+        <strong style={{ display: "block", marginBottom: "0.5rem" }}>
+          Updated At:
+        </strong>
+        <span>{new Date(project.updatedAt).toLocaleString()}</span>
+      </div>
+    )}
+  </div>
+</div>
+) : null}
+
+          </div>
+          {loading && <Loader />}
+          <section className="text-center">
+            <button
+              type="submit"
+              disabled={loading}
+              className="btn btn-primary mt-2 px-2"
+            >
+              {formData.project_id ? "Update Project" : "Add Project"}
+            </button>
+          </section>
+        </form>
       </div>
     </div>
+  </div>
   );
 };
 

@@ -445,7 +445,8 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
                         </div>
                         <div className="info detail">
                           <MdOutlineMail />
-                          <p>{basic_info.email || "no data"}</p>
+                          {/* <p>{basic_info.email.toLowerCase()  || "no data"}</p> */}
+                          <p>{basic_info.email ? basic_info.email.toLowerCase() : "no data"}</p>
                         </div>
                       </div>
                       <div className="basic-info-right">

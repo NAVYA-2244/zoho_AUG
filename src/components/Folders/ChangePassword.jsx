@@ -911,7 +911,7 @@
 // };
 
 // export default ChangePassword;
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import Joi from "joi";
 import { backEndCallObjNothing } from "../../services/mainService";
@@ -956,115 +956,83 @@ const ChangePassword = () => {
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [isFormValid, setIsFormValid] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(true);
+  const [btndisabled, setBtndisabled] = useState(false);
+  // Define Joi schemas
+  const schema = Joi.object({
+    oldPassword: Joi.string()
+      .min(6)
+      .max(10)
+      .required()
+      .label("Old Password")
+      .messages({
+        "string.min": "Old Password must be at least 6 characters long",
+        "string.max": "Old Password must be less than 11 characters long",
+        "any.required": "Old Password is required",
+      }),
+    newPassword: Joi.string()
+      .min(8)
+      .max(10)
+      .pattern(new RegExp("^(?=.*[A-Z])(?=.*[!@#$%^&*])"))
+      .required()
+      .label("New Password")
+      .messages({
+        "string.min": "New Password must be at least 8 characters long",
+        "string.max": "New Password must be less than 11 characters long",
+        "string.pattern.base":
+          "New Password must contain at least one capital letter and one special character",
+        "any.required": "New Password is required",
+      }),
+    confirmPassword: Joi.string()
+      .valid(Joi.ref("newPassword"))
+      .required()
+      .label("Confirm Password")
+      .messages({
+        "any.only": "Confirm Password must match New Password",
+        "any.required": "Confirm Password is required",
+      }),
+  });
 
-  // Define individual Joi schemas
-  const oldPasswordSchema = Joi.string()
-    .min(6)
-    .max(10)
-    .required()
-    .label("Old Password")
-    .messages({
-      "string.min": "Old Password must be at least 6 characters long",
-      "string.max": "Old Password must be less than 11 characters long",
-      "any.required": "Old Password is required",
-    });
+  const validateForm = () => {
+    const { error } = schema.validate(formData, { abortEarly: false });
+    const newErrors = {};
 
-  const newPasswordSchema = Joi.string()
-    .min(8)
-    .max(10)
-    .pattern(new RegExp("^(?=.*[A-Z])(?=.*[!@#$%^&*])"))
-    .required()
-    .label("New Password")
-    .messages({
-      "string.min": "New Password must be at least 8 characters long",
-      "string.max": "New Password must be less than 11 characters long",
-      "string.pattern.base":
-        "New Password must contain at least one capital letter and one special character",
-      "any.required": "New Password is required",
-    });
-
-  const confirmPasswordSchema = Joi.string()
-    // .valid(Joi.ref("newPassword"))
-    .required()
-    .label("Confirm Password")
-    .messages({
-      "any.only": "Confirm Password must match New Password",
-      "any.required": "Confirm Password is required",
-    });
-
-  // Validate individual fields
-  const validateField = (field, value) => {
-    let schema;
-    switch (field) {
-      case "oldPassword":
-        schema = oldPasswordSchema;
-        break;
-      case "newPassword":
-        schema = newPasswordSchema;
-        break;
-      case "confirmPassword":
-        schema = confirmPasswordSchema;
-        break;
-      default:
-        return;
+    if (error) {
+      error.details.forEach((detail) => {
+        newErrors[detail.path[0]] = detail.message;
+      });
+      setIsFormValid(false);
+    } else {
+      setIsFormValid(true);
     }
 
-    const { error } = schema.validate(value, { abortEarly: false });
-    return error
-      ? error.details.map((detail) => detail.message).join(", ")
-      : null;
+    setErrors(newErrors);
+    return newErrors;
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    const errorMessage = validateField(name, value);
-
     setFormData({
       ...formData,
       [name]: value,
     });
 
-    setErrors({
-      ...errors,
-      [name]: errorMessage,
-    });
-
-    validateForm();
-  };
-
-  const validateForm = () => {
-    const newErrors = {};
-    let isValid = true;
-
-    // Validate all fields
-    Object.keys(formData).forEach((key) => {
-      const errorMessage = validateField(key, formData[key]);
-      if (errorMessage) {
-        newErrors[key] = errorMessage;
-        isValid = false;
-      }
-    });
-
-    // Special validation for confirmPassword
-    if (formData.confirmPassword !== formData.newPassword) {
-      newErrors.confirmPassword = "Confirm Password must match New Password";
-      isValid = false;
+    // Reset errors on input change
+    if (Object.keys(errors).length > 0) {
+      setErrors({});
     }
-
-    setErrors(newErrors);
-    setIsFormValid(isValid);
-    return isValid;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validateForm()) {
+    const newErrors = validateForm();
+    if (Object.keys(newErrors).length > 0) {
       return;
     }
 
     try {
+      setBtndisabled(true)
       const payload = {
         old_password: formData.oldPassword,
         new_password: formData.newPassword,
@@ -1072,9 +1040,10 @@ const ChangePassword = () => {
 
       const res = await backEndCallObjNothing("/emp/reset_password", payload);
       toastOptions.success(res.success || "Password changed successfully");
-
+      setBtndisabled(false)
       setShowModal(true);
     } catch (error) {
+      setBtndisabled(false)
       console.log(error, "error");
       toastOptions.error(error.response.data || "Error changing password");
     }
@@ -1084,10 +1053,6 @@ const ChangePassword = () => {
     localStorage.removeItem("zohoEmployeeToken");
     navigate("/login");
   };
-
-  useEffect(() => {
-    validateForm();
-  }, [formData]);
 
   return (
     <section
@@ -1152,7 +1117,7 @@ const ChangePassword = () => {
                         height: "50px",
                       }}
                       onChange={handleInputChange}
-                      maxLength={8}
+                      maxLength={10}
                     />
                     <span
                       onClick={() => setShowNewPassword(!showNewPassword)}
@@ -1189,12 +1154,10 @@ const ChangePassword = () => {
                         height: "50px",
                       }}
                       onChange={handleInputChange}
-                      maxLength={8}
+                      maxLength={10}
                     />
                     <span
-                      onClick={() =>
-                        setShowConfirmPassword(!showConfirmPassword)
-                      }
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                       style={{
                         position: "absolute",
                         top: "40%",
@@ -1216,7 +1179,7 @@ const ChangePassword = () => {
                 <button
                   type="submit"
                   className="btn btn-primary"
-                  disabled={!isFormValid}
+                  disabled={btndisabled}
                 >
                   Submit
                 </button>

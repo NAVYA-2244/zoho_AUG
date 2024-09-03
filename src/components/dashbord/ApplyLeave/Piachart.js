@@ -32,6 +32,7 @@ function Piachart() {
         console.log("response", response);
         // setEmployeedataleave(response.profile.leaves);
         setEmployeedataleave(response.profile.leaves);
+        console.log(response.profile.leaves, "response.profile.leaves")
       } catch (error) {
         console.error("Error fetching employee data:", error);
       }
@@ -78,15 +79,15 @@ function Piachart() {
                   </span>
                   <br />
                   <span className="leave-used">
-                    Used : &nbsp;
-                    <b>{item.used_leaves == "" ? "0" : item.used_leaves}</b>
-                    {console.log(item.used_leaves)}
+                    Remaining : &nbsp;
+                    <b>{item.remaining_leaves == "" ? "0" : item.remaining_leaves}</b>
+                    {console.log(item.remaining_leaves)}
                   </span>
                 </div>
               </div>
               <CircularLoader
                 max={item?.total_leaves}
-                min={item.used_leaves}
+                min={item.remaining_leaves}
               />
             </section>
           ))

@@ -9,50 +9,51 @@ const Dashbordstats = ({ data, heading }) => {
 
   return (
     <section
-    className="list-array"
+    className="lists"
     style={{
       color: applicationColor.readColor1,
     }}
   >
     <h5 className="heading">{heading}</h5>
-      {statusTrack.length > 0 ? (
-        <div className="row">
+
+    <section className="list-array">
+            {statusTrack.length > 0 ? (
+        <div className="d-flex flex-column align-items-center">
           {statusTrack.map((item, index) => (
-            <div className="col-12 col-md-6 mb-4" key={index}>
+            <div className="mb-2" key={index} style={{ width: '100%' }}>
               <div
                 className="card text-center shadow-sm"
-                style={{
-                  backgroundColor: applicationColor.cardBg2,
-                  color: applicationColor.textColor,
-                  border: `1px solid ${applicationColor.readColor1}`,
-                  borderRadius: "8px",
+                
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = "translateY(-5px)";
+                  e.currentTarget.style.boxShadow = `0 8px 16px ${applicationColor.shadowColor || "rgba(0, 0, 0, 0.2)"}`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "translateY(0)";
+                  e.currentTarget.style.boxShadow = "none";
                 }}
               >
                 <div className="card-body">
-                  <h6 className="card-title text-uppercase mb-2">
+                  <h6
+                    className="card-title text-uppercase mb-2"
+                    
+                  >
                     {item.status.replace('_', ' ')}
                   </h6>
-                  <span
-                    className="badge"
-                    style={{
-                      backgroundColor: applicationColor.primary,
-                      color: 'rgb(108, 99, 252)',
-                      fontSize: "1.25rem",
-                      padding: "0.5rem 1rem",
-                    }}
-                  >
-                    {item.count}
-                  </span>
+                  
+                    <h6 className="text-dark">{item.count}</h6>
+                  
                 </div>
               </div>
             </div>
           ))}
         </div>
       ) : (
-        <div className="alert alert-info text-center" role="alert">
+      <p className="text-center">
           No tasks available.
-        </div>
+          </p>
       )}
+    </section>
     </section>
   );
 };

@@ -774,6 +774,13 @@ const EmployeeLoginForm = ({ setOtpType }) => {
       toastOptions.error("OTP is required");
       return;
     }
+    
+    
+    else if (otp.length !== 6) {
+      toastOptions.error("Please enter a 6-digit OTP");
+      return;
+    }
+    
     try {
       setBtndisabled(true);
       const obj = {

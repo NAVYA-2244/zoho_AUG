@@ -24,22 +24,55 @@ export const FunctionContextProvider = ({ children }) => {
     if (value.length > max && type !== "file") {
       return;
     }
-    if ((type === "textarea" || type === "email") && id !== "password") {
-      value = value.replace(/[^A-Za-z0-9@.\s-]/g, "");
+    // if ((type === "textarea" || type === "email") && id !== "password") {
+    //   value = value.replace(/[^A-Za-z0-9@.\s-]/g, "");
+    // }
+    if (type === "textarea" && id !== "password") {
+      // For textarea: Allow alphanumeric characters, spaces, dots, commas, and hyphens
+      value = value.replace(/[^A-Za-z0-9.,\s-]/g, "");
+    } else if (type === "email" && id !== "password") {
+      // For email: Allow alphanumeric characters, @, ., -, and _
+      value = value.replace(/[^A-Za-z0-9@._-]/g, "");
     }
-
-    if (
-      type === "text" &&
-      name !== "uan" &&
-      name !== "pan" &&
-      name !== "longitude" &&
-      name !== "latitude" &&
-      name !== "employee_id" &&
-      id !== "password"
-    ) {
-      value = value.replace(/[^A-Za-z" "]/g, "");
+    
+    
+    // if (
+    //   type === "text" &&
+    //   name !== "uan" &&
+    //   name !== "pan" &&
+    //   name !== "longitude" &&
+    //   name !== "latitude" &&
+    //   name !== "employee_id" &&
+    //   id !== "password"
+    // ) {
+    //   value = value.replace(/[^A-Za-z" "]/g, "");
+    // }
+    if (type === "text" && id !== "password") {
+      if (name === "pan") {
+        // Allow only uppercase letters and numbers for "pan" field
+        value = value.replace(/[^A-Z0-9]/g, "");
+      }
+      
+      if (name === "organisation_name") {
+        // Allow both uppercase, lowercase letters, and numbers for "company name" field
+        value = value.replace(/[^a-zA-Z0-9]/g, "");
+      }
+      if (name === "company_name") {
+        // Allow both uppercase, lowercase letters, and numbers for "company name" field
+        value = value.replace(/[^a-zA-Z0-9]/g, "");
+      }
+      
+       else if (
+        name !== "uan" &&
+        name !== "longitude" &&
+        name !== "latitude" &&
+        name !== "employee_id"
+      ) {
+        // Allow only alphabetic characters and spaces for other text fields
+        value = value.replace(/[^A-Za-z\s]/g, "");
+      }
     }
-
+    
     if (type === "text" && name === "employee_id") {
       value = value.replace(/[^A-Za-z0-9]/g, "");
     }

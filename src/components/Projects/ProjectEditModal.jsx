@@ -571,31 +571,13 @@ const ProjectEditModal = ({ project, setIsFormVisible, fetchProjects }) => {
                       </div>
                     )}
             </div>
-            <div className="mb-3 col-lg-6 col-md-6 mt-4">
+            {/* <div className="mb-3 col-lg-6 col-md-6 mt-4">
              
               <h6 className="mb-3" style={{ fontWeight: "600" }}>
                 Task Dates
               </h6>
               <div className="row">
-                {/* <div className="col-md-6 mb-3">
-                  <strong style={{ display: "block", marginBottom: "0.5rem" }}>
-                    Due Date:
-                  </strong>
-                  <span>
-                    {new Date(project.due_date).toLocaleDateString()}
-                  </span>
-                </div> */}
-                {/* <div className="col-md-6 mb-3">
-                  <strong style={{ display: "block", marginBottom: "0.5rem" }}>
-                    Completed Date:
-                  </strong>
-                  <span>
-                    {formData.completed_date
-                      ? new Date(project.completed_date).toLocaleDateString()
-                      : "Not completed"}
-                  </span>
-                </div> */}
-                <div className="col-md-6 mb-3">
+                               <div className="col-md-6 mb-3">
                 
                   <strong style={{ display: "block", marginBottom: "0.5rem" }}>
                     Created At:
@@ -613,8 +595,34 @@ const ProjectEditModal = ({ project, setIsFormVisible, fetchProjects }) => {
                   </span>
                 </div>
               </div>
-            {/* </div> */}
-            </div>
+          
+            </div> */}
+            {project.createdAt || project.updatedAt ? (
+  <div className="mb-3 col-lg-6 col-md-6 mt-4">
+    <h6 className="mb-3" style={{ fontWeight: "600" }}>
+      Task Dates
+    </h6>
+    <div className="row">
+      {project.createdAt && (
+        <div className="col-md-6 mb-3">
+          <strong style={{ display: "block", marginBottom: "0.5rem" }}>
+            Created At:
+          </strong>
+          <span>{new Date(project.createdAt).toLocaleString()}</span>
+        </div>
+      )}
+      {project.updatedAt && (
+        <div className="col-md-6 mb-3">
+          <strong style={{ display: "block", marginBottom: "0.5rem" }}>
+            Updated At:
+          </strong>
+          <span>{new Date(project.updatedAt).toLocaleString()}</span>
+        </div>
+      )}
+    </div>
+  </div>
+) : null}
+
             </div>
             {loading && <Loader />}
             <section className="text-center">

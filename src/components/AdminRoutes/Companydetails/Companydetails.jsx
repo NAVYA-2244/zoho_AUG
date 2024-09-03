@@ -291,6 +291,7 @@ const Companydetails = () => {
               <div className="org-name">
                 <Input_text
                   type={"text"}
+                  // type={"companyName"}
                   name={"organisation_name"}
                   placeholder={"Organisation Name"}
                   value={formData["organisation_name"]}

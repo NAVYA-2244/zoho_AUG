@@ -1237,8 +1237,9 @@ export const ExpirementSchema = {
     .max(250)
     .allow("")
     .messages({
-      "string.pattern.base": '"About Me" should not include special characters',
-      "any.required": '"About Me" is required',
+      "string.pattern.base":
+        '"Present Address" should not include special characters',
+      "any.required": '"Present Address" is required',
     })
     .label("About Me"),
 
@@ -1570,12 +1571,13 @@ const EmployeeDataSchema = {
   about_me: Joi.string()
     .min(5)
     .max(250)
-    .pattern(/^[a-zA-Z0-9 ,]*$/, {
-      name: "alphanumeric with spaces and commas",
-    })
+    // .pattern(/^[a-zA-Z0-9 ,]*$/, {
+    //   name: "alphanumeric with spaces and commas",
+    // })
     .messages({
-      "string.pattern.base": '"About Me" should not include special characters',
-      "any.required": '"About Me" is required',
+      "string.pattern.base":
+        '"Present Address" should not include special characters',
+      "any.required": '"Present Address" is required',
     })
     .label("About Me"),
 
@@ -1631,7 +1633,7 @@ const EmployeeDataSchema = {
       "string.pattern.base":
         '"Phone Number" should start with digits 6-9 and not include special characters',
     })
-    .label("Phone Number Work"),
+    .label("Phone Number"),
 
   personal_mobile_number: Joi.string()
     .min(10)
