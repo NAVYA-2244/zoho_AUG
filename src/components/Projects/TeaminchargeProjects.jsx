@@ -980,7 +980,7 @@ const TeaminchargeProjects = () => {
       style={{ background: applicationColor.cardBg1 }}
     >
       <div className="row">
-        <div className="d-flex justify-content-between align-items-center w-100">
+        <div className="d-flex justify-content-start align-items-center w-100 gap-2">
           <h4>Project Details</h4>
           <div
             onClick={handleRefresh}
@@ -1001,7 +1001,7 @@ const TeaminchargeProjects = () => {
           <div className="row">
             {projects.map((project, index) => (
               <div
-                className="col-lg-4 col-md-6 mb-4"
+                className="col-lg-4 col-md-6 mb-4 ps-0 pe-3"
                 style={{ cursor: "pointer" }}
                 draggable
                 onDragStart={() => handleDragStart(index)}
