@@ -1396,8 +1396,8 @@ export const ExpirementSchema = {
           })
           .label("Degree or Diploma"),
         specialization: Joi.string()
-          .min(2)
-          .max(15)
+          .min(4)
+          .max(4)
           .allow("")
           .messages({
             "string.pattern.base":
@@ -1407,7 +1407,7 @@ export const ExpirementSchema = {
         year_of_completion: Joi.date()
           .max("now")
           .allow("")
-          .label("Date of Completion"),
+          .label("Year of Completion"),
       })
     )
     .label("Education Details"),
@@ -1745,8 +1745,8 @@ const EmployeeDataSchema = {
     })
     .label("Degree or Diploma"),
   specialization: Joi.string()
-    .min(2)
-    .max(100)
+    .min(4)
+    .max(4)
     .allow("")
     .messages({
       "string.pattern.base":
@@ -1756,7 +1756,7 @@ const EmployeeDataSchema = {
   year_of_completion: Joi.date()
     .max("now")
     .allow("")
-    .label("Date of Completion"),
+    .label("Year of Completion"),
 
   name: Joi.string()
     .min(3)

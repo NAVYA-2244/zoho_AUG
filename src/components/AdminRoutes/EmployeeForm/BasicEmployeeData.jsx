@@ -90,6 +90,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
     fetchingData();
   }, []);
   
+  console.log("Reporting Manager in formData:", formData?.work_info?.reporting_manager);
 
  
   return (
@@ -421,59 +422,8 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
         </div>
 
         <div className="col-lg-4 col-md-4 col-sm-6">
-          {/* <Input_text
-            name={"reporting_manager"}
-            placeholder={"Reporting Manager Email"}
-            value={formData.reporting_manager}
-            schema={schema.reporting_manager}
-            setForm={setFormData}
-            // options={[]}
-            // property={"email"}
-            // valueProperty={"employeeId"}
-            // imp={true}
-            // readOnly={isAdmin}
-            inputRef={(el) => (refs.current.reporting_manager = el)}
-          /> */}
-          {/* <Input_email
-            type={"email"}
-            name={"reporting_manager"}
-            placeholder={"Reporting Manager Email"}
-            value={formData.reporting_manager}
-            setForm={setFormData}
-            schema={schema.reporting_manager}
-            maxLength={50}
-            imp={true}
-            // readOnly={isAdmin}
-            inputRef={(el) => (refs.current.reporting_manager = el)}
-          /> */}
-          {/* <Select_inputs
-            name={"reporting_manager"}
-            placeholder={"Reporting Manager"}
-            value={formData.reporting_manager}
-            schema={schema.reporting_manager}
-            setForm={setFormData}
-            options={filteredEmployees}
-            property={"email"} // Assuming you want to display email in the dropdown
-            valueProperty={"employee_id"} // Assuming you want to store the employee_id
-            imp
-            inputRef={(el) => (refs.current.reporting_manager = el)}
-          /> */}
-          {/* <Select_inputs
-  name={"reporting_manager"}
-  placeholder={"Reporting Manager"}
-  value={formData.reporting_manager}
-  schema={schema.reporting_manager}
-  setForm={setFormData}
-  options={filteredEmployees.map((employee) => ({
-    ...employee,
-    displayName: `${employee.basic_info.email} ${employee.basic_info.last_name}`, // Create a new property for display
-  }))}
-  property={"displayName"} // Use the new displayName property
-  valueProperty={"displayName"} // Store the employee_id
-  imp
-  inputRef={(el) => (refs.current.reporting_manager = el)}
-/> */}
-<Select_inputs
+      
+{/* <Select_inputs
   name={"reporting_manager"}
   placeholder={"Reporting Manager"}
   value={formData.reporting_manager}
@@ -488,7 +438,24 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
   valueProperty={"email"} // Store email in the formData
   imp
   inputRef={(el) => (refs.current.reporting_manager = el)}
+/> */}
+<Select_inputs
+  name={"reporting_manager"}
+  placeholder={"Reporting Manager"}
+  value={formData.reporting_manager}
+  schema={schema.reporting_manager}
+  setForm={setFormData}
+  options={filteredEmployees.map((employee) => ({
+    displayName: `${employee.basic_info.email}`, // Display email
+    employeeId: employee.employee_id, // Store employee ID for payload
+    email: employee.basic_info.email, // Store email for payload
+  }))}
+  property={"displayName"} // Display email
+  valueProperty={"email"} // Store email in the formData
+  imp
+  inputRef={(el) => (refs.current.reporting_manager = el)}
 />
+
 
 
         </div>

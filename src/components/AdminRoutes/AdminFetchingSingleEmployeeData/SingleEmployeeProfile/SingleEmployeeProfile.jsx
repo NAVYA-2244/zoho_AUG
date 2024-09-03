@@ -29,7 +29,7 @@ let educationDetailsProperties = [
     type: "string",
   },
   {
-    name: "Date Of Completion",
+    name: "Year Of Completion",
     property: "year_of_completion",
     type: "string",
   },

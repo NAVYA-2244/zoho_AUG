@@ -30,6 +30,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
   const [limit] = useState(2);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
+  const[btndisabled,setBtndisabled]=useState(false)
   const [formData, setFormData] = useState({
     leave_status: "Pending",
     from_date: "",
@@ -114,9 +115,11 @@ console.log(adminGettingLeaveApplications,"adminGettingLeaveApplications")
 
   const onLeaveAccept = async (leave_application_id) => {
     try {
+      setBtndisabled(true)
       const data = { leave_application_id, leave_status: "Approved" };
       const response = await backEndCallObjNothing("/admin/update_leave_application", data);
-      const updatedApplication = response.data;
+      // const updatedApplication = response.data;
+      setAdminGettingLeaveApplications(adminGettingLeaveApplications)
       // setAdminGettingLeaveApplications((prev) =>
       //   prev.map((app) =>
       //     app.leave_application_id === leave_application_id
@@ -126,7 +129,9 @@ console.log(adminGettingLeaveApplications,"adminGettingLeaveApplications")
       // );
       // setAdminGettingLeaveApplications(response); 
       toastOptions.success(response||"Success");
+      setBtndisabled(false)
     } catch (error) {
+      setBtndisabled(false)
       toastOptions.error(
         error?.response?.data?.detail ||
           "Error while Accepting Leave Application"
@@ -136,9 +141,11 @@ console.log(adminGettingLeaveApplications,"adminGettingLeaveApplications")
 
   const onLeaveReject = async (leave_application_id) => {
     try {
+      setBtndisabled(true)
       const data = { leave_application_id, leave_status: "Rejected" };
       const response = await backEndCallObjNothing("/admin/update_leave_application", data);
-      const updatedApplication = response.data;
+      // const updatedApplication = response.data;
+      setAdminGettingLeaveApplications(adminGettingLeaveApplications)
       console.log(
         adminGettingLeaveApplications,
         "setAdminGettingLeaveApplications"
@@ -152,29 +159,54 @@ console.log(adminGettingLeaveApplications,"adminGettingLeaveApplications")
       // );
       // setAdminGettingLeaveApplications(response);
       toastOptions.error(response||"rejected");
+      setBtndisabled(false)
     } catch (error) {
+      setBtndisabled(false)
       toastOptions.error(
         error?.response?.data?.detail ||
           "Error While Rejecting Leave Application"
       );
     }
   };
-  const getTeamMembers = async () => {
-    try {
-      setLoading(true);
-      const response = await backEndCallObjNothing("/admin_get/get_employee_list",{skip:0});
-      setEmployeesList(response);
-    } catch (error) {
-      console.error("Error fetching team members:", error);
-      toastOptions.error("Failed to fetch team members");
-    } finally {
-      setLoading(false);
-    }
-  };
+  // const getTeamMembers = async () => {
+  //   try {
+  //     setLoading(true);
+  //     const response = await backEndCallObjNothing("/admin_get/get_employee_list",{skip:0});
+  //     setEmployeesList( response || []);
+  //   } catch (error) {
+  //     console.error("Error fetching team members:", error);
+  //     toastOptions.error("Failed to fetch team members");
+  //     setEmployeesList([]); // Set an empty array on error
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+  
 
+  // useEffect(() => {
+  //   getTeamMembers();
+  // }, []);
   useEffect(() => {
-    getTeamMembers();
+    const fetchingData = async () => {
+      try {
+        setLoading(true);
+        let employees = await backEndCallObjNothing(
+          "/admin_get/get_employee_list",
+          { skip: 0 }
+        );
+        setEmployeesList(employees.employees);
+       
+        console.log(employees, "employees");
+      } catch (error) {
+        toastOptions.error(error?.response?.data || "something went wrong");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchingData();
   }, []);
+
+ 
 
   
 const renderLeaveStatusButtons = useCallback((application) => {
@@ -193,10 +225,10 @@ const renderLeaveStatusButtons = useCallback((application) => {
     <section className="status g-2">
       {roleStatus === "Pending" ? (
         <>
-          <button className="actions-btn accept" onClick={() => onLeaveAccept(application.leave_application_id)}>
+          <button className="actions-btn accept"disabled={btndisabled} onClick={() => onLeaveAccept(application.leave_application_id)}>
             Approve
           </button>
-          <button className="actions-btn reject" onClick={() => onLeaveReject(application.leave_application_id)}>
+          <button className="actions-btn reject" disabled={btndisabled} onClick={() => onLeaveReject(application.leave_application_id)}>
             Reject
           </button>
         </>
@@ -256,7 +288,7 @@ const renderLeaveStatusButtons = useCallback((application) => {
               className="form-control"
               onChange={handleFormChange}
             >
-              <option value="">All</option>
+              {/* <option value="">All</option> */}
               <option value="Pending">Pending</option>
               <option value="Approved">Approved</option>
               <option value="Rejected">Rejected</option>

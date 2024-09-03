@@ -418,11 +418,11 @@ console.log(formattedData,"cleanData")
             <Input_text
               type={"tel"}
               name={"year_of_completion"}
-              placeholder={"Date of Completion"}
+              placeholder={"Year of Completion"}
               value={formData.year_of_completion}
               setForm={setFormData}
               schema={schema.year_of_completion}
-              maxLength={10}
+              maxLength={4}
               
             />
           </div>
