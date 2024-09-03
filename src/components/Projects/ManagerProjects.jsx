@@ -574,28 +574,28 @@ const ManagerProjects = () => {
       ) : (
         <>
           <div className="row">
-            <div className="d-flex justify-content-between align-items-center w-100">
-              <h4>Project Details</h4>
-              <div
-                onClick={handleRefresh}
-                style={{
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              >
-                {loading ? (
-                  <div
-                    className="spinner-border text-primary"
-                    role="status"
-                    style={{ height: "20px", width: "20px" }}
-                  ></div>
-                ) : (
-                  <i className="ri-loop-right-line text-primary fs-5 cursor-pointer"></i>
-                )}
+            <div className="d-flex justify-content-between align-items-center w-100 gap-2 mb-3">
+              <div className="d-flex align-items-center gap-2">
+                <h4 className="mb-0">Project Details</h4>
+                <div
+                  onClick={handleRefresh}
+                  style={{
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  {loading ? (
+                    <div
+                      className="spinner-border text-primary"
+                      role="status"
+                      style={{ height: "20px", width: "20px" }}
+                    ></div>
+                  ) : (
+                    <i className="ri-loop-right-line text-primary fs-5 cursor-pointer"></i>
+                  )}
+                </div>
               </div>
-            </div>
-            <div className="mb-4 text-end">
               <button
                 className="btn btn-primary"
                 type="button"
@@ -612,9 +612,10 @@ const ManagerProjects = () => {
                   setIsFormVisible(true);
                 }}
               >
-                Add Projects
+                Add Project
               </button>
             </div>
+
             {loading ? (
               <Loader />
             ) : projects.length > 0 ? (
@@ -638,7 +639,7 @@ const ManagerProjects = () => {
                   >
                     <div className="btn-container mt-3">
                       <h5>
-                        Project Name:&nbsp;
+                        Project Name :&nbsp;
                         <span className="text-primary fw-semi-bold">
                           {project.project_name}
                         </span>

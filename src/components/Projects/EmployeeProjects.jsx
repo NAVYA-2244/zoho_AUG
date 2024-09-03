@@ -120,11 +120,15 @@ const EmployeeProjects = () => {
       }}
     >
       <div className="row mb-5">
-        <div className="d-flex justify-content-between align-items-center w-100">
+        <div className="d-flex justify-content-start align-items-center w-100 gap-2">
           <h4>Project Details</h4>
           <div
             onClick={handleRefresh}
-            style={{ cursor: "pointer", display: "flex", alignItems: "center" }}
+            style={{
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+            }}
           >
             {loading ? (
               <div
@@ -141,7 +145,7 @@ const EmployeeProjects = () => {
           <div className="row">
             {projects.map((project, index) => (
               <div
-                className="col-lg-4 col-md-6 mb-4"
+                className="col-lg-4 col-md-6 mb-4 p-0 pe-3"
                 draggable
                 onDragStart={() => handleDragStart(index)}
                 onDragOver={handleDragOver}
@@ -175,6 +179,7 @@ const EmployeeProjects = () => {
                       <strong className="text-primary">Project Name:</strong>{" "}
                       {project.project_name}
                     </h5>
+                    <hr />
                   </div>
 
                   <div
