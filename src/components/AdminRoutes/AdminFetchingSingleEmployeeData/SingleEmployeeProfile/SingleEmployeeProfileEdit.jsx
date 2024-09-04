@@ -55,7 +55,7 @@ const SingleEmployeeProfileEdit = () => {
     experience: Joi.number().max(50).required(),
     institute_name: Joi.string().min(10).max(50).allow("").required(),
     degree: Joi.string().min(5).max(15).allow("").required(),
-    specialization: Joi.string().min(5).max(100).allow("").required(),
+    specialization: Joi.string().min(2).max(100).allow("").required(),
     year_of_completion: Joi.number().required(),
     name: Joi.string().min(3).max(50).allow("").optional(),
     relation: Joi.string().min(3).max(50).allow("").optional(),

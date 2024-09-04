@@ -111,6 +111,8 @@ const AddEmployee = () => {
     //  data=orgDetails?.organisation_id;
 
       console.log(data, "datatas");
+
+      
       const response = await backEndCallObjNothing("/admin/add_employee", data,);
       {
         console.log("oiuygfghjk");
@@ -139,6 +141,7 @@ const AddEmployee = () => {
   if (redirect) {
     return <Navigate to="/admin/employee_list" />;
   }
+  console.log(addEmployeeForm,"navya")
   return (
     <>
       <ReusableProfileForm

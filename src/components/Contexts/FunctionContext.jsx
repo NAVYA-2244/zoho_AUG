@@ -48,21 +48,25 @@ export const FunctionContextProvider = ({ children }) => {
     //   value = value.replace(/[^A-Za-z" "]/g, "");
     // }
     if (type === "text" && id !== "password") {
-      if (name === "pan") {
-        // Allow only uppercase letters and numbers for "pan" field
-        value = value.replace(/[^A-Z0-9]/g, "");
-      }
+      // if (name === "pan") {
+      //   // Allow only uppercase letters and numbers for "pan" field
+      //   value = value.replace(/[^A-Z0-9]/g, "");
+      // }
       
       if (name === "organisation_name") {
         // Allow both uppercase, lowercase letters, and numbers for "company name" field
-        value = value.replace(/[^a-zA-Z0-9]/g, "");
+        value = value.replace(/[^a-zA-Z0-9] /g, "");
       }
-      if (name === "company_name") {
-        // Allow both uppercase, lowercase letters, and numbers for "company name" field
-        value = value.replace(/[^a-zA-Z0-9]/g, "");
+      // if (name === "company_name") {
+      //   // Allow both uppercase, lowercase letters, and numbers for "company name" field
+      //   value = value.replace(/[^a-zA-Z0-9] /g, "");
+      // }
+       if (name === "pan") {
+        // Allow only uppercase letters and numbers for "pan" field
+        value = value.replace(/[^A-Z0-9]/g, "");
       }
-      
        else if (
+        // name !== "pan"&&
         name !== "uan" &&
         name !== "longitude" &&
         name !== "latitude" &&

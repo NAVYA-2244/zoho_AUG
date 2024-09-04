@@ -82,7 +82,9 @@ import { useThemeContext } from "../../Contexts/ThemesContext";
 const WorkInformationData = ({ formData, setFormData }) => {
   const { refs } = useStateContext();
   const { applicationColor } = useThemeContext();
+  
 console.log(formData,"formata")
+
   return (
     <>
       <hr style={{ marginTop: "20px" }} />

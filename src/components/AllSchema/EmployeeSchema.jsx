@@ -1338,7 +1338,7 @@ export const ExpirementSchema = {
     .items(
       Joi.object({
         company_name: Joi.string()
-          .min(10)
+          .min(3)
           .max(30)
           .allow("")
           .messages({
@@ -1397,8 +1397,8 @@ export const ExpirementSchema = {
           })
           .label("Degree or Diploma"),
         specialization: Joi.string()
-          .min(4)
-          .max(4)
+          .min(2)
+          .max(100)
           .allow("")
           .messages({
             "string.pattern.base":
@@ -1699,7 +1699,7 @@ const EmployeeDataSchema = {
   .label("Permanent Address"),
 
   company_name: Joi.string()
-    .min(10)
+    .min(3)
     .max(30)
     .allow("")
     .messages({
@@ -1747,8 +1747,8 @@ const EmployeeDataSchema = {
     })
     .label("Degree or Diploma"),
   specialization: Joi.string()
-    .min(4)
-    .max(4)
+    .min(2)
+    .max(100)
     .allow("")
     .messages({
       "string.pattern.base":

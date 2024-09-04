@@ -174,6 +174,7 @@ const HierarchyData = ({ formData, setFormData }) => {
         {/* </section> */}
 
         {formData.work_experience.map((data, index) => {
+          
           return (
             <div
               key={index}
@@ -237,7 +238,7 @@ const HierarchyData = ({ formData, setFormData }) => {
                 <Date_Input
                   name={"from_date"}
                   placeholder={"Start Date"}
-                  value={data?.from_date}
+                  value={data?.from_date}  bv 
                   setForm={setFormData}
                   schema={schema?.from_date}
                   // readOnly={isAdmin}
