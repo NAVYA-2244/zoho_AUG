@@ -452,7 +452,6 @@ const TeaminchargeProjects = () => {
         )}
         {loading && <Loader />}
       </div>{" "}
-      */}
       {showTaskDetailsModal && (
         <TeaminchargeTaskDetailsModal
           isOpen={showTaskDetailsModal}
