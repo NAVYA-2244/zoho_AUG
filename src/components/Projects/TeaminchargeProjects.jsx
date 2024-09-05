@@ -1,1269 +1,3 @@
-// // // import React, { useState, useEffect } from "react";
-// // // import "./Projects.scss";
-// // // import { useThemeContext } from "../Contexts/ThemesContext";
-// // // import { backEndCallObjNothing } from "../../services/mainService";
-// // // import Loader from "../Loader/Loader";
-// // // import TeaminchargeTaskDetailsModal from "./TeaminchargeTaskDetailsModal";
-
-// // // const TeaminchargeProjects = () => {
-// // //   const [projects, setProjects] = useState([]);
-// // //   const [tasks, setTasks] = useState([]);
-// // //   const [loading, setLoading] = useState(false);
-// // //   const [showTaskDetailsModal, setShowTaskDetailsModal] = useState(false);
-// // //   const [modalMode, setModalMode] = useState(null); // To track whether we're adding or editing
-// // //   const [taskToEdit, setTaskToEdit] = useState(null);
-// // //   const { applicationColor } = useThemeContext();
-
-// // //   const fetchProjects = async () => {
-// // //     try {
-// // //       setLoading(true);
-// // //       const response = await backEndCallObjNothing("/admin_get/get_projects");
-// // //       setProjects(response || []);
-// // //     } catch (error) {
-// // //       console.error("Error fetching projects:", error);
-// // //     } finally {
-// // //       setLoading(false);
-// // //     }
-// // //   };
-
-// // //   const fetchTasks = async () => {
-// // //     try {
-// // //       setLoading(true);
-// // //       const response = await backEndCallObjNothing("/emp_get/get_tasks");
-// // //       setTasks(response || []);
-// // //     } catch (error) {
-// // //       console.error("Error fetching tasks:", error);
-// // //     } finally {
-// // //       setLoading(false);
-// // //     }
-// // //   };
-
-// // //   const handleAddTaskClick = (projectId) => {
-// // //     setModalMode("add_task");
-// // //     setTaskToEdit({ projectId });
-// // //     setShowTaskDetailsModal(true);
-// // //   };
-
-// // //   const handleEditTaskClick = (task) => {
-// // //     setModalMode("edit_task");
-// // //     setTaskToEdit(task);
-// // //     setShowTaskDetailsModal(true);
-// // //   };
-
-// // //   useEffect(() => {
-// // //     fetchProjects();
-// // //     fetchTasks();
-// // //   }, []);
-
-// // //   const getTasksByProjectId = (projectId) => {
-// // //     return tasks.filter(task => task.project_id === projectId);
-// // //   };
-
-// // //   return (
-// // //     <section
-// // //       className="roles-table"
-// // //       style={{
-// // //         background: applicationColor.cardBg1,
-// // //         color: applicationColor.readColor1,
-// // //         padding: '2rem',
-// // //         borderRadius: '10px',
-// // //       }}
-// // //     >
-// // //       <div className="row">
-// // //         <h4>Project Details</h4>
-// // //         {loading && <Loader />}
-// // //         {projects.length > 0 ? (
-// // //           <div className="row">
-// // //             {projects.map((project, index) => (
-// // //               <div
-// // //                 className="col-lg-4 col-md-6 mb-4"
-// // //                 key={index}
-// // //                 style={{ cursor: 'pointer' }}
-// // //               >
-// // //                 <div
-// // //                   className="admin-controls-card"
-// // //                   style={{
-// // //                     background: applicationColor.cardBg1,
-// // //                     color: applicationColor.readColor1,
-// // //                     borderRadius: '12px',
-// // //                     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-// // //                     transition: 'transform 0.3s',
-// // //                   }}
-// // //                   onMouseEnter={(e) => {
-// // //                     e.currentTarget.style.transform = 'scale(1.02)';
-// // //                   }}
-// // //                   onMouseLeave={(e) => {
-// // //                     e.currentTarget.style.transform = 'scale(1)';
-// // //                   }}
-// // //                 >
-// // //                   <div
-// // //                     className="project-header p-3"
-// // //                     style={{ backgroundColor: applicationColor.primaryColor, borderRadius: '12px 12px 0 0' }}
-// // //                   >
-// // //                     <h5 className="project-title m-0">
-// // //                       <strong className="text-primary">Project Name:</strong> {project.project_name}
-// // //                     </h5>
-// // //                     <button
-// // //                       className="btn btn-primary mt-2"
-// // //                       onClick={() => handleAddTaskClick(project.project_id)}
-// // //                       style={{ backgroundColor: applicationColor.primaryColor }}
-// // //                     >
-// // //                       Add Task
-// // //                     </button>
-// // //                   </div>
-// // //                   <div className="row mt-3">
-// // //                     {getTasksByProjectId(project.project_id).map((task, index) => (
-// // //                       <div
-// // //                         className="task-card card mb-3 p-3 rounded-2"
-// // //                         key={index}
-// // //                         onClick={() => handleEditTaskClick(task)}
-// // //                         style={{
-// // //                           background: applicationColor.cardBg2,
-// // //                           color: applicationColor.readColor2,
-// // //                         }}
-// // //                       >
-// // //                         <div className="d-flex justify-content-between">
-// // //                           <span className={`priority-badge priority-${task.priority}`}>
-// // //                             {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}
-// // //                           </span>
-// // //                           <span className="due-date text-muted">
-// // //                             {new Date(task.due_date).toLocaleDateString()}
-// // //                           </span>
-// // //                         </div>
-// // //                         <h6 className="mt-2">
-// // //                           <strong className="text-secondary">Task:</strong> {task.task_name}
-// // //                         </h6>
-// // //                         <span className="task-status text-muted d-block text-end">
-// // //                           Status: {task.status}
-// // //                         </span>
-// // //                       </div>
-// // //                     ))}
-// // //                   </div>
-// // //                 </div>
-// // //               </div>
-// // //             ))}
-// // //           </div>
-// // //         ) : (
-// // //           !loading && (
-// // //             <div className="col-12 text-center">
-// // //               <p className="text-muted">No projects found.</p>
-// // //             </div>
-// // //           )
-// // //         )}
-// // //       </div>
-// // //       {showTaskDetailsModal && (
-// // //         <TeaminchargeTaskDetailsModal
-// // //           onClose={() => setShowTaskDetailsModal(false)}
-// // //           mode={modalMode}
-// // //           task={taskToEdit}
-// // //         />
-// // //       )}
-// // //     </section>
-// // //   );
-// // // };
-
-// // // export default TeaminchargeProjects;
-
-// // import React, { useState, useEffect } from "react";
-// // import "./Projects.scss";
-// // import { useThemeContext } from "../Contexts/ThemesContext";
-// // import { backEndCallObjNothing } from "../../services/mainService";
-// // import Loader from "../Loader/Loader";
-// // import TeaminchargeTaskDetailsModal from "./TeaminchargeTaskDetailsModal";
-
-// // const TeaminchargeProjects = () => {
-// //   const [projects, setProjects] = useState([]);
-// //   const [tasks, setTasks] = useState([]);
-// //   const [loading, setLoading] = useState(false);
-// //   const [showTaskDetailsModal, setShowTaskDetailsModal] = useState(false);
-// //   const [modalMode, setModalMode] = useState(null); // To track whether we're adding or editing
-// //   const [taskToEdit, setTaskToEdit] = useState(null);
-// //   const { applicationColor } = useThemeContext();
-
-// //   const fetchProjects = async () => {
-// //     try {
-// //       setLoading(true);
-// //       const response = await backEndCallObjNothing("/admin_get/get_projects");
-// //       setProjects(response || []);
-// //     } catch (error) {
-// //       console.error("Error fetching projects:", error);
-// //     } finally {
-// //       setLoading(false);
-// //     }
-// //   };
-
-// //   const fetchTasks = async () => {
-// //     try {
-// //       setLoading(true);
-// //       const response = await backEndCallObjNothing("/emp_get/get_tasks");
-// //       setTasks(response || []);
-// //     } catch (error) {
-// //       console.error("Error fetching tasks:", error);
-// //     } finally {
-// //       setLoading(false);
-// //     }
-// //   };
-
-// //   const handleAddTaskClick = (projectId) => {
-// //     console.log(projectId,"projectId")
-// //     setModalMode("add_task");
-// //     setTaskToEdit({ projectId }); // Ensure projectId is set in taskToEdit
-// //     setShowTaskDetailsModal(true);
-// //   };
-// //   const handleupdateproject = (projectId) => {
-// //     console.log(projectId,"projectId")
-// //     setModalMode("add_task");
-// //     setTaskToEdit({ projectId }); // Ensure projectId is set in taskToEdit
-// //     setShowTaskDetailsModal(true);
-// //   };
-
-// //   const handleEditTaskClick = (task) => {
-// //     console.log(tasks)
-// //     setModalMode("edit_task");
-// //     setTaskToEdit(task);
-// //     setShowTaskDetailsModal(true);
-// //   };
-
-// //   const handleModalSubmit = async () => {
-// //     await fetchTasks(); // Refresh the tasks after form submission
-// //     setShowTaskDetailsModal(false); // Close the modal
-// //   };
-
-// //   useEffect(() => {
-// //     fetchProjects();
-// //     fetchTasks();
-// //   }, []);
-
-// //   const getTasksByProjectId = (projectId) => {
-// //     return tasks.filter(task => task.project_id === projectId);
-// //   };
-
-// //   return (
-// //     <section
-// //       className="roles-table"
-// //       style={{
-// //         background: applicationColor.cardBg1,
-// //         color: applicationColor.readColor1,
-// //         padding: '2rem',
-// //         borderRadius: '10px',
-// //       }}
-// //     >
-// //       <div className="row">
-// //         <h4>Project Details</h4>
-// //         {loading && <Loader />}
-// //         {projects.length > 0 ? (
-// //           <div className="row">
-// //             {projects.map((project, index) => (
-// //               <div
-// //                 className="col-lg-4 col-md-6 mb-4"
-// //                 key={index}
-// //                 style={{ cursor: 'pointer' }}
-// //               >
-// //                 <div
-// //                   className="admin-controls-card"
-// //                   style={{
-// //                     background: applicationColor.cardBg1,
-// //                     color: applicationColor.readColor1,
-// //                     borderRadius: '12px',
-// //                     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-// //                     transition: 'transform 0.3s',
-// //                   }}
-// //                   onMouseEnter={(e) => {
-// //                     e.currentTarget.style.transform = 'scale(1.02)';
-// //                   }}
-// //                   onMouseLeave={(e) => {
-// //                     e.currentTarget.style.transform = 'scale(1)';
-// //                   }}
-// //                 >
-// //                   <div
-// //                     className="project-header p-3"
-// //                     style={{ backgroundColor: applicationColor.primaryColor, borderRadius: '12px 12px 0 0' }}
-// //                   >
-// //                     <h5 className="project-title m-0">
-// //                       <strong className="text-primary">Project Name:</strong> {project.project_name}
-// //                     </h5>
-// //                     <button
-// //                       className="btn btn-primary mt-2"
-// //                       onClick={() => handleAddTaskClick(project.project_id)}
-// //                       style={{ backgroundColor: applicationColor.primaryColor }}
-// //                     >
-// //                       Add Task
-// //                     </button>
-// //                     <button
-// //                       className="btn btn-primary mt-2"
-// //                       onClick={() => handleupdateproject(project.project_id)}
-// //                       style={{ backgroundColor: applicationColor.primaryColor }}
-// //                     >
-// //                       update project
-// //                     </button>
-// //                   </div>
-// //                   <div className="row mt-3">
-// //                     {getTasksByProjectId(project.project_id).map((task, index) => (
-// //                       <div
-// //                         className="task-card card mb-3 p-3 rounded-2"
-// //                         key={index}
-// //                         onClick={() => handleEditTaskClick(task)}
-// //                         style={{
-// //                           background: applicationColor.cardBg2,
-// //                           color: applicationColor.readColor2,
-// //                         }}
-// //                       >
-// //                         <div className="d-flex justify-content-between">
-// //                           <span className={`priority-badge priority-${task.priority}`}>
-// //                             {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}
-// //                           </span>
-// //                           <span className="due-date text-muted">
-// //                             {new Date(task.due_date).toLocaleDateString()}
-// //                           </span>
-// //                         </div>
-// //                         <h6 className="mt-2">
-// //                           <strong className="text-secondary">Task:</strong> {task.task_name}
-// //                         </h6>
-// //                         <span className="task-status text-muted d-block text-end">
-// //                           Status: {task.status}
-// //                         </span>
-// //                       </div>
-// //                     ))}
-// //                   </div>
-// //                 </div>
-// //               </div>
-// //             ))}
-// //           </div>
-// //         ) : (
-// //           !loading && (
-// //             <div className="col-12 text-center">
-// //               <p className="text-muted">No projects found.</p>
-// //             </div>
-// //           )
-// //         )}
-// //       </div>
-// //       {showTaskDetailsModal && (
-// //         <TeaminchargeTaskDetailsModal
-// //           onClose={() => setShowTaskDetailsModal(false)}
-// //           mode={modalMode}
-// //           task={taskToEdit}
-// //           onSubmit={handleModalSubmit} // Pass the handleModalSubmit function to the modal
-// //         />
-// //       )}
-// //        {showStatusEditModal && (
-// //         <ProjectStatusEditModal
-// //           onClose={() => setShowStatusEditModal(false)}
-// //           project={projectToEdit}
-// //           onSubmit={handleStatusEditSubmit}
-// //         />
-// //       )}
-// //     </section>
-// //   );
-// // };
-
-// // export default TeaminchargeProjects;
-// // import React, { useState, useEffect } from "react";
-// // import "./Projects.scss";
-// // import { useThemeContext } from "../Contexts/ThemesContext";
-// // import { backEndCallObjNothing } from "../../services/mainService";
-// // import Loader from "../Loader/Loader";
-// // import TeaminchargeTaskDetailsModal from "./TeaminchargeTaskDetailsModal";
-// // import ProjectStatusEditModal from "./ProjectStatusEditModal"; // Import the modal
-
-// // const TeaminchargeProjects = () => {
-// //   const [projects, setProjects] = useState([]);
-// //   const [tasks, setTasks] = useState([]);
-// //   const [loading, setLoading] = useState(false);
-// //   const [showTaskDetailsModal, setShowTaskDetailsModal] = useState(false);
-// //   const [showStatusEditModal, setShowStatusEditModal] = useState(false); // State for status edit modal
-// //   const [modalMode, setModalMode] = useState(null);
-// //   const [taskToEdit, setTaskToEdit] = useState(null);
-// //   const [projectToEdit, setProjectToEdit] = useState(null); // State to store the project to edit
-// //   const { applicationColor } = useThemeContext();
-
-// //   const fetchProjects = async () => {
-// //     try {
-// //       setLoading(true);
-// //       const response = await backEndCallObjNothing("/admin_get/get_projects");
-// //       setProjects(response || []);
-// //     } catch (error) {
-// //       console.error("Error fetching projects:", error);
-// //     } finally {
-// //       setLoading(false);
-// //     }
-// //   };
-
-// //   const fetchTasks = async () => {
-// //     try {
-// //       setLoading(true);
-// //       const response = await backEndCallObjNothing("/emp_get/get_tasks");
-// //       setTasks(response || []);
-// //     } catch (error) {
-// //       console.error("Error fetching tasks:", error);
-// //     } finally {
-// //       setLoading(false);
-// //     }
-// //   };
-
-// //   const handleAddTaskClick = (projectId) => {
-// //     setModalMode("add_task");
-// //     setTaskToEdit({ projectId });
-// //     setShowTaskDetailsModal(true);
-// //   };
-
-// //   const handleEditTaskClick = (task) => {
-// //     setModalMode("edit_task");
-// //     setTaskToEdit(task);
-// //     setShowTaskDetailsModal(true);
-// //   };
-
-// //   const handleUpdateProjectStatusClick = (project) => {
-// //     setProjectToEdit(project); // Set the selected project
-// //     setShowStatusEditModal(true); // Show the status edit modal
-// //   };
-
-// //   const handleModalSubmit = async () => {
-// //     await fetchTasks(); // Refresh the tasks after form submission
-// //     setShowTaskDetailsModal(false); // Close the task modal
-// //   };
-
-// //   const handleStatusEditSubmit = async (updatedProject) => {
-// //     // Make API call to update project status
-// //     await backEndCallObjNothing("/admin/update_project", updatedProject);
-// //     await fetchProjects(); // Refresh the projects after status update
-// //     setShowStatusEditModal(false); // Close the status edit modal
-// //   };
-
-// //   useEffect(() => {
-// //     fetchProjects();
-// //     fetchTasks();
-// //   }, []);
-
-// //   const getTasksByProjectId = (projectId) => {
-// //     return tasks.filter(task => task.project_id === projectId);
-// //   };
-
-// //   return (
-// //     <section
-// //       className="roles-table"
-// //       style={{
-// //         background: applicationColor.cardBg1,
-// //         color: applicationColor.readColor1,
-// //         padding: '2rem',
-// //         borderRadius: '10px',
-// //       }}
-// //     >
-// //       <div className="row">
-// //         <h4>Project Details</h4>
-// //         {loading && <Loader />}
-// //         {projects.length > 0 ? (
-// //           <div className="row">
-// //             {projects.map((project, index) => (
-// //               <div
-// //                 className="col-lg-4 col-md-6 mb-4"
-// //                 key={index}
-// //                 style={{ cursor: 'pointer' }}
-// //               >
-// //                 <div
-// //                   className="admin-controls-card"
-// //                   style={{
-// //                     background: applicationColor.cardBg1,
-// //                     color: applicationColor.readColor1,
-// //                     borderRadius: '12px',
-// //                     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-// //                     transition: 'transform 0.3s',
-// //                   }}
-// //                   onMouseEnter={(e) => {
-// //                     e.currentTarget.style.transform = 'scale(1.02)';
-// //                   }}
-// //                   onMouseLeave={(e) => {
-// //                     e.currentTarget.style.transform = 'scale(1)';
-// //                   }}
-// //                 >
-// //                   <div
-// //                     className="project-header p-3"
-// //                     style={{ backgroundColor: applicationColor.primaryColor, borderRadius: '12px 12px 0 0' }}
-// //                   >
-// //                     <h5 className="project-title m-0">
-// //                       <strong className="text-primary">Project Name:</strong> {project.project_name}
-// //                       <span className="task-status text-muted d-block text-end">{project.project_status}</span>
-// //                     </h5>
-// //                     <div className="d-flex gap-2 mt-2">
-// //                     <button
-// //                       className="btn btn-primary mt-2 "
-// //                       onClick={() => handleAddTaskClick(project.project_id)}
-// //                       style={{ backgroundColor: applicationColor.primaryColor }}
-// //                     >
-// //                       Add Task
-// //                     </button>
-// //                     <button
-// //                       className="btn btn-primary mt-2"
-// //                       onClick={() => handleUpdateProjectStatusClick(project)}
-// //                       style={{ backgroundColor: applicationColor.primaryColor }}
-// //                     >
-// //                       Edit Status
-// //                     </button>
-// //                     </div>
-// //                   </div>
-// //                   <div className="row mt-3">
-// //                     {getTasksByProjectId(project.project_id).map((task, index) => (
-// //                       <div
-// //                         className="task-card card mb-3 p-3 rounded-2"
-// //                         key={index}
-// //                         onClick={() => handleEditTaskClick(task)}
-// //                         style={{
-// //                           background: applicationColor.cardBg2,
-// //                           color: applicationColor.readColor2,
-// //                         }}
-// //                       >
-// //                         <div className="d-flex justify-content-between">
-// //                           <span className={`priority-badge priority-${task.priority}`}>
-// //                             {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}
-// //                           </span>
-// //                           <span className="due-date text-muted">
-// //                             {new Date(task.due_date).toLocaleDateString()}
-// //                           </span>
-// //                         </div>
-// //                         <h6 className="mt-2">
-// //                           <strong className="text-secondary">Task:</strong> {task.task_name}
-// //                         </h6>
-// //                         <span className="task-status text-muted d-block text-end">
-// //                           Status: {task.status}
-// //                         </span>
-// //                       </div>
-// //                     ))}
-// //                   </div>
-// //                 </div>
-// //               </div>
-// //             ))}
-// //           </div>
-// //         ) : (
-// //           !loading && (
-// //             <div className="col-12 text-center">
-// //               <p className="text-muted">No projects found.</p>
-// //             </div>
-// //           )
-// //         )}
-// //       </div>
-// //       {showTaskDetailsModal && (
-// //         <TeaminchargeTaskDetailsModal
-// //           onClose={() => setShowTaskDetailsModal(false)}
-// //           mode={modalMode}
-// //           task={taskToEdit}
-// //           onSubmit={handleModalSubmit}
-// //         />
-// //       )}
-// //       {showStatusEditModal && (
-// //         <ProjectStatusEditModal
-// //           onClose={() => setShowStatusEditModal(false)}
-// //           project={projectToEdit}
-// //           onSubmit={handleStatusEditSubmit}
-// //         />
-// //       )}
-// //     </section>
-// //   );
-// // };
-
-// // export default TeaminchargeProjects;
-// // import React, { useState, useEffect } from "react";
-// // import "./ProjectCord.scss";
-// // import { useThemeContext } from "../Contexts/ThemesContext";
-// // import { backEndCallObjNothing } from "../../services/mainService";
-// // import Loader from "../Loader/Loader";
-// // import TeaminchargeTaskDetailsModal from "./TeaminchargeTaskDetailsModal";
-// // import ProjectStatusEditModal from "./ProjectStatusEditModal";
-
-// // const TeaminchargeProjects = () => {
-// //   const [projects, setProjects] = useState([]);
-// //   const [tasks, setTasks] = useState([]);
-// //   const [loading, setLoading] = useState(false);
-// //   const [showTaskDetailsModal, setShowTaskDetailsModal] = useState(false);
-// //   const [showStatusEditModal, setShowStatusEditModal] = useState(false);
-// //   const [modalMode, setModalMode] = useState(null);
-// //   const [taskToEdit, setTaskToEdit] = useState(null);
-// //   const [projectToEdit, setProjectToEdit] = useState(null);
-// //   const { applicationColor } = useThemeContext();
-
-// //   const fetchProjects = async () => {
-// //     try {
-// //       setLoading(true);
-// //       const response = await backEndCallObjNothing("/admin_get/get_projects");
-// //       setProjects(response || []);
-// //     } catch (error) {
-// //       console.error("Error fetching projects:", error);
-// //     } finally {
-// //       setLoading(false);
-// //     }
-// //   };
-
-// //   const fetchTasks = async () => {
-// //     try {
-// //       setLoading(true);
-// //       const response = await backEndCallObjNothing("/emp_get/get_tasks");
-// //       setTasks(response || []);
-// //       console.log(response,"taslresponse")
-// //     } catch (error) {
-// //       console.error("Error fetching tasks:", error);
-// //     } finally {
-// //       setLoading(false);
-// //     }
-// //   };
-
-// //   const handleAddTaskClick = (projectId) => {
-// //     setModalMode("add_task");
-// //     setTaskToEdit({ projectId });
-// //     setShowTaskDetailsModal(true);
-// //   };
-
-// //   const handleEditTaskClick = (task) => {
-// //     setModalMode("edit_task");
-// //     setTaskToEdit(task);
-// //     setShowTaskDetailsModal(true);
-// //   };
-
-// //   const handleUpdateProjectStatusClick = (project) => {
-// //     setProjectToEdit(project);
-// //     setShowStatusEditModal(true);
-// //   };
-
-// //   const handleModalSubmit = async () => {
-// //     await fetchTasks();
-// //     setShowTaskDetailsModal(false);
-// //   };
-
-// //   const handleStatusEditSubmit = async (updatedProject) => {
-// //     await backEndCallObjNothing("/admin/update_project", updatedProject);
-// //     await fetchProjects();
-// //     setShowStatusEditModal(false);
-// //   };
-
-// //   useEffect(() => {
-// //     fetchProjects();
-// //     fetchTasks();
-// //   }, []);
-
-// //   const getTasksByProjectId = (projectId) => {
-// //     return tasks.filter(task => task.project_id === projectId);
-// //   };
-
-// //   return (
-// //     <section className="manager-projects" style={{ background: applicationColor.cardBg1 }}>
-// //       <div className="row">
-// //         <h4>Project Details</h4>
-// //         {loading && <Loader />}
-// //         {projects.length > 0 ? (
-// //           <div className="row">
-// //             {projects.map((project, index) => (
-// //               <div
-// //                 className="col-lg-4 col-md-6 mb-4"
-// //                 key={index}
-// //                 style={{ cursor: 'pointer' }}
-// //               >
-// //                 <div
-// //                   className="admin-controls-card"
-// //                   style={{
-// //                     background: applicationColor.cardBg1,
-// //                     color: applicationColor.readColor1,
-// //                     borderRadius: '12px',
-// //                     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-// //                     transition: 'transform 0.3s',
-// //                     maxHeight: '400px', // Set a maximum height for the card
-// //                     display: 'flex',
-// //                     flexDirection: 'column',
-// //                   }}
-// //                   onMouseEnter={(e) => {
-// //                     e.currentTarget.style.transform = 'scale(1.02)';
-// //                   }}
-// //                   onMouseLeave={(e) => {
-// //                     e.currentTarget.style.transform = 'scale(1)';
-// //                   }}
-// //                 >
-// //                   <div
-// //                     className="project-header p-3"
-// //                     style={{
-// //                       backgroundColor: applicationColor.primaryColor,
-// //                       borderRadius: '12px 12px 0 0',
-// //                     }}
-// //                   >
-// //                     <h5 className="project-title m-0">
-// //                       <strong className="text-primary">Project Name:</strong> {project.project_name}
-// //                       <span className="task-status text-muted d-block text-end">{project.project_status}</span>
-// //                     </h5>
-// //                     <div className="d-flex gap-2 mt-2">
-// //                       <button
-// //                         className="btn btn-primary mt-2"
-// //                         onClick={() => handleAddTaskClick(project.project_id)}
-// //                         style={{ backgroundColor: applicationColor.primaryColor }}
-// //                       >
-// //                         Add Task
-// //                       </button>
-// //                       <button
-// //                         className="btn btn-primary mt-2"
-// //                         onClick={() => handleUpdateProjectStatusClick(project)}
-// //                         style={{ backgroundColor: applicationColor.primaryColor }}
-// //                       >
-// //                         Edit Status
-// //                       </button>
-// //                     </div>
-// //                   </div>
-// //                   {/* <div
-// //                     className="task-list-container mt-3"
-// //                     style={{
-// //                       overflowY: 'auto',
-// //                       flex: '1 1 auto', // Ensures the task list container takes up available space
-// //                       padding: '0 15px 15px',
-// //                     }}
-// //                     className={`priority-badge priority-${task.priority}`}
-// //                   >
-// //                     {getTasksByProjectId(project.project_id).map((task, index) => (
-// //                       <div
-// //                         className="task-card card mb-3 p-3 rounded-2"
-// //                         key={index}
-// //                         onClick={() => handleEditTaskClick(task)}
-// //                         style={{
-// //                           background: applicationColor.cardBg2,
-// //                           color: applicationColor.readColor2,
-// //                         }}
-// //                       >
-// //                         <div className="d-flex justify-content-between">
-// //                           <span className={`priority-badge priority-${task.priority}`}>
-// //                             {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}
-// //                           </span>
-// //                           <span className="due-date text-muted">
-// //                            Due Date: {new Date(task.due_date).toLocaleDateString()}
-// //                           </span>
-// //                         </div>
-// //                         <h6 className="mt-2">
-// //                           <strong className="text-secondary">Task:</strong> {task.task_name}
-// //                         </h6>
-// //                         <div className="d-flex justify-content-between">
-
-// //                         <div>
-
-// //                 {task?.team?.map((member) => (
-// //                   <div key={member.employee_id} className="d-flex align-items-center me-3 mb-2">
-// //                     <div className="profile-img-container me-2">
-// //                       {member.profile_image_url ? (
-// //                         <img
-// //                           src={member.profile_image_url}
-// //                           alt={member.employee_name}
-// //                           className="rounded-circle"
-// //                         />
-// //                       ) : (
-// //                         <span className="profile-icon">{member.employee_name.charAt(0)}</span>
-// //                       )}
-// //                     </div>
-// //                     <span>{member.employee_name}</span>
-// //                   </div>
-// //                 ))}
-
-// //               </div>
-
-// //                       </div>
-// //                       <div className="text-end">
-// //                       <span className={`status-badge priority-${task.status}`}>
-// //                         Status:  {task.status.charAt(0).toUpperCase() + task.status.slice(1)}
-// //                           </span>
-// //                       </div>
-// //                       </div>
-// //                     ))}
-// //                   </div> */}
-// //                   <div
-// //   className="task-list-container mt-3"
-// //   style={{
-// //     overflowY: 'auto',
-// //     flex: '1 1 auto', // Ensures the task list container takes up available space
-// //     padding: '0 15px 15px',
-// //   }}
-// // >
-// //   {getTasksByProjectId(project.project_id).map((task, index) => (
-// //     <div
-// //       className="task-card card mb-3 p-3 rounded-2 card-shadow"
-// //       key={index}
-// //       onClick={() => handleEditTaskClick(task)}
-// //       style={{
-// //         // background: getPriorityColor(task.priority), // Use function to get background color based on priority
-// //         color: applicationColor.readColor2,
-// //       }}
-// //     >
-// //       <div className="d-flex justify-content-between">
-// //         <span className={`priority-badge priority-${task.priority}`}>
-// //           {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}
-// //         </span>
-// //         <span className="due-date text-muted">
-// //           Due Date: {new Date(task.due_date).toLocaleDateString()}
-// //         </span>
-// //       </div>
-// //       <h6 className="mt-2">
-// //         <strong className="text-secondary">Task:</strong> {task.task_name}
-// //       </h6>
-// //       <div className="d-flex justify-content-between">
-// //         <div>
-// //           {task?.team?.map((member) => (
-// //             <div key={member.employee_id} className="d-flex align-items-center me-3 mb-2">
-// //               <div className="profile-img-container me-2">
-// //                 {member.profile_image_url ? (
-// //                   <img
-// //                     src={member.profile_image_url}
-// //                     alt={member.employee_name}
-// //                     className="rounded-circle"
-// //                   />
-// //                 ) : (
-// //                   <span className="profile-icon">{member.employee_name.charAt(0)}</span>
-// //                 )}
-// //               </div>
-// //               <span>{member.employee_name}</span>
-// //             </div>
-// //           ))}
-// //         </div>
-// //       </div>
-// //       <div className="text-end">
-// //         <span className={`status-badge priority-${task.status}`}>
-// //           Status: {task.status.charAt(0).toUpperCase() + task.status.slice(1)}
-// //         </span>
-// //       </div>
-// //     </div>
-// //   ))}
-// // </div>
-
-// //                 </div>
-// //               </div>
-// //             ))}
-// //           </div>
-// //         ) : (
-// //           !loading && (
-// //             <div className="col-12 text-center">
-// //               <p className="text-muted">No projects found.</p>
-// //             </div>
-// //           )
-// //         )}
-// //       </div>
-// //       {showTaskDetailsModal && (
-// //         <TeaminchargeTaskDetailsModal
-// //           onClose={() => setShowTaskDetailsModal(false)}
-// //           mode={modalMode}
-// //           task={taskToEdit}
-// //           onSubmit={handleModalSubmit}
-// //         />
-// //       )}
-// //       {showStatusEditModal && (
-// //         <ProjectStatusEditModal
-// //           onClose={() => setShowStatusEditModal(false)}
-// //           project={projectToEdit}
-// //           onSubmit={handleStatusEditSubmit}
-// //         />
-// //       )}
-// //     </section>
-// //   );
-// // };
-
-// // export default TeaminchargeProjects;
-
-// // const getPriorityColor = (priority) => {
-// //   switch (priority) {
-// //     case 'high':
-// //       return 'red'; // Replace with your color
-// //     case 'medium':
-// //       return 'orange'; // Replace with your color
-// //     case 'low':
-// //       return 'green'; // Replace with your color
-// //     default:
-// //       return '#f0f0f0'; // Default background color if priority is unknown
-// //   }
-// // };
-// import React, { useState, useEffect } from "react";
-// import Draggable from "react-draggable";
-// import "./ProjectCord.scss";
-// import { useThemeContext } from "../Contexts/ThemesContext";
-// import { backEndCallObjNothing } from "../../services/mainService";
-// import Loader from "../Loader/Loader";
-// import TeaminchargeTaskDetailsModal from "./TeaminchargeTaskDetailsModal";
-// import ProjectStatusEditModal from "./ProjectStatusEditModal";
-// import "react-tooltip/dist/react-tooltip.css";
-// import { Tooltip } from "react-tooltip";
-// import { RiAddFill, RiEdit2Fill, RiTeamFill } from "react-icons/ri";
-
-// const TeaminchargeProjects = () => {
-//   const [projects, setProjects] = useState([]);
-//   const [tasks, setTasks] = useState([]);
-//   const [loading, setLoading] = useState(false);
-//   const [showTaskDetailsModal, setShowTaskDetailsModal] = useState(false);
-//   const [showStatusEditModal, setShowStatusEditModal] = useState(false);
-//   const [modalMode, setModalMode] = useState(null);
-//   const [taskToEdit, setTaskToEdit] = useState(null);
-//   const [projectToEdit, setProjectToEdit] = useState(null);
-//   const { applicationColor } = useThemeContext();
-//   const [draggedIndex, setDraggedIndex] = useState(null);
-
-//   const fetchProjects = async () => {
-//     try {
-//       setLoading(true);
-//       const response = await backEndCallObjNothing("/admin_get/get_projects");
-//       setProjects(response || []);
-//     } catch (error) {
-//       console.error("Error fetching projects:", error);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   const fetchTasks = async () => {
-//     try {
-//       setLoading(true);
-//       const response = await backEndCallObjNothing("/emp_get/get_tasks");
-//       setTasks(response || []);
-//       console.log(response, "taslresponse");
-//     } catch (error) {
-//       console.error("Error fetching tasks:", error);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   const handleAddTaskClick = (projectId) => {
-//     setModalMode("add_task");
-//     setTaskToEdit({ projectId });
-//     setShowTaskDetailsModal(true);
-//   };
-
-//   const handleEditTaskClick = (task) => {
-//     setModalMode("edit_task");
-//     setTaskToEdit(task);
-//     setShowTaskDetailsModal(true);
-//   };
-
-//   const handleUpdateProjectStatusClick = (project) => {
-//     setProjectToEdit(project);
-//     setShowStatusEditModal(true);
-//   };
-
-//   const handleModalSubmit = async () => {
-//     await fetchTasks();
-//     setShowTaskDetailsModal(false);
-//   };
-
-//   const handleStatusEditSubmit = async (updatedProject) => {
-//     await backEndCallObjNothing("/admin/update_project", updatedProject);
-//     await fetchProjects();
-//     setShowStatusEditModal(false);
-//   };
-
-//   useEffect(() => {
-//     fetchProjects();
-//     fetchTasks();
-//   }, []);
-//   const handleRefresh = () => {
-//     fetchProjects();
-//     fetchTasks();
-//   };
-//   const getTasksByProjectId = (projectId) => {
-//     return tasks.filter((task) => task.project_id === projectId);
-//   };
-//   const handleDragOver = (event) => {
-//     event.preventDefault();
-//   };
-
-//   const handleDrop = (index) => {
-//     const newProjects = [...projects];
-
-//     const temp = newProjects[index];
-//     newProjects[index] = newProjects[draggedIndex];
-//     newProjects[draggedIndex] = temp;
-
-//     setProjects(newProjects);
-
-//     setDraggedIndex(null);
-//   };
-
-//   const handleDragStart = (index) => {
-//     setDraggedIndex(index);
-//   };
-//   const handleAssignTeam = (projectId) => {
-//     setCurrentProject({ project_id: projectId });
-//     setFormData({ action: "add", employee_id: [] }); // Set default action to add
-//     setIsTeamModalVisible(true);
-//   };
-
-//   // Handle team removal
-//   const handleRemoveTeam = (project) => {
-//     // Extract employee IDs from the team array
-//     const employeeIds = project.team.map(member =>
-//       typeof member === "object" ? member.employee_id : member
-//     );
-
-//     setCurrentProject({ project_id: project.project_id });
-//     setFormData({ action: "remove", employee_id: employeeIds }); // Pass the filtered employee IDs
-//     setIsTeamModalVisible(true);
-//   };
-
-//   return (
-//     <section
-//       className="company-details p-3"
-//       style={{ background: applicationColor.cardBg1 }}
-//     >
-//       <div className="row">
-//         <div className="d-flex justify-content-start align-items-center w-100 gap-2">
-//           <h4>Project Details</h4>
-//           <div
-//             onClick={handleRefresh}
-//             style={{ cursor: "pointer", display: "flex", alignItems: "center" }}
-//           >
-//             {loading ? (
-//               <div
-//                 className="spinner-border text-primary"
-//                 role="status"
-//                 style={{ height: "20px", width: "20px" }}
-//               ></div>
-//             ) : (
-//               <i className="ri-loop-right-line text-primary fs-5 cursor-pointer"></i>
-//             )}
-//           </div>
-//         </div>
-//         {projects.length > 0 ? (
-//           <div className="row">
-//             {projects.map((project, index) => (
-//               <div
-//                 className="col-lg-4 col-md-6 mb-4 ps-0 pe-3"
-//                 style={{ cursor: "pointer" }}
-//                 draggable
-//                 onDragStart={() => handleDragStart(index)}
-//                 onDragOver={handleDragOver}
-//                 onDrop={() => handleDrop(index)}
-//               >
-//                 <div
-//                   className="admin-controls-card"
-//                   style={{
-//                     background: applicationColor.cardBg1,
-//                     color: applicationColor.readColor1,
-//                     borderRadius: "12px",
-//                     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-//                     transition: "transform 0.3s",
-//                     maxHeight: "400px",
-//                     display: "flex",
-//                     flexDirection: "column",
-//                   }}
-//                   onMouseEnter={(e) => {
-//                     e.currentTarget.style.transform = "scale(1.02)";
-//                   }}
-//                   onMouseLeave={(e) => {
-//                     e.currentTarget.style.transform = "scale(1)";
-//                   }}
-//                 >
-//                   <div
-//                     className="project-header"
-//                     style={{
-//                       backgroundColor: applicationColor.primaryColor,
-//                       borderRadius: "12px 12px 0 0",
-//                     }}
-//                   >
-//                     <h5 className="project-title m-0">
-//                       <strong className="text-primary">Project Name :</strong>{" "}
-//                       {project.project_name}
-//                       <span className="task-status text-muted d-block text-end">
-//                         {project.project_status}
-//                       </span>
-//                     </h5>
-//                     <hr />
-//                     <div className="btn-container d-flex justify-content-end">
-//                       <button
-//                         data-tooltip-id={`tooltip-add-${index}`}
-//                         data-tooltip-content="Add Task"
-//                         className="btn-icon"
-//                         onClick={() => handleAddTaskClick(project.project_id)}
-//                       >
-//                         <RiAddFill className="fs-5" />
-//                       </button>
-
-//                       <button
-//                         data-tooltip-id={`tooltip-edit-${index}`}
-//                         data-tooltip-content="Edit Status"
-//                         className="btn-icon"
-//                         onClick={() => handleUpdateProjectStatusClick(project)}
-//                       >
-//                         <RiEdit2Fill className="fs-5" />
-//                       </button>
-//                     </div>
-//                     <Tooltip id={`tooltip-add-${index}`} place="top" />
-//                     <Tooltip id={`tooltip-edit-${index}`} place="top" />
-
-//                     {/* <div className="d-flex gap-2 mt-1 mb-2">
-//                       <button
-//                         className="btn btn-primary mt-2"
-//                         onClick={() => handleAddTaskClick(project.project_id)}
-//                         style={{
-//                           backgroundColor: applicationColor.primaryColor,
-//                         }}
-//                       >
-//                         Add Task
-//                       </button>
-//                       <button
-//                         className="btn btn-primary mt-2"
-//                         onClick={() => handleUpdateProjectStatusClick(project)}
-//                         style={{
-//                           backgroundColor: applicationColor.primaryColor,
-//                         }}
-//                       >
-//                         Edit Status
-//                       </button>
-//                     </div> */}
-//                   </div>
-//                   <div
-//                     className="task-list-container"
-//                     style={{
-//                       overflowY: "auto",
-//                       flex: "1 1 auto",
-//                       // padding: '0 15px 15px',
-//                     }}
-//                   >
-//                     {getTasksByProjectId(project.project_id).map(
-//                       (task, index) => (
-//                         <div
-//                           className="task-card card mb-3 rounded-2 card-shadow mt-2"
-//                           key={index}
-//                           onClick={() => handleEditTaskClick(task)}
-//                           style={{
-//                             color: applicationColor.readColor2,
-//                           }}
-//                         >
-//                           <button
-//                         data-tooltip-id={`tooltip-assign-${index}`}
-//                         data-tooltip-content="Assign Team"
-//                         className="btn-icon"
-//                         onClick={() => handleAssignTeam(project.project_id)}
-//                       >
-//                         <RiTeamFill className="fs-5" />
-//                       </button>
-//                       <button
-//                         data-tooltip-id={`tooltip-remove-${index}`}
-//                         data-tooltip-content="Remove Team Members"
-//                         className="btn-icon"
-//                         onClick={() => handleRemoveTeam(project)}
-//                       >
-//                         <RiTeamFill className="fs-5" />
-//                       </button>
-//                           <div className="d-flex justify-content-between">
-//                             <span
-//                               className={`priority-badge priority-${task.priority}`}
-//                             >
-//                               {task.priority.charAt(0).toUpperCase() +
-//                                 task.priority.slice(1)}
-//                             </span>
-//                             <span className="due-date text-muted">
-//                               Due Date:{" "}
-//                               {new Date(task.due_date).toLocaleDateString()}
-//                             </span>
-//                           </div>
-//                           <h6 className="mt-2">
-//                             <strong className="text-secondary">Task:</strong>{" "}
-//                             {task.task_name}
-//                           </h6>
-//                           <div className="d-flex justify-content-between">
-//                             <div>
-//                               {task?.team?.map((member) => (
-//                                 <div
-//                                   key={member.employee_id}
-//                                   className="d-flex align-items-center me-3 mb-2"
-//                                 >
-                                  
-//                                   <div className="profile-img-container me-2">
-//                                     {member.profile_image_url ? (
-//                                       <img
-//                                         src={member.profile_image_url}
-//                                         alt={member.employee_name}
-//                                         className="rounded-circle"
-//                                       />
-//                                     ) : (
-//                                       <span className="profile-icon">
-//                                         {member.employee_name.charAt(0)}
-//                                       </span>
-//                                     )}
-//                                   </div>
-//                                   <span>{member.employee_name}</span>
-//                                 </div>
-//                               ))}
-//                             </div>
-//                           </div>
-
-//                           {/* <div className="text-secondary" style={{ fontSize: "0.8rem", marginBottom: "0.5rem" }}>
-//             <p><strong>Assigned at: </strong>{new Date(task?.assign_track[0]?.assigned_to?.date_time).toLocaleString()}</p>
-//             {task?.modified_by?.length > 0 && (
-//               <span> <strong>Updated at: </strong> {new Date(task?.updatedAt).toLocaleString()}</span>
-//             )}
-//           </div> */}
-//                           <div
-//                             className="text-secondary"
-//                             style={{
-//                               fontSize: "0.8rem",
-//                               marginBottom: "0.5rem",
-//                             }}
-//                           >
-//                             {task?.assign_track &&
-//                             task.assign_track.length > 0 &&
-//                             task?.assign_track[0]?.assigned_to?.date_time ? (
-//                               <p>
-//                                 <strong>Assigned at: </strong>
-//                                 {new Date(
-//                                   task.assign_track[0].assigned_to.date_time
-//                                 ).toLocaleString()}
-//                               </p>
-//                             ) : (
-//                               <p>
-//                                 <strong>
-//                                   This task is not assigned to anyone.
-//                                 </strong>
-//                               </p>
-//                             )}
-
-//                             {task?.modified_by?.length > 0 && (
-//                               <span>
-//                                 <strong>Updated at: </strong>{" "}
-//                                 {new Date(task?.updatedAt).toLocaleString()}
-//                               </span>
-//                             )}
-//                           </div>
-
-//                           <div className="text-end">
-//                             <span
-//                               className={`status-badge priority-${task.status}`}
-//                             >
-//                               Status:{" "}
-//                               {task.status.charAt(0).toUpperCase() +
-//                                 task.status.slice(1)}
-//                             </span>
-//                           </div>
-//                         </div>
-//                       )
-//                     )}
-//                   </div>
-//                 </div>
-//               </div>
-//             ))}
-//           </div>
-//         ) : (
-//           !loading && (
-//             <div className="col-12 text-center">
-//               <p className="text-muted">No projects found.</p>
-//             </div>
-//           )
-//         )}
-//         {loading && <Loader />}
-//       </div>
-
-//       {showTaskDetailsModal && (
-//         <TeaminchargeTaskDetailsModal
-//           onClose={() => setShowTaskDetailsModal(false)}
-//           mode={modalMode}
-//           task={taskToEdit}
-//           onSubmit={handleModalSubmit}
-//         />
-//       )}
-//       {showStatusEditModal && (
-//         <ProjectStatusEditModal
-//           onClose={() => setShowStatusEditModal(false)}
-//           project={projectToEdit}
-//           onSubmit={handleStatusEditSubmit}
-//         />
-//       )}
-//     </section>
-//   );
-// };
-
-// export default TeaminchargeProjects;
 import React, { useState, useEffect } from "react";
 import "./ProjectCord.scss";
 import { useThemeContext } from "../Contexts/ThemesContext";
@@ -1292,6 +26,8 @@ const TeaminchargeProjects = () => {
   const [currentProject, setCurrentProject] = useState(null);
   const [formData, setFormData] = useState({ action: "add", employee_id: [] });
   const [isTeamModalVisible, setIsTeamModalVisible] = useState(false);
+  const [cardHeights, setCardHeights] = useState({});
+
   const fetchProjects = async () => {
     try {
       setLoading(true);
@@ -1311,7 +47,7 @@ const TeaminchargeProjects = () => {
       setTasks(response || []);
       // toastOptions.success(response)
     } catch (error) {
-      toastOptions.success(error.response?.data)
+      toastOptions.success(error.response?.data);
       console.error("Error fetching tasks:", error);
     } finally {
       setLoading(false);
@@ -1357,7 +93,10 @@ const TeaminchargeProjects = () => {
     const employeeIds = project.team.map((member) =>
       typeof member === "object" ? member.employee_id : member
     );
-    setCurrentProject({ project_id: project.project_id, task_id: task.task_id });
+    setCurrentProject({
+      project_id: project.project_id,
+      task_id: task.task_id,
+    });
     setFormData({ action: "remove", employee_id: employeeIds });
     setShowTeamModal(true);
     setIsTeamModalVisible(true);
@@ -1380,283 +119,41 @@ const TeaminchargeProjects = () => {
   const getTasksByProjectId = (projectId) => {
     return tasks.filter((task) => task.project_id === projectId);
   };
+  const handleDragOver = (event) => {
+    event.preventDefault();
+  };
+
+  const handleDrop = (index) => {
+    const newProjects = [...projects];
+
+    const temp = newProjects[index];
+    newProjects[index] = newProjects[draggedIndex];
+    newProjects[draggedIndex] = temp;
+
+    setProjects(newProjects);
+
+    setDraggedIndex(null);
+  };
+
+  const handleDragStart = (index) => {
+    setDraggedIndex(index);
+  };
+
+  const handleResize = (index, newHeight) => {
+    setCardHeights((prevHeights) => ({
+      ...prevHeights,
+      [index]: newHeight,
+    }));
+  };
 
   return (
-    <section className="company-details p-3" style={{ background: applicationColor.cardBg1 }}>
+    <section
+      className="company-details p-3"
+      style={{ background: applicationColor.cardBg1 }}
+    >
       <div className="row">
         <div className="d-flex justify-content-start align-items-center w-100 gap-2">
           <h4>Project Details</h4>
-          <div onClick={handleRefresh} style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
-            {loading ? (
-              <div className="spinner-border text-primary" role="status" style={{ height: "20px", width: "20px" }}></div>
-            ) : (
-              <i className="ri-loop-right-line text-primary fs-5 cursor-pointer"></i>
-            )}
-          </div>
-        </div>
-        {projects.length > 0 ? (
-          <div className="row">
-            {projects.map((project, index) => (
-              <div
-                className="col-lg-4 col-md-6 mb-4 ps-0 pe-3"
-                style={{ cursor: "pointer" }}
-                key={project.project_id}
-                draggable
-                onDragStart={() => setDraggedIndex(index)}
-                onDragOver={(e) => e.preventDefault()}
-                onDrop={() => {
-                  const newProjects = [...projects];
-                  const temp = newProjects[index];
-                  newProjects[index] = newProjects[draggedIndex];
-                  newProjects[draggedIndex] = temp;
-                  setProjects(newProjects);
-                  setDraggedIndex(null);
-                }}
-              >
-                <div
-                  className="admin-controls-card"
-                  style={{
-                    background: applicationColor.cardBg1,
-                    color: applicationColor.readColor1,
-                    borderRadius: "12px",
-                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                    transition: "transform 0.3s",
-                    maxHeight: "400px",
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.02)"}
-                  onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}
-                >
-                  <div className="project-header" style={{ backgroundColor: applicationColor.primaryColor, borderRadius: "12px 12px 0 0" }}>
-                    <h5 className="project-title m-0">
-                      <strong className="text-primary">Project Name:</strong> {project.project_name}
-                      <span className="task-status text-muted d-block text-end">{project.project_status}</span>
-                    </h5>
-                    <hr />
-                    <div className="btn-container d-flex justify-content-end">
-                      <button
-                        data-tooltip-id={`tooltip-add-${index}`}
-                        data-tooltip-content="Add Task"
-                        className="btn-icon"
-                        onClick={() => handleAddTaskClick(project.project_id)}
-                      >
-                        <RiAddFill className="fs-5" />
-                      </button>
-                      <button
-                        data-tooltip-id={`tooltip-edit-${index}`}
-                        data-tooltip-content="Edit Status"
-                        className="btn-icon"
-                        onClick={() => handleUpdateProjectStatusClick(project)}
-                      >
-                        <RiEdit2Fill className="fs-5" />
-                      </button>
-                    </div>
-                    {/* <div className="btn-container d-flex justify-content-end">
-      <button
-        id={`tooltip-add-${index}`}
-        className="btn-icon"
-        onClick={() => handleAddTaskClick(project.project_id)}
-        style={{ backgroundColor: "transparent", border: "none" }}
-      >
-        <RiAddFill
-          className="fs-5"
-          style={{ color: "#007bff", transition: "color 0.3s" }}
-        />
-        <Tooltip anchorId={`tooltip-add-${index}`} content="Add Task" place="top" />
-      </button> */}
-
-      {/* <button
-        id={`tooltip-edit-${index}`}
-        className="btn-icon "
-        onClick={() => handleUpdateProjectStatusClick(project)}
-        style={{ backgroundColor: "transparent", border: "none" }}
-      >
-        <RiEdit2Fill
-          className="fs-5"
-          style={{ color: "#28a745", transition: "color 0.3s" }}
-        />
-        <Tooltip anchorId={`tooltip-edit-${index}`} content="Edit Status" place="top" />
-      </button> */}
-
-     
-         {/* </div> */}
-                    <Tooltip id={`tooltip-add-${index}`} place="top" />
-                    <Tooltip id={`tooltip-edit-${index}`} place="top" />
-                  </div>
-                  <div className="task-list-container" style={{ overflowY: "auto", flex: "1 1 auto" }}>
-                    {getTasksByProjectId(project.project_id).map((task, index) => (
-                      <div
-                        className="task-card card mb-3 rounded-2 card-shadow mt-2"
-                        key={task.task_id}
-                        onClick={() => handleEditTaskClick(task)}
-                        style={{ color: applicationColor.readColor2 }}
-                      >
-                        {/* <div className="d-flex">
-                        <button
-                          data-tooltip-id={`tooltip-assign-${index}`}
-                          data-tooltip-content="Assign Team"
-                          className="btn-icon"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleAssignTeam(project.project_id, task.task_id);
-                          }}
-                        >
-                          <RiTeamFill className="fs-5" />
-                        </button>
-                        <div className="team-meta">
-                          <button
-                            data-tooltip-id={`tooltip-remove-${index}`}
-                            data-tooltip-content="Remove Team"
-                            className="btn-icon"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleRemoveTeam(project, task);
-                            }}
-                          >
-                            <RiTeamFill className="fs-5" />
-                          </button>
-                          </div>
-
-
-                        </div> */}
-                         
-    <div className="d-flex">
-      <button
-        id={`tooltip-assign-${index}`}
-        className="btn-icon"
-        onClick={(e) => {
-          e.stopPropagation();
-          handleAssignTeam(project.project_id, task.task_id);
-        }}
-        style={{ backgroundColor: "transparent", border: "none" }}
-      >
-        <RiTeamFill
-          className="fs-5"
-          style={{ color: "#007bff", transition: "color 0.3s" }}
-        />
-        <Tooltip anchorId={`tooltip-assign-${index}`} content="Assign Team" place="top" />
-      </button>
-
-      <div className="team-meta">
-        <button
-          id={`tooltip-remove-${index}`}
-          className="btn-icon"
-          onClick={(e) => {
-            e.stopPropagation();
-            handleRemoveTeam(project, task);
-          }}
-          style={{ backgroundColor: "transparent", border: "none" }}
-        >
-          <RiTeamFill
-            className="fs-5"
-            style={{ color: "#28a745", transition: "color 0.3s" }}
-          />
-          <Tooltip anchorId={`tooltip-remove-${index}`} content="Remove Team" place="top" />
-        </button>
-      </div>
-
-      {/* Add hover effect using inline style */}
-      <style jsx>{`
-        .btn-icon:hover .fs-5 {
-          color: #ff6347; /* Change icon color on hover */
-        }
-      `}</style>
-    </div>
-                        <div className="card-body">
-                          <div className="d-flex justify-content-between">
-                          <span className={`priority-badge priority-${task.priority}`}>
-                             {task.priority}
-                          </span>
-                            <span className="due-date text-muted">
-                              Due Date:{" "}
-                              {new Date(task.due_date).toLocaleDateString()}
-                            </span>
-                          </div><div className="d-flex justify-content-between">
-                            <div>
-                              {task?.team?.map((member) => (
-                                <div
-                                  key={member.employee_id}
-                                  className="d-flex align-items-center me-3 mb-2"
-                                >
-                                  
-                                  <div className="profile-img-container me-2">
-                                  {member.profile_image_url ? (
-        <img
-          src={member.profile_image_url}
-          alt={member.employee_name}
-          className="rounded-circle"
-        />
-      ) : (
-        <span className="profile-icon">
-          {member.employee_name.charAt(0).toUpperCase()}
-        </span>
-      )}
-                                  </div>
-                                  <span>{member.employee_name}</span>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                          <h6 className="mt-2">
-                            <strong className="text-secondary">Task:</strong>{" "}
-                            {task.task_name}
-                          </h6>
-                          <div
-                            className="text-secondary"
-                            style={{
-                              fontSize: "0.8rem",
-                              marginBottom: "0.5rem",
-                            }}
-                          >
-                            {task?.assign_track &&
-                            task.assign_track.length > 0 &&
-                            task?.assign_track[0]?.assigned_to?.date_time ? (
-                              <p>
-                                <strong>Assigned at: </strong>
-                                {new Date(
-                                  task.assign_track[0].assigned_to.date_time
-                                ).toLocaleString()}
-                              </p>
-                            ) : (
-                              <p>
-                                <strong>
-                                  This task is not assigned to anyone.
-                                </strong>
-                              </p>
-                            )}
-
-                            {task?.modified_by?.length > 0 && (
-                              <span>
-                                <strong>Updated at: </strong>{" "}
-                                {new Date(task?.updatedAt).toLocaleString()}
-                              </span>
-                            )}
-                          </div>
-                          <div className="text-end">
-                          <span
-                              className={`status-badge priority-${task.status}`}
-                            >
-                              Status:{" "}
-                              {task.status
-                             }
-                            </span>
-                            </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center">No Projects Found</div>
-        )}
-      </div>
-      {/* <div className="row">
-         <div className="d-flex justify-content-start align-items-center w-100 gap-2">
-           <h4>Project Details</h4>
           <div
             onClick={handleRefresh}
             style={{ cursor: "pointer", display: "flex", alignItems: "center" }}
@@ -1676,10 +173,9 @@ const TeaminchargeProjects = () => {
           <div className="row">
             {projects.map((project, index) => (
               <div
-                className="col-lg-4 col-md-6 mb-4 ps-0 pe-3"
+                className="col-12 col-xl-4 col-lg-6 col-md-12 col-sm-12 mb-4 ps-0 pe-3"
                 style={{ cursor: "pointer" }}
                 draggable
-              
               >
                 <div
                   className="admin-controls-card"
@@ -1688,10 +184,11 @@ const TeaminchargeProjects = () => {
                     color: applicationColor.readColor1,
                     borderRadius: "12px",
                     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                    transition: "transform 0.3s",
-                    maxHeight: "400px",
+                    transition: "transform 0.3s, height 0.3s",
+                    height: cardHeights[index] || "400px",
                     display: "flex",
                     flexDirection: "column",
+                    // overflow: "auto",
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = "scale(1.02)";
@@ -1707,42 +204,42 @@ const TeaminchargeProjects = () => {
                       borderRadius: "12px 12px 0 0",
                     }}
                   >
-                    <h5 className="project-title m-0">
-                      <strong className="text-primary">Project Name :</strong>{" "}
-                      {project.project_name}
-                      <span className="task-status text-muted d-block text-end">
-                        {project.project_status}
-                      </span>
-                    </h5>
-                    <hr />
-                    <div className="btn-container d-flex justify-content-end">
-                      <button
-                        data-tooltip-id={`tooltip-add-${index}`}
-                        data-tooltip-content="Add Task"
-                        className="btn-icon"
-                        onClick={() => handleAddTaskClick(project.project_id)}
-                      >
-                        <RiAddFill className="fs-5" />
-                      </button>
-                      <button
-                        data-tooltip-id={`tooltip-edit-${index}`}
-                        data-tooltip-content="Edit Status"
-                        className="btn-icon"
-                        onClick={() => handleUpdateProjectStatusClick(project)}
-                      >
-                        <RiEdit2Fill className="fs-5" />
-                      </button>
+                    <div className="d-flex justify-content-between align-items-center">
+                      <h5 className="project-title m-0 p-0">
+                        <strong className="text-primary">
+                          {project.project_name}
+                        </strong>
+                      </h5>
+                      <div className="btn-container d-flex">
+                        <button
+                          data-tooltip-id={`tooltip-add-${index}`}
+                          data-tooltip-content="Add Task"
+                          className="btn-icon"
+                          onClick={() => handleAddTaskClick(project.project_id)}
+                        >
+                          <RiAddFill className="fs-5" />
+                        </button>
+
+                        <button
+                          data-tooltip-id={`tooltip-edit-${index}`}
+                          data-tooltip-content="Edit Status"
+                          className="btn-icon"
+                          onClick={() =>
+                            handleUpdateProjectStatusClick(project)
+                          }
+                        >
+                          <RiEdit2Fill className="fs-5" />
+                        </button>
+                      </div>
                     </div>
                     <Tooltip id={`tooltip-add-${index}`} place="top" />
                     <Tooltip id={`tooltip-edit-${index}`} place="top" />
-
                   </div>
                   <div
                     className="task-list-container"
                     style={{
                       overflowY: "auto",
                       flex: "1 1 auto",
-                     
                     }}
                   >
                     {getTasksByProjectId(project.project_id).map(
@@ -1755,30 +252,39 @@ const TeaminchargeProjects = () => {
                             color: applicationColor.readColor2,
                           }}
                         >
-                          
-                         
-                          <div className="d-flex justify-content-between">
-                          <span className={`priority-badge priority-${task.priority}`}>
-                             {task.priority}
-                          </span>
-                            <span className="due-date text-muted">
-                              Due Date:{" "}
+                          <div className="d-flex justify-content-between gap-2 mb-1">
+                            <div className="d-flex gap-1">
+                              <span
+                                className={`priority-badge priority-${task.priority} m-0`}
+                              >
+                                {task.priority?.charAt(0).toUpperCase() +
+                                  task.priority.slice(1)}
+                              </span>
+                              <span
+                                className={`status-badge priority-${task.status} `}
+                              >
+                                {task.status?.charAt(0).toUpperCase() +
+                                  task.status.slice(1)}
+                              </span>
+                            </div>
+                            <span className="due-date text-muted ms-auto">
+                              Due:{" "}
                               {new Date(task.due_date).toLocaleDateString()}
                             </span>
                           </div>
-                          <h6 className="mt-2">
-                            <strong className="text-secondary">Task:</strong>{" "}
+
+                          <h6 className="m-0 mt-2">
+                            <strong className="text-secondary">Task : </strong>
                             {task.task_name}
                           </h6>
-                          <div className="d-flex justify-content-between">
+                          <div className="d-flex justify-content-between mt-1">
                             <div>
                               {task?.team?.map((member) => (
                                 <div
                                   key={member.employee_id}
-                                  className="d-flex align-items-center me-3 mb-2"
+                                  className="d-flex align-items-center me-3"
                                 >
-                                  
-                                  <div className="profile-img-container me-2">
+                                  <div className="profile-img-container me-1">
                                     {member.profile_image_url ? (
                                       <img
                                         src={member.profile_image_url}
@@ -1787,7 +293,7 @@ const TeaminchargeProjects = () => {
                                       />
                                     ) : (
                                       <span className="profile-icon">
-                                        {member.employee_name}
+                                        {member.employee_name?.charAt(0)}
                                       </span>
                                     )}
                                   </div>
@@ -1796,72 +302,144 @@ const TeaminchargeProjects = () => {
                               ))}
                             </div>
                           </div>
+                          {/* <div className="d-flex justify-content-between align-items-center mb-1 gap-2"> */}
+                          {task?.assign_track &&
+                          task.assign_track.length > 0 &&
+                          task?.assign_track[0]?.assigned_to?.date_time ? (
+                            <span className="due-date text-muted ms-auto">
+                              Assigned on:{" "}
+                              {new Date(
+                                task.assign_track[0].assigned_to.date_time
+                              ).toLocaleString()}
+                            </span>
+                          ) : (
+                            <p className=" text-danger ms-auto">
+                              This task is not assigned to anyone.
+                            </p>
+                          )}
+                          {/* </div> */}
 
-                         
-                          <div
+                          {/* <div className="text-secondary" style={{ fontSize: "0.8rem", marginBottom: "0.5rem" }}>
+            <p><strong>Assigned at: </strong>{new Date(task?.assign_track[0]?.assigned_to?.date_time).toLocaleString()}</p>
+            {task?.modified_by?.length > 0 && (
+              <span> <strong>Updated at: </strong> {new Date(task?.updatedAt).toLocaleString()}</span>
+            )}
+          </div> */}
+                          {/* <div
                             className="text-secondary"
                             style={{
                               fontSize: "0.8rem",
                               marginBottom: "0.5rem",
                             }}
                           >
-                            {task?.assign_track &&
-                            task.assign_track.length > 0 &&
-                            task?.assign_track[0]?.assigned_to?.date_time ? (
-                              <p>
-                                <strong>Assigned at: </strong>
-                                {new Date(
-                                  task.assign_track[0].assigned_to.date_time
-                                ).toLocaleString()}
-                              </p>
-                            ) : (
-                              <p>
-                                <strong>
-                                  This task is not assigned to anyone.
-                                </strong>
-                              </p>
-                            )}
-
                             {task?.modified_by?.length > 0 && (
                               <span>
                                 <strong>Updated at: </strong>{" "}
                                 {new Date(task?.updatedAt).toLocaleString()}
                               </span>
                             )}
-                          </div>
+                          </div> */}
 
-                          <div className="text-end">
-                          <button
-                           style={{ color: "green" }}
-                        data-tooltip-id={`tooltip-assign-${index}`}
-                        data-tooltip-content="Assign Team"
-                        className="btn-icon"
-                        onClick={() => handleAssignTeam(project.project_id)}
-                      >
-                        <RiTeamFill className="fs-5" />
-                      </button>
-                      <button
-                       style={{ color: "red" }}
-                        data-tooltip-id={`tooltip-remove-${index}`}
-                        data-tooltip-content="Remove Team Members"
-                        className="btn-icon"
-                        onClick={() => handleRemoveTeam(project)}
-                      >
-                        <RiTeamFill className="fs-5" />
-                      </button>
-                            <span
-                              className={`status-badge priority-${task.status}`}
+                          <div className="d-flex justify-content-end mt-1">
+                            <button
+                              id={`tooltip-assign-${index}`}
+                              className="btn-icon"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleAssignTeam(
+                                  project.project_id,
+                                  task.task_id
+                                );
+                              }}
+                              style={{
+                                backgroundColor: "transparent",
+                                border: "none",
+                              }}
                             >
-                              Status:{" "}
-                              {task.status
-                             }
-                            </span>
+                              <RiTeamFill
+                                className="fs-5"
+                                style={{
+                                  color: "#007bff",
+                                  transition: "color 0.3s",
+                                }}
+                              />
+                              <Tooltip
+                                anchorId={`tooltip-assign-${index}`}
+                                content="Assign Team"
+                                place="top"
+                              />
+                            </button>
+
+                            <div className="team-meta">
+                              <button
+                                id={`tooltip-remove-${index}`}
+                                className="btn-icon"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleRemoveTeam(project, task);
+                                }}
+                                style={{
+                                  backgroundColor: "transparent",
+                                  border: "none",
+                                }}
+                              >
+                                <RiTeamFill
+                                  className="fs-5"
+                                  style={{
+                                    color: "rgb(220 60 69)",
+                                    transition: "color 0.3s",
+                                  }}
+                                />
+                                <Tooltip
+                                  anchorId={`tooltip-remove-${index}`}
+                                  content="Remove Team"
+                                  place="top"
+                                />
+                              </button>
+                            </div>
+
+                            {/* Add hover effect using inline style */}
+                            <style jsx>{`
+                              .btn-icon:hover .fs-5 {
+                                color: #ff6347; /* Change icon color on hover */
+                              }
+                            `}</style>
                           </div>
                         </div>
                       )
                     )}
                   </div>
                 </div>
+                <div
+                  className="resize-handle"
+                  style={{
+                    height: "10px",
+                    background: applicationColor.primaryColor,
+                    // background: "red",
+                    cursor: "ns-resize", // North-South resize cursor
+                  }}
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    const startY = e.clientY;
+                    const startHeight = parseInt(
+                      document.defaultView.getComputedStyle(
+                        e.currentTarget.parentElement
+                      ).height,
+                      10
+                    );
+                    const onMouseMove = (moveEvent) => {
+                      const newHeight =
+                        startHeight + (moveEvent.clientY - startY);
+                      handleResize(index, `${newHeight}px`);
+                    };
+                    const onMouseUp = () => {
+                      document.removeEventListener("mousemove", onMouseMove);
+                      document.removeEventListener("mouseup", onMouseUp);
+                    };
+                    document.addEventListener("mousemove", onMouseMove);
+                    document.addEventListener("mouseup", onMouseUp);
+                  }}
+                />
               </div>
             ))}
           </div>
@@ -1873,7 +451,8 @@ const TeaminchargeProjects = () => {
           )
         )}
         {loading && <Loader />}
-      </div> */}
+      </div>{" "}
+      */}
       {showTaskDetailsModal && (
         <TeaminchargeTaskDetailsModal
           isOpen={showTaskDetailsModal}
@@ -1899,14 +478,14 @@ const TeaminchargeProjects = () => {
         //   currentProject={currentProject}
         // />
         <TeamAssignmentModalteamincharge
-        // projectId={projectId}
-        setIsTeamModalVisible={setIsTeamModalVisible}
-        fetchProjects={fetchProjects}
-        isOpen={showTeamModal}
-        formData={formData}
-        setFormData={setFormData}
-        currentProject={currentProject}
-      />
+          // projectId={projectId}
+          setIsTeamModalVisible={setIsTeamModalVisible}
+          fetchProjects={fetchProjects}
+          isOpen={showTeamModal}
+          formData={formData}
+          setFormData={setFormData}
+          currentProject={currentProject}
+        />
       )}
     </section>
   );

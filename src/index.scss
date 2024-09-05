@@ -539,6 +539,11 @@ input[type="date"] {
   }
 }
 
+
+.text-capitalize {
+  text-transform: capitalize;
+}
+
 //employee attendence calender styles
 
 .modal.show .modal-dialog.checkin-checkout-model {
