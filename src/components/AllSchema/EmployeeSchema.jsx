@@ -1451,7 +1451,243 @@ export const ExpirementSchema = {
     )
     .label("Education Details"),
 };
+export const identityInfoSchema = Joi.object({
+  uan: Joi.string()
+    .length(12)
+    .allow("")
+    .messages({
+      "string.length": '"UAN" should be exactly 12 characters long',
+      "any.required": '"UAN" is required',
+    })
+    .label("UAN"),
 
+  pan: Joi.string()
+    .length(10)
+    .allow("")
+    .messages({
+      "string.length": '"PAN" should be exactly 10 characters long',
+      "any.required": '"PAN" is required',
+    })
+    .label("PAN"),
+
+  aadhaar: Joi.string()
+    .length(12)
+    .allow("")
+    .messages({
+      "string.length": '"Aadhaar" should be exactly 12 characters long',
+      "any.required": '"Aadhaar" is required',
+    })
+    .label("Aadhaar"),
+
+  passport: Joi.string()
+    .length(12)
+    .allow("")
+    .messages({
+      "string.length": '"Passport" should be exactly 12 characters long',
+      "any.required": '"Passport" is required',
+    })
+    .label("Passport"),
+});
+
+// Main Schema
+export const EditShema = Joi.object({
+  employee_id: Joi.string().min(5).max(10).required(),
+  organisation_id: Joi.string()
+    .min(15)
+    .max(17)
+    .required()
+    .label("Organisation ID"),
+
+  expertise: Joi.string().allow("").optional().label("Expertise"),
+  marital_status: Joi.string().required().label("Marital Status"),
+  about_me: Joi.string()
+    .min(5)
+    .max(250)
+    .allow("")
+    .messages({
+      "string.base": '"About Me" should be a string',
+      "string.min": '"About Me" should be at least 5 characters long',
+      "string.max": '"About Me" should be at most 250 characters long',
+    })
+    .label("About Me"),
+
+  work_phone_number: Joi.string()
+    .length(10)
+    .pattern(/^[6-9]\d{9}$/)
+    .messages({
+      "string.pattern.base":
+        '"Phone Number" should start with digits 6-9 and consist of 10 digits',
+      "string.length": '"Phone Number" should be exactly 10 digits long',
+    })
+    .label("Phone Number"),
+
+  personal_mobile_number: Joi.string()
+    .length(10)
+    .pattern(/^[6-9]\d{9}$/)
+    .required()
+    .messages({
+      "string.pattern.base":
+        '"Personal Phone Number" should start with digits 6-9 and consist of 10 digits',
+      "string.length":
+        '"Personal Phone Number" should be exactly 10 digits long',
+      "any.required": '"Personal Phone Number" is required',
+    })
+    .label("Personal Phone Number"),
+
+  nick_name: Joi.string()
+    .max(15)
+    .allow("")
+    .messages({
+      "string.max": '"NickName" should be at most 15 characters long',
+    })
+    .label("NickName"),
+
+  personal_email_address: Joi.string()
+    .pattern(/^[a-z0-9._]+@[a-z0-9.-]+\.[a-z]{2,}$/)
+    .min(10)
+    .max(55)
+    .required()
+    .messages({
+      "string.email": '"Personal Email" must be a valid email address',
+      "string.min": '"Personal Email" should be at least 10 characters long',
+      "string.max": '"Personal Email" should be at most 55 characters long',
+      "any.required": '"Personal Email" is required',
+    })
+    .label("Personal Email"),
+
+  dependent_details: Joi.array()
+    .items(
+      Joi.object({
+        name: Joi.string()
+          .min(3)
+          .max(50)
+          .allow("")
+          .messages({
+            "string.min":
+              '"Dependent Name" should be at least 3 characters long',
+            "string.max":
+              '"Dependent Name" should be at most 50 characters long',
+          })
+          .label("Dependent Name"),
+
+        relation: Joi.string()
+          .min(3)
+          .max(50)
+          .allow("")
+          .messages({
+            "string.min": '"Relation" should be at least 3 characters long',
+            "string.max": '"Relation" should be at most 50 characters long',
+          })
+          .label("Relation"),
+
+        dependent_date_of_birth: Joi.date()
+          .max("now")
+          .allow("")
+          .messages({
+            "date.base": `"Date Of Birth" should be a valid date`,
+            "date.max": `"Date Of Birth" cannot be in the future`,
+          })
+          .label("Date Of Birth"),
+      })
+    )
+    .label("Dependent Details"),
+
+  last_ip: Joi.string().ip().required(),
+  browserid: Joi.string().min(3).max(50).required(),
+  fcm_token: Joi.string().min(3).max(50).required(),
+  device_id: Joi.string().min(3).max(50).required(),
+
+  educational_details: Joi.array()
+    .items(
+      Joi.object({
+        institute_name: Joi.string()
+          .min(5)
+          .max(30)
+          .allow("")
+          .messages({
+            "string.min":
+              '"Institute Name" should be at least 5 characters long',
+            "string.max":
+              '"Institute Name" should be at most 30 characters long',
+          })
+          .label("Institute Name"),
+
+        degree: Joi.string()
+          .min(5)
+          .max(15)
+          .allow("")
+          .messages({
+            "string.min": '"Degree" should be at least 5 characters long',
+            "string.max": '"Degree" should be at most 15 characters long',
+          })
+          .label("Degree"),
+
+        specialization: Joi.string()
+          .min(3)
+          .max(15)
+          .allow("")
+          .messages({
+            "string.min":
+              '"Specialization" should be at least 2 characters long',
+            "string.max":
+              '"Specialization" should be at most 15 characters long',
+          })
+          .label("Specialization"),
+
+        year_of_completion: Joi.date()
+          .max("now")
+          .allow("")
+          .label("Year of Completion"),
+      })
+    )
+    .label("Educational Details"),
+
+  work_experience: Joi.array()
+    .items(
+      Joi.object({
+        company_name: Joi.string()
+          .min(3)
+          .max(30)
+          .allow("")
+          .messages({
+            "string.min":
+              '"Company Name" should be at least 10 characters long',
+            "string.max": '"Company Name" should be at most 30 characters long',
+          })
+          .label("Company Name"),
+
+        job_title: Joi.string()
+          .min(2)
+          .max(25)
+          .allow("")
+          .messages({
+            "string.min": '"Job Title" should be at least 3 characters long',
+            "string.max": '"Job Title" should be at most 25 characters long',
+          })
+          .label("Job Title"),
+
+        from_date: Joi.date().allow("").label("From Date"),
+        to_date: Joi.date().allow("").label("To Date"),
+
+        job_description: Joi.string()
+          .min(5)
+          .max(100)
+          .allow("")
+          .messages({
+            "string.min":
+              '"Job Description" should be at least 5 characters long',
+            "string.max":
+              '"Job Description" should be at most 100 characters long',
+          })
+          .label("Job Description"),
+
+        experience: Joi.number().positive().allow("").label("Experience"),
+      })
+    )
+    .label("Work Experience"),
+
+  identity_info: identityInfoSchema, // Include identity info schema
+});
 const EmployeeDataSchema = {
   profilePhoto: Joi.string().allow("").label("Profile Photo"),
   banner: Joi.string().allow("").label("Banner"),

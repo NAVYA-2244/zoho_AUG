@@ -1383,7 +1383,7 @@ const TeaminchargeProjects = () => {
 
   return (
     <section className="company-details p-3" style={{ background: applicationColor.cardBg1 }}>
-      {/* <div className="row">
+      <div className="row">
         <div className="d-flex justify-content-start align-items-center w-100 gap-2">
           <h4>Project Details</h4>
           <div onClick={handleRefresh} style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
@@ -1452,6 +1452,35 @@ const TeaminchargeProjects = () => {
                         <RiEdit2Fill className="fs-5" />
                       </button>
                     </div>
+                    {/* <div className="btn-container d-flex justify-content-end">
+      <button
+        id={`tooltip-add-${index}`}
+        className="btn-icon"
+        onClick={() => handleAddTaskClick(project.project_id)}
+        style={{ backgroundColor: "transparent", border: "none" }}
+      >
+        <RiAddFill
+          className="fs-5"
+          style={{ color: "#007bff", transition: "color 0.3s" }}
+        />
+        <Tooltip anchorId={`tooltip-add-${index}`} content="Add Task" place="top" />
+      </button> */}
+
+      {/* <button
+        id={`tooltip-edit-${index}`}
+        className="btn-icon "
+        onClick={() => handleUpdateProjectStatusClick(project)}
+        style={{ backgroundColor: "transparent", border: "none" }}
+      >
+        <RiEdit2Fill
+          className="fs-5"
+          style={{ color: "#28a745", transition: "color 0.3s" }}
+        />
+        <Tooltip anchorId={`tooltip-edit-${index}`} content="Edit Status" place="top" />
+      </button> */}
+
+     
+         {/* </div> */}
                     <Tooltip id={`tooltip-add-${index}`} place="top" />
                     <Tooltip id={`tooltip-edit-${index}`} place="top" />
                   </div>
@@ -1463,6 +1492,7 @@ const TeaminchargeProjects = () => {
                         onClick={() => handleEditTaskClick(task)}
                         style={{ color: applicationColor.readColor2 }}
                       >
+                        {/* <div className="d-flex">
                         <button
                           data-tooltip-id={`tooltip-assign-${index}`}
                           data-tooltip-content="Assign Team"
@@ -1486,10 +1516,132 @@ const TeaminchargeProjects = () => {
                           >
                             <RiTeamFill className="fs-5" />
                           </button>
-                        </div>
+                          </div>
+
+
+                        </div> */}
+                         
+    <div className="d-flex">
+      <button
+        id={`tooltip-assign-${index}`}
+        className="btn-icon"
+        onClick={(e) => {
+          e.stopPropagation();
+          handleAssignTeam(project.project_id, task.task_id);
+        }}
+        style={{ backgroundColor: "transparent", border: "none" }}
+      >
+        <RiTeamFill
+          className="fs-5"
+          style={{ color: "#007bff", transition: "color 0.3s" }}
+        />
+        <Tooltip anchorId={`tooltip-assign-${index}`} content="Assign Team" place="top" />
+      </button>
+
+      <div className="team-meta">
+        <button
+          id={`tooltip-remove-${index}`}
+          className="btn-icon"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleRemoveTeam(project, task);
+          }}
+          style={{ backgroundColor: "transparent", border: "none" }}
+        >
+          <RiTeamFill
+            className="fs-5"
+            style={{ color: "#28a745", transition: "color 0.3s" }}
+          />
+          <Tooltip anchorId={`tooltip-remove-${index}`} content="Remove Team" place="top" />
+        </button>
+      </div>
+
+      {/* Add hover effect using inline style */}
+      <style jsx>{`
+        .btn-icon:hover .fs-5 {
+          color: #ff6347; /* Change icon color on hover */
+        }
+      `}</style>
+    </div>
                         <div className="card-body">
-                          <h5 className="card-title">{task.task_name}</h5>
-                          <p className="card-text">{task.task_description}</p>
+                          <div className="d-flex justify-content-between">
+                          <span className={`priority-badge priority-${task.priority}`}>
+                             {task.priority}
+                          </span>
+                            <span className="due-date text-muted">
+                              Due Date:{" "}
+                              {new Date(task.due_date).toLocaleDateString()}
+                            </span>
+                          </div><div className="d-flex justify-content-between">
+                            <div>
+                              {task?.team?.map((member) => (
+                                <div
+                                  key={member.employee_id}
+                                  className="d-flex align-items-center me-3 mb-2"
+                                >
+                                  
+                                  <div className="profile-img-container me-2">
+                                  {member.profile_image_url ? (
+        <img
+          src={member.profile_image_url}
+          alt={member.employee_name}
+          className="rounded-circle"
+        />
+      ) : (
+        <span className="profile-icon">
+          {member.employee_name.charAt(0).toUpperCase()}
+        </span>
+      )}
+                                  </div>
+                                  <span>{member.employee_name}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                          <h6 className="mt-2">
+                            <strong className="text-secondary">Task:</strong>{" "}
+                            {task.task_name}
+                          </h6>
+                          <div
+                            className="text-secondary"
+                            style={{
+                              fontSize: "0.8rem",
+                              marginBottom: "0.5rem",
+                            }}
+                          >
+                            {task?.assign_track &&
+                            task.assign_track.length > 0 &&
+                            task?.assign_track[0]?.assigned_to?.date_time ? (
+                              <p>
+                                <strong>Assigned at: </strong>
+                                {new Date(
+                                  task.assign_track[0].assigned_to.date_time
+                                ).toLocaleString()}
+                              </p>
+                            ) : (
+                              <p>
+                                <strong>
+                                  This task is not assigned to anyone.
+                                </strong>
+                              </p>
+                            )}
+
+                            {task?.modified_by?.length > 0 && (
+                              <span>
+                                <strong>Updated at: </strong>{" "}
+                                {new Date(task?.updatedAt).toLocaleString()}
+                              </span>
+                            )}
+                          </div>
+                          <div className="text-end">
+                          <span
+                              className={`status-badge priority-${task.status}`}
+                            >
+                              Status:{" "}
+                              {task.status
+                             }
+                            </span>
+                            </div>
                         </div>
                       </div>
                     ))}
@@ -1501,8 +1653,8 @@ const TeaminchargeProjects = () => {
         ) : (
           <div className="text-center">No Projects Found</div>
         )}
-      </div> */}
-      <div className="row">
+      </div>
+      {/* <div className="row">
          <div className="d-flex justify-content-start align-items-center w-100 gap-2">
            <h4>Project Details</h4>
           <div
@@ -1527,9 +1679,7 @@ const TeaminchargeProjects = () => {
                 className="col-lg-4 col-md-6 mb-4 ps-0 pe-3"
                 style={{ cursor: "pointer" }}
                 draggable
-                // onDragStart={() => handleDragStart(index)}
-                // onDragOver={handleDragOver}
-                // onDrop={() => handleDrop(index)}
+              
               >
                 <div
                   className="admin-controls-card"
@@ -1586,33 +1736,13 @@ const TeaminchargeProjects = () => {
                     <Tooltip id={`tooltip-add-${index}`} place="top" />
                     <Tooltip id={`tooltip-edit-${index}`} place="top" />
 
-                    {/* <div className="d-flex gap-2 mt-1 mb-2">
-                      <button
-                        className="btn btn-primary mt-2"
-                        onClick={() => handleAddTaskClick(project.project_id)}
-                        style={{
-                          backgroundColor: applicationColor.primaryColor,
-                        }}
-                      >
-                        Add Task
-                      </button>
-                      <button
-                        className="btn btn-primary mt-2"
-                        onClick={() => handleUpdateProjectStatusClick(project)}
-                        style={{
-                          backgroundColor: applicationColor.primaryColor,
-                        }}
-                      >
-                        Edit Status
-                      </button>
-                    </div> */}
                   </div>
                   <div
                     className="task-list-container"
                     style={{
                       overflowY: "auto",
                       flex: "1 1 auto",
-                      // padding: '0 15px 15px',
+                     
                     }}
                   >
                     {getTasksByProjectId(project.project_id).map(
@@ -1667,12 +1797,7 @@ const TeaminchargeProjects = () => {
                             </div>
                           </div>
 
-                          {/* <div className="text-secondary" style={{ fontSize: "0.8rem", marginBottom: "0.5rem" }}>
-            <p><strong>Assigned at: </strong>{new Date(task?.assign_track[0]?.assigned_to?.date_time).toLocaleString()}</p>
-            {task?.modified_by?.length > 0 && (
-              <span> <strong>Updated at: </strong> {new Date(task?.updatedAt).toLocaleString()}</span>
-            )}
-          </div> */}
+                         
                           <div
                             className="text-secondary"
                             style={{
@@ -1748,7 +1873,7 @@ const TeaminchargeProjects = () => {
           )
         )}
         {loading && <Loader />}
-      </div>
+      </div> */}
       {showTaskDetailsModal && (
         <TeaminchargeTaskDetailsModal
           isOpen={showTaskDetailsModal}
