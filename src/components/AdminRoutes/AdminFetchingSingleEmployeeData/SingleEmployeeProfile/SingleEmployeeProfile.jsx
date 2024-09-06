@@ -250,6 +250,7 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
     loadingTerm,
     employeedata,
     loading,
+    employeeDetails
     
   } = useStateContext();
   console.log(employeedata,"navya")
@@ -366,12 +367,12 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
                   <div className="basic-info-wrapper">
                     <div className="d-flex align-items-center justify-content-between">
                       <h4 className="profile-heading">Profile</h4>
-                      {/* {employeeDetails.role_name === "Director"?"": */}
+                      {employeeDetails.role_name === "Director"?"":
                       <button className="btn btn-primary" onClick={handleEdit}>
                         Edit
                       </button> 
 
-                      {/* } */}
+                    }
                     </div>
                     <div className="basic-information">
                       <div className="basic-info-left">

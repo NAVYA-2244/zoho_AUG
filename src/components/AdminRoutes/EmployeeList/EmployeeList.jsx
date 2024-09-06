@@ -221,7 +221,7 @@
 //         } = item;
 
 //         return (
-//           firstName?.toLowerCase().includes(lowerCaseSearchTerm) ||
+//           firstName?.()toLowerCase.includes(lowerCaseSearchTerm) ||
 //           employeeId.toLowerCase().includes(lowerCaseSearchTerm) ||
 //           lastName?.toLowerCase().includes(lowerCaseSearchTerm) ||
 //           email?.toLowerCase().includes(lowerCaseSearchTerm)

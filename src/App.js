@@ -41,7 +41,7 @@ const App = () => {
     } else if (employeeDetails.role_name === "Team Incharge") {
       return isTeamLeadRouter;
     }
-    else if (employeeDetails.role_name === "Manager") {
+    else if (employeeDetails?.role_name?.toLowerCase() === "manager") {
       return isManagerRouter;
     } else {
       return isEmployeeRouter;

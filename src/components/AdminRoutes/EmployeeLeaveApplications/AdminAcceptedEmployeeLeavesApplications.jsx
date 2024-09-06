@@ -211,12 +211,12 @@ console.log(adminGettingLeaveApplications,"adminGettingLeaveApplications")
   
 const renderLeaveStatusButtons = useCallback((application) => {
   const { hr, manager, team_incharge } = application.approved_by;
-  const employeeRole = employeeDetails?.role_name;
+  const employeeRole = employeeDetails?.role_name || '';
 
   let roleStatus = null;
   if (employeeRole === "hr" && hr) roleStatus = hr.leave_status;
 
-  else if (employeeRole === "Manager" && manager) roleStatus = manager.leave_status;
+  else if (employeeRole.toLowerCase() === "manager" && manager) roleStatus = manager.leave_status;
   else if (employeeRole === "Team Incharge" && team_incharge) roleStatus = team_incharge.leave_status;
 
   if (!roleStatus) return "";

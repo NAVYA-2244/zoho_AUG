@@ -122,10 +122,13 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             readOnly={isAdmin || type === "Update Employee"}
             inputRef={(el) => (refs.current.employee_id = el)}
           />
+          {employeeDetails.role_name ==="Direcor"&&
           <p className="note-heading" style={{ color: "green" }}>
             This should be a recent employee Id "
             {employeesList.length > 0 ? employeesList[0].  employee_id : null}".
           </p>
+          }
+          
         </div>
         <div className="col-lg-4 col-md-4 col-sm-6">
           <Input_text

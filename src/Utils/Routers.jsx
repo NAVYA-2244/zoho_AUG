@@ -650,7 +650,14 @@ export const isManagerRouter = [
           </IsManagerRoute>
         ),
       },
-
+      {
+        path: "/admin/employee_leave-applications",
+        element: (
+          <IsTeamLeadRoute>
+            <AdminAcceptedEmployeeLeavesApplications />
+          </IsTeamLeadRoute>
+        ),
+      },
       {
         path: "/admin/employee/:id",
         element: (
@@ -663,7 +670,7 @@ export const isManagerRouter = [
         path: "/profile_Edit",
         element: (
           <IsManagerRoute>
-            <SingleEmployeeProfileEdit />
+             <EmployeeProfileUpdate />
           </IsManagerRoute>
         ),
       },
@@ -760,7 +767,7 @@ export const isTeamLeadRouter = [
         path: "/profile_Edit",
         element: (
           <IsTeamLeadRoute>
-            <SingleEmployeeProfileEdit />
+             <EmployeeProfileUpdate />
           </IsTeamLeadRoute>
         ),
       },

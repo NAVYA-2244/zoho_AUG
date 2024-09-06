@@ -707,9 +707,9 @@ const EmployeeProfileUpdate = ({ form }) => {
     return <Navigate to="/profile" />;
   }
  
-  // if (Object.keys(singleEmployeeProfile).length === 0 || singleEmployeeProfile === null) {
-  //   return <Navigate to="/profile" />;
-  // }
+  if (Object.keys(singleEmployeeProfile).length === 0 || singleEmployeeProfile === null) {
+    return <Navigate to="/profile" />;
+  }
 
   return (
     <div>

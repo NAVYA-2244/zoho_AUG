@@ -308,7 +308,12 @@ export const mangerSidebar = [
     label: "leave applications  emp",
     path: "/leaveApplications",
   },
-
+  // {
+  //   id: "leaves list",
+  //   icon: <GrCopy />,
+  //   label: "Leave Applications",
+  //   path: "/admin/employee_leave-applications",
+  // },
   // {
   //   id: "attendanceTabularView",
   //   label: "Tabular View",
