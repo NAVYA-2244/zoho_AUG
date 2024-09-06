@@ -371,13 +371,13 @@ console.log(task.project_id,"task")
 
               
               <section className="text-center">
-                <button
+                {/* <button
                   type="button"
                   className="btn btn-secondary mt-2 px-2"
                   onClick={handleAssignTeamClick}
                 >
                   Assign Team
-                </button>
+                </button> */}
                 <button
                   type="submit"
                   disabled={loading}

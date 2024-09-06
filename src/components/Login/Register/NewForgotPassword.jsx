@@ -403,6 +403,7 @@
 // };
 
 // export default NewForgotPassword;
+
 import React, { useState, useEffect } from "react";
 import { MdEmail } from "react-icons/md";
 import { InputEmail, InputPassword } from "../../common/ALLINPUTS/AllInputs";
@@ -793,6 +794,7 @@ const NewForgotPassword = () => {
                             setOtp(newValue);
                           }
                         }}
+                        
                       />
                       <div style={{ padding: "5px" }}>
                         {errors.otp && (

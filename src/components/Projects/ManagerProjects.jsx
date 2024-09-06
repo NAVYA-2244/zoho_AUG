@@ -387,7 +387,7 @@ const ManagerProjects = () => {
     setIsTeamModalVisible(true);
   };
   const handleRemoveTaskTeam = (project, task) => {
-    const employeeIds = project.team.map((member) =>
+    const employeeIds = task.team.map((member) =>
       typeof member === "object" ? member.employee_id : member
     );
     setCurrentProject({

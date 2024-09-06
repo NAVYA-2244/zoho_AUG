@@ -12,13 +12,32 @@ const AuthenticatedRoute = ({ children }) => {
   );
 };
 
+// export const AdminRoute = ({ children }) => {
+//   const { employeeDetails } = useStateContext();
+//   console.log(employeeDetails, "employeedetails")
+
+//   const isAdmin =
+//     Object.keys(employeeDetails).length > 0
+//       ? employeeDetails?.collection
+//       : "USER";
+//   return isAdmin === "USER" ? <>{children}</> : <Navigate to="/login" />;
+// };
+// import { Navigate } from "react-router-dom";
+// import { useStateContext } from "../context/StateContext";
+
 export const AdminRoute = ({ children }) => {
   const { employeeDetails } = useStateContext();
+  console.log(employeeDetails, "employeeDetails");
+
+  // Check if the employee is an admin based on their role_name
   const isAdmin =
-    Object.keys(employeeDetails).length > 0
-      ? employeeDetails?.collection
-      : "USER";
-  return isAdmin === "USER" ? <>{children}</> : <Navigate to="/login" />;
+    employeeDetails && employeeDetails.role_name === "Director"
+      ? "ADMIN"
+      : "EMPLOYEE";
+
+  // If the user is an admin (Director), allow access to children components
+  // Otherwise, redirect to the login page
+  return isAdmin === "ADMIN" ? <>{children}</> : <Navigate to="/login" />;
 };
 
 export default AuthenticatedRoute;
@@ -41,13 +60,14 @@ export const IsSuperAdminRoute = ({ children }) => {
   const { employeeDetails } = useStateContext();
   let isAdminType1 = true;
 
-  // if (
-  // employeeDetails.isAdmin &&
-  // employeeDetails.collection === 'USER' &&
-  //   employeeDetails.userid
-  // ) {
-  //   isAdminType1 = true;
-  // }
+  if (
+    employeeDetails.isAdmin &&
+    employeeDetails.role_name === 'Director'
+    // &&
+    // employeeDetails.userid
+  ) {
+    isAdminType1 = true;
+  }
   return isAdminType1 ? <>{children}</> : <Navigate to="/login" />;
 };
 

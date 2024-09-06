@@ -23,6 +23,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
     setLoading,
     orgDetails,
     setOrgDetails,
+    employeeDetails
   } = useStateContext();
   const { applicationColor } = useThemeContext();
   const [employeesList, setEmployeesList] = useState([]);
@@ -87,7 +88,9 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
         setLoading(false);
       }
     };
+    {employeeDetails.role_name==="Director"&&
     fetchingData();
+  }
   }, []);
   
   console.log("Reporting Manager in formData:", formData?.work_info?.reporting_manager);
@@ -116,7 +119,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             schema={schema?.employee_id}
             imp={true}
             maxLength={10}
-            // readOnly={isAdmin || type === "Update Employee"}
+            readOnly={isAdmin || type === "Update Employee"}
             inputRef={(el) => (refs.current.employee_id = el)}
           />
           <p className="note-heading" style={{ color: "green" }}>
@@ -281,6 +284,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
         {/* </div>  */}
 
         <div className="col-lg-4 col-md-4 col-sm-6">
+        {employeeDetails.role_name=="Director"?
           <Select_inputs
             name={"department_id"}
             placeholder={"Department"}
@@ -293,9 +297,23 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             // readOnly={isAdmin}
             imp
             inputRef={(el) => (refs.current.department_id = el)}
+          />:
+          <Input_text
+            type={"text"}
+            name={"department_name"}
+            placeholder={"department_name"}
+            value={formData.department_name}
+            setForm={setFormData}
+            schema={schema.department_id}
+            property={"department_name"}
+            readOnly={isAdmin}
           />
+}
+          
         </div>
+        
         <div className="col-lg-4 col-md-4 col-sm-6">
+        {employeeDetails.role_name=="Director"?
           <Select_inputs
             name={"designation_id"}
             placeholder={"Designation"}
@@ -308,9 +326,21 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             // readOnly={isAdmin}
             imp
             inputRef={(el) => (refs.current.designation_id = el)}
+          />:
+          <Input_text
+            type={"text"}
+            name={"designation_name"}
+            placeholder={"designation_name"}
+            value={formData.designation_name}
+            setForm={setFormData}
+            schema={schema.designation_id}
+            property={"designation_name"}
+            readOnly={isAdmin}
           />
+          }
         </div>
         <div className="col-lg-4 col-md-4 col-sm-6">
+        {employeeDetails.role_name=="Director"?
           <Select_inputs
             name={"role_id"}
             placeholder={"Role"}
@@ -323,8 +353,20 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             // readOnly={isAdmin}
             imp
             inputRef={(el) => (refs.currentemployment_typerole_id = el)}
+          />:
+          <Input_text
+            type={"text"}
+            name={"role_name"}
+            placeholder={"role_name"}
+            value={formData.role_name}
+            setForm={setFormData}
+            schema={schema.role_id}
+            property={"role_name"}
+            readOnly={isAdmin}
           />
+          }
         </div>
+        
         <div className="col-lg-4 col-md-4 col-sm-6">
           <Select_inputs
             name={"employment_type"}
@@ -415,7 +457,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             schema={schema.employee_status}
             setForm={setFormData}
             options={["active", "disable", "terminated"]}
-            // readOnly={isAdmin}
+            readOnly={isAdmin}
             imp
             inputRef={(el) => (refs.current.employee_status = el)}
           />
@@ -439,6 +481,8 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
   imp
   inputRef={(el) => (refs.current.reporting_manager = el)}
 /> */}
+
+{employeeDetails.role_name=="Director"?
 <Select_inputs
   name={"reporting_manager"}
   placeholder={"Reporting Manager"}
@@ -453,9 +497,21 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
   property={"displayName"} // Display email
   valueProperty={"email"} // Store email in the formData
   imp
+  readOnly={isAdmin}
   inputRef={(el) => (refs.current.reporting_manager = el)}
 />
-
+:
+<Input_text
+            type={"text"}
+            name={"reporting_manager"}
+            placeholder={"Reporting_manager"}
+            value={formData.reporting_manager}
+            setForm={setFormData}
+            schema={schema.reporting_manager}
+           
+            readOnly={isAdmin}
+          />
+}
 
 
         </div>

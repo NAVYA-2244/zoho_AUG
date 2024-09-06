@@ -90,7 +90,7 @@ const TeaminchargeProjects = () => {
   };
 
   const handleRemoveTeam = (project, task) => {
-    const employeeIds = project.team.map((member) =>
+    const employeeIds =task.team.map((member) =>
       typeof member === "object" ? member.employee_id : member
     );
     setCurrentProject({
@@ -479,7 +479,7 @@ const TeaminchargeProjects = () => {
         <TeamAssignmentModalteamincharge
           // projectId={projectId}
           setIsTeamModalVisible={setIsTeamModalVisible}
-          fetchProjects={fetchProjects}
+          fetchProjects={fetchTasks}
           isOpen={showTeamModal}
           formData={formData}
           setFormData={setFormData}

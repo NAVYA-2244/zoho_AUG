@@ -28,7 +28,7 @@ const UpdateEmployee = () => {
   const [updateEmployeedata, setUpdateEmployeeData] = useState({});
   const { checkErrors } = useFunctionContext();
   const [redirect, setRedirect] = useState(false);
-  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const[btndisabled,setButtonDisabled]=useState(false)
   //This UseEffect Fetches the single user data based on employee id
   useEffect(() => {
     const singleEmployeeData = async () => {
@@ -58,7 +58,7 @@ console.log(employee,"employeupdate")
         delete work_info?.designation_name;
         delete work_info?.department_name;
         delete work_info?.role_name;
-        delete work_info?.reporting_manager;
+        // delete work_info?.reporting_manager;
         // delete work_info.location_name;
 
         const newObj = {
@@ -91,6 +91,7 @@ console.log(employee,"employeupdate")
     };
     singleEmployeeData();
   }, [employeId]);
+  
 // console.log(delete work_info?.reporting_manager,"dfshdfjsdfjkhsdkj")
   const handleSubmit = async (formData) => {
     try {
@@ -185,7 +186,7 @@ console.log(updateEmployeedata,"updateEmployeedata")
           form={updateEmployeedata}
           type={"Update Employee"}
           submit={handleSubmit}
-          disabled={buttonDisabled}
+          disabled={btndisabled}
         />
       ) : (
         <Loader />

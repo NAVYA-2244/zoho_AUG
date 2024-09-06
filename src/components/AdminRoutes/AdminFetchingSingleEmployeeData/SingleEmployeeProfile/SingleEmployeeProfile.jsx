@@ -291,47 +291,17 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
     personal_details,
   } = employeeProfileData?.profile;
 
-  //Thi`s function updates the employee Status like pending , active ,terminated etc
-  // const handleStatusSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     setLoading(true);
-  //     setLoadingTerm("updatingStatus");
-  //     let data = {
-  //       // employeeId: id,
-  //       status: status,
-  //     };
-
-  //     // const { detail } = await makeNetworkCall(
-  //     //   data,
-  //     //   "updateEmployeeStatus",
-  //     //   "headers"
-  //     // );
-  //     // toastOptions.success(detail || "employee Status Updated Successfully");
-
-  // setLoading(false);
-  // setLoadingTerm("");
-  // } catch (error) {
-  //   setLoading(false);
-  //   setLoadingTerm("");
-  // toastOptions.error(
-  //   error?.error?.response?.data?.detail ||
-  //     "Error Occured while Updating Status"
-  // );
-  // } finally {
-  //   setLoading(false);
-  //   setLoadingTerm("");
-  // }
-  // };`
-  const workExperiences = employeeProfileData.profile.work_experience;
+   const workExperiences = employeeProfileData.profile.work_experience;
   const educational_details = employeeProfileData.profile.educational_details;
   const dependent_details = employeeProfileData.profile.dependent_details;
   const workInfoArray = [work_info];
   const contactDetailsArray = [contact_details];
-  const identityInfoArray = [identity_info];
+  const identityInfoArray =
+  // [{uan:employeeProfileData.profile.uan,aadhaar:employeeProfileData.profile.aadhaar}]
+  [identity_info]
   const personalDetailsArray = [personal_details];
 
-  console.log({ basic_info });
+  console.log(workInfoArray,"work_info");
 
   return (
     <div className="row">
@@ -345,36 +315,7 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
             color: applicationColor.readColor1,
           }}
         >
-          {/* <div className="user-header-section">
-            <div className="header-bg-image">
-              <img
-                src={
-                  basic_info?.banner ||
-                  "https://img.freepik.com/premium-vector/abstract-dark-blue-modern-futuristic-science-technology-hi-tech-digital-abstract-dark-blue-colorful-design-banner-background-vector-abstract-graphic-design-banner-pattern-background-web-template_181182-33425.jpg"
-                }
-                alt="header-bg-image"
-              />
-            </div>
-            <div className="user-image-wrapper">
-              <div className="user-img-container">
-                <img
-                  src={
-                    basic_info?.profilePhoto ||
-                    "https://cdnb.artstation.com/p/assets/images/images/034/457/389/large/shin-min-jeong-.jpg?1612345145"
-                  }
-                  alt="User-Image"
-                  width="100"
-                />
-              </div>
-
-              <div className="user-basic-info">
-                <p>{basic_info.first_name || "no data"}</p>
-                <p>{`${basic_info?.first_name} ${basic_info?.last_name}`}</p>
-
-              </div>
-            </div>
-          </div> */}
-          <ProfilePhoto />
+                 <ProfilePhoto />
           {/* tabs section */}
           <section
             className="tab-buttons"

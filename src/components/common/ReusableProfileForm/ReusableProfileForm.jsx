@@ -116,7 +116,7 @@ import "./ReusableProfileForm.scss";
 import { useThemeContext } from "../../Contexts/ThemesContext";
 import { useStateContext } from "../../Contexts/StateContext";
 
-const ReusableProfileForm = ({ form, type, submit }) => {
+const ReusableProfileForm = ({ form, type, submit ,disabled}) => {
   const { loading, loadingTerm } = useStateContext();
   const [formData, setFormData] = useState(form);
   const [initialEmployeeId, setInitialEmployeeId] = useState(form.employee_id);
@@ -139,6 +139,7 @@ console.log(form,"form")
   const isButtonDisabled = isEmployeeIdEdited && !hasOtherFieldsChanged;
 
   const handleSubmit = async (e) => {
+
     e.preventDefault();
     await submit(formData, setFormData);
   };
@@ -161,7 +162,8 @@ console.log(form,"form")
       <div className="edit-details">
         <button
           style={{ background: applicationColor.buttonColor }}
-          disabled={isButtonDisabled}
+          // disabled={isButtonDisabled}
+          disabled={disabled}
           type="submit"
         >
           {loading && loadingTerm === type ? <Loader /> : type}

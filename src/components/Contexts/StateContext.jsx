@@ -16,7 +16,7 @@ export const StateContextProvider = ({ children }) => {
   // console.log("employeedetails", employeeDetails);
 
   const [isAdmin, setIsAdmin] = useState(
-    employeeDetails.collection === "USER" ? false : true
+    employeeDetails.role_name === "Director" ? false : true
   );
 
   const [profilePhoto, setProfilePhoto] = useState("");

@@ -108,7 +108,7 @@ const TableHead = ({
   };
 
   const sortedData = _.orderBy(data, sort.property, sort.direction);
-
+console.log(data)
   return (
     <>
       <thead

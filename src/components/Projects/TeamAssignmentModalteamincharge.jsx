@@ -238,10 +238,43 @@ toastOptions.success(response)
     }
   };
 
-  const options = filteredEmployees.map((employee) => ({
-    label: `${employee.basic_info.first_name} ${employee.basic_info.last_name}`, 
-    value: employee.employee_id,
-  }));
+  // const options = filteredEmployees.map((employee) => ({
+  //   label: `${employee.basic_info.first_name} ${employee.basic_info.last_name}`, 
+  //   value: employee.employee_id,
+  // }));
+  const options = filteredEmployees.map((employee) => {
+    const fullName = `${employee.basic_info.first_name} ${employee.basic_info.last_name}`;
+    const initials = fullName.split(' ').map(name => name[0]).join('').toUpperCase();
+    return {
+      label: (
+        <div className="d-flex align-items-center">
+          <div
+            className="rounded-circle text-white d-flex justify-content-center align-items-center me-2"
+            style={{
+              width: '15px',
+              height: '15px',
+              backgroundColor: '#007bff', // Theme color or adjust as needed
+              fontSize: '8px',
+              lineHeight: '1',
+            }}
+          >
+            {employee.basic_info.profile_picture_url ? (
+              <img
+                src={employee.basic_info.profile_picture_url}
+                alt={fullName}
+                className="rounded-circle"
+                style={{ width: '30px', height: '30px' }}
+              />
+            ) : (
+              initials
+            )}
+          </div>
+          {fullName}
+        </div>
+      ),
+      value: employee.employee_id,
+    };
+  });
 
   return (
     <div
@@ -280,6 +313,20 @@ toastOptions.success(response)
                 setForm={setFormData}
                 onChange={handleChange}
                 value={options.filter(option => formData.employee_id.includes(option.value))}
+                className="react-select-container"
+                classNamePrefix="react-select"
+                styles={{
+                  menu: (provided) => ({
+                    ...provided,
+                    maxHeight: '200px', // Adjust the max height as needed
+                    overflowY: 'auto', // Enable vertical scrolling
+                  }),
+                  option: (provided) => ({
+                    ...provided,
+                    padding: '10px', // Adjust padding for better spacing
+                  }),
+                }}
+              
               />
             </div>
 

@@ -159,7 +159,7 @@ const HierarchyData = ({ formData, setFormData }) => {
       >
         <div className="heading-button">
           <h6 className="heading-form pb-2"> Work Experience Data</h6>
-          {formData?.work_experience.length === 0 && (
+          {formData?.work_experience?.length === 0 ||[]&& (
             <div className="additional-btns">
               <button
                 className="add-button"
@@ -173,7 +173,7 @@ const HierarchyData = ({ formData, setFormData }) => {
         </div>
         {/* </section> */}
 
-        {formData.work_experience.map((data, index) => {
+        {formData.work_experience?.map((data, index) => {
           
           return (
             <div

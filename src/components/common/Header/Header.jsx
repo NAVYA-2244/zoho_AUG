@@ -95,10 +95,10 @@ const Headers = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("zohoEmployeeToken");
-
-    window.localStorage.getItem("zohoEmployeeToken")
-      ? (window.location = "/dashboard")
-      : (window.location = "/login");
+window.location = "/login"
+    // window.localStorage.getItem("zohoEmployeeToken")
+    //   ? (window.location = "/dashboard")
+    //   : (window.location = "/login");
   };
 
   // const checkingDataThere = async (data) => {

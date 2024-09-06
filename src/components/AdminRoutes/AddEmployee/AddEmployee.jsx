@@ -21,7 +21,7 @@ const AddEmployee = () => {
     , "orgdetails");
   const [redirect, setRedirect] = useState(false);
   const { checkErrors } = useFunctionContext();
-
+  const[btndisabled,setButtonDisabled]=useState(false)
   const handleSubmit = async (formData, setFormData) => {
     // console.log(formData.educational_details, "del");
     console.log(
@@ -37,6 +37,7 @@ const AddEmployee = () => {
 
     try {
       // console.log(formData, "formData");
+      setButtonDisabled(true)
       setLoading(true);
       setLoadingTerm("Add Employee");
       await checkErrors(ExpirementSchema, formData);
@@ -114,20 +115,16 @@ const AddEmployee = () => {
 
       
       const response = await backEndCallObjNothing("/admin/add_employee", data,);
-      {
-        console.log("oiuygfghjk");
-      }
+     
 
       setRedirect(true);
-      {
-        console.log(response, "response");
-      }
-
+     
       setFormData({});
       toastOptions.success("Employee Added successfully");
 
       setLoadingTerm("");
       setLoading(false);
+      setButtonDisabled(false)
     } catch (error) {
       setLoading(false);
       setLoadingTerm("");
@@ -148,6 +145,7 @@ const AddEmployee = () => {
         form={addEmployeeForm}
         type={"Add Employee"}
         submit={handleSubmit}
+        btndisabled={btndisabled}
       />
     </>
   );

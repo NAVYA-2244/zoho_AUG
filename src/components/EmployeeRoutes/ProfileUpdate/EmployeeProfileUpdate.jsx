@@ -499,6 +499,8 @@
 // };
 
 // export default EmployeeProfileUpdate;
+
+
 import React, { useEffect, useState } from "react";
 import ReusableProfileForm from "../../common/ReusableProfileForm/ReusableProfileForm";
 import { useStateContext } from "../../Contexts/StateContext";
@@ -525,20 +527,13 @@ const EmployeeProfileUpdate = ({ form }) => {
     setSingleEmployeeProfile,
     orgDetails,
   } = useStateContext();
-  {
-    console.log(orgDetails, "details");
-  }
-  {
-    console.log(employeedata, "data");
-  }
+ 
   const { checkErrors } = useFunctionContext();
 
   const [formData, setFormData] = useState(form || {});
   const [redirect, setRedirect] = useState(false);
   const [browserId, setBrowserId] = useState("");
-  {
-    console.log(formData, "datingsrilekha");
-  }
+  const[btndisabled,setButtonDisabled]=useState(false)
   useEffect(() => {
     const getBrowserId = async () => {
       const fp = await FingerprintJS.load();
@@ -593,14 +588,14 @@ const EmployeeProfileUpdate = ({ form }) => {
         dependent_details,
         employee_id,
       } = singleEmployeeProfile;
-      {
-        console.log(singleEmployeeProfile, "single");
-      }
-      delete work_info.shift_name;
-      delete work_info?.designation_name;
-      delete work_info?.department_name;
-      delete work_info?.role_name;
-      delete work_info?.reporting_manager;
+
+      console.log(singleEmployeeProfile,"singleemploye profile")
+     
+      // delete work_info.shift_name;
+      // delete work_info?.designation_name;
+      // delete work_info?.department_name;
+      // delete work_info?.role_name;
+      // delete work_info?.reporting_manager;
 
       const newObj = {
         basic_info,
@@ -613,10 +608,13 @@ const EmployeeProfileUpdate = ({ form }) => {
 
       const form = flatternObject(newObj);
       form.date_of_birth = convertDate(personal_details?.date_of_birth);
+      
       form.reporting_manager = work_info.reporting_manager;
-      {
-        console.log(form, "manager");
-      }
+      form.department_name = work_info.department_name;
+      form.designation_name = work_info.designation_name;
+      form.role_name = work_info.role_name;
+
+
       form.work_experience = work_experience;
       form.educational_details = educational_details || [];
       form.dependent_details = dependent_details;
@@ -625,6 +623,7 @@ const EmployeeProfileUpdate = ({ form }) => {
       setFormData(form);
     }
   }, [singleEmployeeProfile]);
+
   {
     console.log(formData, "dating");
   }
@@ -634,6 +633,7 @@ const EmployeeProfileUpdate = ({ form }) => {
 
     try {
       setLoading(true);
+      setButtonDisabled(true)
       setLoadingTerm("Update Profile");
 
       // Create a new object with only the required fields
@@ -642,7 +642,7 @@ const EmployeeProfileUpdate = ({ form }) => {
 
         // reporting_manager: formData?.reporting_manager,
 
-        employee_id: orgDetails?.employee_id,
+        employee_id: userData?.employee_id,
         educational_details: userData.educational_details,
         dependent_details: userData.dependent_details,
         work_experience: userData.work_experience,
@@ -650,12 +650,21 @@ const EmployeeProfileUpdate = ({ form }) => {
         expertise: userData.expertise,
         marital_status: userData.marital_status,
         about_me: userData.about_me,
+
+
         identity_info: {
-          uan: formData?.identity_info?.uan || "",
-          pan: formData?.identity_info?.pan || "",
-          aadhaar: formData?.identity_info?.aadhaar || "",
-          passport: formData?.identity_info?.passport || "",
+          uan: formData?.uan,
+          pan: formData?.pan ,
+          aadhaar: formData?.aadhaar,
+          passport: formData?.passport ,
         },
+        //   identity_info: {
+        //   uan: userData?.uan || "",
+        //   pan: userData?.pan || "",
+        //   aadhaar: userData?.aadhaar || "",
+        //   passport: userData?.passport || "",
+        // },
+        
         work_phone_number: userData.work_phone_number,
         personal_mobile_number: userData.personal_mobile_number,
         personal_email_address: userData.personal_email_address,
@@ -664,6 +673,7 @@ const EmployeeProfileUpdate = ({ form }) => {
         fcm_token: formData.fcm_token,
         device_id: formData.device_id,
       };
+      console.log(formData,"formdata")
       {
         console.log(filteredUserData, "data");
       }
@@ -678,29 +688,38 @@ const EmployeeProfileUpdate = ({ form }) => {
       console.log(res, "API response");
       toastOptions.success(res.success);
       setRedirect(true); // This should display the message
+      setButtonDisabled(false)
     } catch (error) {
       console.error("Error updating profile:", error);
       toastOptions.error(error?.response?.data)
+      setButtonDisabled(false)
       // Handle validation errors
       if (error.isJoi) {
         error.details.forEach((err) => console.log(err.message));
       }
     } finally {
       setLoading(false);
+      setButtonDisabled(false)
     }
   };
 
   if (redirect) {
     return <Navigate to="/profile" />;
   }
+ 
+  // if (Object.keys(singleEmployeeProfile).length === 0 || singleEmployeeProfile === null) {
+  //   return <Navigate to="/profile" />;
+  // }
 
   return (
     <div>
       {Object.keys(formData).length > 0 ? (
         <ReusableProfileForm
           form={formData}
+
           type="Update Profile"
           submit={handleSubmit}
+          disabled={btndisabled} 
         />
       ) : (
         <Loader />
