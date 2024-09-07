@@ -161,7 +161,7 @@ console.log(employeedataleaves)
                   type="date"
                   value={formData.from_date}
                   name="from_date"
-                  placeholder="From Date"
+                  placeholder="From Date(MM/DD/YY)"
                   setForm={setFormData}
                   schema={leaveFormSchema.from_date}
                   imp
@@ -192,7 +192,7 @@ console.log(employeedataleaves)
                   type="date"
                   value={formData.to_date}
                   name="to_date"
-                  placeholder="To Date"
+                  placeholder="To Date (MM/DD/YY)"
                   setForm={setFormData}
                   schema={leaveFormSchema.to_date}
                   imp

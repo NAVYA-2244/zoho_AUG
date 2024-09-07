@@ -31,12 +31,13 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
   const[btndisabled,setBtndisabled]=useState(false)
+  const [year, setYear] = useState("");
   const [formData, setFormData] = useState({
     leave_status: "Pending",
-    from_date: "",
-    to_date: "",
+    year: year || "", 
     employee_id: "",
   });
+
   const navigate = useNavigate();
   console.log(adminGettingLeaveApplications,"adminGettingLeaveApplications")
   const observer = useRef();
@@ -50,8 +51,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
         {
           skip: 0, // Adjust skip to match API expectations (if needed)
           leave_status: formData.status,
-          from_date: formData.from_date,
-          to_date: formData.to_date,
+          year: formData.year, 
           employee_id: formData.employee_id, // Pass employee_id filter if needed
         }
        
@@ -61,7 +61,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
       //   setHasMore(false);
       // }
 
-      setAdminGettingLeaveApplications(response);
+      setAdminGettingLeaveApplications(response.leaveApplications);
     } catch (error) {
       console.error("Error fetching leave applications:", error);
     } finally {
@@ -73,19 +73,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
     fetchLeaveApplications();
   }, [skip, fetchLeaveApplications]);
 console.log(adminGettingLeaveApplications,"adminGettingLeaveApplications")
-  // const gettingMoreDataRef = useCallback(
-  //   (node) => {
-  //     if (loading) return;
-  //     if (observer.current) observer.current.disconnect();
-  //     observer.current = new IntersectionObserver((entries) => {
-  //       if (entries[0].isIntersecting && hasMore) {
-  //         setSkip((prevSkip) => prevSkip + 1); // Increment skip by 1 to load more data
-  //       }
-  //     });
-  //     if (node) observer.current.observe(node);
-  //   },
-  //   [loading, hasMore]
-  // );
+ 
 
   const handleFormChange = (e) => {
     console.log(e, "e");
@@ -95,7 +83,13 @@ console.log(adminGettingLeaveApplications,"adminGettingLeaveApplications")
       [name]: value,
     }));
   };
-
+  const handleYearChange = (e) => {
+    const selectedYear = new Date(e.target.value).getFullYear().toString();
+    setFormData((prev) => ({
+      ...prev,
+      year: selectedYear, // Update year in formData
+    }));
+  };
   const handleSubmit = (e) => {
     if (moment(formData.end_date).isBefore(formData.start_date)) {
       toastOptions.error("End Date cannot be less than Start Date");
@@ -113,37 +107,7 @@ console.log(adminGettingLeaveApplications,"adminGettingLeaveApplications")
     { name: "table-view", label: <FaTableCells /> },
   ];
 
-  // const onLeaveAccept = async (leave_application_id) => {
-  //   try {
-  //     setBtndisabled(true)
-  //     const data = { leave_application_id, leave_status: "Approved" };
-  //     {employeeDetails.role_name==="Director"?
-
-  //      response = await backEndCallObjNothing("/admin/update_leave_status", data)
-  //       :
-     
-  //      response = await backEndCallObjNothing("/admin/update_leave_application", data); 
-  //   }
-  //     // const updatedApplication = response.data;
-  //     setAdminGettingLeaveApplications(adminGettingLeaveApplications)
-  //     // setAdminGettingLeaveApplications((prev) =>
-  //     //   prev.map((app) =>
-  //     //     app.leave_application_id === leave_application_id
-  //     //       ? updatedApplication
-  //     //       : app
-  //     //   )
-  //     // );
-  //     // setAdminGettingLeaveApplications(response); 
-  //     toastOptions.success(response||"Success");
-  //     setBtndisabled(false)
-  //   } catch (error) {
-  //     setBtndisabled(false)
-  //     toastOptions.error(
-  //       error?.response?.data?.detail ||
-  //         "Error while Accepting Leave Application"
-  //     );
-  //   }
-  // };
+  
   const onLeaveAccept = async (leave_application_id) => {
     try {
       setBtndisabled(true);
@@ -159,6 +123,7 @@ console.log(adminGettingLeaveApplications,"adminGettingLeaveApplications")
       setAdminGettingLeaveApplications(adminGettingLeaveApplications);
       
       toastOptions.success(response || "Success");
+      fetchLeaveApplications();
       setBtndisabled(false);
     } catch (error) {
       setBtndisabled(false);
@@ -182,18 +147,8 @@ console.log(adminGettingLeaveApplications,"adminGettingLeaveApplications")
     }
       // const updatedApplication = response.data;
       setAdminGettingLeaveApplications(adminGettingLeaveApplications)
-      console.log(
-        adminGettingLeaveApplications,
-        "setAdminGettingLeaveApplications"
-      );
-      // setAdminGettingLeaveApplications((prev) =>
-      //   prev.map((app) =>
-      //     app.leave_application_id === leave_application_id
-      //       ? updatedApplication
-      //       : app
-      //   )
-      // );
-      // setAdminGettingLeaveApplications(response);
+     
+      fetchLeaveApplications();
       toastOptions.error(response||"rejected");
       setBtndisabled(false)
     } catch (error) {
@@ -205,44 +160,20 @@ console.log(adminGettingLeaveApplications,"adminGettingLeaveApplications")
     }
   };
 
-  // const getTeamMembers = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const response = await backEndCallObjNothing("/admin_get/get_employee_list",{skip:0});
-  //     setEmployeesList( response || []);
-  //   } catch (error) {
-  //     console.error("Error fetching team members:", error);
-  //     toastOptions.error("Failed to fetch team members");
-  //     setEmployeesList([]); // Set an empty array on error
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-  
-
-  // useEffect(() => {
-  //   getTeamMembers();
-  // }, []);
+ 
   useEffect(() => {
-    const fetchingData = async () => {
+    const fetchEmployees = async () => {
       try {
-        setLoading(true);
-        let employees = await backEndCallObjNothing(
-          "/admin_get/get_employee_list",
-          { skip: 0 }
-        );
-        setEmployeesList(employees.employees);
-       
-        console.log(employees, "employees");
+        const response = await backEndCallObjNothing("/org/get_team_for_task");
+        console.log(response,"jdjjdjjdj")
+        setEmployeesList(response); // Assuming response contains the employee list
       } catch (error) {
-        toastOptions.error(error?.response?.data || "something went wrong");
-      } finally {
-        setLoading(false);
+        console.error("Error fetching employees list:", error);
       }
     };
-    fetchingData();
-  }, []);
 
+    fetchEmployees();
+  }, []);
  
 
   
@@ -256,7 +187,7 @@ const renderLeaveStatusButtons = useCallback((application) => {
     roleStatus = application.leave_status;
   } 
 
-  if (employeeRole?.toLowerCase() === "2"||employeeDetails?.designation_name  === "hr manager") roleStatus = hr.leave_status;
+  // if (employeeRole?.toLowerCase() === "2"||employeeDetails?.designation_name  === "hr manager") roleStatus = hr.leave_status;
   else if (employeeRole?.toLowerCase() === "2" && manager) roleStatus = manager.leave_status;
   else if (employeeRole?.toLowerCase() === "3" && team_incharge) roleStatus = team_incharge.leave_status;
 
@@ -283,18 +214,17 @@ const renderLeaveStatusButtons = useCallback((application) => {
 }, [employeeDetails]);
   console.log(adminGettingLeaveApplications, "Admin");
   
-  // const handleReset = () => {
-  //   setFormData("");
-  //   setSkip(0);
-  //   setHasMore(true);
-   
-  //   fetchLeaveApplications(); // refetch with reset filters
+  
+  
+  // const handleYearChange = (e) => {
+  //   const selectedYear = new Date(e.target.value).getFullYear().toString(); // Convert to string
+  //   setYear(selectedYear);
   // };
+  
   const handleReset = () => {
     setFormData({
       leave_status: "Pending",
-      from_date: "",
-      to_date: "",
+     year:"",
       employee_id: "",
     });
     setSkip(0);
@@ -345,33 +275,18 @@ const renderLeaveStatusButtons = useCallback((application) => {
               <option value="Rejected">Rejected</option>
             </select>
           </div>
-          <div className="col-lg-3 col-md-3 col-sm-6 admin-leave-filters">
-            <label>From Date</label>
-            <input
-              type="date"
-              name="from_date"
-              value={formData.from_date}
-              className="form-control"
-              max={moment().format("YYYY-MM-DD")}
-              onChange={handleFormChange}
-            />
-          </div>
-          <div className="col-lg-3 col-md-3 col-sm-6 admin-leave-filters">
-            <label>To Date</label>
-            <input
-              type="date"
-              name="to_date"
-              value={formData.to_date}
-              className="form-control"
-              max={moment().format("YYYY-MM-DD")}
-              onChange={handleFormChange}
-            />
-          </div>
+          <div className="col-md-4">
 
-          {/* <div className="leave-applications-btn"> */}
-            {/* <button type="submit">Submit</button>
-          </div> */}
-          <div className="leave-applications-btn">
+          <label>Year</label>
+       <input
+         type="date"
+         onChange={handleYearChange}
+         className="form-control"
+         placeholder="Select Year"
+       />
+    
+     </div>
+                  <div className="leave-applications-btn">
             <button type="submit">Submit</button>
             <button type="button"className="btn btn-primary" onClick={handleReset}>Reset</button>
           </div>
@@ -405,7 +320,7 @@ const renderLeaveStatusButtons = useCallback((application) => {
         </section>
         {currentTab === "calendar-view" ? (
           <div className="row">
-            {adminGettingLeaveApplications.map((item) => (
+            {adminGettingLeaveApplications.length> 0 && adminGettingLeaveApplications?.map((item) => (
               <div
                 key={item.leave_application_id}
                 className="col-sm-6 col-md-6 col-lg-6 col-xl-4 g-3"
@@ -427,10 +342,7 @@ const renderLeaveStatusButtons = useCallback((application) => {
                       >
                         {item.employee_name}
                       </p>
-                      {/* <div className="leave-card-data">
-                        <p>Type: {item.leave_type}</p>
-                        <p>Status: {item.leave_status}</p>
-                      </div> */}
+                     
                       <div className="leave-card-data">
   <p>Type: {item.leave_type}</p>
   <p><span className="me-2">Status :  </span>
@@ -501,7 +413,7 @@ const renderLeaveStatusButtons = useCallback((application) => {
             <div className="d-flex justify-content-center mt-3">
               {loading && <Loader />}
               {!loading &&
-                adminGettingLeaveApplications.length === 0 &&
+                adminGettingLeaveApplications?.length === 0 &&
                 "No Leaves"}
             </div>
           </div>
@@ -532,7 +444,7 @@ const renderLeaveStatusButtons = useCallback((application) => {
                 
               </thead>
               <tbody className="admin-leaves-table-body">
-                {adminGettingLeaveApplications.map((item) => (
+                {adminGettingLeaveApplications.length> 0 && adminGettingLeaveApplications?.map((item) => (
                   <tr key={item.id}>
                     {/* {tableHeadProperties.map((head, index) => (
                         <td

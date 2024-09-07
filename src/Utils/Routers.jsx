@@ -558,6 +558,14 @@ export const isManagerRouter = [
         ),
       },
       {
+        path: "/admin/add_employee",
+        element: (
+          <isManagerRouter>
+            <AddEmployee />
+          </isManagerRouter>
+        ),
+      },
+      {
         path: "/applyleavefrom",
         element: (
           <isManagerRouter>

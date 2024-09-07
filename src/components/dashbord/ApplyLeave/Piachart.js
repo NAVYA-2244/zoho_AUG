@@ -59,8 +59,9 @@ function Piachart() {
               {/* {console.log("items", leave_name)} */}
               <div className="leave-img d-flex flex-column">
                 <i className={`${item.leave_name}`} alt={item.leave_name}>
-                  {item.leave_name === "sick" ? (
+                  {item.leave_name === "sick leave" ? (
                     <FaUserDoctor />
+
                   ) : (
 
                     <FcLeave />

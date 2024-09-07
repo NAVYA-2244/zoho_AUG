@@ -425,6 +425,91 @@ const BirthdaysAndNewHires = ({
     //   </section>
     //   <span>{loadingTerm === getMoreDataType ? <Loader /> : null}</span>
     // </section>
+    // <section
+    //   className="list-array"
+    //   style={{
+    //     color: applicationColor.readColor1,
+    //   }}
+    // >
+    //   <h5 className="heading">{heading}</h5>
+    //   {recentHiresToDisplay.length > 0 ? (
+    //     recentHiresToDisplay.map((item) => (
+    //       <section
+    //         className="list-card"
+    //         key={item.employee_id}
+    //         style={{
+    //           background: applicationColor.cardBg2,
+    //         }}
+    //       >
+           
+    //         <div className="person-img">
+    //           <img
+    //             src="https://img.freepik.com/free-photo/portrait-man-having-great-time_23-2149443790.jpg?size=626&ext=jpg&ga=GA1.1.2082370165.1717027200&semt=ais_user"
+    //             alt={item.basic_info?.firstName || "User"}
+    //           />
+    //         </div>
+    //         <div className="new-hires-info">
+    //           <p className="fw-semibold">
+    //             {item.basic_info.first_name || "Unknown"} -{" "}
+    //             {item.employee_id || "Unknown"}
+    //           </p>
+    //           <p className="d-flex align-items-center text-muted">
+    //             <span className="pe-1">
+    //               <HiOutlineMail />
+    //             </span>
+    //             {item.basic_info.email || "Unknown"}
+    //           </p>
+    //         </div>
+    //         {/* <div className="new-hire-dropdown">...</div> */}
+
+    //         {employeeDetails.collection === "USER" ? (
+    //           <div className="dropdown new-hire-dropdown">
+    //             <Link
+    //               className="user-image fs-4"
+    //               role="button"
+    //               data-bs-toggle="dropdown"
+    //               aria-expanded="false"
+    //             >
+    //               ...
+    //             </Link>
+
+    //             <ul className="dropdown-menu user-dropdown">
+    //               {employeeDetails.collection === "USER" ? (
+    //                 <Link
+    //                   to={`/admin/employee/${item?.employee_id}`}
+    //                   className="dropdown-item"
+    //                 >
+    //                   <CgProfile />
+    //                   Profile
+    //                 </Link>
+    //               ) : (
+    //                 ""
+    //               )}
+    //             </ul>
+    //           </div>
+    //         ) : (
+    //           ""
+    //         )}
+    //       </section>
+    //     ))
+    //   ) : (
+    //     // <div className="no-items">
+    //     //   <img src={img} alt="No items" />
+    //     // </div>
+    //     <div className="no-items shimmer">
+    //       <div className="shimmer-item"></div>
+    //       <div className="shimmer-item"></div>
+    //       <div className="shimmer-item"></div>
+    //       <div className="shimmer-item"></div>
+    //     </div>
+    //   )}
+    // </section>
+    <section
+    className="lists"
+    style={{
+      color: applicationColor.readColor1,
+    }}
+  >
     <section
       className="list-array"
       style={{
@@ -441,7 +526,6 @@ const BirthdaysAndNewHires = ({
               background: applicationColor.cardBg2,
             }}
           >
-           
             <div className="person-img">
               <img
                 src="https://img.freepik.com/free-photo/portrait-man-having-great-time_23-2149443790.jpg?size=626&ext=jpg&ga=GA1.1.2082370165.1717027200&semt=ais_user"
@@ -504,6 +588,7 @@ const BirthdaysAndNewHires = ({
         </div>
       )}
     </section>
+  </section>
   );
 };
 export default BirthdaysAndNewHires;

@@ -38,11 +38,12 @@ const App = () => {
   const mainRouter = () => {
     if (employeeDetails.admin_type === "1") {
       return isSuperAdminRouter;
-    } else if (employeeDetails?.admin_type?.toLowerCase() === "2") {
-      return isTeamLeadRouter;
+    } else if (employeeDetails?.admin_type === "2") {
+      return isManagerRouter
+        ;
     }
-    else if (employeeDetails?.admin_type?.toLowerCase() === "3") {
-      return isManagerRouter;
+    else if (employeeDetails?.admin_type === "3") {
+      return isTeamLeadRouter;
     } else {
       return isEmployeeRouter;
     }

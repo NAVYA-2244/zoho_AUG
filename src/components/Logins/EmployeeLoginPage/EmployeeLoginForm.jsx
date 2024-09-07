@@ -80,7 +80,7 @@ const EmployeeLoginForm = ({ setOtpType }) => {
     const { error } = schema.extract(name).validate(value);
     return !error;
   };
-  const tokenKey = "jwtToken"; // Define your token key
+  const tokenKey = "zohoEmployeeToken"; // Define your token key
 
 const EmployeeLoginSubmit = async (e) => {
   

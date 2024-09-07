@@ -52,7 +52,10 @@ export async function loginCall(route, obj) {
   updtk(); // Ensure JWT is updated before making the request
 
   const { data } = await http.post(apiUrl + route, obj);
-  await localStorage.setItem(tokenKey, data.token); // Store the token in localStorage
+
+  if (data.success) {
+    await localStorage.setItem(tokenKey, data.success); // Store the token in localStorage
+  }
 
   return data; // Return the response data including the token
 }

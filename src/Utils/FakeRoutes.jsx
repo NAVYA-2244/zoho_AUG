@@ -103,12 +103,12 @@ export const employeeSidebar = [
   //   label: "Change Password",
   //   path: "/admin/ChangePassword",
   // },
-  {
-    id: "Logout",
-    icon: <VscSignOut />,
-    label: "Logout",
-    path: () => settingTokens.removingEmployeeToken(),
-  },
+  // {
+  //   id: "Logout",
+  //   icon: <VscSignOut />,
+  //   label: "Logout",
+  //   path: () => settingTokens.removeToken(),
+  // },
 ];
 export const superAdminSidebar = [
   {
@@ -187,12 +187,12 @@ export const superAdminSidebar = [
     path: "/admin/projects",
   },
 
-  {
-    id: "Logout",
-    icon: <VscSignOut />,
-    label: "Logout",
-    path: () => settingTokens.removingEmployeeToken(),
-  },
+  // {
+  //   id: "Logout",
+  //   icon: <VscSignOut />,
+  //   label: "Logout",
+  //   path: () => settingTokens.removeToken(),
+  // },
 ];
 
 //3
@@ -251,12 +251,12 @@ export const teamLeadSidebar = [
   //   label: "Change Password",
   //   path: "/admin/ChangePassword",
   // },
-  {
-    id: "Logout",
-    icon: <VscSignOut />,
-    label: "Logout",
-    path: () => settingTokens.removingEmployeeToken(),
-  },
+  // {
+  //   id: "Logout",
+  //   icon: <VscSignOut />,
+  //   label: "Logout",
+  //   path: () => settingTokens.removeToken(),
+  // },
 ];
 
 //2
@@ -317,6 +317,7 @@ export const mangerSidebar = [
   //   path: "/applyleave",
   // },
 
+  
   {
     id: "LeaveApplications",
     icon: <BsCalendar2EventFill />,
@@ -342,20 +343,9 @@ export const mangerSidebar = [
   //   label: "Calendar View",
   //   path: "/attendance/list-view",
   // },
-  // {
-  //   id: "add_employeee",
-  //   // icon: <TiUserAddOutline />,
-  //   icon: <GrUserAdd />,
-  //   label: "Add Employee",
-  //   path: "/admin/add_employee",
-  // },
 
-  // {
-  //   id: "employee_list",
-  //   icon: <RiListCheck3 />,
-  //   label: "Employee List",
-  //   path: "/admin/employee_list",
-  // },
+ 
+ 
   {
     id: "leaves list",
     icon: <GrCopy />,
@@ -397,11 +387,11 @@ export const mangerSidebar = [
     label: "Change Password",
     path: "/admin/ChangePassword",
   },
-  {
-    id: "Logout",
-    icon: <VscSignOut />,
-    label: "Logout",
-    path: () => settingTokens.removingEmployeeToken(),
-  },
+  // {
+  //   id: "Logout",
+  //   icon: <VscSignOut />,
+  //   label: "Logout",
+  //   path: () => settingTokens.removingEmployeeToken(),
+  // },
 ];
 //1

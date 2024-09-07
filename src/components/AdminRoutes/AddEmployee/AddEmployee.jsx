@@ -139,6 +139,7 @@ const AddEmployee = () => {
   if (redirect) {
     return <Navigate to="/admin/employee_list" />;
   }
+  
   console.log(addEmployeeForm,"navya")
   return (
     <>

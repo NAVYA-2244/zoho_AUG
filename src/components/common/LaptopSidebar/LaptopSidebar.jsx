@@ -35,10 +35,10 @@ const LaptopSidebar = () => {
   const settingsiderbar = () => {
     if (employeeDetails.admin_type === "1") {
       return superAdminSidebar;
-    } else if (employeeDetails?.admin_type?.toLowerCase() === "2") {
-      return teamLeadSidebar;
-    } else if (employeeDetails?.admin_type.toLowerCase() === "3") {
+    } else if (employeeDetails?.admin_type === "2") {
       return mangerSidebar;
+    } else if (employeeDetails?.admin_type === "3") {
+      return teamLeadSidebar;
     } else {
       return employeeSidebar; // Default to employeeSidebar if no match
     }

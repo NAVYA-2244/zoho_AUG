@@ -135,18 +135,18 @@ const EmployeeLeaveApplicationsTable = ({ leaveApplications }) => {
   let dynamicTableHeadProperties = [];
   if (leaveApplications.length > 0) {
     const firstApplication = leaveApplications[0];
-    const { role_name } = employeeDetails;
+    const { admin_type } = employeeDetails;
 
     // If the employee's role matches one of the approval roles, exclude that status column
-    if (role_name !== "Manager" && firstApplication.approved_by?.manager) {
+    if (admin_type !== "2" && firstApplication.approved_by?.manager) {
       dynamicTableHeadProperties.push({ name: "Manager Status", property: "approved_by.manager.leave_status" });
     }
-    if (role_name !== "Team Incharge" && firstApplication.approved_by?.team_incharge) {
+    if (admin_type !== "3" && firstApplication.approved_by?.team_incharge) {
       dynamicTableHeadProperties.push({ name: "Team Incharge Status", property: "approved_by.team_incharge.leave_status" });
     }
-    if (role_name !== "HR" && firstApplication.approved_by?.hr) {
-      dynamicTableHeadProperties.push({ name: "HR Status", property: "approved_by.hr.leave_status" });
-    }
+    // if (role_name !== "HR" && firstApplication.approved_by?.hr) {
+    //   dynamicTableHeadProperties.push({ name: "HR Status", property: "approved_by.hr.leave_status" });
+    // }
   }
 
   // Combine base properties with dynamic properties

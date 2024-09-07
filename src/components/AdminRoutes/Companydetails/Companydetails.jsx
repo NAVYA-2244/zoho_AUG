@@ -17,7 +17,7 @@ import Loader from "../../Loader/Loader";
 import { makeNetworkCall } from "../../../HttpServices/HttpService";
 import { useFunctionContext } from "../../Contexts/FunctionContext";
 import { toastOptions } from "../../../Utils/FakeRoutes";
-import { backEndCallObjNothing } from "../../../services/mainService";
+import { backEndCallObjNothing, loginCall } from "../../../services/mainService";
 import { FaFacebookF, FaTwitter, FaInstagram, FaGoogle } from "react-icons/fa";
 import { FaImage, FaCamera } from "react-icons/fa";
 const Companydetails = () => {
@@ -39,6 +39,7 @@ const Companydetails = () => {
     org_mail_id: "",
     address: "",
   });
+  const tokenKey = "zohoEmployeeToken";
   const orgSchema = {
     organisation_name: Joi.string()
       .min(5)
@@ -88,40 +89,69 @@ const Companydetails = () => {
 
     setFormData(obj);
   }, [orgDetails]);
-
+ 
   const orgLogoNameSubmit = async (e) => {
     e.preventDefault();
-
     try {
       setLoading(true);
-      setLoadingTerm("orgNameLogo");
       await checkErrors(orgSchema, formData);
 
-      console.log(formData, "formData");
+      const response = await backEndCallObjNothing("/org/add_update_org_details", formData);
+      localStorage.removeItem(tokenKey);
 
-      const response = await backEndCallObjNothing(
-        "/org/add_update_org_details",
-        formData
-      );
-      console.log(response, "resss");
+      const res = await loginCall("/org/update_token", {});
       
-      // const response = await makeNetworkCall(formData, "orgLogo", "headers");
-      // const { detail } = await makeNetworkCall({}, "getAdminData1", "headers");
 
-      // setFormData(response?.images?.logo);
+      localStorage.setItem(tokenKey, res.success);// Assuming the token is returned in response.success
 
       setOrgLogo(response?.data?.images?.logo);
-      setLoading(false);
-      setLoadingTerm("");
-
+      await backEndCallObjNothing("/org/universal");
       toastOptions.success(response?.success);
-      setLoading(false);
     } catch (error) {
-      toastOptions.error(error?.response?.data || error?.[0].message);
+      toastOptions.error(error?.response?.data || error?.message);
+    } finally {
       setLoading(false);
-      setLoadingTerm("");
     }
   };
+  // const orgLogoNameSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     setLoading(true);
+  //     setLoadingTerm("orgNameLogo");
+  //     await checkErrors(orgSchema, formData);
+
+  //     console.log(formData, "formData");
+
+  //     const response = await backEndCallObjNothing(
+  //       "/org/add_update_org_details",
+  //       formData
+  //     );
+  //     const res = await loginCall(
+  //       "/org/update_token",
+        
+  //     );
+  //     console.log(res,"token")
+  //     const token = res.success; // Assuming the token is returned in response.token
+
+  //     // Store the token
+  //     localStorage.setItem(tokenKey, token);
+  //     console.log(response, "resss");
+      
+      
+
+  //     setOrgLogo(response?.data?.images?.logo);
+  //     setLoading(false);
+  //     setLoadingTerm("");
+
+  //     toastOptions.success(response?.success);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     toastOptions.error(error?.response?.data || error?.[0].message);
+  //     setLoading(false);
+  //     setLoadingTerm("");
+  //   }
+  // };
   const [hovered, setHovered] = useState(false);
   return (
     <>
@@ -150,7 +180,7 @@ const Companydetails = () => {
                     <div
                       className="logo-image "
                       style={{
-                        height: "150px",
+                        // height: "150px",
                         position: "relative",
                         display: "flex",
                         justifyContent: "center",

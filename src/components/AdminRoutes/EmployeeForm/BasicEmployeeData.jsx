@@ -120,7 +120,8 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             // readOnly={isAdmin || type === "Update Employee"}
             inputRef={(el) => (refs.current.employee_id = el)}
           />
-          {employeeDetails.admin_type ==="1"&&
+          {employeeDetails.admin_type === "1"|| employeeDetails.admin_type === "2"&&
+          
           <p className="note-heading" style={{ color: "green" }}>
             This should be a recent employee Id "
             {employeesList.length > 0 ? employeesList[0].  employee_id : null}".
@@ -268,7 +269,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
       >
         <h6 className="heading-form"> Work Information</h6>
         <div className="col-lg-4 col-md-4 col-sm-6">
-        {employeeDetails.admin_type=="1"?
+        {employeeDetails.admin_type === "1"||employeeDetails.admin_type === "2"?
           <Select_inputs
             name={"role_id"}
             placeholder={"Role"}
@@ -312,7 +313,8 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
         {/* </div>  */}
 
         <div className="col-lg-4 col-md-4 col-sm-6">
-        {employeeDetails.admin_type=="1"?
+        {employeeDetails.admin_type === "1"||employeeDetails.admin_type === "2"
+        ?
           <Select_inputs
             name={"department_id"}
             placeholder={"Department"}
@@ -341,7 +343,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
         </div>
         
         <div className="col-lg-4 col-md-4 col-sm-6">
-        {employeeDetails.admin_type=="1"?
+        {employeeDetails.admin_type === "1"||employeeDetails.admin_type === "2"?
           <Select_inputs
             name={"designation_id"}
             placeholder={"Designation"}
@@ -483,7 +485,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
   inputRef={(el) => (refs.current.reporting_manager = el)}
 /> */}
 
-{employeeDetails.admin_type=="1"?
+{employeeDetails.admin_type === "1"||employeeDetails.admin_type === "2"?
 <Select_inputs
   name={"reporting_manager"}
   placeholder={"Reporting Manager"}
