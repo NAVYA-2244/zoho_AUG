@@ -184,9 +184,16 @@ import Select from 'react-select';
 import Loader from '../Loader/Loader';
 import { backEndCallObjNothing } from '../../services/mainService';
 import { toastOptions } from '../../Utils/FakeRoutes';
+import { useStateContext } from '../Contexts/StateContext';
 
 const TeamAssignmentModalteamincharge = ({ projectId, setIsTeamModalVisible, fetchProjects, formData, setFormData ,currentProject}) => {
   const [loading, setLoading] = useState(false);
+  const {
+   
+    employeeDetails
+  } = useStateContext();
+  
+
   const [filteredEmployees, setFilteredEmployees] = useState([]);
 console.log(currentProject.task_id,"current taskid")
 console.log(currentProject.project_id,"current projectid")
@@ -194,7 +201,13 @@ console.log(currentProject.project_id,"current projectid")
     const fetchEmployees = async () => {
       try {
         setLoading(true);
-        const response = await backEndCallObjNothing("/org/get_employees_by_department");
+        let response
+        {employeeDetails.role_name === "team incharge"?
+         response = await backEndCallObjNothing("/org/get_employees_by_department")
+: 
+response = await backEndCallObjNothing("/org/get_team")
+}
+
         console.log(response,"response")
           setFilteredEmployees(response);
         

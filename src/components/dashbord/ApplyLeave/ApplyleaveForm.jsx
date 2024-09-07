@@ -18,7 +18,7 @@ import { useNavigate, useLocation } from "react-router";
 import { backEndCallObjNothing } from "../../../services/mainService";
 
 function ApplyLeaveForm() {
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
   // const location = useLocation();
   // const leaveTypes = location.state?.leaveTypes || [];
   const {
@@ -80,7 +80,7 @@ console.log(employeedataleaves)
     team_mail_id: Joi.string()
       .min(5)
       .max(35)
-      .email({ tlds: { allow: ["com", "net", "org"] } })
+      .email({ tlds: { allow: ["com", "net", "org","io"] } })
       .required()
       .messages({
         "string.pattern.base": '"Email" should not include special characters',
@@ -98,7 +98,8 @@ console.log(employeedataleaves)
         "/emp/apply_leave",
         formData
       );
-      Navigate("/leaveApplications");
+      navigate(-1);
+      navigate("/leaveApplications");
       setEmployeeLeaveApplications(response);
       setFormData({
         from_date: "",
@@ -132,7 +133,7 @@ console.log(employeedataleaves)
       >
         <div className="fs-20">
           <IoArrowBackSharp
-            onClick={() => Navigate("/leaveApplications")}
+            onClick={() => navigate("/leaveApplications")}
             style={{ cursor: "pointer" }}
           />
         </div>

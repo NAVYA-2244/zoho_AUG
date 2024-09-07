@@ -703,15 +703,16 @@ const TeamAssignmentModal = ({ projectId, setIsTeamModalVisible, fetchProjects, 
     const fetchingData = async () => {
       try {
         setLoading(true);
-        const employees = await backEndCallObjNothing("/admin_get/get_employee_list", { skip: 0 });
-        console.log(employees,"employeelist")
-        if (employees?.employees?.length) {
-          const managers = employees.employees.filter(employee => {
-            const roleName = employee?.work_info?.role_name?.toLowerCase();
-            return roleName === "team member";
-          });
+       const managers = await backEndCallObjNothing("/org/get_team")
+        // const employees = await backEndCallObjNothing("/admin_get/get_employee_list", { skip: 0 });
+        // console.log(employees,"employeelist")
+        // if (employees?.employees?.length) {
+        //   const managers = employees.employees.filter(employee => {
+        //     const roleName = employee?.work_info?.role_name?.toLowerCase();
+        //     return roleName === "team member";
+        //   });
           setFilteredEmployees(managers);
-        }
+        // }
       } catch (error) {
         toastOptions.error(error?.response?.data || "Something went wrong");
       } finally {

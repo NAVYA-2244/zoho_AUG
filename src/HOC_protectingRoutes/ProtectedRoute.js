@@ -5,7 +5,7 @@ import { useStateContext } from "../components/Contexts/StateContext";
 const AuthenticatedRoute = ({ children }) => {
   const { employeeDetails } = useStateContext();
   console.log(employeeDetails, "employeeDetails")
-  return employeeDetails?.role_name || employeeDetails?.role_name ? (
+  return employeeDetails?.admin_type || employeeDetails?.admin_type ? (
     <>{children}</>
   ) : (
     <Navigate to="/login" />
@@ -25,20 +25,20 @@ const AuthenticatedRoute = ({ children }) => {
 // import { Navigate } from "react-router-dom";
 // import { useStateContext } from "../context/StateContext";
 
-export const AdminRoute = ({ children }) => {
-  const { employeeDetails } = useStateContext();
-  console.log(employeeDetails, "employeeDetails");
+// export const AdminRoute = ({ children }) => {
+//   const { employeeDetails } = useStateContext();
+//   console.log(employeeDetails, "employeeDetails");
 
-  // Check if the employee is an admin based on their role_name
-  const isAdmin =
-    employeeDetails && employeeDetails.role_name === "Director"
-      ? "ADMIN"
-      : "EMPLOYEE";
+//   // Check if the employee is an admin based on their role_name
+//   const isAdmin =
+//     employeeDetails && employeeDetails.admin_type === "1"
+//       ? "ADMIN"
+//       : "EMPLOYEE";
 
-  // If the user is an admin (Director), allow access to children components
-  // Otherwise, redirect to the login page
-  return isAdmin === "ADMIN" ? <>{children}</> : <Navigate to="/login" />;
-};
+//   // If the user is an admin (Director), allow access to children components
+//   // Otherwise, redirect to the login page
+//   return isAdmin === "ADMIN" ? <>{children}</> : <Navigate to="/login" />;
+// };
 
 export default AuthenticatedRoute;
 
@@ -74,13 +74,13 @@ export const IsSuperAdminRoute = ({ children }) => {
 export const IsManagerRoute = ({ children }) => {
   const { employeeDetails } = useStateContext();
   let isAdminType2 = true;
-  // if (
-  //   // employeeDetails.isAdmin &&
-  //   // employeeDetails.adminType === '2' &&
-  //   employeeDetails.userid
-  // ) {
-  //   isAdminType2 = true;
-  // }
+  if (
+    // employeeDetails.isAdmin &&
+    employeeDetails.admin_type === '2'
+    // employeeDetails.userid
+  ) {
+    isAdminType2 = true;
+  }
 
   return isAdminType2 ? <>{children}</> : <Navigate to="/login" />;
 };

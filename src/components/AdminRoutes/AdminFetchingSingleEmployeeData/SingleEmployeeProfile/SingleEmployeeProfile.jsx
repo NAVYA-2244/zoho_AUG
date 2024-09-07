@@ -281,8 +281,18 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
     setIsStatusChanged(true);
   };
 
+  // const handleEdit = () => {
+  // {  employeeDetails.admin_type=== "1"|employeeDetails.admin_type=== "2"?
+  //   navigate("/admin/employee/:id"):
+  //   navigate("/profile_Edit", { state: { employeeProfileData } });
+  // }
   const handleEdit = () => {
-    navigate("/profile_Edit", { state: { employeeProfileData } });
+    if (employeeDetails.admin_type === "1" || employeeDetails.admin_type === "2") {
+      navigate(`/admin/update_employee/${employeeProfileData.profile.employee_id}`);
+    } else {
+      navigate("/profile_Edit", { state: { employeeProfileData } });
+    }
+  
   };
   const {
     basic_info,
@@ -367,12 +377,13 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
                   <div className="basic-info-wrapper">
                     <div className="d-flex align-items-center justify-content-between">
                       <h4 className="profile-heading">Profile</h4>
-                      {employeeDetails.role_name === "Director"?"":
+                      {/* {employeeDetails.admin_type=== "1"?"": */}
+                      
                       <button className="btn btn-primary" onClick={handleEdit}>
                         Edit
                       </button> 
 
-                    }
+                    {/* } */}
                     </div>
                     <div className="basic-information">
                       <div className="basic-info-left">
@@ -585,3 +596,26 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
 };
 
 export default SingleEmployeeProfile;
+// export const UpdateEmployeeAction = ({ id }) => {
+//   const navigate = useNavigate();
+//   const { applicationColor } = useThemeContext();
+//   return (
+//     <section
+//       className="actions"
+//       style={{
+//         color: applicationColor.readColor1,
+//       }}
+//     >
+//       <button
+//         className="edit btn btn-sm btn-success-light"
+//         onClick={() => navigate(`/admin/update_employee/${id}`)}
+//       >
+//         <AiOutlineEdit />
+//       </button>
+
+//       {/* <button className="delete btn btn-sm">
+//         <MdDeleteOutline />
+//       </button> */}
+//     </section>
+//   );
+// };

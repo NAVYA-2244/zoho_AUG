@@ -113,37 +113,73 @@ console.log(adminGettingLeaveApplications,"adminGettingLeaveApplications")
     { name: "table-view", label: <FaTableCells /> },
   ];
 
+  // const onLeaveAccept = async (leave_application_id) => {
+  //   try {
+  //     setBtndisabled(true)
+  //     const data = { leave_application_id, leave_status: "Approved" };
+  //     {employeeDetails.role_name==="Director"?
+
+  //      response = await backEndCallObjNothing("/admin/update_leave_status", data)
+  //       :
+     
+  //      response = await backEndCallObjNothing("/admin/update_leave_application", data); 
+  //   }
+  //     // const updatedApplication = response.data;
+  //     setAdminGettingLeaveApplications(adminGettingLeaveApplications)
+  //     // setAdminGettingLeaveApplications((prev) =>
+  //     //   prev.map((app) =>
+  //     //     app.leave_application_id === leave_application_id
+  //     //       ? updatedApplication
+  //     //       : app
+  //     //   )
+  //     // );
+  //     // setAdminGettingLeaveApplications(response); 
+  //     toastOptions.success(response||"Success");
+  //     setBtndisabled(false)
+  //   } catch (error) {
+  //     setBtndisabled(false)
+  //     toastOptions.error(
+  //       error?.response?.data?.detail ||
+  //         "Error while Accepting Leave Application"
+  //     );
+  //   }
+  // };
   const onLeaveAccept = async (leave_application_id) => {
     try {
-      setBtndisabled(true)
+      setBtndisabled(true);
       const data = { leave_application_id, leave_status: "Approved" };
-      const response = await backEndCallObjNothing("/admin/update_leave_application", data);
-      // const updatedApplication = response.data;
-      setAdminGettingLeaveApplications(adminGettingLeaveApplications)
-      // setAdminGettingLeaveApplications((prev) =>
-      //   prev.map((app) =>
-      //     app.leave_application_id === leave_application_id
-      //       ? updatedApplication
-      //       : app
-      //   )
-      // );
-      // setAdminGettingLeaveApplications(response); 
-      toastOptions.success(response||"Success");
-      setBtndisabled(false)
+      let response;
+  
+      if (employeeDetails.admin_type === "1") {
+        response = await backEndCallObjNothing("/admin/update_leave_status", data);
+      } else {
+        response = await backEndCallObjNothing("/admin/update_leave_application", data);
+      }
+  
+      setAdminGettingLeaveApplications(adminGettingLeaveApplications);
+      
+      toastOptions.success(response || "Success");
+      setBtndisabled(false);
     } catch (error) {
-      setBtndisabled(false)
+      setBtndisabled(false);
       toastOptions.error(
-        error?.response?.data?.detail ||
-          "Error while Accepting Leave Application"
+        error?.response?.data?.detail || "Error while Accepting Leave Application"
       );
     }
   };
-
+  
   const onLeaveReject = async (leave_application_id) => {
     try {
       setBtndisabled(true)
       const data = { leave_application_id, leave_status: "Rejected" };
-      const response = await backEndCallObjNothing("/admin/update_leave_application", data);
+      let response;
+    {employeeDetails.admin_type==="1"?
+        
+       response = await backEndCallObjNothing("/admin/update_leave_status", data)
+        :
+     
+       response = await backEndCallObjNothing("/admin/update_leave_application", data); 
+    }
       // const updatedApplication = response.data;
       setAdminGettingLeaveApplications(adminGettingLeaveApplications)
       console.log(
@@ -168,6 +204,7 @@ console.log(adminGettingLeaveApplications,"adminGettingLeaveApplications")
       );
     }
   };
+
   // const getTeamMembers = async () => {
   //   try {
   //     setLoading(true);
@@ -210,14 +247,18 @@ console.log(adminGettingLeaveApplications,"adminGettingLeaveApplications")
 
   
 const renderLeaveStatusButtons = useCallback((application) => {
+  console.log(application,"application")
   const { hr, manager, team_incharge } = application.approved_by;
-  const employeeRole = employeeDetails?.role_name || '';
+  const employeeRole = employeeDetails?.admin_type || '';
 
   let roleStatus = null;
-  if (employeeRole === "hr" && hr) roleStatus = hr.leave_status;
+  if (employeeDetails?.admin_type === "1") {
+    roleStatus = application.leave_status;
+  } 
 
-  else if (employeeRole.toLowerCase() === "manager" && manager) roleStatus = manager.leave_status;
-  else if (employeeRole === "Team Incharge" && team_incharge) roleStatus = team_incharge.leave_status;
+  if (employeeRole?.toLowerCase() === "2"||employeeDetails?.designation_name  === "hr manager") roleStatus = hr.leave_status;
+  else if (employeeRole?.toLowerCase() === "2" && manager) roleStatus = manager.leave_status;
+  else if (employeeRole?.toLowerCase() === "3" && team_incharge) roleStatus = team_incharge.leave_status;
 
   if (!roleStatus) return "";
 
@@ -407,7 +448,7 @@ const renderLeaveStatusButtons = useCallback((application) => {
                         <p>To : {item.to_date}</p>
                       </div>
                       <div className="leave-card-data">
-                        <p>Reason: {item.reason}</p>
+                        {/* <p>Reason: {item.reason}</p> */}
                         <p>Days Taken: {item.days_taken}</p>
                       </div>
                       <div className="leave-card-data">
@@ -483,11 +524,11 @@ const renderLeaveStatusButtons = useCallback((application) => {
                 <th>Days Taken</th>
                 <th>Reason</th>
                 <th>Leave Status</th>
-                {employeeDetails?.role_name === "hr" ||
-      employeeDetails?.role_name === "Manager" ||
-      employeeDetails?.role_name === "Team Incharge" ? (
+                {/* {employeeDetails?.role_name === "" ||
+      employeeDetails?.role_name .toLowerCase()=== "manager" ||
+      employeeDetails?.role_name === "Team Incharge" ? ( */}
         <th>Action</th>
-      ) : null}
+      {/* ) : null} */}
                 
               </thead>
               <tbody className="admin-leaves-table-body">

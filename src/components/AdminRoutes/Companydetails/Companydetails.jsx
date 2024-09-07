@@ -52,16 +52,27 @@ const Companydetails = () => {
       .label("Organisation Name"),
     logo: Joi.string().required().label("Organisation Logo"),
     organisation_type: Joi.string().required().label("Organisation Type"),
+    // org_mail_id: Joi.string()
+    //   .min(5)
+    //   .max(55)
+    //   .email({ tlds: { allow: ["com", "net", "org","io"] } })
+    //   .required()
+    //   .messages({
+    //     "string.pattern.base": '"Email" should not include special characters',
+    //     "any.required": '"Email" is required',
+    //   })
+    //   .label("Email Id"),
     org_mail_id: Joi.string()
-      .min(5)
-      .max(55)
-      .email({ tlds: { allow: ["com", "net", "org"] } })
-      .required()
-      .messages({
-        "string.pattern.base": '"Email" should not include special characters',
-        "any.required": '"Email" is required',
-      })
-      .label("Email Id"),
+  .min(5)
+  .max(55)
+  .email({ tlds: { allow: ["com", "net", "org", "io"] } }) // Allows .io as a valid TLD
+  .required()
+  .messages({
+    "string.pattern.base": '"Email" should not include special characters',
+    "any.required": '"Email" is required',
+  })
+  .label("Email Id"),
+
     address: Joi.string().required().label("Address"),
   };
 

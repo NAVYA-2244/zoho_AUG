@@ -145,7 +145,7 @@ export function InputPassword({
               onChange={(e) => handleChange(e, schema, setForm)}
               readOnly={readOnly}
               ref={inputRef}
-              maxLength={8}
+              maxLength={15}
               style={{
                 background: applicationColor.cardBg2,
                 color: applicationColor.readColor1,

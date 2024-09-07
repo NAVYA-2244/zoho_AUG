@@ -42,11 +42,19 @@ export async function backEndCallObjNothing(route, obj) {
   return data;
 }
 
+// export async function loginCall(route, obj) {
+//   updtk();
+//   const { data } = await http.post(apiUrl + route, obj);
+//   await localStorage.setItem(tokenKey, data.success);
+//   return data;
+// }
 export async function loginCall(route, obj) {
-  updtk();
+  updtk(); // Ensure JWT is updated before making the request
+
   const { data } = await http.post(apiUrl + route, obj);
-  await localStorage.setItem(tokenKey, data.success);
-  return data;
+  await localStorage.setItem(tokenKey, data.token); // Store the token in localStorage
+
+  return data; // Return the response data including the token
 }
 
 
@@ -87,12 +95,20 @@ export async function backEndCallObjCaptcha(route, obj, captcha) {
   return helpers.decryptobj(data);
 }
 
+// export async function updtk() {
+//   const token = getJwt();
+//   if (!token) {
+//     // console.warn('No Token in header');
+//   }
+//   await http.setJwt(getJwt());
+// }
 export async function updtk() {
-  const token = getJwt();
-  if (!token) {
-    // console.warn('No Token in header');
+  const token = localStorage.getItem(tokenKey); // Get the JWT token from localStorage
+  if (token) {
+    http.setJwt(token); // Set the JWT in the HTTP client
+  } else {
+    console.warn('No Token in header'); // Optional: Log a warning if no token is found
   }
-  await http.setJwt(getJwt());
 }
 
 // export function getJwt() {

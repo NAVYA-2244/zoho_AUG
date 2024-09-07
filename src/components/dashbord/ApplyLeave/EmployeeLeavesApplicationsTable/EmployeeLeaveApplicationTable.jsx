@@ -217,6 +217,12 @@ const EmployeeLeaveApplicationsTable = ({ leaveApplications }) => {
               </tr>
             ))}
           </tbody>
+          <div className=" m-2">
+          {
+            leaveApplications.length== 0 &&
+            <p className="text-center">  there is no leave applications</p>
+          }
+          </div>
         </table>
       </section>
     </>

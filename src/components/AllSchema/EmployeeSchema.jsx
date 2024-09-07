@@ -1031,6 +1031,7 @@ export const addEmployeeForm = {
   // profilePhoto: "",
   // organisation_id:"",
   employee_id: "",
+  password:"",
   first_name: "",
   last_name: "",
   nick_name: "",
@@ -1112,11 +1113,23 @@ export const ExpirementSchema = {
       "any.required": '"Employee Id" is required',
     })
     .label("Employee Id"),
-
+    password: Joi.string()
+      .min(8)
+      .max(15)
+      .required()
+      .pattern(
+        /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\|\-=])/
+      )
+      .messages({
+        "string.pattern.base":
+          '"Password" needs 1 uppercase, and 1 special character',
+        "any.required": '"Password" is required',
+      })
+      .label("Password"),
   email: Joi.string()
     .min(10)
     .max(55)
-    .email({ tlds: { allow: ["com", "net", "org"] } })
+    .email({ tlds: { allow: ["com", "net", "org", "io"] } })
     .required()
     .messages({
       "string.pattern.base": '"Email" should not include special characters',
@@ -1314,7 +1327,8 @@ export const ExpirementSchema = {
     .min(10)
     .max(55)
     .required()
-    .email({ tlds: { allow: ["com", "net", "org"] } })
+    // .email({ tlds: { allow: ["com", "net", "org"] } })
+    .email({ tlds: { allow: ["com", "net", "org", "io"] } })
     .messages({
       "string.pattern.base":
         '"Personal Email" should not include special characters',
@@ -1702,11 +1716,24 @@ const EmployeeDataSchema = {
       "any.required": '"Employee Id" is required',
     })
     .label("Employee Id"),
-
+    password: Joi.string()
+      .min(8)
+      .max(15)
+      .required()
+      .pattern(
+        /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\|\-=])/
+      )
+      .messages({
+        "string.pattern.base":
+          '"Password" needs 1 uppercase, and 1 special character',
+        "any.required": '"Password" is required',
+      })
+      .label("Password"),
   email: Joi.string()
     .min(10)
     .max(55)
-    .email({ tlds: { allow: ["com", "net", "org"] } })
+    // .email({ tlds: { allow: ["com", "net", "org"] } }) 
+    .email({ tlds: { allow: ["com", "net", "org", "io"] } })
     .required()
     .messages({
       "string.pattern.base": '"Email" should not include special characters',
@@ -1763,7 +1790,7 @@ const EmployeeDataSchema = {
   reporting_manager: Joi.string()
     .min(1)
     .max(20)
-    // .email({ tlds: { allow: ["com", "net", "org"] } })
+    // .email({ tlds: { allow: ["com", "net", "org","io"] } })
     // .pattern(/^[a-zA-Z0-9@._-]*$/, "valid characters")
     .required()
     // .optional()
@@ -1887,7 +1914,8 @@ const EmployeeDataSchema = {
     .min(10)
     .max(55)
     .required()
-    .email({ tlds: { allow: ["com", "net", "org"] } })
+    // .email({ tlds: { allow: ["com", "net", "org"] } })
+    .email({ tlds: { allow: ["com", "net", "org", "io"] } })
     .messages({
       "string.pattern.base":
         '"Personal Email" should not include special characters',

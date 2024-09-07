@@ -50,7 +50,7 @@ console.log(employee,"employeupdate")
           work_experience,
           educational_details,
           dependent_details,
-
+          // password,
           employee_id,
         } = employee;
 
@@ -81,6 +81,7 @@ console.log(employee,"employeupdate")
         form.educational_details = educational_details;
         form.dependent_details = dependent_details;
         form.employee_id = employee_id;
+        // form.password=password;
         setUpdateEmployeeData(form);
         console.log({ updateForm: form });
       } catch (error) {
@@ -102,6 +103,7 @@ console.log(employee,"employeupdate")
       await checkErrors(ExpirementSchema, formData);
       const data = {
         employee_id: formData?.employee_id,
+        // password:formData?.password,
         // location_id: formData?.location_id,
         first_name: formData?.first_name,
         last_name: formData?.last_name,

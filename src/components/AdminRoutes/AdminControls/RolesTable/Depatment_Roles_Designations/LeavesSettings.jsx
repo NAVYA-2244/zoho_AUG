@@ -197,7 +197,7 @@ const LeavesSettings = () => {
                   className="btn btn-sm btn-primary"
                   onClick={() => handleAddItems(designation.designation_id)}
                 >
-                  Add Leave
+                  Add Leaves
                 </button>
               </h5>
               <div>
@@ -215,9 +215,16 @@ const LeavesSettings = () => {
                       }}
                       onClick={() => handleEditItems(item, designation.designation_id)}
                     >
-                      <h6 className="mb-0" style={{ fontSize: '1rem', marginRight: 'auto' }}>
+                      {/* <h6 className="mb-0" style={{ fontSize: '1rem', marginRight: 'auto' }}>
                         {item.leave_name}
-                      </h6>
+                      </h6> */}
+                      <h5 className="mb-0" style={{ fontSize: '1rem', marginRight: 'auto' }}>
+  {item?.leave_name
+    .split(' ') // Split the string into an array of words
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize the first letter of each word
+    .join(' ')}
+</h5>
+
                       <span style={{ fontSize: '0.9rem' }}>{item.total_leaves}</span>
                       {/* <RiEdit2Fill
                      

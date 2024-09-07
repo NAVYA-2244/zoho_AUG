@@ -46,6 +46,7 @@ const AddEmployee = () => {
         organisation_id: orgDetails?.organisation_id,
         // banner: formData?.banner,
         employee_id: formData?.employee_id,
+        password:formData?.password,
         // location_id: formData?.location_id,
         // profilePhoto: formData?.profilePhoto,
         first_name: formData?.first_name,

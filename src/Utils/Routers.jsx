@@ -279,14 +279,14 @@ export const isSuperAdminRouter = [
           </IsSuperAdminRoute>
         ),
       },
-      {
-        path: "/dashboard",
-        element: (
-          <IsSuperAdminRoute>
-            <AdminDashboard />
-          </IsSuperAdminRoute>
-        ),
-      },
+      // {
+      //   path: "/dashboard",
+      //   element: (
+      //     <IsSuperAdminRoute>
+      //       <AdminDashboard />
+      //     </IsSuperAdminRoute>
+      //   ),
+      // },
       {
         path: "/location",
         element: (

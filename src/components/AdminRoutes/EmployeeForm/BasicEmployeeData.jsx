@@ -4,6 +4,7 @@ import {
   Date_Input,
   Select_inputs,
   Input_area,
+  InputPassword,
 } from "../../common/ALLINPUTS/AllInputs";
 import React, { useEffect, useState } from "react";
 import schema from "../../AllSchema/EmployeeSchema";
@@ -12,6 +13,7 @@ import { useThemeContext } from "../../Contexts/ThemesContext";
 import ProfilePhoto from "./ProfilePhoto";
 import { backEndCallObjNothing } from "../../../services/mainService";
 import { toastOptions } from "../../../Utils/FakeRoutes";
+import { MdOutlineKey } from "react-icons/md";
 
 const BasicEmployeeData = ({ formData, setFormData, type }) => {
   const {
@@ -23,8 +25,11 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
     setLoading,
     orgDetails,
     setOrgDetails,
-    employeeDetails
+    employeeDetails,
+    reportingmangers,
+     setreportingmangers
   } = useStateContext();
+  console.log(reportingmangers,"reportingmangers")
   const { applicationColor } = useThemeContext();
   const [employeesList, setEmployeesList] = useState([]);
   const [filteredEmployees, setFilteredEmployees] = useState([]);
@@ -66,34 +71,27 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
     const fetchingData = async () => {
       try {
         setLoading(true);
-        let employees = await backEndCallObjNothing(
-          "/admin_get/get_employee_list",
-          { skip: 0 }
-        );
-        console.log("employee", employees);
-        setEmployeesList(employees.employees);
-  
+
         // Filter employees with role "Director" or "Manager"
-        const managers = employees.employees.filter((employee) => {
+        const managers = reportingmangers.filter((employee) => {
           const roleName = employee?.work_info?.role_name?.toLowerCase();
-          return roleName === "director" || roleName === "manager";
+          return roleName === "admin" || roleName === "manager";
         });
-  
+
         setFilteredEmployees(managers);
-  
-        console.log(managers, "managers");
+        setEmployeesList(managers); // Assuming this is also needed
+
       } catch (error) {
         toastOptions.error(error?.response?.data || "Something went wrong");
       } finally {
         setLoading(false);
       }
     };
-    {employeeDetails.role_name==="Director"&&
-    fetchingData();
-  }
-  }, []);
-  
-  console.log("Reporting Manager in formData:", formData?.work_info?.reporting_manager);
+
+    if (employeeDetails.admin_type === "1"||employeeDetails.admin_type === "2") {
+      fetchingData();
+    }
+  }, [employeeDetails.admin_type, reportingmangers, setLoading]);
 
  
   return (
@@ -119,10 +117,10 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             schema={schema?.employee_id}
             imp={true}
             maxLength={10}
-            readOnly={isAdmin || type === "Update Employee"}
+            // readOnly={isAdmin || type === "Update Employee"}
             inputRef={(el) => (refs.current.employee_id = el)}
           />
-          {employeeDetails.role_name ==="Direcor"&&
+          {employeeDetails.admin_type ==="1"&&
           <p className="note-heading" style={{ color: "green" }}>
             This should be a recent employee Id "
             {employeesList.length > 0 ? employeesList[0].  employee_id : null}".
@@ -269,6 +267,33 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
         }}
       >
         <h6 className="heading-form"> Work Information</h6>
+        <div className="col-lg-4 col-md-4 col-sm-6">
+        {employeeDetails.admin_type=="1"?
+          <Select_inputs
+            name={"role_id"}
+            placeholder={"Role"}
+            value={formData.role_id}
+            schema={schema.role_id}
+            setForm={setFormData}
+            options={optionsss.roles || []}
+            property={"role_name"}
+            valueProperty={"role_id"}
+            // readOnly={isAdmin}
+            imp
+            inputRef={(el) => (refs.currentemployment_typerole_id = el)}
+          />:
+          <Input_text
+            type={"text"}
+            name={"role_name"}
+            placeholder={"role_name"}
+            value={formData.role_name}
+            setForm={setFormData}
+            schema={schema.role_id}
+            property={"role_name"}
+            readOnly={isAdmin}
+          />
+          }
+        </div>
         {/* 
         <div className="col-lg-4 col-md-4 col-sm-6">
           {/* <Select_inputs
@@ -287,7 +312,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
         {/* </div>  */}
 
         <div className="col-lg-4 col-md-4 col-sm-6">
-        {employeeDetails.role_name=="Director"?
+        {employeeDetails.admin_type=="1"?
           <Select_inputs
             name={"department_id"}
             placeholder={"Department"}
@@ -316,7 +341,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
         </div>
         
         <div className="col-lg-4 col-md-4 col-sm-6">
-        {employeeDetails.role_name=="Director"?
+        {employeeDetails.admin_type=="1"?
           <Select_inputs
             name={"designation_id"}
             placeholder={"Designation"}
@@ -342,33 +367,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
           />
           }
         </div>
-        <div className="col-lg-4 col-md-4 col-sm-6">
-        {employeeDetails.role_name=="Director"?
-          <Select_inputs
-            name={"role_id"}
-            placeholder={"Role"}
-            value={formData.role_id}
-            schema={schema.role_id}
-            setForm={setFormData}
-            options={optionsss.roles || []}
-            property={"role_name"}
-            valueProperty={"role_id"}
-            // readOnly={isAdmin}
-            imp
-            inputRef={(el) => (refs.currentemployment_typerole_id = el)}
-          />:
-          <Input_text
-            type={"text"}
-            name={"role_name"}
-            placeholder={"role_name"}
-            value={formData.role_name}
-            setForm={setFormData}
-            schema={schema.role_id}
-            property={"role_name"}
-            readOnly={isAdmin}
-          />
-          }
-        </div>
+       
         
         <div className="col-lg-4 col-md-4 col-sm-6">
           <Select_inputs
@@ -437,19 +436,18 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
         </div>
 
         <div className="col-lg-4 col-md-4 col-sm-6">
-          {/* <Select_inputs
-            name={"shift_id"}
-            placeholder={"Shift"}
-            value={formData.shift_id}
-            schema={schema.shift_id}
+        <InputPassword
+            type={"password"}
+            placeholder={"Password"}
+            name={"password"}
+            value={formData["password"]}
             setForm={setFormData}
-            options={options?.shifts || []}
-            property={"shift_name"}
-            valueProperty={"shift_id"}
-            // readOnly={isAdmin}
+            id={"password"}
+            maxLength={15} 
+            schema={schema.password}
             imp
-            inputRef={(el) => (refs.current.shift_id = el)}
-          /> */}
+            icon={<MdOutlineKey />}
+          />
         </div>
 
         <div className="col-lg-4 col-md-4 col-sm-6">
@@ -460,7 +458,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             schema={schema.employee_status}
             setForm={setFormData}
             options={["active", "disable", "terminated"]}
-            readOnly={isAdmin}
+            // readOnly={isAdmin}
             imp
             inputRef={(el) => (refs.current.employee_status = el)}
           />
@@ -485,7 +483,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
   inputRef={(el) => (refs.current.reporting_manager = el)}
 /> */}
 
-{employeeDetails.role_name=="Director"?
+{employeeDetails.admin_type=="1"?
 <Select_inputs
   name={"reporting_manager"}
   placeholder={"Reporting Manager"}
@@ -500,7 +498,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
   property={"displayName"} // Display email
   valueProperty={"email"} // Store email in the formData
   imp
-  readOnly={isAdmin}
+  // readOnly={isAdmin}
   inputRef={(el) => (refs.current.reporting_manager = el)}
 />
 :

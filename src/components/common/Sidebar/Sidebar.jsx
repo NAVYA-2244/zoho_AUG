@@ -31,12 +31,12 @@ const Sidebar = () => {
   } = useStateContext();
 
   const settingsiderbar = () => {
-    if (employeeDetails.role_name === "Director") {
+    if (employeeDetails.admin_type === "1") {
       return superAdminSidebar;
-    } else if (employeeDetails.role_name === "Team Incharge") {
+    } else if (employeeDetails?.admin_type?.toLowerCase()=== "2") {
       return teamLeadSidebar;
     }
-    else if (employeeDetails?.role_name?.toLowerCase() === "manager") {
+    else if (employeeDetails?.admin_type?.toLowerCase() === "3") {
       return mangerSidebar;
     } else {
       return employeeSidebar; // Default to employeeSidebar if no match
@@ -249,7 +249,8 @@ const Sidebar = () => {
               <img src={dummyUser} alt="user-image" />
             </div>
             <div className="details">
-              <span className="email">{employeeDetails?.email || ""}</span>
+              <span className="email">{employeeDetails?.
+               || ""}</span>
               <span className="id">{employeeDetails?.employeeId || ""}</span>
             </div>
           </section> */}

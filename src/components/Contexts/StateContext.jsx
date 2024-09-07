@@ -39,6 +39,7 @@ export const StateContextProvider = ({ children }) => {
   );
   const [adminGettingLeaveApplications, setAdminGettingLeaveApplications] =
     useState([]);
+    const [reportingmangers, setreportingmangers] =useState([]);
 
   const [loadingTerm, setLoadingTerm] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -185,7 +186,9 @@ export const StateContextProvider = ({ children }) => {
         todayAttendanceAdmin,
         setTodayAttendanceAdmin,
         stats,
-        setStats
+        setStats,
+        reportingmangers, 
+        setreportingmangers
       }}
     >
       {children}

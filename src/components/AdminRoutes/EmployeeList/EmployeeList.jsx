@@ -413,24 +413,33 @@ const EmployeeList = () => {
     { name: "Action", property: "", type: "string" },
   ];
 
+  const fetchingData = async () => {
+    try {
+      setLoading(true);
+      let employees = await backEndCallObjNothing(
+        "/admin_get/get_employee_list",
+        { skip: 0 }
+      );
+      setEmployeesList(employees.employees);
+      setFilteredEmployees(employees.employees);
+      console.log(employees, "employees");
+    } catch (error) {
+      toastOptions.error(error?.response?.data || "something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
   useEffect(() => {
-    const fetchingData = async () => {
-      try {
-        setLoading(true);
-        let employees = await backEndCallObjNothing(
-          "/admin_get/get_employee_list",
-          { skip: 0 }
-        );
-        setEmployeesList(employees.employees);
-        setFilteredEmployees(employees.employees);
-        console.log(employees, "employees");
-      } catch (error) {
-        toastOptions.error(error?.response?.data || "something went wrong");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchingData();
+
+    console.log(employeesList,'employeesList')
+   if(!employeesList.length >= 0 ) { 
+
+     fetchingData();
+   }
+
+
   }, []);
 
   useEffect(() => {

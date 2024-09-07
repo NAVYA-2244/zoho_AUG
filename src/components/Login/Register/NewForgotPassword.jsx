@@ -438,7 +438,7 @@ const NewForgotPassword = () => {
   const [otp, setOtp] = useState("");
   const ResetPasswordSchema = {
     email: Joi.string()
-      .email({ tlds: { allow: ["com", "net", "org"] } })
+      .email({ tlds: { allow: ["com", "net", "org","io"] } })
       .max(50)
       .required()
       .messages({

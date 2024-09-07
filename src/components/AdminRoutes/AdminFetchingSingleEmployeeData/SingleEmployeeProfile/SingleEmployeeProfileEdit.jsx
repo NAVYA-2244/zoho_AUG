@@ -46,7 +46,7 @@ const SingleEmployeeProfileEdit = () => {
     passport: Joi.string().length(12).allow("").optional(),
     work_phone_number: Joi.string().allow(null, "").optional().min(10).max(10),
     personal_mobile_number: Joi.string().required().min(10).max(10),
-    personal_email_address: Joi.string().email({ tlds: { allow: ["com", "net", "org"] } }).required(),
+    personal_email_address: Joi.string().email({ tlds: { allow: ["com", "net", "org","io"] } }).required(),
     company_name: Joi.string().min(10).max(40).allow("").optional(),
     job_title: Joi.string().min(3).max(30).allow("").optional(),
     from_date: Joi.date().max("now").allow("").optional(),

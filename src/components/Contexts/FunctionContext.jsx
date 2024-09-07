@@ -30,7 +30,10 @@ export const FunctionContextProvider = ({ children }) => {
     if (type === "textarea" && id !== "password") {
       // For textarea: Allow alphanumeric characters, spaces, dots, commas, and hyphens
       value = value.replace(/[^A-Za-z0-9.,\s-]/g, "");
-    } else if (type === "email" && id !== "password") {
+
+
+    }
+     else if (type === "email" && id !== "password") {
       // For email: Allow alphanumeric characters, @, ., -, and _
       value = value.replace(/[^A-Za-z0-9@._-]/g, "");
     }

@@ -3,6 +3,7 @@ import React from "react";
 import schema from "../../AllSchema/EmployeeSchema";
 import { useStateContext } from "../../Contexts/StateContext";
 import { useThemeContext } from "../../Contexts/ThemesContext";
+import { FaMinus, FaPlus } from "react-icons/fa6";
 
 const PersonalDetailsData = ({ formData, setFormData }) => {
   const { refs } = useStateContext();
@@ -100,13 +101,14 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                     onClick={addEducationDetails}
                     type="button"
                   >
-                    add new
+                    {/* add new */}
+                    <FaPlus />
                   </button>
                 ) : (
                   ""
                 )}
               </div>
-              <div className="col-lg-4 col-md-4 col-sm-6">
+              <div className="col-lg-3 col-md-3 col-sm-6">
                 <Input_text
                   type={"text"}
                   name={"institute_name"}
@@ -118,7 +120,7 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                   fieldName="educational_details"
                 />
               </div>
-              <div className="col-lg-4 col-md-4 col-sm-6">
+              <div className="col-lg-3 col-md-3 col-sm-6">
                 <Input_text
                   type={"text"}
                   name={"degree"}
@@ -130,7 +132,7 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                   fieldName="educational_details"
                 />
               </div>
-              <div className="col-lg-4 col-md-4 col-sm-6">
+              <div className="col-lg-3 col-md-3 col-sm-6">
                 <Input_text
                   type={"text"}
                   name={"specialization"}
@@ -143,7 +145,7 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                   fieldName="educational_details"
                 />
               </div>
-              <div className="col-lg-4 col-md-4 col-sm-6">
+              <div className="col-lg-3 col-md-3 col-sm-6">
                 <Input_text
                   type={"tel"}
                   name={"year_of_completion"}
@@ -189,7 +191,8 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                     onClick={() => removeEducationDetails(index)}
                     type="button"
                   >
-                    remove
+                    {/* remove */}
+                    <FaMinus />
                   </button>
                 ) : (
                   ""
@@ -219,7 +222,8 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                 onClick={addDependentDetails}
                 type="button"
               >
-                add new
+                {/* add new */}
+                <FaPlus />
               </button>
             </div>
           )}
@@ -250,7 +254,7 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                   ""
                 )}
               </div>
-              <div className="col-lg-4 col-md-4 col-sm-6">
+              <div className="col-lg-3 col-md-3 col-sm-6">
                 <Input_text
                   type={"text"}
                   name={"name"}
@@ -263,7 +267,7 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                   fieldName="dependent_details"
                 />
               </div>
-              <div className="col-lg-4 col-md-4 col-sm-6">
+              <div className="col-lg-3 col-md-3 col-sm-6">
                 <Input_text
                   type={"text"}
                   name={"relation"}
@@ -314,7 +318,8 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                     onClick={() => removeDependentDetails(index)}
                     type="button"
                   >
-                    remove
+                    {/* remove */}
+                    <FaMinus />
                   </button>
                 ) : (
                   ""

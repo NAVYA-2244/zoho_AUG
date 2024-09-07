@@ -135,47 +135,7 @@ console.log("orgDetails",orgDetails.departments)
           }}
         >
           <div className={`department-cards ${showModal ? "d-none" : "d-block"}`}>
-            {/* <section className="row">
-              <div className="mb-4 text-end">
-          
-                 <button
-                className="btn btn-primary d-flex align-items-center justify-content-end"
-                type="button"
-                onClick={handleAddItems}
-              >
-                <span className="me-1">Add </span>
-                <RiAddCircleFill />
-              </button>
-              </div>
-              {orgDetails?.departments?.length > 0 ? (
-                orgDetails?.departments.map((item, index) => (
-                  <div className="col-xl-4 mb-3" key={index}>
-                    <div
-                      className="admin-controls-card"
-                      style={{
-                        background: applicationColor.cardBg1,
-                        color: applicationColor.readColor1,
-                      }}
-                    >
-                      <div
-                        onClick={() => handleEditItems(item.department_id, item)}
-                      >
-                        <h5 className="mt-1 mb-4">
-                          Department Name:&nbsp;
-                          <span className="text-primary fw-semi-bold">
-                            {item.department_name}
-                          </span>
-                        </h5>
-                      </div>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <div className="col-12 text-center">
-                  There is no data in your location
-                </div>
-              )}
-            </section> */}
+            
             <section className="row">
       <div className="mb-4 d-flex justify-content-end">
         <button
@@ -184,7 +144,7 @@ console.log("orgDetails",orgDetails.departments)
           onClick={handleAddItems}
         >
           <RiAddCircleFill size={24} className="me-2" />
-          <span>Add Deparments</span>
+          <span>Add  Departments</span>
         </button>
       </div>
 
@@ -204,17 +164,23 @@ console.log("orgDetails",orgDetails.departments)
               // onClick={() => handleEditItems(item.role_id, item)}
             >
               <div className="card-body d-flex flex-column p-4">
-              <h5 className="card-title mb-3" style={{ fontSize: '1.25rem' }}>
+              {/* <h5 className="card-title mb-3" style={{ fontSize: '1.25rem' }}>
                   {item.department_name}
-                </h5>
+                </h5> */}
+                <h5 className="card-title mb-3" style={{ fontSize: '1.25rem' }}>
+  {item?.department_name
+    .split(' ') // Split the string into an array of words
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize the first letter of each word
+    .join(' ')}
+</h5>
                 <p className="card-text text-muted mb-4">
-                  Department ID: {item.department_id}
+                Department ID: {item.department_id}
                 </p>
                 <button
                   className="btn btn-outline-primary mt-auto"
                   onClick={() => handleEditItems(item.department_id, item)}
                 >
-                  Edit deparment
+                  Edit  Department
                 </button>
               </div>
             </div>

@@ -97,12 +97,12 @@ export const employeeSidebar = [
     label: "Total Task",
     path: "/employee/tasks",
   },
-  {
-    id: "folers",
-    icon: <LuFolderClosed />,
-    label: "Change Password",
-    path: "/admin/ChangePassword",
-  },
+  // {
+  //   id: "folers",
+  //   icon: <LuFolderClosed />,
+  //   label: "Change Password",
+  //   path: "/admin/ChangePassword",
+  // },
   {
     id: "Logout",
     icon: <VscSignOut />,
@@ -148,14 +148,14 @@ export const superAdminSidebar = [
       {
         id: "roles",
         icon: <GrUserSettings />,
-        label: "Roles",
+        label: "Management Settings",
         path: "/admin/admin-controls/roles",
       },
 
       {
         id: "company",
         icon: <RiImageCircleLine />,
-        label: "Company Logo",
+        label: "Company Settings",
         path: "/admin/company",
       },
       {
@@ -245,12 +245,12 @@ export const teamLeadSidebar = [
     label: "Total Task",
     path: "/employee/tasks",
   },
-  {
-    id: "folers",
-    icon: <LuFolderClosed />,
-    label: "Change Password",
-    path: "/admin/ChangePassword",
-  },
+  // {
+  //   id: "folers",
+  //   icon: <LuFolderClosed />,
+  //   label: "Change Password",
+  //   path: "/admin/ChangePassword",
+  // },
   {
     id: "Logout",
     icon: <VscSignOut />,
@@ -275,6 +275,21 @@ export const mangerSidebar = [
     label: "profile",
     path: "/profile",
   },
+  {
+    id: "add_employeee",
+    // icon: <TiUserAddOutline />,
+    icon: <GrUserAdd />,
+    label: "Add Employee",
+    path: "/admin/add_employee",
+  },
+
+  {
+    id: "employee_list",
+    icon: <RiListCheck3 />,
+    label: "Employee List",
+    path: "/admin/employee_list",
+  },
+
   {
     id: "Chat",
     icon: <TbMessageChatbot />,

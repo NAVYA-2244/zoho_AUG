@@ -36,12 +36,12 @@ const App = () => {
   //     // }
   //   };
   const mainRouter = () => {
-    if (employeeDetails.role_name === "Director") {
+    if (employeeDetails.admin_type === "1") {
       return isSuperAdminRouter;
-    } else if (employeeDetails.role_name === "Team Incharge") {
+    } else if (employeeDetails?.admin_type?.toLowerCase() === "2") {
       return isTeamLeadRouter;
     }
-    else if (employeeDetails?.role_name?.toLowerCase() === "manager") {
+    else if (employeeDetails?.admin_type?.toLowerCase() === "3") {
       return isManagerRouter;
     } else {
       return isEmployeeRouter;
@@ -61,6 +61,9 @@ const App = () => {
 
   // The browser router function is responsible to create the router given but the react-router-dom
   const router = createBrowserRouter(actualRouter);
+
+
+
   return (
     <>
       <Toaster position="top-center" toastOptions={{ duration: 2000 }} />

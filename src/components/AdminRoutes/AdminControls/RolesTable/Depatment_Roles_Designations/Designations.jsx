@@ -188,7 +188,7 @@ console.log("edtitem",editingItem)
           onClick={handleAddItems}
         >
           <RiAddCircleFill size={24} className="me-2" />
-          <span>Add Role</span>
+          <span>Add Designations</span>
         </button>
       </div>
 
@@ -208,9 +208,15 @@ console.log("edtitem",editingItem)
               // onClick={() => handleEditItems(item.role_id, item)}
             >
               <div className="card-body d-flex flex-column p-4">
-               <h5 className="card-title mb-3" style={{ fontSize: '1.25rem' }}>
+               {/* <h5 className="card-title mb-3" style={{ fontSize: '1.25rem' }}>
                   {item.designation_name}
-                </h5>
+                </h5> */}
+                <h5 className="card-title mb-3" style={{ fontSize: '1.25rem' }}>
+  {item?.designation_name
+    .split(' ') // Split the string into an array of words
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize the first letter of each word
+    .join(' ')} 
+</h5>
                 <p className="card-text text-muted mb-4">
                   Desigantion ID: {item.designation_id}
                 </p>

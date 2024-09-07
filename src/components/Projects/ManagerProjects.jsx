@@ -286,6 +286,7 @@ const ManagerProjects = () => {
   const [formData, setFormData] = useState({ action: "", employee_id: [] });
   const [draggedIndex, setDraggedIndex] = useState(null);
   const [showTeamModal, setShowTeamModal] = useState(false);
+  
   const fetchProjects = async () => {
     try {
       setLoading(true);

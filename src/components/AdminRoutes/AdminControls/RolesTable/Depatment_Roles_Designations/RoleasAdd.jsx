@@ -669,7 +669,7 @@ const RolesAdd = () => {
               )}
             </section> */}
   <section className="row">
-      <div className="mb-4 d-flex justify-content-end">
+      {/* <div className="mb-4 d-flex justify-content-end">
         <button
           className="btn btn-primary d-flex align-items-center"
           type="button"
@@ -678,7 +678,7 @@ const RolesAdd = () => {
           <RiAddCircleFill size={24} className="me-2" />
           <span>Add Role</span>
         </button>
-      </div>
+      </div> */}
 
       {orgDetails?.roles?.length > 0 ? (
         orgDetails.roles.map((item, index) => (
@@ -696,13 +696,20 @@ const RolesAdd = () => {
               // onClick={() => handleEditItems(item.role_id, item)}
             >
               <div className="card-body d-flex flex-column p-4">
-                <h5 className="card-title mb-3" style={{ fontSize: '1.25rem' }}>
-                  {item.role_name}
-                </h5>
+                {/* <h5 className="card-title mb-3" style={{ fontSize: '1.25rem' }}> */}
+                  {/* {item.role_name} */}
+                  {/* {item.role_name.charAt(0).toUpperCase() + item.role_name.slice(1).toLowerCase()} */}
+                  <h5 className="card-title mb-3" style={{ fontSize: '1.25rem' }}>
+  {item?.role_name .split(' ') // Split the string into an array of words
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize the first letter of each word
+    .join(' ')} 
+</h5>
+
+                {/* </h5> */}
                 <p className="card-text text-muted mb-4">
                   Role ID: {item.role_id}
                 </p>
-                <button
+                {/* <button
                   className="btn btn-outline-primary mt-auto"
                   onClick={(e) => {
                     e.stopPropagation(); // Prevents triggering the onClick of the card
@@ -710,7 +717,16 @@ const RolesAdd = () => {
                   }}
                 >
                   Edit Role
-                </button>
+                </button> */}
+                {/* <button
+                  className="btn btn-outline-primary mt-auto"
+                  // onClick={(e) => {
+                  //   e.stopPropagation(); // Prevents triggering the onClick of the card
+                  //   handleEditItems(item.role_id, item);
+                  // }}
+                >
+                configaration
+                </button> */}
               </div>
             </div>
           </div>
