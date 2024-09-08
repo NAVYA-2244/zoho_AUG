@@ -179,8 +179,16 @@ const EmployeeLoginSubmit = async (e) => {
             icon={<MdOutlineKey />}
           />
           <div className="setPassword-wrapper text-end">
-           
-          </div>
+         
+               {/* <span>Don't have password?</span> */}
+              <h5
+                className="forgot-password fw-semibold"
+                onClick={() => navigate("/resetpassword")}
+              >
+                Forgot Password
+              </h5>
+            </div>
+        
           <div className="employee-button mt-3">
             <button
               type="submit"

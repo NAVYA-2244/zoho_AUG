@@ -186,7 +186,7 @@ const Companydetails = () => {
                         justifyContent: "center",
                         alignItems: "center",
                         border: "1px soild black",
-                        borderRadius: "50%",
+                        // borderRadius: "50%",
                       }}
                     >
                       <div>

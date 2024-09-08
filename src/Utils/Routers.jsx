@@ -448,6 +448,14 @@ export const isSuperAdminRouter = [
         ),
       },
       {
+        path: "/admin/ForgotPassword",
+        element: (
+          <IsSuperAdminRoute>
+            <NewForgotPassword />
+          </IsSuperAdminRoute>
+        ),
+      },
+      {
         path: "/admin/folders/:folder/:folderId",
         element: (
           <IsSuperAdminRoute>
@@ -713,6 +721,14 @@ export const isManagerRouter = [
           <IsSuperAdminRoute>
             <ChangePassword />
           </IsSuperAdminRoute>
+        ),
+      },
+      {
+        path: "/admin/ForgotPassword",
+        element: (
+          <IsManagerRoute>
+            <NewForgotPassword />
+          </IsManagerRoute>
         ),
       },
       {

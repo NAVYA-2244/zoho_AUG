@@ -271,7 +271,7 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                 <Input_text
                   type={"text"}
                   name={"relation"}
-                  placeholder={"Relation"}
+                  placeholder={"Relation  Ex : (Mother)"}
                   value={data?.relation}
                   setForm={setFormData}
                   schema={schema?.relation}

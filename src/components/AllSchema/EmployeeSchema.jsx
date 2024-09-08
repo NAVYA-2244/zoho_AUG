@@ -1246,7 +1246,7 @@ export const ExpirementSchema = {
     .label("Permanent Address"),
 
   about_me: Joi.string()
-    .min(5)
+    .min(3)
     .max(250)
     .allow("")
     .messages({
@@ -1832,8 +1832,10 @@ const EmployeeDataSchema = {
   marital_status: Joi.string().required().label("Marital Status"),
 
   about_me: Joi.string()
-    .min(5)
+    .min(2)
     .max(250)
+    .optional()
+    .allow("")
     // .pattern(/^[a-zA-Z0-9 ,]*$/, {
     //   name: "alphanumeric with spaces and commas",
     // })
