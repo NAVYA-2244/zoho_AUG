@@ -59,15 +59,15 @@
 
   .profile-photo {
     padding: 20px 0;
-    border-radius: 10px;
+    // border-radius: 10px;
     position: relative;
     height: 200px;
     margin-bottom: 3rem;
 
     .main_profile_photo {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
+      width: 200px;
+      height: 200px;
+      border-radius: 10%;
       object-fit: cover;
     }
 

@@ -123,13 +123,13 @@ console.log(orgDetails,"navya")
           /> 
           {console.log(employeeDetails.employees,"navya")}
 
-          {employeeDetails.admin_type === "1"|| employeeDetails.admin_type === "2"&&
+          {/* {employeeDetails.admin_type === "1"|| employeeDetails.admin_type === "2"&& */}
           
           <p className="note-heading" style={{ color: "green" }}>
             This should be a recent employee Id "
             {employeesList.length > 0 ? employeesList[0].  employee_id : null}".
           </p>
-          }
+          {/* } */}
           
         </div>
         <div className="col-lg-4 col-md-4 col-sm-6">

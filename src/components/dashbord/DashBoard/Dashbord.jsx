@@ -226,7 +226,7 @@ export const OnlyBirthDaysAndNewHires = () => {
   //     setNewHiresSkip,
   //   ]
   // );
-console.log(stats,"navyaa")
+// console.log(stats,"navyaa")
   return (
     <>
       <div className="d_card" style={{ background: applicationColor.cardItem }}>

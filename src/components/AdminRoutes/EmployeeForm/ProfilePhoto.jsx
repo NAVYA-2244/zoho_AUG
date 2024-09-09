@@ -443,7 +443,7 @@ import { useThemeContext } from "../../Contexts/ThemesContext";
 import { FaCamera } from "react-icons/fa";
 import { backEndCallObjNothing } from "../../../services/mainService";
 import { toastOptions } from "../../../Utils/FakeRoutes";
-import "./ProfilePhoto.scss";
+import "./ProfilePhoto.scss"; // Assuming you have custom styles here
 import { Input_area } from "../../common/ALLINPUTS/AllInputs";
 
 const ProfilePhoto = () => {
@@ -456,7 +456,7 @@ const ProfilePhoto = () => {
   const [error, setError] = useState("");
 
   const schema = Joi.object({
-    image: Joi.string().required().messages({
+    image: Joi.string().optional().allow(null, "").messages({
       "any.required": "Profile photo is required.",
     }),
     about_me: Joi.string().max(250).optional().allow(null, "").messages({
@@ -497,7 +497,7 @@ const ProfilePhoto = () => {
       await schema.validateAsync(formData, { abortEarly: false });
       const response = await backEndCallObjNothing("/emp/update_dp", {
         image: formData.image,
-        about_me: formData.about_me, // Include 'about_me' in the payload
+        about_me: formData.about_me,
       });
       setProfilePhoto(response?.data?.image || "");
       setFormData({ image: "", about_me: "" });
@@ -511,10 +511,10 @@ const ProfilePhoto = () => {
   };
 
   return (
-    <div className="container">
-      {/* Profile Photo Section */}
-      <div className="row">
-        <div className="col-12 text-center">
+    <div className="container mt-4">
+      {/* Profile Photo and About Me in a single row */}
+      <div className="row align-items-center">
+        <div className="col-md-4 d-flex justify-content-center " >
           <div
             className="profile-image position-relative d-inline-block"
             onMouseEnter={() => setShowOverlay(true)}
@@ -522,32 +522,39 @@ const ProfilePhoto = () => {
             onClick={handleProfilePhotoSelection}
           >
             <img
-              className="main_profile_photo img-fluid rounded-circle border border-white"
+              className="main_profile_photo img-fluid "
               src={
                 profilePhoto
                   ? profilePhoto
                   : "https://cdnb.artstation.com/p/assets/images/images/034/457/389/large/shin-min-jeong-.jpg?1612345145"
               }
               alt="profile_photo"
-              width="150"
-              height="150"
-              style={{ objectFit: "cover" }}
-            />
+              
+              
+   
+
+ 
+    style={{
+     width:"150px",
+              height:"150px",
+      borderRadius: "100%",
+      marginTop: "0px",
+      objectFit: "contain",  // Choose either "cover" or "contain"
+      borderRadius: "100%", // Correct camelCase for border radius
+      marginTop: "0px"      // Correct camelCase for marginTop
+    }}
+/>    
+         
             {showOverlay && (
-              <div className="overlay position-absolute w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-50 text-white">
+              <div className="overlay position-absolute w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-50 text-white rounded-circle">
                 <FaCamera className="camera-icon" />
               </div>
             )}
           </div>
         </div>
-      </div>
 
-      {/* Error message */}
-      {error && <div className="text-danger mt-2">{error}</div>}
-
-      {/* About Me Section */}
-      <div className="row mt-4">
-        <div className="col-12">
+        {/* About Me Input */}
+        <div className="col-md-8">
           <div className="form-group">
             <Input_area
               type={"textarea"}
@@ -563,6 +570,9 @@ const ProfilePhoto = () => {
           </div>
         </div>
       </div>
+
+      {/* Error message */}
+      {/* {error && <div className="text-danger mt-2">{error}</div>} */}
 
       {/* Submit Button */}
       <div className="row mt-3">

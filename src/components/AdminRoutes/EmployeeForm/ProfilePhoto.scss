@@ -12,12 +12,14 @@
 }
 
 .profile-image {
-  position: absolute;
+  // position: absolute;
   cursor: pointer;
   border-radius: 50%;
   overflow: hidden;
-  top: 29%;
-  left: 45%;
+  // top: 29%;
+  // left: 45%;
+  border: 1px solid blue;
+  border-radius:100%;
   transform: translate(0rem, 0px);
 }
 

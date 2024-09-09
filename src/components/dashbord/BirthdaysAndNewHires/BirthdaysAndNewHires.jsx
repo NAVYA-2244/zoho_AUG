@@ -572,7 +572,7 @@ const BirthdaysAndNewHires = ({
                 </ul>
               </div>
             ) : (
-              recentHiresToDisplay.length > 0 && "no date found"
+              recentHiresToDisplay.length > 0 &&"no date found"
             )}
           </section>
         ))
