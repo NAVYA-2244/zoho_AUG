@@ -272,9 +272,13 @@ import Draggable from "react-draggable";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
 import TeamAssignmentModalteamincharge from "./TeamAssignmentModalteamincharge";
+import { useStateContext } from "../Contexts/StateContext";
 const ManagerProjects = () => {
-  const [projects, setProjects] = useState([]);
+  // const [projects, setProjects] = useState([]);
   const [isFormVisible, setIsFormVisible] = useState(false);
+  const { EmployProject, setEmployeProject, ProfileTask, setProfileTask } =
+    useStateContext();
+
   const [isTeamModalVisible, setIsTeamModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [currentProject, setCurrentProject] = useState(null);
@@ -286,12 +290,14 @@ const ManagerProjects = () => {
   const [formData, setFormData] = useState({ action: "", employee_id: [] });
   const [draggedIndex, setDraggedIndex] = useState(null);
   const [showTeamModal, setShowTeamModal] = useState(false);
-  
+
   const fetchProjects = async () => {
     try {
-      setLoading(true);
-      const response = await backEndCallObjNothing("/admin_get/get_projects");
-      setProjects(response || []);
+      if (!EmployProject) {
+        setLoading(true);
+        const response = await backEndCallObjNothing("/admin_get/get_projects");
+        setEmployeProject(response || []);
+      }
     } catch (error) {
       console.error("Error fetching projects:", error);
     } finally {
@@ -301,9 +307,11 @@ const ManagerProjects = () => {
 
   const fetchTasks = async () => {
     try {
-      setLoading(true);
-      const response = await backEndCallObjNothing("/emp_get/get_tasks");
-      setTasks(response || []);
+      if (!ProfileTask) {
+        setLoading(true);
+        const response = await backEndCallObjNothing("/emp_get/get_tasks");
+        setProfileTask(response || []);
+      }
     } catch (error) {
       console.error("Error fetching tasks:", error);
     } finally {
@@ -346,13 +354,13 @@ const ManagerProjects = () => {
   };
 
   const handleDrop = (index) => {
-    const newProjects = [...projects];
+    const newProjects = [...EmployProject];
 
     const temp = newProjects[index];
     newProjects[index] = newProjects[draggedIndex];
     newProjects[draggedIndex] = temp;
 
-    setProjects(newProjects);
+    setEmployeProject(newProjects);
 
     setDraggedIndex(null);
   };
@@ -374,7 +382,7 @@ const ManagerProjects = () => {
   };
 
   const getTasksByProjectId = (projectId) => {
-    return tasks.filter((task) => task.project_id === projectId);
+    return ProfileTask.filter((task) => task.project_id === projectId);
   };
   const handleRefresh = () => {
     fetchProjects();
@@ -466,8 +474,8 @@ const ManagerProjects = () => {
 
             {loading ? (
               <Loader />
-            ) : projects.length > 0 ? (
-              projects.map((project, index) => (
+            ) : EmployProject?.length > 0 ? (
+              EmployProject.map((project, index) => (
                 <div
                   className="col-xl-4 col-md-6 mb-3
                 

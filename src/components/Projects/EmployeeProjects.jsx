@@ -7,11 +7,14 @@ import Loader from "../Loader/Loader";
 import TaskDetailsModal from "./TaskDetailsModal";
 import Joi from "joi";
 import { toastOptions } from "../../Utils/FakeRoutes";
+import { useStateContext } from "../Contexts/StateContext";
 
 const EmployeeProjects = () => {
-  const [projects, setProjects] = useState([]);
+  // const [projects, setProjects] = useState([]);
+  const { EmployProject, setEmployeProject, ProfileTask, setProfileTask } =
+    useStateContext();
+  // const [tasks, setTasks] = useState([]);
 
-  const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -19,10 +22,15 @@ const EmployeeProjects = () => {
   const [draggedIndex, setDraggedIndex] = useState(null);
 
   const fetchProjects = async () => {
+    {
+      console.log(EmployProject, "projects");
+    }
     try {
-      setLoading(true);
-      const response = await backEndCallObjNothing("/admin_get/get_projects");
-      setProjects(response || []);
+      if (!EmployProject) {
+        setLoading(true);
+        const response = await backEndCallObjNothing("/admin_get/get_projects");
+        setEmployeProject(response);
+      }
     } catch (error) {
       console.error("Error fetching projects:", error);
     } finally {
@@ -32,11 +40,13 @@ const EmployeeProjects = () => {
 
   const fetchTasks = async () => {
     try {
-      setLoading(true);
-      const response = await backEndCallObjNothing("/emp_get/get_tasks");
-      console.log(response, "response");
-      console.log(response, "response");
-      setTasks(response || []);
+      if (!ProfileTask) {
+        setLoading(true);
+        const response = await backEndCallObjNothing("/emp_get/get_tasks");
+        console.log(response, "response");
+        console.log(response, "response");
+        setProfileTask(response || []);
+      }
     } catch (error) {
       console.error("Error fetching tasks:", error);
     } finally {
@@ -82,7 +92,7 @@ const EmployeeProjects = () => {
   }, []);
 
   const getTasksByProjectId = (projectId) => {
-    return tasks.filter((task) => task.project_id === projectId);
+    return ProfileTask.filter((task) => task.project_id === projectId);
   };
   const handleRefresh = async () => {
     fetchProjects();
@@ -98,13 +108,13 @@ const EmployeeProjects = () => {
   };
 
   const handleDrop = (index) => {
-    const newProjects = [...projects];
+    const newProjects = [...EmployProject];
 
     const temp = newProjects[index];
     newProjects[index] = newProjects[draggedIndex];
     newProjects[draggedIndex] = temp;
 
-    setProjects(newProjects);
+    setEmployeProject(newProjects);
 
     setDraggedIndex(null);
   };
@@ -141,9 +151,9 @@ const EmployeeProjects = () => {
             )}
           </div>
         </div>
-        {projects.length > 0 ? (
+        {EmployProject?.length > 0 ? (
           <div className="row">
-            {projects.map((project, index) => (
+            {EmployProject.map((project, index) => (
               <div
                 className="col-lg-4 col-md-6 mb-4 p-0 pe-3"
                 draggable

@@ -10,10 +10,12 @@ import { RiAddFill, RiEdit2Fill, RiTeamFill } from "react-icons/ri";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
 import { toastOptions } from "../../Utils/FakeRoutes";
+import { useStateContext } from "../Contexts/StateContext";
 
 const TeaminchargeProjects = () => {
-  const [projects, setProjects] = useState([]);
-  const [tasks, setTasks] = useState([]);
+  // const [projects, setProjects] = useState([]);
+  // const [tasks, setTasks] = useState([]);
+  const { ProfileTask, setProfileTask } = useStateContext();
   const [loading, setLoading] = useState(false);
   const [showTaskDetailsModal, setShowTaskDetailsModal] = useState(false);
   const [showStatusEditModal, setShowStatusEditModal] = useState(false);
@@ -27,12 +29,15 @@ const TeaminchargeProjects = () => {
   const [formData, setFormData] = useState({ action: "add", employee_id: [] });
   const [isTeamModalVisible, setIsTeamModalVisible] = useState(false);
   const [cardHeights, setCardHeights] = useState({});
+  const { EmployProject, setEmployeProject } = useStateContext();
 
   const fetchProjects = async () => {
     try {
-      setLoading(true);
-      const response = await backEndCallObjNothing("/admin_get/get_projects");
-      setProjects(response || []);
+      if (!EmployProject) {
+        setLoading(true);
+        const response = await backEndCallObjNothing("/admin_get/get_projects");
+        setEmployeProject(response || []);
+      }
     } catch (error) {
       console.error("Error fetching projects:", error);
     } finally {
@@ -42,9 +47,11 @@ const TeaminchargeProjects = () => {
 
   const fetchTasks = async () => {
     try {
-      setLoading(true);
-      const response = await backEndCallObjNothing("/emp_get/get_tasks");
-      setTasks(response || []);
+      if (!ProfileTask) {
+        setLoading(true);
+        const response = await backEndCallObjNothing("/emp_get/get_tasks");
+        setProfileTask(response || []);
+      }
       // toastOptions.success(response)
     } catch (error) {
       toastOptions.success(error.response?.data);
@@ -90,7 +97,7 @@ const TeaminchargeProjects = () => {
   };
 
   const handleRemoveTeam = (project, task) => {
-    const employeeIds =task.team.map((member) =>
+    const employeeIds = task.team.map((member) =>
       typeof member === "object" ? member.employee_id : member
     );
     setCurrentProject({
@@ -117,20 +124,20 @@ const TeaminchargeProjects = () => {
   };
 
   const getTasksByProjectId = (projectId) => {
-    return tasks.filter((task) => task.project_id === projectId);
+    return ProfileTask.filter((task) => task.project_id === projectId);
   };
   const handleDragOver = (event) => {
     event.preventDefault();
   };
 
   const handleDrop = (index) => {
-    const newProjects = [...projects];
+    const newProjects = [...EmployProject];
 
     const temp = newProjects[index];
     newProjects[index] = newProjects[draggedIndex];
     newProjects[draggedIndex] = temp;
 
-    setProjects(newProjects);
+    setEmployeProject(newProjects);
 
     setDraggedIndex(null);
   };
@@ -169,9 +176,9 @@ const TeaminchargeProjects = () => {
             )}
           </div>
         </div>
-        {projects.length > 0 ? (
+        {EmployProject?.length > 0 ? (
           <div className="row">
-            {projects.map((project, index) => (
+            {EmployProject.map((project, index) => (
               <div
                 className="col-12 col-xl-4 col-lg-6 col-md-12 col-sm-12 mb-4 ps-0 pe-3"
                 style={{ cursor: "pointer" }}

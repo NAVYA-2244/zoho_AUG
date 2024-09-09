@@ -1748,12 +1748,13 @@ const NewForgotPassword = () => {
                     name="employee_email"
                     value={otpData.employee_email}
                     setForm={setOtpData}
-                    validateField={validateField}
-                    schema={otpSchema.employee_email}
+                    // validateField={validateField}
+                    // schema={otpSchema.employee_email}
+                    onChange={handleInputChange}
                     required
                     maxLength={50}
                     icon={<MdEmail />}
-                    onChange={handleInputChange}
+                    // onChange={handleInputChange}
                   />
                   {errors.employee_email && (
                     <small className="form-text text-danger">
@@ -1771,9 +1772,12 @@ const NewForgotPassword = () => {
                         placeholder="New Password"
                         value={otpData.newPassword}
                         // onChange={handleInputChange}
-                        schema={otpData.newPassword}
+                        setForm={setOtpData}
+                        // schema={otpData.newPassword}
+                        // validateField={validateField}
                         maxLength={10}
                         className="form-control"
+                        onChange={handleInputChange}
                         icon={<MdOutlineKey />}
                       />
                       {/* <span
@@ -1799,9 +1803,10 @@ const NewForgotPassword = () => {
                         placeholder="Confirm Password"
                         value={otpData.confirmPassword}
                         onChange={handleInputChange}
+                        setForm={setOtpData}
                         className="form-control"
                         icon={<MdOutlineKey />}
-                        schema={otpData.confirmPassword}
+                        // schema={otpData.confirmPassword}
                       />
                       {/* <span
                         onClick={() => SetConfirmPassword(!ConfirmaPassword)}

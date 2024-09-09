@@ -21,12 +21,15 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
     adminGettingLeaveApplications,
     setAdminGettingLeaveApplications,
     employeeDetails,
+
+    TeamTask,
+    setTeamTask,
   } = useStateContext();
 
   const { applicationColor } = useThemeContext();
   // const [teamMembers, setTeamMembers] = useState([]);
   const [currentTab, setCurrentTab] = useState("calendar-view");
-  const [employeesList, setEmployeesList] = useState([]);
+  // const [employeesList, setEmployeesList] = useState([]);
   const [skip, setSkip] = useState(0);
   const [limit] = useState(2);
   const [hasMore, setHasMore] = useState(true);
@@ -176,10 +179,17 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
 
   useEffect(() => {
     const fetchEmployees = async () => {
+      {
+        console.log(TeamTask, "task");
+      }
       try {
-        const response = await backEndCallObjNothing("/org/get_team_for_task");
-        console.log(response, "jdjjdjjdj");
-        setEmployeesList(response); // Assuming response contains the employee list
+        if (!TeamTask) {
+          const response = await backEndCallObjNothing(
+            "/org/get_team_for_task"
+          );
+          console.log(response, "jdjjdjjdj");
+          setTeamTask(response); // Assuming response contains the employee list
+        }
       } catch (error) {
         console.error("Error fetching employees list:", error);
       }
@@ -302,7 +312,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
               onChange={handleFormChange}
             >
               <option value="">--select--</option>
-              {employeesList?.map((member) => (
+              {TeamTask?.map((member) => (
                 <option key={member.employee_id} value={member.employee_id}>
                   {`${member.basic_info.first_name} ${member.basic_info.last_name}`}
                 </option>

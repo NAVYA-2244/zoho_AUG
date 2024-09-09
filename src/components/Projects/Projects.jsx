@@ -446,9 +446,11 @@ import { backEndCallObjNothing } from "../../services/mainService";
 import Loader from "../Loader/Loader";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
+import { useStateContext } from "../Contexts/StateContext";
 
 const Projects = () => {
-  const [projects, setProjects] = useState([]);
+  // const [projects, setProjects] = useState([]);
+  const { EmployProject, setEmployeProject } = useStateContext();
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [isTeamModalVisible, setIsTeamModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -461,9 +463,11 @@ const Projects = () => {
   // Fetch all projects
   const fetchProjects = async () => {
     try {
-      setLoading(true);
-      const response = await backEndCallObjNothing("/admin_get/get_projects");
-      setProjects(response || []);
+      if (!EmployProject) {
+        setLoading(true);
+        const response = await backEndCallObjNothing("/admin_get/get_projects");
+        setEmployeProject(response || []);
+      }
     } catch (error) {
       console.error("Error fetching projects:", error);
     } finally {
@@ -491,7 +495,7 @@ const Projects = () => {
   // Handle team removal
   const handleRemoveTeam = (project) => {
     // Extract employee IDs from the team array
-    const employeeIds = project.team.map(member =>
+    const employeeIds = project.team.map((member) =>
       typeof member === "object" ? member.employee_id : member
     );
 
@@ -509,16 +513,15 @@ const Projects = () => {
   };
 
   const handleDrop = (index) => {
-    const newProjects = [...projects];
+    const newProjects = [...EmployProject];
     const temp = newProjects[index];
     newProjects[index] = newProjects[draggedIndex];
     newProjects[draggedIndex] = temp;
-    setProjects(newProjects);
+    setEmployeProject(newProjects);
     setDraggedIndex(null);
   };
   const handleRefresh = () => {
     fetchProjects();
-   
   };
 
   return (
@@ -544,27 +547,27 @@ const Projects = () => {
       ) : (
         <>
           <div className="row">
-          <div className="d-flex align-items-center gap-2">
-                <h4 className="mb-0">Project Details</h4>
-                <div
-                  onClick={handleRefresh}
-                  style={{
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  {loading ? (
-                    <div
-                      className="spinner-border text-primary"
-                      role="status"
-                      style={{ height: "20px", width: "20px" }}
-                    ></div>
-                  ) : (
-                    <i className="ri-loop-right-line text-primary fs-5 cursor-pointer"></i>
-                  )}
-                </div>
+            <div className="d-flex align-items-center gap-2">
+              <h4 className="mb-0">Project Details</h4>
+              <div
+                onClick={handleRefresh}
+                style={{
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                {loading ? (
+                  <div
+                    className="spinner-border text-primary"
+                    role="status"
+                    style={{ height: "20px", width: "20px" }}
+                  ></div>
+                ) : (
+                  <i className="ri-loop-right-line text-primary fs-5 cursor-pointer"></i>
+                )}
               </div>
+            </div>
             <div className="mb-4 text-end mt-3">
               <button
                 className="btn btn-primary"
@@ -587,8 +590,8 @@ const Projects = () => {
             </div>
             {loading ? (
               <Loader />
-            ) : projects.length > 0 ? (
-              projects.map((project, index) => (
+            ) : EmployProject?.length > 0 ? (
+              EmployProject.map((project, index) => (
                 <div
                   className="col-xl-4 col-md-6 mb-3"
                   key={project.project_id}

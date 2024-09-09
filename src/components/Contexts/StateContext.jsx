@@ -18,9 +18,9 @@ export const StateContextProvider = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState(
     employeeDetails.role_name === "Director" ? false : true
   );
-
+  const [ProfileTask, setProfileTask] = useState(null);
   const [profilePhoto, setProfilePhoto] = useState("");
-
+  const [TeamTask, setTeamTask] = useState(null);
   const [checkInTime, setCheckInTime] = useState(null);
   const [checkOutTime, setCheckOutTime] = useState(null);
   const [checkin, setCheckIn] = useState(true);
@@ -58,7 +58,8 @@ export const StateContextProvider = ({ children }) => {
   const [orgDetails, setOrgDetails] = useState({});
   const [recentHire, setrecentHire] = useState([]);
   const [Birthdays, setBirthdays] = useState([]);
-
+  const [ProfileGet, setProfileGet] = useState(null);
+  const [EmployProject, setEmployeProject] = useState(null);
   // All States for modals
   const [attendanceModal, setAttendanceModal] = useState(false);
   const [attendanceModalData, setAttendanceModalData] = useState({
@@ -103,6 +104,8 @@ export const StateContextProvider = ({ children }) => {
         setLoading,
         employeeDetails,
         setEmployeeDetails,
+        ProfileTask,
+        setProfileTask,
         employeeData,
         setEmployeeData,
         recentHire,
@@ -111,6 +114,8 @@ export const StateContextProvider = ({ children }) => {
         setCheckInTime,
         checkOutTime,
         setCheckOutTime,
+        EmployProject,
+        setEmployeProject,
         checkin,
         setCheckIn,
         attendanceData,
@@ -189,6 +194,8 @@ export const StateContextProvider = ({ children }) => {
         setStats,
         reportingmangers,
         setreportingmangers,
+        TeamTask,
+        setTeamTask,
       }}
     >
       {children}

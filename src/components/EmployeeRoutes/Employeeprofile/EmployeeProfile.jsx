@@ -43,8 +43,8 @@ function EmployeeProfile({ employeesList }) {
   const { setProfilePhoto } = useStateContext();
   // const [employeedata, setEmployeedata] = useState(null);
 
-  const { employeeDetails ,employeedata, setEmployeedata} = useStateContext();
-console.log(employeedata,"employeedata")
+  const { employeeDetails, employeedata, setEmployeedata } = useStateContext();
+  console.log(employeedata, "employeedata");
 
   const gettingEmployeeById = async () => {
     try {
@@ -60,11 +60,13 @@ console.log(employeedata,"employeedata")
 
   const gettingEmployeeProfileId = async () => {
     try {
-      const response = await backEndCallObjNothing("/emp_get/get_profile");
-      console.log(response, "employeeeeeeee");
-      setProfilePhoto(response?.profile?.images?.dp);
-      setEmployeedata(response); // Update state correctly
-      console.log("profile", response); // Log the response
+      if (!employeedata) {
+        const response = await backEndCallObjNothing("/emp_get/get_profile");
+        console.log(response, "employeeeeeeee");
+        setProfilePhoto(response?.profile?.images?.dp);
+        setEmployeedata(response); // Update state correctly
+      }
+      // Log the response
     } catch (error) {
       console.error("Error fetching employee data:", error);
     }
