@@ -202,11 +202,11 @@ console.log(currentProject.project_id,"current projectid")
       try {
         setLoading(true);
         let response
-        {employeeDetails.role_name === "team incharge"?
-         response = await backEndCallObjNothing("/org/get_employees_by_department")
-: 
-response = await backEndCallObjNothing("/org/get_team")
-}
+        // {employeeDetails.admin_type === "3"?
+         response = await backEndCallObjNothing("/org/get_team_for_task")
+// : 
+// response = await backEndCallObjNothing("/org/get_team_for_project")
+// }
 
         console.log(response,"response")
           setFilteredEmployees(response);

@@ -20,6 +20,7 @@ import { toastOptions } from "../../../Utils/FakeRoutes";
 import { backEndCallObjNothing, loginCall } from "../../../services/mainService";
 import { FaFacebookF, FaTwitter, FaInstagram, FaGoogle } from "react-icons/fa";
 import { FaImage, FaCamera } from "react-icons/fa";
+import { Navigate, useNavigate } from "react-router-dom";
 const Companydetails = () => {
   const {
     loading,
@@ -32,6 +33,7 @@ const Companydetails = () => {
   } = useStateContext();
   const { applicationColor } = useThemeContext();
   const { checkErrors } = useFunctionContext();
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     organisation_name: "",
     logo: "",
@@ -106,6 +108,8 @@ const Companydetails = () => {
 
       setOrgLogo(response?.data?.images?.logo);
       await backEndCallObjNothing("/org/universal");
+      navigate("/admin/admin-controls/roles");
+      window.location.reload("/admin/admin-controls/roles");
       toastOptions.success(response?.success);
     } catch (error) {
       toastOptions.error(error?.response?.data || error?.message);
@@ -180,13 +184,13 @@ const Companydetails = () => {
                     <div
                       className="logo-image "
                       style={{
-                        // height: "150px",
+                        height: "150px",
                         position: "relative",
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
                         border: "1px soild black",
-                        // borderRadius: "50%",
+                        borderRadius: "50%",
                       }}
                     >
                       <div>
@@ -197,7 +201,7 @@ const Companydetails = () => {
                               width: "200px",
                               height: "200px",
                               border: "1px soild black",
-                              borderRadius: "50%",
+                              // borderRadius: "50%",
                             }}
                             onMouseEnter={() => setHovered(true)}
                             onMouseLeave={() => setHovered(false)}
@@ -206,11 +210,11 @@ const Companydetails = () => {
                               src={formData.logo}
                               alt=""
                               style={{
-                                width: "150px",
-                                height: "150px",
+                                // width: "150px",
+                                // height: "150px",
                                 objectFit: "cover",
                                 border: "1px soild black",
-                                borderRadius: "50%",
+                                // borderRadius: "50%",
                               }}
                             />
                             {hovered && (
@@ -230,8 +234,8 @@ const Companydetails = () => {
                           <section className="logo-icon">
                             <div
                               style={{
-                                width: "150px",
-                                height: "150px",
+                                // width: "150px",
+                                // height: "150px",
                                 border: "1px soild black",
                                 borderRadius: "50%",
                                 backgroundColor: applicationColor.inputBg,
@@ -264,20 +268,7 @@ const Companydetails = () => {
                         )}
                       </div>
                     </div>
-                    {/* <div className="delete-editbuttons">
-                      {formData.logo && (
-                        <button
-                          className="delete"
-                          onClick={() =>
-                            setFormData((prevForm) => {
-                              return { ...prevForm, logo: "" };
-                            })
-                          }
-                        >
-                          <MdDeleteOutline />{" "}
-                        </button>
-                      )}
-                    </div> */}
+                  
                   </label>
                   <ImageInput
                     name="logo"
@@ -332,7 +323,7 @@ const Companydetails = () => {
               <div className="org-name">
                 <Input_text
                   type={"text"}
-                  // type={"companyName"}
+                  
                   name={"organisation_name"}
                   placeholder={"Organisation Name"}
                   value={formData["organisation_name"]}
@@ -357,22 +348,7 @@ const Companydetails = () => {
                   schema={orgSchema.org_mail_id}
                   maxLength={55}
                 />
-                {/* <Input_email
-                  type={"email"}
-                  placeholder={"Hr Email Id"}
-                  name={"org_mail_id"}
-                  value={formData["org_mail_id"]}
-                  setForm={setFormData}
-                  schema={orgSchema.org_mail_id}
-                />
-                <Select_inputs
-                  name={"organisation_type"}
-                  placeholder={"Organisation Type"}
-                  options={["IT", "Services", "Mancf"]}
-                  value={formData.organisation_type}
-                  schema={orgSchema.organisation_type}
-                  setForm={setFormData}
-                /> */}
+                
               </div>
             </div>
           </div>

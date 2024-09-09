@@ -100,7 +100,7 @@ console.log(formData,"formata")
         <div className="col-lg-4 col-md-4 col-sm-6">
           <Input_text
             type={"tel"}
-            name={"uan"}
+            name={"passsport"}
             placeholder={"UAN Number"}
             value={formData.uan}
             setForm={setFormData}

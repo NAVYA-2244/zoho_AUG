@@ -76,7 +76,8 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                 onClick={addEducationDetails}
                 type="button"
               >
-                add new
+                {/* add new */}
+                <FaPlus/>
               </button>
             </div>
           )}
@@ -248,7 +249,8 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                     onClick={addDependentDetails}
                     type="button"
                   >
-                    add new
+                    {/* add new */}
+                    <FaPlus/>
                   </button>
                 ) : (
                   ""

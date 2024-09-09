@@ -108,15 +108,12 @@ const fetchData = async () => {
       let res;
       if(employeeDetails.admin_type === "1"||employeeDetails.admin_type === "2"){
       res = await backEndCallObjNothing("/org/universal");
-      console.log("res", res);
-        console.log("res", res);
+   
       } else {
         res = await backEndCallObjNothing("/emp_get/universal");
-        console.log(res, "response");
         
       }
     setStats(res?.stats)
-    console.log("reporting manages",res?.reporting_managers)
 
      setreportingmangers(res?.reporting_managers)
 
@@ -125,7 +122,6 @@ const fetchData = async () => {
       // setLocations(res.organisation_details?.locations);
       // setTodayAttendance(res?.organisation_details?.today_attendance);
 
-      console.log(res, "eeee");
       setOrgDetails(res?.organisation_details);
       setOrgLogo(res?.organisation_details?.images?.logo);
       setLocations(res.dashborad?.organisation_details?.locations);
@@ -140,7 +136,6 @@ const fetchData = async () => {
       console.log(error, "eroor");
     }
   };
-  console.log(reportingmangers,"navya")
   useEffect(() => {
     // IsAdmin()
     fetchData();

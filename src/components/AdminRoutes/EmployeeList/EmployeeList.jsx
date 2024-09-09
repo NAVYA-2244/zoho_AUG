@@ -71,7 +71,6 @@ const EmployeeList = () => {
       );
       setEmployeesList(employees.employees);
       setFilteredEmployees(employees.employees);
-      console.log(employees, "employees");
     } catch (error) {
       toastOptions.error(error?.response?.data || "something went wrong");
     } finally {
@@ -82,22 +81,27 @@ const EmployeeList = () => {
 
   useEffect(() => {
 
-    console.log(employeesList,'employeesList')
-   if(!employeesList.length >= 0 ) { 
+  
+  console.log(employeesList,'employeesList in employeesList compo')
 
+  console.log((employeesList.length >= 0),'employeesList.length >= ')
+
+  // debugger
+   if( !employeesList.length >= 0 ) { 
+    console.log('hittt')
      fetchingData();
-   }
+   } 
 
 
   }, []);
 
-  useEffect(() => {
-    if (employeesList.length <= 0) {
-      setShowButton(true);
-    } else {
-      setShowButton(false);
-    }
-  }, [employeesList.length]);
+  // useEffect(() => {
+  //   if (employeesList.length <= 0) {
+  //     setShowButton(true);
+  //   } else {
+  //     setShowButton(false);
+  //   }
+  // }, [employeesList.length]);
 
   const makingNetworkCallWithQuery = async () => {
     try {
@@ -145,40 +149,40 @@ const EmployeeList = () => {
     }
   };
 
-  const fetchingMoreData = async () => {
-    try {
-      setLoading(true);
-      setLoadingTerm("getExtraEmployees");
+  // const fetchingMoreData = async () => {
+  //   try {
+  //     setLoading(true);
+  //     setLoadingTerm("getExtraEmployees");
 
-      setLoading(false);
-      setLoadingTerm("");
-    } catch (error) {
-      setLoading(false);
-      console.log("error while fetching more data", error);
-      setLoadingTerm("");
-    } finally {
-      setLoading(false);
-      setLoadingTerm("");
-    }
-  };
+  //     setLoading(false);
+  //     setLoadingTerm("");
+  //   } catch (error) {
+  //     setLoading(false);
+  //     console.log("error while fetching more data", error);
+  //     setLoadingTerm("");
+  //   } finally {
+  //     setLoading(false);
+  //     setLoadingTerm("");
+  //   }
+  // };
 
-  const gettingMoreDataRef = useCallback(
-    (node) => {
-      if (loading) return;
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver(async (entries) => {
-        if (entries[0].isIntersecting && employeesList.length >= limit) {
-          setSkip((prevSkip) => prevSkip + 1); // Update skip directly without await
-          if (skip) {
-            fetchingMoreData();
-          }
-        }
-      });
+  // const gettingMoreDataRef = useCallback(
+  //   (node) => {
+  //     if (loading) return;
+  //     if (observer.current) observer.current.disconnect();
+  //     observer.current = new IntersectionObserver(async (entries) => {
+  //       if (entries[0].isIntersecting && employeesList.length >= limit) {
+  //         setSkip((prevSkip) => prevSkip + 1); // Update skip directly without await
+  //         if (skip) {
+  //           fetchingMoreData();
+  //         }
+  //       }
+  //     });
 
-      if (node) observer.current.observe(node);
-    },
-    [loading, employeesList, limit, skip]
-  );
+  //     if (node) observer.current.observe(node);
+  //   },
+  //   [loading, employeesList, limit, skip]
+  // );
 
   // Debounced search handler
   const debouncedSearchHandler = useCallback(
@@ -286,7 +290,7 @@ const EmployeeList = () => {
               tableHeadProperties={tableHeadProperties}
               data={employeesList}
               component="UpdateEmployeeAction"
-              loadMoreRef={gettingMoreDataRef}
+              // loadMoreRef={gettingMoreDataRef}
               getExtraDataType="getExtraEmployees"
               dataExist={dataExist}
             />

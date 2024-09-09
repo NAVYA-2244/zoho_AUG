@@ -7,11 +7,13 @@ import TableHead from "../../Table/TableHead";
 import Modal from "../../Modals/Modal";
 import { useThemeContext } from "../../Contexts/ThemesContext";
 import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
-import { FaTableCells } from "react-icons/fa6";
+import { FaTableCells, FaUserDoctor } from "react-icons/fa6";
 import { FaCalendarCheck } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { Date_Input } from "../../common/ALLINPUTS/AllInputs";
 import moment from "moment-timezone";
+import { FcLeave } from "react-icons/fc";
+import CircularLoader from "../../SVGCircler/Circular";
 
 const AdminAcceptedEmployeeLeavesApplications = () => {
   const {
@@ -30,6 +32,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
   const [limit] = useState(2);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [leavescount, setLeavescount] = useState([]);
   const[btndisabled,setBtndisabled]=useState(false)
   const [year, setYear] = useState("");
   const [formData, setFormData] = useState({
@@ -56,12 +59,14 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
         }
        
       );
-      console.log(response,"response")
+      // console.log(response,"response")
       // if (response.data.length < limit) {
       //   setHasMore(false);
       // }
 
+      console.log("leave applicationnnnnnnnnnn",response)
       setAdminGettingLeaveApplications(response.leaveApplications);
+      setLeavescount(response.leaves)
     } catch (error) {
       console.error("Error fetching leave applications:", error);
     } finally {
@@ -72,7 +77,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
   useEffect(() => {
     fetchLeaveApplications();
   }, [skip, fetchLeaveApplications]);
-console.log(adminGettingLeaveApplications,"adminGettingLeaveApplications")
+// console.log(adminGettingLeaveApplications,"adminGettingLeaveApplications")
  
 
   const handleFormChange = (e) => {
@@ -145,6 +150,7 @@ console.log(adminGettingLeaveApplications,"adminGettingLeaveApplications")
      
        response = await backEndCallObjNothing("/admin/update_leave_application", data); 
     }
+    
       // const updatedApplication = response.data;
       setAdminGettingLeaveApplications(adminGettingLeaveApplications)
      
@@ -231,6 +237,10 @@ const renderLeaveStatusButtons = useCallback((application) => {
     setHasMore(true);
     fetchLeaveApplications();
   };
+  const handleRefresh = () => {
+    fetchLeaveApplications();
+  };
+
   return (
     <section
       className="admin-accepted-leave-applications"
@@ -239,9 +249,31 @@ const renderLeaveStatusButtons = useCallback((application) => {
         color: applicationColor.readColor1,
       }}
     >
-      <div className="employee-leaves-heading">
-        <p>Employee Leave Applications</p>
-      </div>
+       <div className="d-flex justify-content-between align-items-center">
+  <div className="employee-leaves-heading">
+    <p className="mb-0">Employee Leave Applications</p>
+  </div>
+
+  <div
+    onClick={handleRefresh}
+    style={{
+      cursor: "pointer",
+      display: "flex",
+      alignItems: "center",
+    }}
+  >
+    {loading ? (
+      <div
+        className="spinner-border text-primary"
+        role="status"
+        style={{ height: "20px", width: "20px" }}
+      ></div>
+    ) : (
+      <i className="ri-loop-right-line text-primary fs-5 cursor-pointer"></i>
+    )}
+  </div>
+</div>
+
       <form onSubmit={handleSubmit}>
         <div className="row row-gap-4">
           <div className="col-lg-3 col-md-3 col-sm-6 admin-leave-filters">
@@ -300,6 +332,56 @@ const renderLeaveStatusButtons = useCallback((application) => {
           color: applicationColor.readColor1,
         }}
       >
+    <div className="row">
+      
+    
+
+    {leavescount?.length > 0 ? (
+  leavescount.map((item) => {
+    console.log("Rendering leave item:", item); // Log each item being rendered
+
+    return (
+      <div key={item.leave_id} className="col-sm-6 col-md-4 col-lg-3 mb-4">
+        <div className="card leave-card">
+          <div className="card-body d-flex flex-column align-items-center">
+            
+              <i className={`leave-icon ${item.leave_name.replace(/\s+/g, '-').toLowerCase()}`} alt={item.leave_name}>
+                {item.leave_name.toLowerCase() === "sick leave" ? (
+                  <FaUserDoctor />
+                ) : (
+                  <FcLeave />
+                )}
+              </i>
+              <h5 className="leave-type">{item.leave_name}</h5>
+           
+           
+              <div className="available">
+                <span className="leaves-available">
+                  Available: <b>{item.total_leaves || "0"}</b>
+                </span>
+                <br />
+                <span className="leave-used">
+                  Remaining: <b>{item.remaining_leaves || "0"}</b>
+                  {console.log(item.remaining_leaves)}
+                </span>
+              </div>
+           
+            <CircularLoader
+              max={item?.total_leaves}
+              min={item.remaining_leaves}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  })
+) : (
+  // <div className="text-center">No leave data available</div>
+  ""
+)}
+
+</div>
+
         <section className="d-flex fs-5 my-3">
           <div className="d-flex align-items-center gap-2">
             {tabs.map((tab) => (
@@ -318,6 +400,7 @@ const renderLeaveStatusButtons = useCallback((application) => {
             ))}
           </div>
         </section>
+   
         {currentTab === "calendar-view" ? (
           <div className="row">
             {adminGettingLeaveApplications.length> 0 && adminGettingLeaveApplications?.map((item) => (
@@ -360,7 +443,7 @@ const renderLeaveStatusButtons = useCallback((application) => {
                         <p>To : {item.to_date}</p>
                       </div>
                       <div className="leave-card-data">
-                        {/* <p>Reason: {item.reason}</p> */}
+                     
                         <p>Days Taken: {item.days_taken}</p>
                       </div>
                       <div className="leave-card-data">
@@ -371,36 +454,7 @@ const renderLeaveStatusButtons = useCallback((application) => {
                         <p>Applyed At:</p>
                         <p>{item.createdAt}</p>
                       </div>
-                      {/* <section className="status g-2">
-                        {item.leave_status === "Pending" && (
-                          <>
-                            <button
-                              className="accept py-2 px-3"
-                              onClick={() =>
-                                onLeaveAccept(item.leave_application_id)
-                              }
-                            >
-                              Approve
-                            </button>
-                            <button
-                              className="reject py-2 px-3"
-                              onClick={() =>
-                                onLeaveReject(item.leave_application_id)
-                              }
-                            >
-                              Reject
-                            </button>
-                          </>
-                        )}
-                        {item.leave_status === "Approved" && (
-                          <button className="accept py-2 px-3">Approved</button>
-                        )}
-                        {item.leave_status === "Rejected" && (
-                          <button className="reject py-2 px-3 ms-auto">
-                            Rejected
-                          </button>
-                        )}
-                      </section> */}
+                      
                           <section className="status g-2">
                       {renderLeaveStatusButtons(item)}
                     </section>
@@ -436,25 +490,15 @@ const renderLeaveStatusButtons = useCallback((application) => {
                 <th>Days Taken</th>
                 <th>Reason</th>
                 <th>Leave Status</th>
-                {/* {employeeDetails?.role_name === "" ||
-      employeeDetails?.role_name .toLowerCase()=== "manager" ||
-      employeeDetails?.role_name === "Team Incharge" ? ( */}
+               
         <th>Action</th>
-      {/* ) : null} */}
+     
                 
               </thead>
               <tbody className="admin-leaves-table-body">
                 {adminGettingLeaveApplications.length> 0 && adminGettingLeaveApplications?.map((item) => (
                   <tr key={item.id}>
-                    {/* {tableHeadProperties.map((head, index) => (
-                        <td
-                          key={index}
-                          onClick={() => head.onClick && head.onClick(application)}
-                          style={head.style}
-                        >
-                          {application[head.property]}
-                        </td>
-                      ))} */}
+                   
 
                     <td>{item.employee_id}</td>
                     <td>{item.createdAt}</td>
@@ -466,7 +510,7 @@ const renderLeaveStatusButtons = useCallback((application) => {
                    <td style={{ maxWidth: '200px', wordWrap: 'break-word', whiteSpace: 'normal' }}>
         {item.reason}
       </td>
-                    {/* <td>{item.leave_status}</td> */}
+                 
                     <td>
   <span className={`leave-status ${item.leave_status.toLowerCase()}`}>
     {item.leave_status === "Pending" && <span className="status-pending">Pending</span>}
@@ -476,41 +520,7 @@ const renderLeaveStatusButtons = useCallback((application) => {
 </td>
 
                     <td>{renderLeaveStatusButtons(item)}</td>
-                    {/* <td className="leave-actions"> */}
-                      {/* {application.leave_status === "Pending" && (
-                        <>
-                          <button
-                            className="actions-btn approve"
-                            onClick={() =>
-                              onLeaveAccept(application.leave_application_id)
-                            }
-                          >
-                            <AiOutlineLike />
-                          </button>
-
-                          <button
-                            className="actions-btn reject"
-                            onClick={() =>
-                              onLeaveReject(application.leave_application_id)
-                            }
-                          >
-                            <AiOutlineDislike />
-                          </button>
-                        </>
-                      )}
-                      {application.leave_status === "Approved" && (
-                        <button className="actions-btn approved">
-                          <AiOutlineLike />
-                        </button>
-                      )}
-                      {application.leave_status === "Rejected" && (
-                        <button className="actions-btn reject">
-                          <AiOutlineDislike />
-                        </button>
-                      )} */}
-
-                    {/* </td> */}
-                  </tr>
+                                      </tr>
                 ))}
                 {!loading && adminGettingLeaveApplications.length === 0 && (
                   <tr>
@@ -522,13 +532,7 @@ const renderLeaveStatusButtons = useCallback((application) => {
               </tbody>
             </table>
 
-            {/* {hasMore && !loading && (
-                // <div ref={gettingMoreDataRef} className="d-flex justify-content-center mt-3">
-                //   <button className="load-more" onClick={() => setSkip((prevSkip) => prevSkip + limit)}>
-                //     Load More
-                //   </button>
-                // </div>
-              )} */}
+            
             {loading && (
               <div className="d-flex justify-content-center mt-3">
                 <Loader />
@@ -537,10 +541,7 @@ const renderLeaveStatusButtons = useCallback((application) => {
           </section>
         )}
       </div>
-      {/* <Modal
-        showModal={showModal}
-        onClose={() => setShowModal(false)}
-      /> */}
+    
     </section>
   );
 };

@@ -242,6 +242,20 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             required
           />
         </div>
+     <div className="col-lg-4 col-md-4 col-sm-6">
+        <InputPassword
+            type={"password"}
+            placeholder={"Password"}
+            name={"password"}
+            value={formData["password"]}
+            setForm={setFormData}
+            id={"password"}
+            maxLength={15} 
+            schema={schema.password}
+            imp
+            icon={<MdOutlineKey />}
+          />
+        </div>
         <div className="col-lg-12 col-md-4 col-sm-6">
           <Input_area
             type={"textarea"}
@@ -437,7 +451,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
           />
         </div>
 
-        <div className="col-lg-4 col-md-4 col-sm-6">
+        {/* <div className="col-lg-4 col-md-4 col-sm-6">
         <InputPassword
             type={"password"}
             placeholder={"Password"}
@@ -450,7 +464,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             imp
             icon={<MdOutlineKey />}
           />
-        </div>
+        </div> */}
 
         <div className="col-lg-4 col-md-4 col-sm-6">
           <Select_inputs

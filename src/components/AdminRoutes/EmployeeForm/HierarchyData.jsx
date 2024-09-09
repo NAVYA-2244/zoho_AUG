@@ -14,6 +14,7 @@ import { useStateContext } from "../../Contexts/StateContext";
 import { useThemeContext } from "../../Contexts/ThemesContext";
 import Joi from "joi";
 import { FaPlus } from "react-icons/fa6";
+import { FaMinus } from "react-icons/fa";
 
 const HierarchyData = ({ formData, setFormData }) => {
   const { isAdmin, refs } = useStateContext();
@@ -109,7 +110,7 @@ const HierarchyData = ({ formData, setFormData }) => {
         </div>
         <div className="col-lg-4 col-md-4 col-sm-6">
           <Input_text
-            type={"text"}
+            type={"settinglocation"}
             name={"seating_location"}
             placeholder={"Seating Location"}
             value={formData.seating_location}
@@ -158,7 +159,7 @@ const HierarchyData = ({ formData, setFormData }) => {
           color: applicationColor.readColor1,
         }}
       >
-        <div className="heading-button">
+        {/* <div className="heading-button">
           <h6 className="heading-form pb-2"> Work Experience Data</h6>
           {formData?.work_experience?.length === 0 ||[]||"" && (
             <div className="additional-btns">
@@ -172,6 +173,21 @@ const HierarchyData = ({ formData, setFormData }) => {
               </button>
             </div>
         )} 
+        </div> */}
+        <div className="heading-button">
+          <h6 className="heading-form pb-2"> Previous  Experience Data</h6>
+          {formData?.work_experience?.length === 0 && (
+            <div className="additional-btns">
+              <button
+                className="add-button"
+                onClick={addWorkExperience}
+                type="button"
+              >
+                {/* add new */}
+                <FaPlus/>
+              </button>
+            </div>
+          )}
         </div>
         {/* </section> */}
 
@@ -196,7 +212,8 @@ const HierarchyData = ({ formData, setFormData }) => {
                     onClick={() => addWorkExperience(index + 1)}
                     type="button"
                   >
-                    add new
+                    {/* add new */}
+                    <FaPlus/>
                   </button>
                 ) : (
                   ""
@@ -324,7 +341,8 @@ const HierarchyData = ({ formData, setFormData }) => {
                     onClick={() => removeWorkExperience(index)}
                     type="button"
                   >
-                    remove
+                    {/* remove */}
+                    <FaMinus />
                   </button>
                 ) : (
                   ""

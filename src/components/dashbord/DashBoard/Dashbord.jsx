@@ -16,46 +16,55 @@ import { useFunctionContext } from "../../Contexts/FunctionContext";
 import { toastOptions } from "../../../Utils/FakeRoutes";
 import Birthday from "../BirthdaysAndNewHires/Birthday";
 import Dashbordstats from "./Dashbordstats";
+import Companydetails from "../../AdminRoutes/Companydetails/Companydetails";
 
 const Dashbord = () => {
+  const {
+    employeeDetails,
+    setOrgLogo,
+    orgDetails,
+  } = useStateContext();
   const { applicationColor } = useThemeContext(); //applicalion color to apply the colors based on white theme or dark theme
   // Below Just JSX and Reusable components
   return (
-    <main className="main_content">
-      <section className="row-1">
-        {/* <div
-          className="d_card"
-          style={{ background: applicationColor.cardItem }}
-        >
-          <CheckIn />
-        </div> */}
-        <OnlyBirthDaysAndNewHires />
+   
+//     <main className="main_content">
+//        {employeeDetails.admin_type === "1" && employeeDetails.organisation_id.lenght >=9 ?
+//        <Companydetails/> :
+       
+      
+//       <section className="row-1">
 
-        {/* <div
-          className="d_card-2"
-          style={{ background: applicationColor.cardItem }}
-        >
-          <EmployeeLeaveApplicationStatus />
-        </div> */}
+       
+//         <OnlyBirthDaysAndNewHires />
 
-        {/* <div
-          className="d_card d_card1"
-          style={{ background: applicationColor.cardItem }}
-        >
-          <EmployeeTodos />
-        </div> */}
-        <div
-          className="d_card-3 bar-card col-md-12"
-          style={{ background: applicationColor.cardItem }}
-        >
-          <CustomBarChart />
-        </div>
-      </section>
-
-      {/* <section className="row-2">
         
-      </section> */}
-    </main>
+//         <div
+//           className="d_card-3 bar-card col-md-12"
+//           style={{ background: applicationColor.cardItem }}
+//         >
+//           <CustomBarChart />
+//         </div>
+//       </section>
+//  }
+     
+//     </main>
+<main className="main_content">
+  {employeeDetails.admin_type === "1" && employeeDetails.organisation_id.length < 9 ? (
+    <Companydetails />
+  ) : (
+    <section className="row-1">
+      <OnlyBirthDaysAndNewHires />
+      <div
+        className="d_card-3 bar-card col-md-12"
+        style={{ background: applicationColor.cardItem }}
+      >
+        <CustomBarChart />
+      </div>
+    </section>
+  )}
+</main>
+
   );
 };
 

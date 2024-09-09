@@ -516,6 +516,10 @@ const Projects = () => {
     setProjects(newProjects);
     setDraggedIndex(null);
   };
+  const handleRefresh = () => {
+    fetchProjects();
+   
+  };
 
   return (
     <section
@@ -540,6 +544,27 @@ const Projects = () => {
       ) : (
         <>
           <div className="row">
+          <div className="d-flex align-items-center gap-2">
+                <h4 className="mb-0">Project Details</h4>
+                <div
+                  onClick={handleRefresh}
+                  style={{
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  {loading ? (
+                    <div
+                      className="spinner-border text-primary"
+                      role="status"
+                      style={{ height: "20px", width: "20px" }}
+                    ></div>
+                  ) : (
+                    <i className="ri-loop-right-line text-primary fs-5 cursor-pointer"></i>
+                  )}
+                </div>
+              </div>
             <div className="mb-4 text-end mt-3">
               <button
                 className="btn btn-primary"

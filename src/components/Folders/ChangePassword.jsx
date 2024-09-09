@@ -1105,7 +1105,7 @@ const ChangePassword = () => {
                 <div className="form-group mb-3">
                   <label htmlFor="newPassword">New Password</label>
                   <div className="input-group" style={{ position: "relative" }}>
-                    <input
+                    {/* <input
                       type={showNewPassword ? "text" : "password"}
                       id="newPassword"
                       name="newPassword"
@@ -1118,7 +1118,22 @@ const ChangePassword = () => {
                       }}
                       onChange={handleInputChange}
                       maxLength={10}
-                    />
+                    /> */}
+                    <input
+  type={showNewPassword ? "text" : "password"}
+  id="newPassword"
+  name="newPassword"
+  placeholder="New Password"
+  value={formData.newPassword}
+  style={{
+    borderRadius: "10px",
+    width: "450px",
+    height: "50px",
+  }}
+  onChange={handleInputChange}
+  maxLength={10}
+  autoCapitalize="none"
+/>
                     <span
                       onClick={() => setShowNewPassword(!showNewPassword)}
                       style={{
@@ -1142,7 +1157,7 @@ const ChangePassword = () => {
                 <div className="form-group mb-3">
                   <label htmlFor="confirmPassword">Confirm Password</label>
                   <div className="input-group" style={{ position: "relative" }}>
-                    <input
+                    {/* <input
                       type={showConfirmPassword ? "text" : "password"}
                       id="confirmPassword"
                       name="confirmPassword"
@@ -1155,7 +1170,22 @@ const ChangePassword = () => {
                       }}
                       onChange={handleInputChange}
                       maxLength={10}
-                    />
+                    /> */}
+                    <input
+  type={showConfirmPassword ? "text" : "password"}
+  id="confirmPassword"
+  name="confirmPassword"
+  placeholder="Confirm Password"
+  value={formData.confirmPassword}
+  style={{
+    borderRadius: "10px",
+    width: "450px",
+    height: "50px",
+  }}
+  onChange={handleInputChange}
+  maxLength={10}
+  autoCapitalize="none"
+/>
                     <span
                       onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                       style={{

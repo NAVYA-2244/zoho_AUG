@@ -90,7 +90,7 @@ const TableHead = ({
   tableHeadProperties,
   data,
   component,
-  loadMoreRef,
+  // loadMoreRef,
   getExtraDataType,
 }) => {
   const [sort, setSort] = useState({ property: null, direction: "asc" });
@@ -108,7 +108,6 @@ const TableHead = ({
   };
 
   const sortedData = _.orderBy(data, sort.property, sort.direction);
-console.log(data)
   return (
     <>
       <thead
@@ -149,7 +148,7 @@ console.log(data)
         tableHeadProperties={tableHeadProperties}
         sortedData={sortedData}
         component={component}
-        loadMoreRef={loadMoreRef}
+        // loadMoreRef={loadMoreRef}
         getExtraDataType={getExtraDataType}
       />
     </>
