@@ -14,6 +14,7 @@ import { Date_Input } from "../../common/ALLINPUTS/AllInputs";
 import moment from "moment-timezone";
 import { FcLeave } from "react-icons/fc";
 import CircularLoader from "../../SVGCircler/Circular";
+import { format } from "date-fns";
 
 const AdminAcceptedEmployeeLeavesApplications = () => {
   const {
@@ -515,6 +516,83 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
             </div>
           </div>
         ) : (
+          // <section className="tables">
+          //   <table className="main-table table-bordered table-responsive admin-employee-leaves-table">
+          //     <thead
+          //       className="admin-leaves-table-head"
+          //       style={{
+          //         background: applicationColor.tableHeadBg,
+          //         color: applicationColor.readColor1,
+          //       }}
+          //     >
+          //       <th>Employee IDf</th>
+          //       <th>Applyed At </th>
+          //       <th>Employee Name</th>
+          //       <th>Leave Type</th>
+          //       <th>From Date</th>
+          //       <th>To Date</th>
+          //       <th>Days Taken</th>
+          //       <th>Reason</th>
+          //       <th>Leave Status</th>
+
+          //       <th>Action</th>
+          //     </thead>
+          //     <tbody className="admin-leaves-table-body">
+          //       {adminGettingLeaveApplications.length > 0 &&
+          //         adminGettingLeaveApplications?.map((item) => (
+          //           <tr key={item.id}>
+          //             <td>{item.employee_id}</td>
+          //             <td>{item.createdAt}</td>
+          //             <td>{item.employee_name}</td>
+          //             <td>{item.leave_type}</td>
+          //             <td>{item.from_date}</td>
+          //             <td>{item.to_date}</td>
+          //             <td>{item.days_taken}</td>
+          //             <td
+          //               style={{
+          //                 maxWidth: "200px",
+          //                 wordWrap: "break-word",
+          //                 whiteSpace: "normal",
+          //               }}
+          //             >
+          //               {item.reason}
+          //             </td>
+
+          //             <td>
+          //               <span
+          //                 className={`leave-status ${item.leave_status.toLowerCase()}`}
+          //               >
+          //                 {item.leave_status === "Pending" && (
+          //                   <span className="status-pending">Pending</span>
+          //                 )}
+          //                 {item.leave_status === "Approved" && (
+          //                   <span className="status-approved">Approved</span>
+          //                 )}
+          //                 {item.leave_status === "Rejected" && (
+          //                   <span className="status-rejected">Rejected</span>
+          //                 )}
+          //               </span>
+          //             </td>
+
+          //             <td>{renderLeaveStatusButtons(item)}</td>
+          //           </tr>
+          //         ))}
+          //       {!loading && adminGettingLeaveApplications.length === 0 && (
+          //         <tr>
+          //           <td colSpan={9} className="text-center">
+          //             No Pending leaves
+          //           </td>
+          //         </tr>
+          //       )}
+          //     </tbody>
+          //   </table>
+
+          //   {loading && (
+          //     <div className="d-flex justify-content-center mt-3">
+          //       <Loader />
+          //     </div>
+          //   )}
+          // </section>
           <section className="tables">
             <table className="main-table table-bordered table-responsive admin-employee-leaves-table">
               <thead
@@ -524,8 +602,9 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
                   color: applicationColor.readColor1,
                 }}
               >
-                <th>Employee ID</th>
-                <th>Applyed At </th>
+                {/* Removed Employee ID column */}
+                <th>Action</th>
+                <th>Applyed At</th>
                 <th>Employee Name</th>
                 <th>Leave Type</th>
                 <th>From Date</th>
@@ -533,16 +612,23 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
                 <th>Days Taken</th>
                 <th>Reason</th>
                 <th>Leave Status</th>
-
-                <th>Action</th>
               </thead>
               <tbody className="admin-leaves-table-body">
                 {adminGettingLeaveApplications.length > 0 &&
                   adminGettingLeaveApplications?.map((item) => (
                     <tr key={item.id}>
-                      <td>{item.employee_id}</td>
-                      <td>{item.createdAt}</td>
-                      <td>{item.employee_name}</td>
+                      {console.log(adminGettingLeaveApplications, "leave")}
+                      <td>{renderLeaveStatusButtons(item)}</td>
+                      {/* <td>{item.createdAt}</td> */}
+                      <td>{format(new Date(item.createdAt), "dd-MM-yyyy")}</td>
+                      {console.log(item.createdAt, "at")}
+                      <td>
+                        {item.employee_name}
+                        <br />
+                        <small style={{ color: "#888" }}>
+                          {item.employee_id}
+                        </small>
+                      </td>
                       <td>{item.leave_type}</td>
                       <td>{item.from_date}</td>
                       <td>{item.to_date}</td>
@@ -572,13 +658,13 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
                           )}
                         </span>
                       </td>
-
-                      <td>{renderLeaveStatusButtons(item)}</td>
+                      {/* 
+                      <td>{renderLeaveStatusButtons(item)}</td> */}
                     </tr>
                   ))}
                 {!loading && adminGettingLeaveApplications.length === 0 && (
                   <tr>
-                    <td colSpan={9} className="text-center">
+                    <td colSpan={8} className="text-center">
                       No Pending leaves
                     </td>
                   </tr>
