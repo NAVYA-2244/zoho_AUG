@@ -148,6 +148,7 @@ const AddEmployee = () => {
         type={"Add Employee"}
         submit={handleSubmit}
         btndisabled={btndisabled}
+        disableobj={{password:true}}
       />
     </>
   );

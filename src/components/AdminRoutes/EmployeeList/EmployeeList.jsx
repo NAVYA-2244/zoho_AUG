@@ -551,6 +551,7 @@ import Loader from "../../Loader/Loader";
 import { useThemeContext } from "../../Contexts/ThemesContext";
 import { AiOutlineEdit } from "react-icons/ai";
 import { backEndCallObjNothing } from "../../../services/mainService";
+import { debounce } from "lodash";
 
 const EmployeeList = () => {
   const {
@@ -560,8 +561,11 @@ const EmployeeList = () => {
     setEmployeesList,
   } = useStateContext();
   const { applicationColor } = useThemeContext();
+  const [isFetching, setIsFetching] = useState(false);
   const [skip, setSkip] = useState(0);
+  const [filteredEmployees, setFilteredEmployees] = useState([]);
   const[bkcoll,setbkcall]=useState(false)
+  const [searchTerm, setSearchTerm] = useState("");
   const[loadMore,setLoadMore]=useState(false)
   // Initialize skip to 0
   const observer = useRef();
@@ -621,7 +625,62 @@ if(employeesList.length >=50){
       if (node) observer.current.observe(node);
   },
 );
+const debouncedSearchHandler = useCallback(
+      debounce((term) => {
+        if (term.length > 0) {
+          const lowerCaseSearchTerm = term.toLowerCase();
+          const filteredItems = employeesList.filter((item) => {
+            const {
+              employee_id,
+              basic_info: { first_name, last_name, email },
+              work_info: {
+                department_name,
+                designation_name,
+                location_name,
+                date_of_join,
+                shift_name,
+              },
+              contact_details: { seating_location },
+            } = item;
+  
+            return (
+              employee_id.toLowerCase().includes(lowerCaseSearchTerm) ||
+              first_name?.toLowerCase().includes(lowerCaseSearchTerm) ||
+              last_name?.toLowerCase().includes(lowerCaseSearchTerm) ||
+              email?.toLowerCase().includes(lowerCaseSearchTerm) ||
+              department_name?.toLowerCase().includes(lowerCaseSearchTerm) ||
+              designation_name?.toLowerCase().includes(lowerCaseSearchTerm) ||
+              seating_location?.toLowerCase().includes(lowerCaseSearchTerm) ||
+              date_of_join?.toLowerCase().includes(lowerCaseSearchTerm) ||
+              shift_name?.toLowerCase().includes(lowerCaseSearchTerm)
+            );
+          });
+  
+          setFilteredEmployees(filteredItems);
+        } else {
+          setFilteredEmployees(null);
+        }
+      }, 300),
+      [filteredEmployees]
+    );
+  
+    useEffect(() => {
+      debouncedSearchHandler(searchTerm);
+      return debouncedSearchHandler.cancel;
+    }, [searchTerm, debouncedSearchHandler]);
+  
+    const handleRefresh = async () => {
+      if (isFetching) return;
 
+      setIsFetching(true);
+      try {
+          await fetchData();
+      } finally {
+          setIsFetching(false);
+      }
+  };
+
+  const kk = filteredEmployees ?   filteredEmployees : employeesList
 
   return (
     <section className="table-query new-query">
@@ -632,6 +691,37 @@ if(employeesList.length >=50){
         }}
         className="table-wrapper py-2 px-3"
       >
+        <div className="search-bar sticky-top mb-2">
+         <div
+            className="searchbar-loading"
+            style={{
+              color: applicationColor.readColor1,
+              background: applicationColor.cardBg2,
+            }}
+          >
+            <input
+              className="employee-search"
+              type="text"
+              placeholder="Search here..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              name={"searchTerm"}
+              id="employee-search"
+              style={{
+                color: applicationColor.readColor1,
+              }}
+            />
+          </div>
+          <div onClick={handleRefresh} disabled={isFetching}>
+                                {isFetching ? (
+                                    <div className="spinner-border text-primary" role="status" style={{ height: "20px", width: "20px" }}>
+
+                                    </div>
+                                ) : (
+                                    <i className="ri-loop-right-line text-primary fs-22 cursor-pointer me-2"></i>
+                                )}
+                            </div>
+        </div> 
         <div className="tables">
           <table className="table table-bordered table-responsive rounded-1">
             <thead>
@@ -647,7 +737,7 @@ if(employeesList.length >=50){
             </thead>
             <tbody>
               {employeesList.length > 0 ? (
-                employeesList.map((employee, index) => {
+                kk.map((employee, index) => {
                   if (index === employeesList.length - 1) {
                     // Attach ref to the last element for the observer
                     return (

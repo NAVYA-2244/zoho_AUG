@@ -40,7 +40,7 @@ const LeavesSettings = () => {
     total_leaves: Joi.number()
       .required()
       .min(1)
-      .max(10)
+      .max(100)
       .messages({
         "number.min": "Total leaves must be at least 1.",
         "number.max": "Total leaves cannot exceed 10.",
@@ -285,7 +285,7 @@ const LeavesSettings = () => {
                         className="form-control"
                         value={formData.total_leaves}
                         min={1}
-                        max={10}
+                        max={100}
                         onChange={(e) => handleLeaveChange("total_leaves", e.target.value)}
                       />
                       {errors.total_leaves && <div className="text-danger">{errors.total_leaves}</div>}

@@ -1115,7 +1115,7 @@ export const ExpirementSchema = {
     .label("Employee Id"),
     password: Joi.string()
       .min(8)
-      .max(15)
+      // .max(50)
       // .required()
       .pattern(
         /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\|\-=])/
@@ -1720,6 +1720,8 @@ const EmployeeDataSchema = {
       .min(8)
       .max(15)
       // .required()
+      .allow("")
+      .optional()
       .pattern(
         /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\|\-=])/
       )

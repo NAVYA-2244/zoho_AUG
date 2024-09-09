@@ -116,9 +116,10 @@ import "./ReusableProfileForm.scss";
 import { useThemeContext } from "../../Contexts/ThemesContext";
 import { useStateContext } from "../../Contexts/StateContext";
 
-const ReusableProfileForm = ({ form, type, submit ,disabled}) => {
+const ReusableProfileForm = ({ form, type, submit ,disabled,disableobj}) => {
   const { loading, loadingTerm } = useStateContext();
   const [formData, setFormData] = useState(form);
+
   const [initialEmployeeId, setInitialEmployeeId] = useState(form.employee_id);
   const { applicationColor } = useThemeContext();
 
@@ -146,15 +147,17 @@ console.log(form,"form")
 
   return (
     <form className="profile-form" onSubmit={handleSubmit}>
-      <BasicEmployeeData
-        formData={formData}
-        setFormData={setFormData}
-        type={type}
-      />
+     <BasicEmployeeData
+  formData={formData}
+  setFormData={setFormData}
+  type={type}
+  disableobj={disableobj}  // Passing disableobj to the child component
+/>
       <WorkInformationData
         formData={formData}
         setFormData={setFormData}
         className={"workInformationData"}
+
       />
 
       <HierarchyData formData={formData} setFormData={setFormData} />

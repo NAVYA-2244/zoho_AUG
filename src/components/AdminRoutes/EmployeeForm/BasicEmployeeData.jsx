@@ -15,7 +15,7 @@ import { backEndCallObjNothing } from "../../../services/mainService";
 import { toastOptions } from "../../../Utils/FakeRoutes";
 import { MdOutlineKey } from "react-icons/md";
 
-const BasicEmployeeData = ({ formData, setFormData, type }) => {
+const BasicEmployeeData = ({ formData, setFormData,disableobj,type }) => {
   const {
     isAdmin,
     refs,
@@ -93,6 +93,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
     }
   }, [employeeDetails.admin_type, reportingmangers, setLoading]);
 
+console.log(orgDetails,"navya")
  
   return (
     <>
@@ -119,7 +120,9 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             maxLength={10}
             // readOnly={isAdmin || type === "Update Employee"}
             inputRef={(el) => (refs.current.employee_id = el)}
-          />
+          /> 
+          {console.log(employeeDetails.employees,"navya")}
+
           {employeeDetails.admin_type === "1"|| employeeDetails.admin_type === "2"&&
           
           <p className="note-heading" style={{ color: "green" }}>
@@ -242,6 +245,7 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             required
           />
         </div>
+        {disableobj?.password && (
      <div className="col-lg-4 col-md-4 col-sm-6">
         <InputPassword
             type={"password"}
@@ -250,12 +254,13 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
             value={formData["password"]}
             setForm={setFormData}
             id={"password"}
-            maxLength={15} 
+            // maxLength={15} 
             schema={schema.password}
             imp
             icon={<MdOutlineKey />}
+            disabled={disableobj?.password} 
           />
-        </div>
+        </div>)}
         <div className="col-lg-12 col-md-4 col-sm-6">
           <Input_area
             type={"textarea"}
@@ -507,8 +512,8 @@ const BasicEmployeeData = ({ formData, setFormData, type }) => {
   schema={schema.reporting_manager}
   setForm={setFormData}
   options={filteredEmployees.map((employee) => ({
-    displayName: `${employee.basic_info.email}`, // Display email
-    employeeId: employee.employee_id, // Store employee ID for payload
+    displayName: `${employee.basic_info.first_name}`, // Display email
+    email: employee.email, // Store employee ID for payload
     email: employee.basic_info.email, // Store email for payload
   }))}
   property={"displayName"} // Display email

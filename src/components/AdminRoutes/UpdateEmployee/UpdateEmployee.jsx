@@ -38,6 +38,7 @@ const UpdateEmployee = () => {
           `/admin_get/get_emp_by_id`,
           { employee_id: employeId }
         );
+
 console.log(employee,"employeupdate")
 
 
@@ -50,7 +51,7 @@ console.log(employee,"employeupdate")
           work_experience,
           educational_details,
           dependent_details,
-          // password,
+          password,
           employee_id,
         } = employee;
 
@@ -81,9 +82,11 @@ console.log(employee,"employeupdate")
         form.educational_details = educational_details;
         form.dependent_details = dependent_details;
         form.employee_id = employee_id;
-        // form.password=password;
+        form.password=password;
         setUpdateEmployeeData(form);
+
         console.log({ updateForm: form });
+
       } catch (error) {
         setLoading(false);
       } finally {
@@ -267,6 +270,7 @@ console.log(updateEmployeedata,"updateEmployeedata")
           type={"Update Employee"}
           submit={handleSubmit}
           disabled={btndisabled}
+          disableobj={{password:false}}
         />
       ) : (
         <Loader />

@@ -11,6 +11,7 @@ import { MdPermIdentity } from "react-icons/md";
 import { MdOutlineMail } from "react-icons/md";
 import { FaPhone } from "react-icons/fa";
 import { PiIdentificationBadgeBold } from "react-icons/pi";
+import { Input_area } from "../../../common/ALLINPUTS/AllInputs";
 
 let educationDetailsProperties = [
   {
@@ -327,6 +328,7 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
           }}
         >
                  <ProfilePhoto />
+                 
           {/* tabs section */}
           <section
             className="tab-buttons"
@@ -335,6 +337,7 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
               color: applicationColor.readColor2,
             }}
           >
+           
             {tabs.map((tab) => (
               <button
                 key={tab.name}

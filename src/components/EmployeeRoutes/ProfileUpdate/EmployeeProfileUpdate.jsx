@@ -534,6 +534,7 @@ const EmployeeProfileUpdate = ({ form }) => {
   const [redirect, setRedirect] = useState(false);
   const [browserId, setBrowserId] = useState("");
   const[btndisabled,setButtonDisabled]=useState(false)
+  const[disableobj,setdisableobj]=useState(false)
   useEffect(() => {
     const getBrowserId = async () => {
       const fp = await FingerprintJS.load();
@@ -634,6 +635,7 @@ const EmployeeProfileUpdate = ({ form }) => {
     try {
       setLoading(true);
       setButtonDisabled(true)
+
       setLoadingTerm("Update Profile");
 
       // Create a new object with only the required fields
@@ -689,6 +691,7 @@ const EmployeeProfileUpdate = ({ form }) => {
       toastOptions.success(res.success);
       setRedirect(true); // This should display the message
       setButtonDisabled(false)
+      
     } catch (error) {
       console.error("Error updating profile:", error);
       toastOptions.error(error?.response?.data)
@@ -720,6 +723,7 @@ const EmployeeProfileUpdate = ({ form }) => {
           type="Update Profile"
           submit={handleSubmit}
           disabled={btndisabled} 
+          disableobj={{password:false}}
         />
       ) : (
         <Loader />
