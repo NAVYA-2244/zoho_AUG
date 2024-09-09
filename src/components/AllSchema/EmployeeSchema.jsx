@@ -1106,7 +1106,7 @@ export const ExpirementSchema = {
   employee_id: Joi.string()
     .min(5)
     .max(10)
-    .required()
+    // .required()
     .messages({
       "string.pattern.base":
         '"Employee Id" should not include special characters',
@@ -1116,7 +1116,7 @@ export const ExpirementSchema = {
     password: Joi.string()
       .min(8)
       .max(15)
-      .required()
+      // .required()
       .pattern(
         /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\|\-=])/
       )
@@ -1719,7 +1719,7 @@ const EmployeeDataSchema = {
     password: Joi.string()
       .min(8)
       .max(15)
-      .required()
+      // .required()
       .pattern(
         /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\|\-=])/
       )

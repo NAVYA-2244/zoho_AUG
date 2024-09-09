@@ -7,6 +7,7 @@ import { toastOptions } from "../../../../../Utils/FakeRoutes";
 import Loader from "../../../../Loader/Loader";
 import Joi from "joi";
 import { RiEdit2Fill } from "react-icons/ri";
+import Roles from './Roles';
 
 const LeavesSettings = () => {
   const [showModal, setShowModal] = useState(false);
@@ -15,7 +16,7 @@ const LeavesSettings = () => {
     leave_name: "",
     total_leaves: 0,
     leave_id: "",
-    designation_id: "", // This is hidden but used in payload
+    role_id: "", // This is hidden but used in payload
   });
   const [errors, setErrors] = useState({});
   const [btndisabled, setBtndisabled] = useState(false);
@@ -27,7 +28,7 @@ const LeavesSettings = () => {
   // Joi schema for validation
   const schema = Joi.object({
     organisation_id: Joi.string().min(5).max(20).required(),
-    designation_id: Joi.string().min(5).max(12).required(),
+    role_id: Joi.string().min(5).max(12).required(),
     leave_name: Joi.string()
       .required()
       .min(4)
@@ -47,23 +48,23 @@ const LeavesSettings = () => {
     leave_id: Joi.string().optional().allow(""),
   });
 
-  const handleAddItems = (designation_id) => {
+  const handleAddItems = (role_id) => {
     setFormData({
       leave_name: "",
       total_leaves: 0,
       leave_id: "",
-      designation_id: designation_id,
+      role_id: role_id,
     });
     setShowModal(true);
     setEdit(false);
   };
 
-  const handleEditItems = (leave, designation_id) => {
+  const handleEditItems = (leave, role_id) => {
     setFormData({
       leave_name: leave.leave_name,
       total_leaves: leave.total_leaves,
       leave_id: leave.leave_id,
-      designation_id:designation_id, // Pass designation_id directly
+      role_id:role_id, // Pass designation_id directly
     });
     setShowModal(true);
     setEdit(true);
@@ -127,7 +128,7 @@ const LeavesSettings = () => {
 
       const dataToSubmit = {
         organisation_id: orgDetails?.organisation_id,
-        designation_id: formData.designation_id.trim(), // Include designation_id in payload
+        role_id: formData.role_id.trim(), // Include designation_id in payload
         leave_name: formData.leave_name.trim(),
         total_leaves: formData.total_leaves,
         leave_id: formData.leave_id ? formData.leave_id.trim(): "",
@@ -147,7 +148,7 @@ const LeavesSettings = () => {
         leave_name: "",
         total_leaves: 0,
         leave_id: "",
-        designation_id: "", // Reset designation_id
+        role_id: "", // Reset designation_id
       });
       setErrors({});
       setEdit(false);
@@ -172,9 +173,9 @@ const LeavesSettings = () => {
         }}
       >
    <section className="row">
-  {orgDetails?.designations?.length > 0 ? (
+  {orgDetails?.roles?.length > 0 ? (
     <div className="row">
-      {orgDetails.designations.map((designation, index) => (
+      {orgDetails.roles.map((roles, index) => (
         <div className="col-12 col-md-6 col-lg-4 mb-4" key={index}>
           <div
             className="admin-controls-card position-relative"
@@ -192,17 +193,17 @@ const LeavesSettings = () => {
           >
             <div>
               <h5 className="mb-3 d-flex justify-content-between align-items-center" style={{ fontWeight: '600' }}>
-                {designation.designation_name}
+                {roles.role_name}
                 <button
                   className="btn btn-sm btn-primary"
-                  onClick={() => handleAddItems(designation.designation_id)}
+                  onClick={() => handleAddItems(roles.role_id)}
                 >
                   Add Leaves
                 </button>
               </h5>
               <div>
-                {designation.leaves?.length > 0 ? (
-                  designation.leaves.map((item, leaveIndex) => (
+                {roles.leaves?.length > 0 ? (
+                  roles.leaves.map((item, leaveIndex) => (
                     <div
                       className="leave-item d-flex justify-content-between align-items-center mb-2"
                       key={leaveIndex}
@@ -213,7 +214,7 @@ const LeavesSettings = () => {
                         boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                         position: 'relative',
                       }}
-                      onClick={() => handleEditItems(item, designation.designation_id)}
+                      onClick={() => handleEditItems(item, roles.role_id)}
                     >
                       {/* <h6 className="mb-0" style={{ fontSize: '1rem', marginRight: 'auto' }}>
                         {item.leave_name}

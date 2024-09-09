@@ -38,7 +38,7 @@ function ApplyLeaveForm() {
     leave_type: "",
     reason: "",
     // days_taken: '',
-    team_mail_id: "",
+    // team_mail_id: "",
   });
   useEffect(() => {
     const gettingEmployeeById = async () => {
@@ -77,16 +77,16 @@ console.log(employeedataleaves)
       .pattern(/[a-zA-Z0-9 ]*/)
       .required()
       .label("Reason"),
-    team_mail_id: Joi.string()
-      .min(5)
-      .max(35)
-      .email({ tlds: { allow: ["com", "net", "org","io"] } })
-      .required()
-      .messages({
-        "string.pattern.base": '"Email" should not include special characters',
-        "any.required": '"Email" is required',
-      })
-      .label("Email Id"),
+    // team_mail_id: Joi.string()
+    //   .min(5)
+    //   .max(35)
+    //   .email({ tlds: { allow: ["com", "net", "org","io"] } })
+    //   .required()
+    //   .messages({
+    //     "string.pattern.base": '"Email" should not include special characters',
+    //     "any.required": '"Email" is required',
+    //   })
+    //   .label("Email Id"),
   };
 
   const onLeaveApply = async (e) => {
@@ -107,7 +107,7 @@ console.log(employeedataleaves)
         leave_type: "",
         reason: "",
         // days_taken: '',
-        team_mail_id: "",
+        // team_mail_id: "",
       });
       toastOptions.success(
         response.success,
@@ -179,7 +179,7 @@ console.log(employeedataleaves)
             </div>
             <div className="col-lg-6 col-md-6">
               <section>
-                <Input_email
+                {/* <Input_email
                   type="email"
                   placeholder="Team Email ID"
                   name="team_mail_id"
@@ -187,7 +187,7 @@ console.log(employeedataleaves)
                   setForm={setFormData}
                   schema={leaveFormSchema.team_mail_id}
                   imp
-                />
+                /> */}
                 <Date_Input
                   type="date"
                   value={formData.to_date}
