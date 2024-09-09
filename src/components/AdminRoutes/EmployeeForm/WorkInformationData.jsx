@@ -82,8 +82,8 @@ import { useThemeContext } from "../../Contexts/ThemesContext";
 const WorkInformationData = ({ formData, setFormData }) => {
   const { refs } = useStateContext();
   const { applicationColor } = useThemeContext();
-  
-console.log(formData,"formata")
+
+  console.log(formData, "formata");
 
   return (
     <>
@@ -99,8 +99,8 @@ console.log(formData,"formata")
 
         <div className="col-lg-4 col-md-4 col-sm-6">
           <Input_text
-            type={"tel"}
-            name={"passsport"}
+            type={"text"}
+            name={"uan"}
             placeholder={"UAN Number"}
             value={formData.uan}
             setForm={setFormData}
@@ -110,6 +110,7 @@ console.log(formData,"formata")
         </div>
         <div className="col-lg-4 col-md-4 col-sm-6">
           <Input_text
+            type={"text"}
             name={"pan"}
             placeholder={"PAN Number"}
             value={formData.pan}
@@ -132,7 +133,7 @@ console.log(formData,"formata")
         </div>
         <div className="col-lg-4 col-md-4 col-sm-6">
           <Input_text
-            type={"tel"}
+            type={"text"}
             name={"passport"}
             placeholder={"Passport"}
             value={formData.passport}

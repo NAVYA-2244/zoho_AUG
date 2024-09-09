@@ -38,8 +38,8 @@ export const StateContextProvider = ({ children }) => {
     []
   );
   const [adminGettingLeaveApplications, setAdminGettingLeaveApplications] =
-    useState([]);
-    const [reportingmangers, setreportingmangers] =useState([]);
+    useState(null);
+  const [reportingmangers, setreportingmangers] = useState([]);
 
   const [loadingTerm, setLoadingTerm] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -50,7 +50,7 @@ export const StateContextProvider = ({ children }) => {
   const [singleEmployeeProfile, setSingleEmployeeProfile] = useState({});
 
   const [todayAttendance, setTodayAttendance] = useState([]);
-  const [todayAttendanceAdmin,setTodayAttendanceAdmin] = useState([]);
+  const [todayAttendanceAdmin, setTodayAttendanceAdmin] = useState([]);
 
   // State to manage the latitude and longitude
   const [location, setLocation] = useState({ lat: null, lng: null });
@@ -58,7 +58,7 @@ export const StateContextProvider = ({ children }) => {
   const [orgDetails, setOrgDetails] = useState({});
   const [recentHire, setrecentHire] = useState([]);
   const [Birthdays, setBirthdays] = useState([]);
-  
+
   // All States for modals
   const [attendanceModal, setAttendanceModal] = useState(false);
   const [attendanceModalData, setAttendanceModalData] = useState({
@@ -91,8 +91,8 @@ export const StateContextProvider = ({ children }) => {
   const [files, setFiles] = useState([]);
   const [editingFile, setEditingFile] = useState({});
   const [employeedata, setEmployeedata] = useState(null);
-  const [ stats,setStats,] = useState(null);
-  
+  const [stats, setStats] = useState(null);
+
   return (
     <StateContext.Provider
       value={{
@@ -187,8 +187,8 @@ export const StateContextProvider = ({ children }) => {
         setTodayAttendanceAdmin,
         stats,
         setStats,
-        reportingmangers, 
-        setreportingmangers
+        reportingmangers,
+        setreportingmangers,
       }}
     >
       {children}

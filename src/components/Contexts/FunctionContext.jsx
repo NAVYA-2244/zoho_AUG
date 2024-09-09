@@ -14,98 +14,65 @@ export const FunctionContextProvider = ({ children }) => {
   } = useStateContext();
   //  const navigate= useNavigate()
   const handleChange = (e, schema, setForm, index = null, fieldName = null) => {
-    console.log("hiiiiiiiiii")
-    const { name, type, checked, id } = e.target;
-    let value = e.target.value;
-    let max = schema?._rules[1]?.args?.limit || 200;
-    if (type === "checkbox") {
-      value = checked;
-    }
-    if (value.length > max && type !== "file") {
-      return;
-    }
-    // if ((type === "textarea" || type === "email") && id !== "password") {
-    //   value = value.replace(/[^A-Za-z0-9@.\s-]/g, "");
-    // }
-    if (type === "textarea" && id !== "password") {
-      // For textarea: Allow alphanumeric characters, spaces, dots, commas, and hyphens
-      // value = value.replace(/[^A-Za-z0-9.,\s-]/g, "");
-      value = value.replace(/[^A-Za-z0-9.,\s\-\\/]/g, "");
+    const { name, type, checked, id, value: inputValue } = e.target;
+    let value = inputValue;
 
+    // Define max length based on schema
+    let max = schema?._rules?.[1]?.args?.limit || 200;
 
+    // Handle checkbox inputs
+    if (type === "checkbox") value = checked;
 
-    }
-     else if (type === "email" && id !== "password") {
-      // For email: Allow alphanumeric characters, @, ., -, and _
-      value = value.replace(/[^A-Za-z0-9@._-]/g, "");
-    }
-    
-    
-    // if (
-    //   type === "text" &&
-    //   name !== "uan" &&
-    //   name !== "pan" &&
-    //   name !== "longitude" &&
-    //   name !== "latitude" &&
-    //   name !== "employee_id" &&
-    //   id !== "password"
-    // ) {
-    //   value = value.replace(/[^A-Za-z" "]/g, "");
-    // }
-    if (type === "text" && id !== "password") {
-      // if (name === "pan") {
-      //   // Allow only uppercase letters and numbers for "pan" field
-      //   value = value.replace(/[^A-Z0-9]/g, "");
-      // }
-      
-      if (name === "organisation_name") {
-        // Allow both uppercase, lowercase letters, and numbers for "company name" field
-        // value = value.replace(/[^a-zA-Z0-9] /g, "");
-        value = value.replace(/[^a-zA-Z0-9,. ]/g, "");
-      }
-      if (name === "pan" || name === "passport") {
-        // Allow only uppercase letters and numbers for "pan" field
-        value = value.replace(/[^A-Za-z0-9,]/g, "");}
-      // if (name === "company_name") {
-      //   // Allow both uppercase, lowercase letters, and numbers for "company name" field
-      //   value = value.replace(/[^a-zA-Z0-9] /g, "");
-      // }
-       if (name === "pan") {
-        // Allow only uppercase letters and numbers for "pan" field
-        value = value.replace(/[^a-zA-Z0-9]/g, "");
-      }
-       else if (
-        // name !== "pan"&&
-        name !== "uan" &&
-        name !== "longitude" &&
-        name !== "latitude" &&
-        name !== "employee_id"
-      ) {
-        // Allow only alphabetic characters and spaces for other text fields
-        value = value.replace(/[^A-Za-z\s]/g, "");
-      }
-    }
-    
-    if (type === "text" && name === "employee_id") {
-      value = value.replace(/[^A-Za-z0-9]/g, "");
-    }
-    if (
-      (type === "text" && name === "uan") ||
-      (type === "text" && name === "pan")||
-      (type === "text" && name === "settinglocation")
-    ) {
-      value = value.replace(/[^A-Za-z0-9,. ]/g, "");
+    // Ensure value doesn't exceed max length (except file type)
+    if (value.length > max && type !== "file") return;
 
-    }
-    if (name === "taskName" && type === "textarea") {
-      value = value.replace(/[^A-Za-z0-9&,\/\s-]/g, "");
-    }
-    if (type === "tel") {
-      value = value.replace(/[^\d]/g, "");
+    // Handle input sanitization based on field type
+    switch (type) {
+      case "textarea":
+        if (id !== "password") {
+          value = value.replace(/[^A-Za-z0-9.,\s\-\\/]/g, ""); // Only allow specific characters
+        }
+        break;
+      case "email":
+        if (id !== "password") {
+          value = value.replace(/[^A-Za-z0-9@._-]/g, ""); // Allow alphanumeric, @, ., -, and _
+        }
+        break;
+      case "text":
+        if (id !== "password") {
+          if (name === "organisation_name") {
+            value = value.replace(/[^a-zA-Z0-9,. ]/g, ""); // Allow letters, numbers, and punctuation
+          } else if (
+            [
+              "pan",
+              "passport",
+              "seating_location",
+              "institute_name",
+              "company_name",
+              "uan",
+            ].includes(name)
+          ) {
+            value = value.replace(/[^A-Za-z0-9,]/g, ""); // Alphanumeric for PAN and Passport
+          } else if (
+            !["uan", "longitude", "latitude", "employee_id"].includes(name)
+          ) {
+            value = value.replace(/[^A-Za-z\s]/g, ""); // Only letters and spaces for other fields
+          }
+        }
+        break;
+      case "tel":
+        value = value.replace(/[^\d]/g, ""); // Allow only digits for telephone fields
+        break;
+      default:
+        break;
     }
 
+    // Update form state
+    {
+      console.log(setForm, "form");
+    }
     setForm((prevForm) => {
-      let newForm = { ...prevForm };
+      const newForm = { ...prevForm };
       if (index !== null && fieldName) {
         newForm[fieldName][index][name] = value;
       } else {
@@ -113,24 +80,28 @@ export const FunctionContextProvider = ({ children }) => {
       }
       return newForm;
     });
-    let errormessage = schema?.validate(value)?.error?.message;
+
+    // Validate the field using Joi schema
+    const errorMessage = schema?.validate(value)?.error?.message || "";
+
+    // Update errors state
     setErrors((prevErrors) => {
-      let newErrors = { ...prevErrors };
+      const newErrors = { ...prevErrors };
       if (index !== null && fieldName) {
         if (!newErrors[fieldName]) newErrors[fieldName] = [];
         newErrors[fieldName][index] = {
           ...newErrors[fieldName][index],
-          [name]: errormessage,
+          [name]: errorMessage,
         };
       } else {
-        newErrors[name] = errormessage;
+        newErrors[name] = errorMessage;
       }
       return newErrors;
     });
   };
 
   const checkErrors = async (schema, formData) => {
-    console.log("hello")
+    console.log("hello");
     const mainSchema = Joi.object(schema);
     // console.log(mainSchema, "mainschema")
     const { error } = mainSchema.validate(formData, { abortEarly: false });

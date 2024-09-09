@@ -48,7 +48,7 @@ const Headers = () => {
     stats,
     setStats,
     reportingmangers,
-     setreportingmangers
+    setreportingmangers,
   } = useStateContext();
   const { checkingDataThere } = useFunctionContext();
   const { applicationColor } = useThemeContext();
@@ -97,25 +97,26 @@ const Headers = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("zohoEmployeeToken");
-window.location = "/login"
+    window.location = "/login";
     // window.localStorage.getItem("zohoEmployeeToken")
     //   ? (window.location = "/dashboard")
     //   : (window.location = "/login");
   };
 
-const fetchData = async () => {
+  const fetchData = async () => {
     try {
       let res;
-      if(employeeDetails.admin_type === "1"||employeeDetails.admin_type === "2"){
-      res = await backEndCallObjNothing("/org/universal");
-   
+      if (
+        employeeDetails.admin_type === "1" ||
+        employeeDetails.admin_type === "2"
+      ) {
+        res = await backEndCallObjNothing("/org/universal");
       } else {
         res = await backEndCallObjNothing("/emp_get/universal");
-        
       }
-    setStats(res?.stats)
+      setStats(res?.stats);
 
-     setreportingmangers(res?.reporting_managers)
+      setreportingmangers(res?.reporting_managers);
 
       setOrgDetails(res?.organisation_details);
       setOrgLogo(res?.organisation_details.images?.logo);
@@ -127,11 +128,8 @@ const fetchData = async () => {
       setLocations(res.dashborad?.organisation_details?.locations);
       // setTodayAttendance(res.dashborad.today_attendance);
       setrecentHire(res?.recent_hires);
-      
-      setBirthdays(res?.birthdays);
-    
 
-      
+      setBirthdays(res?.birthdays);
     } catch (error) {
       console.log(error, "eroor");
     }
@@ -220,8 +218,6 @@ const fetchData = async () => {
         <div className="user-details">
           <Themes />
 
-         
-
           {/* <div className="user-image">
             <img src={dummyUser} alt="userimage" />
           </div> */}
@@ -229,6 +225,7 @@ const fetchData = async () => {
             <span className="email">{employeeDetails?.email || ""}</span>
             <span className="id">{employeeDetails?.employeeId || ""}</span>
             <span>{employeeDetails?.role_name}</span>
+            {console.log(employeeDetails.role_name, "nameee")}
           </div>
 
           <div className="dropdown">

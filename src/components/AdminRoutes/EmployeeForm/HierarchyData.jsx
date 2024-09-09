@@ -110,7 +110,7 @@ const HierarchyData = ({ formData, setFormData }) => {
         </div>
         <div className="col-lg-4 col-md-4 col-sm-6">
           <Input_text
-            type={"settinglocation"}
+            type={"text"}
             name={"seating_location"}
             placeholder={"Seating Location"}
             value={formData.seating_location}
@@ -175,7 +175,7 @@ const HierarchyData = ({ formData, setFormData }) => {
         )} 
         </div> */}
         <div className="heading-button">
-          <h6 className="heading-form pb-2"> Previous  Experience Data</h6>
+          <h6 className="heading-form pb-2"> Previous Experience Data</h6>
           {formData?.work_experience?.length === 0 && (
             <div className="additional-btns">
               <button
@@ -184,7 +184,7 @@ const HierarchyData = ({ formData, setFormData }) => {
                 type="button"
               >
                 {/* add new */}
-                <FaPlus/>
+                <FaPlus />
               </button>
             </div>
           )}
@@ -192,7 +192,6 @@ const HierarchyData = ({ formData, setFormData }) => {
         {/* </section> */}
 
         {formData.work_experience?.map((data, index) => {
-          
           return (
             <div
               key={index}
@@ -213,7 +212,7 @@ const HierarchyData = ({ formData, setFormData }) => {
                     type="button"
                   >
                     {/* add new */}
-                    <FaPlus/>
+                    <FaPlus />
                   </button>
                 ) : (
                   ""
@@ -257,7 +256,8 @@ const HierarchyData = ({ formData, setFormData }) => {
                 <Date_Input
                   name={"from_date"}
                   placeholder={"Start Date"}
-                  value={data?.from_date}  bv 
+                  value={data?.from_date}
+                  bv
                   setForm={setFormData}
                   schema={schema?.from_date}
                   // readOnly={isAdmin}
