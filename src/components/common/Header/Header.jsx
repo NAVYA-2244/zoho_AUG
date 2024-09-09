@@ -50,6 +50,9 @@ const Headers = () => {
     setStats,
     recentemployeeid,  
     Setrecentemployeeid,
+    reportingmangers,
+    setreportingmangers,
+    setProfilePhoto, profilePhoto 
   } = useStateContext();
   const { checkingDataThere } = useFunctionContext();
   const { applicationColor } = useThemeContext();
@@ -116,14 +119,15 @@ const Headers = () => {
       } else {
         res = await backEndCallObjNothing("/emp_get/universal");
       }
-      console.log(res.employee_id.employee_id,"recent employe id")
+      console.log(res,"recent employe id")
       setStats(res?.stats);
 
       Setrecentemployeeid(res.employee_id);
 
       setOrgDetails(res?.organisation_details);
-    
+      setreportingmangers(res?.reporting_managers)
       setOrgLogo(res?.organisation_details.images?.logo);
+      console.log(res?.organisation_details.images?.logo,"logooooooooooooooo")
       // setLocations(res.organisation_details?.locations);
       // setTodayAttendance(res?.organisation_details?.today_attendance);
 
@@ -143,7 +147,7 @@ const Headers = () => {
     // IsAdmin()
     fetchData();
   }, []);
-  console.log(recentemployeeid.employee_id,"recentemployeeid")
+  console.log(recentemployeeid?.employee_id,"recentemployeeid")
   // if (locations.length === 0) {
   //   return <Navigate to="/location" />;
   // } else if (!Object.keys(orgLogo).length) {
@@ -229,7 +233,11 @@ const Headers = () => {
           <div className="details">
             <span className="email">{employeeDetails?.email || ""}</span>
             <span className="id">{employeeDetails?.employeeId || ""}</span>
-            <span>{employeeDetails?.role_name}</span>
+
+           <span style={{ textTransform: 'capitalize' }}>
+  {employeeDetails?.role_name}
+</span>
+
             {console.log(employeeDetails.role_name, "nameee")}
           </div>
 
@@ -240,7 +248,16 @@ const Headers = () => {
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              <img src={dummyUser} alt="userimage" />
+            
+              {/* <img src={dummyUser} alt="userimage" />
+
+              <img src={profilePhoto} alt="userimage" />
+               */}
+               <img 
+  src={profilePhoto ? profilePhoto : dummyUser} 
+  alt="userimage" 
+/>
+
             </Link>
 
             <ul className="dropdown-menu user-dropdown">

@@ -625,7 +625,11 @@ const ProfilePhoto = () => {
   const [formData, setFormData] = useState({ image: "", about_me: "" });
   const [showOverlay, setShowOverlay] = useState(false);
   const [error, setError] = useState("");
-
+  const {
+    
+    employeeDetails,
+    
+  } = useStateContext();
   const schema = Joi.object({
     image: Joi.string().optional().allow(null, "").messages({
       "any.required": "Profile photo is required.",
@@ -700,8 +704,11 @@ const ProfilePhoto = () => {
   
 
   return (
+<>
+
+
     <div className="container mt-4">
-      {/* Profile Photo and About Me in a single row */}
+   
       <div className="row align-items-center">
         <div className="col-md-4 d-flex justify-content-center">
           <div
@@ -734,23 +741,14 @@ const ProfilePhoto = () => {
           </div>
         </div>
 
-        {/* About Me Input */}
+       
         <div className="col-md-8">
+          
           <div className="form-group">
-            {/* <Input_area
-              type="textarea"
-              name="about_me"
-              placeholder="About Me"
-              value={formData.about_me}
-              setForm={handleInputChange}
-              schema={schema.about_me}
-              length={250}
-              maxLength={250}
-              className="form-control"
-            /> */}
+           
             <Input_area
   type="textarea"
-  name="about_me"  // Make sure 'name' is provided here
+  name="about_me"  
   placeholder="About Me"
   value={formData.about_me}
   setForm={setFormData}
@@ -764,10 +762,10 @@ const ProfilePhoto = () => {
         </div>
       </div>
 
-      {/* Error message */}
+     
       {error && <div className="text-danger mt-2">{error}</div>}
 
-      {/* Submit Button */}
+     
       <div className="row mt-3">
         <div className="col-12 text-center">
           <button
@@ -783,7 +781,7 @@ const ProfilePhoto = () => {
         </div>
       </div>
 
-      {/* Hidden file input */}
+     
       <form style={{ display: "none" }}>
         <input
           type="file"
@@ -796,6 +794,7 @@ const ProfilePhoto = () => {
         />
       </form>
     </div>
+    </>
   );
 };
 

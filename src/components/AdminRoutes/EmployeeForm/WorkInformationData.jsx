@@ -97,7 +97,7 @@ const WorkInformationData = ({ formData, setFormData }) => {
       >
         <h6 className="heading-form">Identity Details</h6>
 
-        <div className="col-lg-4 col-md-4 col-sm-6">
+        <div className="col-lg-3 col-md-3 col-sm-6">
           <Input_text
             type={"text"}
             name={"uan"}
@@ -108,7 +108,7 @@ const WorkInformationData = ({ formData, setFormData }) => {
             inputRef={(el) => (refs.current.uan = el)}
           />
         </div>
-        <div className="col-lg-4 col-md-4 col-sm-6">
+        <div className="col-lg-3 col-md-3 col-sm-6">
           <Input_text
             type={"text"}
             name={"pan"}
@@ -120,7 +120,7 @@ const WorkInformationData = ({ formData, setFormData }) => {
             inputRef={(el) => (refs.current.pan = el)}
           />
         </div>
-        <div className="col-lg-4 col-md-4 col-sm-6">
+        <div className="col-lg-3 col-md-3 col-sm-6">
           <Input_text
             type={"tel"}
             name={"aadhaar"}
@@ -131,7 +131,7 @@ const WorkInformationData = ({ formData, setFormData }) => {
             inputRef={(el) => (refs.current.aadhaar = el)}
           />
         </div>
-        <div className="col-lg-4 col-md-4 col-sm-6">
+        <div className="col-lg-3 col-md-3 col-sm-6">
           <Input_text
             type={"text"}
             name={"passport"}

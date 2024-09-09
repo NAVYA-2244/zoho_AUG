@@ -149,7 +149,7 @@ const ApplyLeave = () => {
                 <div className="leave-availability">
                   <div className="available">
                     <span className="leaves-avialable">
-                      Available : &nbsp; <b>{item.total}</b>
+                      Total Leaves : &nbsp; <b>{item.total}</b>
                     </span>
                     <br />
                     <span className="leave-used">

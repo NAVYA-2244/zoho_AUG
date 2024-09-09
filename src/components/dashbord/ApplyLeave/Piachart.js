@@ -73,7 +73,7 @@ function Piachart() {
                 <div className="available">
 
                   <span className="leaves-available">
-                    Available : &nbsp;{" "}
+                    Total Leaves: &nbsp;{" "}
                     <b>
                       {item.total_leaves == "" ? "0" : item.total_leaves}
                     </b>

@@ -159,37 +159,19 @@ const HierarchyData = ({ formData, setFormData }) => {
           color: applicationColor.readColor1,
         }}
       >
-        {/* <div className="heading-button">
-          <h6 className="heading-form pb-2"> Work Experience Data</h6>
-          {formData?.work_experience?.length === 0 ||[]||"" && (
-            <div className="additional-btns">
-              <button
-                className="add-button"
-                onClick={addWorkExperience}
-                type="button"
-              >
-                add new
-               <FaPlus />
-              </button>
-            </div>
-        )} 
-        </div> */}
-        <div className="heading-button">
-          <h6 className="heading-form pb-2"> Previous Experience Data</h6>
-          {formData?.work_experience?.length === 0 && (
-            <div className="additional-btns">
-              <button
-                className="add-button"
-                onClick={addWorkExperience}
-                type="button"
-              >
-                {/* add new */}
-                <FaPlus />
-              </button>
-            </div>
-          )}
-        </div>
-        {/* </section> */}
+       
+       
+        <div className="d-flex justify-content-between align-items-center mb-2">
+    <h6 className="heading-form"> Previous Experience Data</h6>
+    <button
+      className="btn btn-success btn-sm"
+      onClick={addWorkExperience}
+      type="button"
+    >
+      <FaPlus />
+    </button>
+  </div>
+       
 
         {formData.work_experience?.map((data, index) => {
           return (
@@ -199,25 +181,11 @@ const HierarchyData = ({ formData, setFormData }) => {
               style={{
                 background: applicationColor.mainInputBg,
                 color: applicationColor.readColor1,
+                marginBottom: "1rem",
               }}
             >
-              {index >= 1 ? <hr style={{ marginTop: "20px" }} /> : ""}
-
-              <div className="additional-btns" id={`workExperience${index}`}>
-                <h6>Work Experience {index + 1}</h6>
-                {index + 1 === formData.work_experience.length ? (
-                  <button
-                    className="add-button"
-                    onClick={() => addWorkExperience(index + 1)}
-                    type="button"
-                  >
-                    {/* add new */}
-                    <FaPlus />
-                  </button>
-                ) : (
-                  ""
-                )}
-              </div>
+             
+              <div className="row w-100">
               <div className="col-lg-4 col-md-4 col-sm-6">
                 <Input_text
                   type={"text"}
@@ -333,11 +301,11 @@ const HierarchyData = ({ formData, setFormData }) => {
                   // readOnly={isAdmin}
                 />
               </div>
-
-              <div className="additional-btns">
+              </div>
+              <div className="text-end">
                 {formData.work_experience.length > 1 ? (
                   <button
-                    className="remove-button"
+                    className="btn btn-danger btn-sm ms-2"
                     onClick={() => removeWorkExperience(index)}
                     type="button"
                   >
@@ -348,7 +316,7 @@ const HierarchyData = ({ formData, setFormData }) => {
                   ""
                 )}
               </div>
-            </div>
+             </div>
           );
         })}
       </section>

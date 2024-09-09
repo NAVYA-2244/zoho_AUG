@@ -391,7 +391,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
 
                         <div className="available">
                           <span className="leaves-available">
-                            Available: <b>{item.total_leaves || "0"}</b>
+                            Total Leaves <b>{item.total_leaves || "0"}</b>
                           </span>
                           <br />
                           <span className="leave-used">

@@ -107,6 +107,7 @@ const Companydetails = () => {
       localStorage.setItem(tokenKey, res.success);// Assuming the token is returned in response.success
 
       setOrgLogo(response?.data?.images?.logo);
+      
       await backEndCallObjNothing("/org/universal");
       navigate("/admin/admin-controls/roles");
       window.location.reload("/admin/admin-controls/roles");
