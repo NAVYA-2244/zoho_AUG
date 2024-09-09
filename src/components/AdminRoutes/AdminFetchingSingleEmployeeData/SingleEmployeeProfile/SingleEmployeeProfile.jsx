@@ -290,9 +290,11 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
   const handleEdit = () => {
     if (employeeDetails.admin_type === "1" || employeeDetails.admin_type === "2") {
       navigate(`/admin/update_employee/${employeeProfileData.profile.employee_id}`);
-    } else {
-      navigate("/profile_Edit", { state: { employeeProfileData } });
     }
+    //  else {
+    //   // navigate("/profile_Edit", { state: { employeeProfileData } });
+    //   ""
+    // }
   
   };
   const {

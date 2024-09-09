@@ -60,7 +60,7 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
     <>
       <hr style={{ marginTop: "20px" }} />
 
-      <section
+      {/* <section
         className="row basic-row new-basic-row"
         style={{
           background: applicationColor.mainInputBg,
@@ -76,7 +76,7 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                 onClick={addEducationDetails}
                 type="button"
               >
-                {/* add new */}
+               
                 <FaPlus/>
               </button>
             </div>
@@ -102,7 +102,7 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                     onClick={addEducationDetails}
                     type="button"
                   >
-                    {/* add new */}
+                    
                     <FaPlus />
                   </button>
                 ) : (
@@ -158,32 +158,11 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                   inputRef={(el) => (refs.current.dateOfCompletion = el)}
                   index={index}
                   fieldName="educational_details"
-                  // min={
-                  //   new Date(
-                  //     new Date().getFullYear() - 55,
-                  //     new Date().getMonth(),
-                  //     new Date().getDate()
-                  //   )
-                  //     .toISOString()
-                  //     .split("T")[0]
-                  // }
-                  // max={new Date().toISOString().split("T")[0]}
-                  // min={new Date().getFullYear() - 55}
-                  // max={new Date().getFullYear()}
+                
                 />
               </div>
 
-              {/* <Input_text
-                type={"text"}
-                name={"instituteName"}
-                placeholder={"Institute Name"}
-                value={data?.instituteName}
-                setForm={setFormData}
-                schema={schema.instituteName}
-                // inputRef={(el) => (refs.current.instituteName = el)}
-                index={index}
-                fieldName="educationDetials"
-              /> */}
+             
 
               <div className="additional-btns">
                 {formData?.educational_details?.length > 1 ? (
@@ -192,7 +171,7 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                     onClick={() => removeEducationDetails(index)}
                     type="button"
                   >
-                    {/* remove */}
+                   
                     <FaMinus />
                   </button>
                 ) : (
@@ -202,10 +181,106 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
             </div>
           );
         })}
-      </section>
+      </section> */}
+   <section
+  className="row basic-row new-basic-row"
+  style={{
+    background: applicationColor.mainInputBg,
+    color: applicationColor.readColor1,
+  }}
+>
+  <div className="d-flex justify-content-between align-items-center mb-2">
+    <h6 className="heading-form">Educational Details</h6>
+    <button
+      className="btn btn-success btn-sm"
+      onClick={addEducationDetails}
+      type="button"
+    >
+      <FaPlus />
+    </button>
+  </div>
+
+  {formData?.educational_details?.map((data, index) => (
+    <div
+      key={index}
+      className="d-flex align-items-center"
+      style={{
+        background: applicationColor.mainInputBg,
+        color: applicationColor.readColor1,
+        marginBottom: "1rem",
+      }}
+    >
+      <div className="row w-100">
+        {/* Input Fields for Educational Details */}
+        <div className="col-lg-3 col-md-3 col-sm-6">
+          <Input_text
+            type={"text"}
+            name={"institute_name"}
+            placeholder={"Institute Name"}
+            value={data?.institute_name}
+            setForm={setFormData}
+            schema={schema?.institute_name}
+            index={index}
+            fieldName="educational_details"
+          />
+        </div>
+        <div className="col-lg-3 col-md-3 col-sm-6">
+          <Input_text
+            type={"text"}
+            name={"degree"}
+            placeholder={"Degree"}
+            value={data?.degree}
+            setForm={setFormData}
+            schema={schema?.degree}
+            index={index}
+            fieldName="educational_details"
+          />
+        </div>
+        <div className="col-lg-3 col-md-3 col-sm-6">
+          <Input_text
+            type={"text"}
+            name={"specialization"}
+            placeholder={"Specialization"}
+            value={data?.specialization}
+            setForm={setFormData}
+            schema={schema?.specialization}
+            index={index}
+            maxLength={100}
+            fieldName="educational_details"
+          />
+        </div>
+        <div className="col-lg-3 col-md-3 col-sm-6">
+          <Input_text
+            type={"tel"}
+            name={"year_of_completion"}
+            placeholder={"Year of Completion"}
+            value={data?.year_of_completion}
+            setForm={setFormData}
+            schema={schema?.year_of_completion}
+            maxLength={4}
+            index={index}
+            fieldName="educational_details"
+          />
+        </div>
+      </div>
+      {/* Remove Button */}
+      {formData?.educational_details?.length > 1 && (
+        <button
+          className="btn btn-danger btn-sm ms-2"
+          onClick={() => removeEducationDetails(index)}
+          type="button"
+        >
+          <FaMinus />
+        </button>
+      )}
+    </div>
+  ))}
+</section>
+
+
       <hr style={{ marginTop: "20px" }} />
 
-      {/* Dependent detials */}
+      
 
       <section
         className="row basic-row new-basic-row"
@@ -214,7 +289,7 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
           color: applicationColor.readColor1,
         }}
       >
-        <div className="heading-button">
+        {/* <div className="heading-button">
           <h6 className="heading-form"> Dependent Details </h6>
           {formData?.dependent_details?.length === 0 && (
             <div className="additional-btns">
@@ -223,23 +298,35 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                 onClick={addDependentDetails}
                 type="button"
               >
-                {/* add new */}
+               
                 <FaPlus />
               </button>
             </div>
           )}
-        </div>
+        </div> */}
+         <div className="d-flex justify-content-between align-items-center mb-2">
+    <h6 className="heading-form">Dependent Details</h6>
+    <button
+      className="btn btn-success btn-sm"
+      onClick={addDependentDetails}
+      type="button"
+    >
+      <FaPlus />
+    </button>
+  </div>
         {formData?.dependent_details?.map((data, index) => {
           return (
+            
             <div
-              key={index}
-              className="row "
-              style={{
-                background: applicationColor.mainInputBg,
-                color: applicationColor.readColor1,
-              }}
-            >
-              {index >= 1 ? <hr style={{ marginTop: "20px" }} /> : ""}
+            key={index}
+            className="d-flex align-items-center"
+            style={{
+              background: applicationColor.mainInputBg,
+              color: applicationColor.readColor1,
+              marginBottom: "1rem",
+            }}
+          >
+              {/* {index >= 1 ? <hr style={{ marginTop: "20px" }} /> : ""}
 
               <div className="additional-btns">
                 <h6>Dependant Details {index + 1}</h6>
@@ -249,13 +336,14 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                     onClick={addDependentDetails}
                     type="button"
                   >
-                    {/* add new */}
+                  
                     <FaPlus/>
                   </button>
                 ) : (
                   ""
                 )}
-              </div>
+              </div> */}
+              <div className="row w-100">
               <div className="col-lg-3 col-md-3 col-sm-6">
                 <Input_text
                   type={"text"}
@@ -312,24 +400,27 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                   fieldName="dependent_details"
                 />
               </div>
-
-              <div className="additional-btns">
+              </div>
+              {/* <div className="additional-btns"> */}
                 {formData?.dependent_details?.length > 1 ? (
                   <button
-                    className="remove-button"
+                    className="btn btn-danger btn-sm ms-2"
                     onClick={() => removeDependentDetails(index)}
                     type="button"
                   >
-                    {/* remove */}
+                  
                     <FaMinus />
                   </button>
                 ) : (
                   ""
                 )}
-              </div>
+              {/* </div> */}
+            
+
             </div>
           );
         })}
+        
       </section>
 
       <hr style={{ marginTop: "20px" }} />

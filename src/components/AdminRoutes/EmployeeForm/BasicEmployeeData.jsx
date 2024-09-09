@@ -27,7 +27,8 @@ const BasicEmployeeData = ({ formData, setFormData,disableobj,type }) => {
     setOrgDetails,
     employeeDetails,
     reportingmangers,
-     setreportingmangers
+     setreportingmangers,
+     recentemployeeid
   } = useStateContext();
   console.log(reportingmangers,"reportingmangers")
   const { applicationColor } = useThemeContext();
@@ -127,7 +128,7 @@ console.log(orgDetails,"navya")
           
           <p className="note-heading" style={{ color: "green" }}>
             This should be a recent employee Id "
-            {employeesList.length > 0 ? employeesList[0].  employee_id : null}".
+           {recentemployeeid?.employee_id}".
           </p>
           {/* } */}
           

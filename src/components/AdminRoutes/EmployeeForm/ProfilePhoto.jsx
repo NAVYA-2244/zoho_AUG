@@ -436,6 +436,177 @@
 // };
 
 // export default ProfilePhoto;
+// import React, { useState, useEffect, useRef } from "react";
+// import Joi from "joi";
+// import { useStateContext } from "../../Contexts/StateContext";
+// import { useThemeContext } from "../../Contexts/ThemesContext";
+// import { FaCamera } from "react-icons/fa";
+// import { backEndCallObjNothing } from "../../../services/mainService";
+// import { toastOptions } from "../../../Utils/FakeRoutes";
+// import "./ProfilePhoto.scss"; // Assuming you have custom styles here
+// import { Input_area } from "../../common/ALLINPUTS/AllInputs";
+
+// const ProfilePhoto = () => {
+//   const { setProfilePhoto, profilePhoto } = useStateContext();
+//   const { applicationColor } = useThemeContext();
+//   const fileInputRef = useRef(null);
+
+//   const [formData, setFormData] = useState({ image: "", about_me: "" });
+//   const [showOverlay, setShowOverlay] = useState(false);
+//   const [error, setError] = useState("");
+
+//   const schema = Joi.object({
+//     image: Joi.string().optional().allow(null, "").messages({
+//       "any.required": "Profile photo is required.",
+//     }),
+//     about_me: Joi.string().max(250).optional().allow(null, "").messages({
+//       "string.max": "About Me cannot exceed 250 characters.",
+//     }),
+//   });
+
+//   const handleProfilePhotoSelection = () => {
+//     fileInputRef.current.click(); // Trigger file input click
+//   };
+
+//   const handleFileInputChange = (e) => {
+//     const file = e.target.files[0];
+//     if (file) {
+//       if (file.size > 250 * 1024) {
+//         setError("Profile photo size should not exceed 250KB.");
+//         toastOptions.error("Profile photo size should not exceed 250KB.");
+//         return;
+//       }
+
+//       const reader = new FileReader();
+//       reader.onload = (event) => {
+//         const base64String = event.target.result;
+//         setFormData({ ...formData, image: base64String });
+//       };
+//       reader.readAsDataURL(file);
+//     }
+//   };
+
+//   useEffect(() => {
+//     if (formData.image) {
+//       handleSubmit();
+//     }
+//   }, [formData.image]);
+
+//   const handleSubmit = async () => {
+//     try {
+//       await schema.validateAsync(formData, { abortEarly: false });
+//       const response = await backEndCallObjNothing("/emp/update_dp", {
+//         image: formData.image,
+//         about_me: formData.about_me,
+//       });
+//       setProfilePhoto(response?.data?.dp || "");
+//       setFormData({ image: "", about_me: "" });
+//       setError("");
+//       toastOptions.success("Profile photo updated successfully.");
+//     } catch (error) {
+//       console.error("Error updating image:", error);
+//       setError(error.message);
+//       toastOptions.error(error.message);
+//     }
+//   };
+
+//   return (
+//     <div className="container mt-4">
+//       {/* Profile Photo and About Me in a single row */}
+//       <div className="row align-items-center">
+//         <div className="col-md-4 d-flex justify-content-center " >
+//           <div
+//             className="profile-image position-relative d-inline-block"
+//             onMouseEnter={() => setShowOverlay(true)}
+//             onMouseLeave={() => setShowOverlay(false)}
+//             onClick={handleProfilePhotoSelection}
+//           >
+//             <img
+//               className="main_profile_photo img-fluid "
+//               src={
+//                 profilePhoto
+//                   ? profilePhoto
+//                   : "https://cdnb.artstation.com/p/assets/images/images/034/457/389/large/shin-min-jeong-.jpg?1612345145"
+//               }
+//               alt="profile_photo"
+              
+              
+   
+
+ 
+//     style={{
+//      width:"150px",
+//               height:"150px",
+//       borderRadius: "100%",
+//       marginTop: "0px",
+//       objectFit: "contain",  // Choose either "cover" or "contain"
+//       borderRadius: "100%", // Correct camelCase for border radius
+//       marginTop: "0px"      // Correct camelCase for marginTop
+//     }}
+// />    
+         
+//             {showOverlay && (
+//               <div className="overlay position-absolute w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-50 text-white rounded-circle">
+//                 <FaCamera className="camera-icon" />
+//               </div>
+//             )}
+//           </div>
+//         </div>
+
+//         {/* About Me Input */}
+//         <div className="col-md-8">
+//           <div className="form-group">
+//             <Input_area
+//               type={"textarea"}
+//               name={"about_me"}
+//               placeholder={"About Me"}
+//               value={formData.about_me}
+//               setForm={setFormData}
+//               schema={schema.about_me}
+//               length={250}
+//               maxLength={250}
+//               className="form-control"
+//             />
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* Error message */}
+//       {/* {error && <div className="text-danger mt-2">{error}</div>} */}
+
+//       {/* Submit Button */}
+//       <div className="row mt-3">
+//         <div className="col-12 text-center">
+//           <button
+//             className="btn btn-primary"
+//             onClick={handleSubmit}
+//             style={{
+//               backgroundColor: applicationColor,
+//               borderColor: "white",
+//             }}
+//           >
+//             Submit
+//           </button>
+//         </div>
+//       </div>
+
+//       {/* Hidden file input */}
+//       <form style={{ display: "none" }}>
+//         <input
+//           type="file"
+//           ref={fileInputRef}
+//           className="form-control"
+//           id="image"
+//           name="image"
+//           accept="image/*"
+//           onChange={handleFileInputChange}
+//         />
+//       </form>
+//     </div>
+//   );
+// };
+
+// export default ProfilePhoto;
 import React, { useState, useEffect, useRef } from "react";
 import Joi from "joi";
 import { useStateContext } from "../../Contexts/StateContext";
@@ -480,7 +651,7 @@ const ProfilePhoto = () => {
       const reader = new FileReader();
       reader.onload = (event) => {
         const base64String = event.target.result;
-        setFormData({ ...formData, image: base64String });
+        setFormData((prevData) => ({ ...prevData, image: base64String }));
       };
       reader.readAsDataURL(file);
     }
@@ -499,22 +670,40 @@ const ProfilePhoto = () => {
         image: formData.image,
         about_me: formData.about_me,
       });
-      setProfilePhoto(response?.data?.image || "");
-      setFormData({ image: "", about_me: "" });
+
+      // Update profile photo and about_me with response data
+      setProfilePhoto(response?.data?.dp || "");
+      setFormData((prevData) => ({
+        ...prevData,
+        about_me: response?.data?.about_me || prevData.about_me,
+      }));
       setError("");
-      toastOptions.success("Profile photo updated successfully.");
+      toastOptions.success("Profile updated successfully.");
     } catch (error) {
-      console.error("Error updating image:", error);
+      console.error("Error updating profile:", error);
       setError(error.message);
       toastOptions.error(error.message);
     }
   };
 
+  const handleInputChange = (e) => {
+    if (e && e.target && e.target.name) {
+      const { name, value } = e.target;
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    } else {
+      console.error("Invalid input event or missing name attribute.");
+    }
+  };
+  
+
   return (
     <div className="container mt-4">
       {/* Profile Photo and About Me in a single row */}
       <div className="row align-items-center">
-        <div className="col-md-4 d-flex justify-content-center " >
+        <div className="col-md-4 d-flex justify-content-center">
           <div
             className="profile-image position-relative d-inline-block"
             onMouseEnter={() => setShowOverlay(true)}
@@ -522,29 +711,21 @@ const ProfilePhoto = () => {
             onClick={handleProfilePhotoSelection}
           >
             <img
-              className="main_profile_photo img-fluid "
+              className="main_profile_photo img-fluid"
               src={
                 profilePhoto
                   ? profilePhoto
                   : "https://cdnb.artstation.com/p/assets/images/images/034/457/389/large/shin-min-jeong-.jpg?1612345145"
               }
               alt="profile_photo"
-              
-              
-   
-
- 
-    style={{
-     width:"150px",
-              height:"150px",
-      borderRadius: "100%",
-      marginTop: "0px",
-      objectFit: "contain",  // Choose either "cover" or "contain"
-      borderRadius: "100%", // Correct camelCase for border radius
-      marginTop: "0px"      // Correct camelCase for marginTop
-    }}
-/>    
-         
+              style={{
+                width: "150px",
+                height: "150px",
+                borderRadius: "100%",
+                marginTop: "0px",
+                objectFit: "contain",
+              }}
+            />
             {showOverlay && (
               <div className="overlay position-absolute w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-50 text-white rounded-circle">
                 <FaCamera className="camera-icon" />
@@ -556,23 +737,35 @@ const ProfilePhoto = () => {
         {/* About Me Input */}
         <div className="col-md-8">
           <div className="form-group">
-            <Input_area
-              type={"textarea"}
-              name={"about_me"}
-              placeholder={"About Me"}
+            {/* <Input_area
+              type="textarea"
+              name="about_me"
+              placeholder="About Me"
               value={formData.about_me}
-              setForm={setFormData}
+              setForm={handleInputChange}
               schema={schema.about_me}
               length={250}
               maxLength={250}
               className="form-control"
-            />
+            /> */}
+            <Input_area
+  type="textarea"
+  name="about_me"  // Make sure 'name' is provided here
+  placeholder="About Me"
+  value={formData.about_me}
+  setForm={setFormData}
+  schema={schema.about_me}
+  length={250}
+  maxLength={250}
+  className="form-control"
+/>
+
           </div>
         </div>
       </div>
 
       {/* Error message */}
-      {/* {error && <div className="text-danger mt-2">{error}</div>} */}
+      {error && <div className="text-danger mt-2">{error}</div>}
 
       {/* Submit Button */}
       <div className="row mt-3">

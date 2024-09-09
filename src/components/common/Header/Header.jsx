@@ -22,6 +22,7 @@ import {
 import { useFunctionContext } from "../../Contexts/FunctionContext";
 import { format, parse } from "date-fns";
 import { formatTime } from "../../../Utils/Helpers";
+import { resetServerContext } from "react-beautiful-dnd";
 
 const Headers = () => {
   const {
@@ -47,14 +48,15 @@ const Headers = () => {
     setBirthdays,
     stats,
     setStats,
-    reportingmangers,
-    setreportingmangers,
+    recentemployeeid,  
+    Setrecentemployeeid,
   } = useStateContext();
   const { checkingDataThere } = useFunctionContext();
   const { applicationColor } = useThemeContext();
   const [pageTerm, setPageTerm] = useState("");
   const [newss, setNews] = useState(false);
-
+  
+  // const [recentemployeeid,Setrecentemployeeid] = useState([]);
   const navigate = useNavigate();
 
   const searchMapping = {
@@ -114,11 +116,13 @@ const Headers = () => {
       } else {
         res = await backEndCallObjNothing("/emp_get/universal");
       }
+      console.log(res.employee_id.employee_id,"recent employe id")
       setStats(res?.stats);
 
-      setreportingmangers(res?.reporting_managers);
+      Setrecentemployeeid(res.employee_id);
 
       setOrgDetails(res?.organisation_details);
+    
       setOrgLogo(res?.organisation_details.images?.logo);
       // setLocations(res.organisation_details?.locations);
       // setTodayAttendance(res?.organisation_details?.today_attendance);
@@ -134,11 +138,12 @@ const Headers = () => {
       console.log(error, "eroor");
     }
   };
+  
   useEffect(() => {
     // IsAdmin()
     fetchData();
   }, []);
-
+  console.log(recentemployeeid.employee_id,"recentemployeeid")
   // if (locations.length === 0) {
   //   return <Navigate to="/location" />;
   // } else if (!Object.keys(orgLogo).length) {

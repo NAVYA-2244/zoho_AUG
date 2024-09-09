@@ -29,7 +29,7 @@ export const StateContextProvider = ({ children }) => {
   const [adminData2, setAdminData2] = useState({});
   const [adminData1, setAdminData1] = useState({});
   const [employeesList, setEmployeesList] = useState([]);
-  // const [orgData1, setOrgData1] = useState({});
+  const [recentemployeeid,  Setrecentemployeeid] = useState({});
   const [modalData, setModalData] = useState([]); //for modal .js
   const [showModal, setshowModal] = useState(false); //This state is only for modal.js not for modal.jsx or any thing else
   const [locations, setLocations] = useState([]);
@@ -199,6 +199,8 @@ export const StateContextProvider = ({ children }) => {
         setreportingmangers,
         TeamTask,
         setTeamTask,
+        recentemployeeid,  
+        Setrecentemployeeid
       }}
     >
       {children}
