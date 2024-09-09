@@ -19,52 +19,44 @@ import Dashbordstats from "./Dashbordstats";
 import Companydetails from "../../AdminRoutes/Companydetails/Companydetails";
 
 const Dashbord = () => {
-  const {
-    employeeDetails,
-    setOrgLogo,
-    orgDetails,
-  } = useStateContext();
+  const { employeeDetails, setOrgLogo, orgDetails } = useStateContext();
   const { applicationColor } = useThemeContext(); //applicalion color to apply the colors based on white theme or dark theme
   // Below Just JSX and Reusable components
   return (
-   
-//     <main className="main_content">
-//        {employeeDetails.admin_type === "1" && employeeDetails.organisation_id.lenght >=9 ?
-//        <Companydetails/> :
-       
-      
-//       <section className="row-1">
+    //     <main className="main_content">
+    //        {employeeDetails.admin_type === "1" && employeeDetails.organisation_id.lenght >=9 ?
+    //        <Companydetails/> :
 
-       
-//         <OnlyBirthDaysAndNewHires />
+    //       <section className="row-1">
 
-        
-//         <div
-//           className="d_card-3 bar-card col-md-12"
-//           style={{ background: applicationColor.cardItem }}
-//         >
-//           <CustomBarChart />
-//         </div>
-//       </section>
-//  }
-     
-//     </main>
-<main className="main_content">
-  {employeeDetails.admin_type === "1" && employeeDetails.organisation_id.length < 9 ? (
-    <Companydetails />
-  ) : (
-    <section className="row-1">
-      <OnlyBirthDaysAndNewHires />
-      <div
-        className="d_card-3 bar-card col-md-12"
-        style={{ background: applicationColor.cardItem }}
-      >
-        <CustomBarChart />
-      </div>
-    </section>
-  )}
-</main>
+    //         <OnlyBirthDaysAndNewHires />
 
+    //         <div
+    //           className="d_card-3 bar-card col-md-12"
+    //           style={{ background: applicationColor.cardItem }}
+    //         >
+    //           <CustomBarChart />
+    //         </div>
+    //       </section>
+    //  }
+
+    //     </main>
+    <main className="main_content">
+      {employeeDetails.admin_type === "1" &&
+      employeeDetails.organisation_id.length < 9 ? (
+        <Companydetails />
+      ) : (
+        <section className="row">
+          <OnlyBirthDaysAndNewHires />
+          <div
+            className="d_card-3 bar-card col-md-12"
+            style={{ background: applicationColor.cardItem }}
+          >
+            <CustomBarChart />
+          </div>
+        </section>
+      )}
+    </main>
   );
 };
 
@@ -73,9 +65,16 @@ export default Dashbord;
 export const OnlyBirthDaysAndNewHires = () => {
   const [newHires, setNewHires] = useState([]);
   const [todayBirthdays, setTodayBirthdays] = useState([]);
-  const { setLoading, loading, setLoadingTerm, setrecentHire ,Birthdays,recentHire,stats,
-    setStats} =
-    useStateContext();
+  const {
+    setLoading,
+    loading,
+    setLoadingTerm,
+    setrecentHire,
+    Birthdays,
+    recentHire,
+    stats,
+    setStats,
+  } = useStateContext();
   const { fetchMoreData } = useFunctionContext();
   const { applicationColor } = useThemeContext();
   const birthdayListObserver = useRef();
@@ -97,7 +96,7 @@ export const OnlyBirthDaysAndNewHires = () => {
         "getOrgData1",
         "headers"
       );
-     
+
       if (response.detail.birthdays.length > 0) {
         setTodayBirthdays((prevList) => {
           return [...prevList, ...response.detail.birthdays];
@@ -226,49 +225,57 @@ export const OnlyBirthDaysAndNewHires = () => {
   //     setNewHiresSkip,
   //   ]
   // );
-// console.log(stats,"navyaa")
+  // console.log(stats,"navyaa")
   return (
     <>
-      <div className="d_card" style={{ background: applicationColor.cardItem }}>
-        {/* <BirthdaysAndNewHires
+      <div className="col-lg-4">
+        <div
+          className="d_card"
+          style={{ background: applicationColor.cardItem }}
+        >
+          {/* <BirthdaysAndNewHires
         data={todayBirthdays}
         heading={"Today Birthdays"}
         img={randomPic}
         // loadMoreRef={birthdayListRef}
         getMoreDataType="getMoreBirthdayList" */}
-        {/* /> */}
-        <Birthday
-          img={randomPic}
-          data={todayBirthdays}
-          loadMoreRef={birthdayListRef}
-          getMoreDataType="getMoreBirthdayList"
-          heading={"Today Birthdays"}
-        />
+          {/* /> */}
+          <Birthday
+            img={randomPic}
+            data={todayBirthdays}
+            loadMoreRef={birthdayListRef}
+            getMoreDataType="getMoreBirthdayList"
+            heading={"Today Birthdays"}
+          />
+        </div>
       </div>
-
-      <div
-        className="d_card new-hires-card"
-        style={{ background: applicationColor.cardItem }}
-      >
-        <BirthdaysAndNewHires
-          data={newHires}
-          heading={"New Hires"}
-          img={randomPic}
-          // loadMoreRef={newHiresRef}
-          getMoreDataType="getMoreNewHires"
-        />
+      <div className="col-lg-4">
+        <div
+          className="d_card new-hires-card"
+          style={{ background: applicationColor.cardItem }}
+        >
+          <BirthdaysAndNewHires
+            data={newHires}
+            heading={"New Hires"}
+            img={randomPic}
+            // loadMoreRef={newHiresRef}
+            getMoreDataType="getMoreNewHires"
+          />
+        </div>
       </div>
-      <div
-        className="d_card new-hires-card"
-        style={{ background: applicationColor.cardItem }}
-      >
-        <Dashbordstats
-          data={stats}
-          heading={"Daily Tasks"}
-          img={randomPic}
-          // loadMoreRef={newHiresRef}
-          getMoreDataType="getMoreNewHires"
-        />
+      <div className="col-lg-4">
+        <div
+          className="d_card new-hires-card"
+          style={{ background: applicationColor.cardItem }}
+        >
+          <Dashbordstats
+            data={stats}
+            heading={"Daily Tasks"}
+            img={randomPic}
+            // loadMoreRef={newHiresRef}
+            getMoreDataType="getMoreNewHires"
+          />
+        </div>
       </div>
     </>
   );

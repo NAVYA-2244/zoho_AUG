@@ -42,8 +42,10 @@ export const FunctionContextProvider = ({ children }) => {
         if (id !== "password") {
           if (name === "organisation_name") {
             value = value.replace(/[^a-zA-Z0-9,. ]/g, ""); // Allow letters, numbers, and punctuation
-          } else if (["company_name"].includes(name)) {
-            value = value.replace(/[^A-Za-z\s]/g, "");
+          } else if (["company_name", "experience"].includes(name)) {
+            value = value.replace(/[^A-Za-z0-9.\s]/g, "");
+          } else if (["degree"].includes(name)) {
+            value = value.replace(/[^A-Za-z0-9\s\W]/g, "");
           } else if (
             [
               "pan",

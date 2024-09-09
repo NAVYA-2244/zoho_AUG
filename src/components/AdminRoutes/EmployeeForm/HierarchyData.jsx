@@ -305,13 +305,13 @@ const HierarchyData = ({ formData, setFormData }) => {
 
               <div className="col-lg-4 col-md-4 col-sm-6">
                 <Input_text
-                  type={"tel"}
+                  type={"text"}
                   name={"experience"}
                   placeholder={"Relavent Experience"}
                   value={data?.experience}
                   setForm={setFormData}
                   schema={schema?.experience}
-                  maxLength={2}
+                  maxLength={3}
                   // readOnly={isAdmin}
                   inputRef={(el) => (refs.current.company = el)}
                   index={index}
