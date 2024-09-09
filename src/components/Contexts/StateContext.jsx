@@ -18,6 +18,7 @@ export const StateContextProvider = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState(
     employeeDetails.role_name === "Director" ? false : true
   );
+  const [ManagerTask, setManagerTask] = useState(null);
   const [ProfileTask, setProfileTask] = useState(null);
   const [profilePhoto, setProfilePhoto] = useState("");
   const [TeamTask, setTeamTask] = useState(null);
@@ -104,6 +105,8 @@ export const StateContextProvider = ({ children }) => {
         setLoading,
         employeeDetails,
         setEmployeeDetails,
+        ManagerTask,
+        setManagerTask,
         ProfileTask,
         setProfileTask,
         employeeData,

@@ -522,8 +522,6 @@
 
 // export default ChangePassword;
 
-
-
 // import React, { useState } from "react";
 // import { MdOutlineKey } from "react-icons/md";
 // import { useThemeContext } from "../Contexts/ThemesContext";
@@ -984,7 +982,7 @@ const ChangePassword = () => {
         "any.required": "New Password is required",
       }),
     confirmPassword: Joi.string()
-      .valid(Joi.ref("newPassword"))
+      // .valid(Joi.ref("newPassword"))
       .required()
       .label("Confirm Password")
       .messages({
@@ -1032,7 +1030,7 @@ const ChangePassword = () => {
     }
 
     try {
-      setBtndisabled(true)
+      setBtndisabled(true);
       const payload = {
         old_password: formData.oldPassword,
         new_password: formData.newPassword,
@@ -1040,10 +1038,10 @@ const ChangePassword = () => {
 
       const res = await backEndCallObjNothing("/emp/reset_password", payload);
       toastOptions.success(res.success || "Password changed successfully");
-      setBtndisabled(false)
+      setBtndisabled(false);
       setShowModal(true);
     } catch (error) {
-      setBtndisabled(false)
+      setBtndisabled(false);
       console.log(error, "error");
       toastOptions.error(error.response.data || "Error changing password");
     }
@@ -1120,20 +1118,20 @@ const ChangePassword = () => {
                       maxLength={10}
                     /> */}
                     <input
-  type={showNewPassword ? "text" : "password"}
-  id="newPassword"
-  name="newPassword"
-  placeholder="New Password"
-  value={formData.newPassword}
-  style={{
-    borderRadius: "10px",
-    width: "450px",
-    height: "50px",
-  }}
-  onChange={handleInputChange}
-  maxLength={10}
-  autoCapitalize="none"
-/>
+                      type={showNewPassword ? "text" : "password"}
+                      id="newPassword"
+                      name="newPassword"
+                      placeholder="New Password"
+                      value={formData.newPassword}
+                      style={{
+                        borderRadius: "10px",
+                        width: "450px",
+                        height: "50px",
+                      }}
+                      onChange={handleInputChange}
+                      maxLength={10}
+                      autoCapitalize="none"
+                    />
                     <span
                       onClick={() => setShowNewPassword(!showNewPassword)}
                       style={{
@@ -1172,22 +1170,24 @@ const ChangePassword = () => {
                       maxLength={10}
                     /> */}
                     <input
-  type={showConfirmPassword ? "text" : "password"}
-  id="confirmPassword"
-  name="confirmPassword"
-  placeholder="Confirm Password"
-  value={formData.confirmPassword}
-  style={{
-    borderRadius: "10px",
-    width: "450px",
-    height: "50px",
-  }}
-  onChange={handleInputChange}
-  maxLength={10}
-  autoCapitalize="none"
-/>
+                      type={showConfirmPassword ? "text" : "password"}
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      placeholder="Confirm Password"
+                      value={formData.confirmPassword}
+                      style={{
+                        borderRadius: "10px",
+                        width: "450px",
+                        height: "50px",
+                      }}
+                      onChange={handleInputChange}
+                      maxLength={10}
+                      autoCapitalize="none"
+                    />
                     <span
-                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      onClick={() =>
+                        setShowConfirmPassword(!showConfirmPassword)
+                      }
                       style={{
                         position: "absolute",
                         top: "40%",

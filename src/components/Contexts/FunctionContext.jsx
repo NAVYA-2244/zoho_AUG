@@ -42,6 +42,8 @@ export const FunctionContextProvider = ({ children }) => {
         if (id !== "password") {
           if (name === "organisation_name") {
             value = value.replace(/[^a-zA-Z0-9,. ]/g, ""); // Allow letters, numbers, and punctuation
+          } else if (["company_name"].includes(name)) {
+            value = value.replace(/[^A-Za-z\s]/g, "");
           } else if (
             [
               "pan",
@@ -56,7 +58,8 @@ export const FunctionContextProvider = ({ children }) => {
           } else if (
             !["uan", "longitude", "latitude", "employee_id"].includes(name)
           ) {
-            value = value.replace(/[^A-Za-z\s]/g, ""); // Only letters and spaces for other fields
+            value = value.replace(/[^A-Za-z\s]/g, ""); // Allow letters and spaces
+            // Only letters and spaces for other fields
           }
         }
         break;

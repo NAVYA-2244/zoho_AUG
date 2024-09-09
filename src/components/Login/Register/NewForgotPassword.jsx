@@ -1584,7 +1584,7 @@ const NewForgotPassword = () => {
       .label("Password"),
 
     confirmPassword: Joi.string()
-      .valid(Joi.ref("newPassword"))
+      // .valid(Joi.ref("newPassword"))
       .required()
       .messages({
         "any.only": "Confirm password doesn't match the new password.",
@@ -1629,21 +1629,28 @@ const NewForgotPassword = () => {
     setBtndisabled(true);
 
     try {
-      await checkErrors(otpSchema, otpData);
-
-      const response = await backEndCallObjNothing(
-        "/emp/reset_forgot_password",
-        {
-          employee_email: otpData.employee_email,
-          new_password: otpData.newPassword,
-        }
-      );
-
-      if (response?.success) {
-        toastOptions.success("Password reset successful!");
-        navigate("/login");
+      if (otpData.newPassword !== otpData.confirmPassword) {
+        toastOptions.error("Password should match with ConfirmPassword ");
       } else {
-        toastOptions.error(response?.error || "Password reset failed.");
+        await checkErrors(otpSchema, otpData);
+
+        const response = await backEndCallObjNothing(
+          "/emp/reset_forgot_password",
+          {
+            employee_email: otpData.employee_email,
+            new_password: otpData.newPassword,
+          }
+        );
+        {
+          console.log(response, "success");
+        }
+        if (response?.success) {
+          toastOptions.success("Password reset successful!");
+
+          navigate("/login");
+        } else {
+          toastOptions.error(response?.error || "Password reset failed.");
+        }
       }
     } catch (e) {
       toastOptions.error("Validation error. Please check the fields.");
@@ -1748,13 +1755,12 @@ const NewForgotPassword = () => {
                     name="employee_email"
                     value={otpData.employee_email}
                     setForm={setOtpData}
-                    // validateField={validateField}
-                    // schema={otpSchema.employee_email}
-                    onChange={handleInputChange}
+                    validateField={validateField}
+                    schema={otpSchema.employee_email}
                     required
                     maxLength={50}
                     icon={<MdEmail />}
-                    // onChange={handleInputChange}
+                    onChange={handleInputChange}
                   />
                   {errors.employee_email && (
                     <small className="form-text text-danger">
@@ -1766,20 +1772,21 @@ const NewForgotPassword = () => {
                     <label htmlFor="newPassword">New Password</label>
                     <div className="password-wrapper">
                       <InputPassword
-                        type={"password"}
-                        id="newPassword"
+                        type="password"
+                        // id="newPassword"
                         name="newPassword"
                         placeholder="New Password"
                         value={otpData.newPassword}
-                        // onChange={handleInputChange}
+                        onChange={handleInputChange}
                         setForm={setOtpData}
-                        // schema={otpData.newPassword}
-                        // validateField={validateField}
+                        validateField={validateField}
+                        schema={otpSchema.newPassword}
+                        required
                         maxLength={10}
                         className="form-control"
-                        onChange={handleInputChange}
                         icon={<MdOutlineKey />}
                       />
+
                       {/* <span
                         onClick={() => setShowOldPassword(!showOldPassword)}
                       >
@@ -1797,16 +1804,17 @@ const NewForgotPassword = () => {
                     <label htmlFor="confirmPassword">Confirm Password</label>
                     <div className="password-wrapper">
                       <InputPassword
-                        type={"password"}
+                        type="password"
                         id="confirmPassword"
                         name="confirmPassword"
                         placeholder="Confirm Password"
                         value={otpData.confirmPassword}
+                        schema={otpSchema.confirmPassword}
                         onChange={handleInputChange}
                         setForm={setOtpData}
                         className="form-control"
                         icon={<MdOutlineKey />}
-                        // schema={otpData.confirmPassword}
+                        validateField={validateField}
                       />
                       {/* <span
                         onClick={() => SetConfirmPassword(!ConfirmaPassword)}

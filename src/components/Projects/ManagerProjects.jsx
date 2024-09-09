@@ -382,7 +382,7 @@ const ManagerProjects = () => {
   };
 
   const getTasksByProjectId = (projectId) => {
-    return ProfileTask.filter((task) => task.project_id === projectId);
+    return ProfileTask?.filter((task) => task.project_id === projectId);
   };
   const handleRefresh = () => {
     fetchProjects();

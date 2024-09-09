@@ -1,4 +1,3 @@
-
 // import React from "react";
 // import TableHead from "../../../Table/TableHead";
 // import { useThemeContext } from "../../../Contexts/ThemesContext";
@@ -139,10 +138,16 @@ const EmployeeLeaveApplicationsTable = ({ leaveApplications }) => {
 
     // If the employee's role matches one of the approval roles, exclude that status column
     if (admin_type !== "2" && firstApplication.approved_by?.manager) {
-      dynamicTableHeadProperties.push({ name: "Manager Status", property: "approved_by.manager.leave_status" });
+      dynamicTableHeadProperties.push({
+        name: "Manager Status",
+        property: "approved_by.manager.leave_status",
+      });
     }
     if (admin_type !== "3" && firstApplication.approved_by?.team_incharge) {
-      dynamicTableHeadProperties.push({ name: "Team Incharge Status", property: "approved_by.team_incharge.leave_status" });
+      dynamicTableHeadProperties.push({
+        name: "Team Incharge Status",
+        property: "approved_by.team_incharge.leave_status",
+      });
     }
     // if (role_name !== "HR" && firstApplication.approved_by?.hr) {
     //   dynamicTableHeadProperties.push({ name: "HR Status", property: "approved_by.hr.leave_status" });
@@ -150,7 +155,10 @@ const EmployeeLeaveApplicationsTable = ({ leaveApplications }) => {
   }
 
   // Combine base properties with dynamic properties
-  const tableHeadProperties = [...baseTableHeadProperties, ...dynamicTableHeadProperties];
+  const tableHeadProperties = [
+    ...baseTableHeadProperties,
+    ...dynamicTableHeadProperties,
+  ];
   const getLeaveStatusStyle = (status) => {
     switch (status) {
       case "Approved":
@@ -173,7 +181,10 @@ const EmployeeLeaveApplicationsTable = ({ leaveApplications }) => {
       </h5>
       <section
         className="tables table-wrapper py-2 px-3"
-        style={{ background: applicationColor.cardBg1, color: applicationColor.readColor1 }}
+        style={{
+          background: applicationColor.cardBg1,
+          color: applicationColor.readColor1,
+        }}
       >
         <table className="table table-bordered table-responsive">
           <thead>
@@ -195,16 +206,18 @@ const EmployeeLeaveApplicationsTable = ({ leaveApplications }) => {
               </tr>
             ))}
           </tbody> */}
-           <tbody>
+          <tbody>
             {leaveApplications.map((application, index) => (
               <tr key={index}>
                 {tableHeadProperties.map((head, i) => {
-                  const value = head.property
-                    .split('.')
-                    .reduce((obj, key) => obj && obj[key], application) || 'N/A';
-                  
+                  const value =
+                    head.property
+                      .split(".")
+                      .reduce((obj, key) => obj && obj[key], application) ||
+                    "N/A";
+
                   // Apply special styling to the leave_status column
-                  if (head.property.includes('leave_status')) {
+                  if (head.property.includes("leave_status")) {
                     return (
                       <td key={i} style={getLeaveStatusStyle(value)}>
                         {value}
@@ -218,10 +231,9 @@ const EmployeeLeaveApplicationsTable = ({ leaveApplications }) => {
             ))}
           </tbody>
           <div className=" m-2">
-          {
-            leaveApplications.length== 0 &&
-            <p className="text-center">  there is no leave applications</p>
-          }
+            {leaveApplications.length == 0 && (
+              <p className="text-center"> there is no leave applications</p>
+            )}
           </div>
         </table>
       </section>

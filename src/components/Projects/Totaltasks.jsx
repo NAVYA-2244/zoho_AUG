@@ -1,48 +1,61 @@
-import React, { useEffect, useState } from 'react';
-import { useThemeContext } from '../Contexts/ThemesContext';
-import Joi from 'joi';
-import { backEndCallObjNothing } from '../../services/mainService';
-import Loader from '../Loader/Loader';
-import TaskDetailsModal from './TaskDetailsModal';
-import { toastOptions } from '../../Utils/FakeRoutes';
+import React, { useEffect, useState } from "react";
+import { useThemeContext } from "../Contexts/ThemesContext";
+import Joi from "joi";
+import { backEndCallObjNothing } from "../../services/mainService";
+import Loader from "../Loader/Loader";
+import TaskDetailsModal from "./TaskDetailsModal";
+import { toastOptions } from "../../Utils/FakeRoutes";
+import { useStateContext } from "../Contexts/StateContext";
 
 const schema = Joi.object({
   skip: Joi.number().integer().min(0).required(),
-  status: Joi.string().optional().allow("").valid("new", "in_progress", "under_review", "completed"),
+  status: Joi.string()
+    .optional()
+    .allow("")
+    .valid("new", "in_progress", "under_review", "completed"),
   date: Joi.date().optional().allow(""),
 });
 
 function Totaltasks() {
   const { applicationColor } = useThemeContext();
-  
-  const [tasks, setTasks] = useState([]);
+  const { ManagerTask, setManagerTask } = useStateContext();
+
   const [filters, setFilters] = useState({ skip: 0, status: "", date: "" });
-  const [statusOptions] = useState(["new", "in_progress", "under_review", "completed"]);
+  const [statusOptions] = useState([
+    "new",
+    "in_progress",
+    "under_review",
+    "completed",
+  ]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedTask, setSelectedTask] = useState(null);
   const [showModal, setShowModal] = useState(false);
- 
-    const fetchingData = async () => {
-      try {
+
+  const fetchingData = async () => {
+    try {
+      if (!ManagerTask) {
         setLoading(true);
-        const response = await backEndCallObjNothing("/emp_get/get_all_tasks", filters);
+        const response = await backEndCallObjNothing(
+          "/emp_get/get_all_tasks",
+          filters
+        );
         console.log(response);
-        setTasks(response || []); // Adjust based on actual response structure
-      } catch (error) {
-        setError(error?.response?.data || "Something went wrong");
-      } finally {
-        setLoading(false);
-      }
-    };
- 
+        setManagerTask(response || []);
+      } // Adjust based on actual response structure
+    } catch (error) {
+      setError(error?.response?.data || "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     fetchingData();
   }, [filters]);
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
-    setFilters(prevFilters => ({ ...prevFilters, [name]: value }));
+    setFilters((prevFilters) => ({ ...prevFilters, [name]: value }));
   };
 
   const applyFilters = () => {
@@ -59,13 +72,16 @@ function Totaltasks() {
     try {
       setLoading(true);
       const { task_id, status } = updatedTask;
-     const response= await backEndCallObjNothing("/emp/update_task", { task_id, status });
-toastOptions.success(response)
+      const response = await backEndCallObjNothing("/emp/update_task", {
+        task_id,
+        status,
+      });
+      toastOptions.success(response);
       await fetchingData();
-       // Refetch tasks to update the list
+      // Refetch tasks to update the list
     } catch (error) {
       console.error("Error updating task:", error);
-      toastOptions.success(error?.response?.data)
+      toastOptions.success(error?.response?.data);
     } finally {
       setLoading(false);
       setShowModal(false);
@@ -97,9 +113,10 @@ toastOptions.success(response)
                   onChange={handleFilterChange}
                 >
                   <option value="">All Statuses</option>
-                  {statusOptions.map(status => (
+                  {statusOptions.map((status) => (
                     <option key={status} value={status}>
-                      {status.charAt(0).toUpperCase() + status.slice(1).replace('_', ' ')}
+                      {status.charAt(0).toUpperCase() +
+                        status.slice(1).replace("_", " ")}
                     </option>
                   ))}
                 </select>
@@ -134,7 +151,7 @@ toastOptions.success(response)
         {/* Tasks Table */}
         <div className="table-responsive text-center">
           <table className="table ">
-            <thead >
+            <thead>
               <tr>
                 <th>Date</th>
                 <th>Task ID</th>
@@ -150,36 +167,44 @@ toastOptions.success(response)
               </tr>
             </thead>
             <tbody>
-  {tasks.length > 0 ? (
-    tasks.map((task, index) => (
-      <tr key={index}>
-        <td>{new Date(task.createdAt).toLocaleDateString()}</td>
-        <td>{task.task_id}</td>
-        <td>{task.task_name}</td>
-        <td>{task.project_name}</td>
-        {/* <td className="table-description">{task.description}</td>  */}
-        <td>{task.status}</td>
-        <td>{task.priority}</td>
-        <td>{new Date(task.due_date).toLocaleDateString()}</td>
-        {/* <td>{task.assign_track[0]?.assigned_by?.employee_email || 'N/A'}</td>
+              {ManagerTask?.length > 0 ? (
+                ManagerTask.map((task, index) => (
+                  <tr key={index}>
+                    <td>{new Date(task.createdAt).toLocaleDateString()}</td>
+                    <td>{task.task_id}</td>
+                    <td>{task.task_name}</td>
+                    <td>{task.project_name}</td>
+                    {/* <td className="table-description">{task.description}</td>  */}
+                    <td>{task.status}</td>
+                    <td>{task.priority}</td>
+                    <td>{new Date(task.due_date).toLocaleDateString()}</td>
+                    {/* <td>{task.assign_track[0]?.assigned_by?.employee_email || 'N/A'}</td>
         <td>{task.assign_track[0]?.assigned_to?.employee_name || 'N/A'}</td> */}
-        <td>
-          <button className="btn btn-outline-info btn-sm"  onClick={() => handleTaskClick(task)}>
-            <i className="bi bi-pencil"></i>
-          </button>
-        </td>
-      </tr>
-    ))
-  ) : (
-    <tr>
-      <td colSpan="10" className="text-center">No tasks available</td>
-    </tr>
-  )}
-</tbody>
-
+                    <td>
+                      <button
+                        className="btn btn-outline-info btn-sm"
+                        onClick={() => handleTaskClick(task)}
+                      >
+                        <i className="bi bi-pencil"></i>
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="10" className="text-center">
+                    No tasks available
+                  </td>
+                </tr>
+              )}
+            </tbody>
           </table>
           {/* Loading Indicator */}
-          {loading && <div className="text-center"><Loader /></div>}
+          {loading && (
+            <div className="text-center">
+              <Loader />
+            </div>
+          )}
         </div>
       </div>
       {showModal && (
