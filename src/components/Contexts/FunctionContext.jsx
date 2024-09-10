@@ -48,6 +48,8 @@ export const FunctionContextProvider = ({ children }) => {
             value = value.replace(/[^A-Za-z0-9.\s,]/g, "");
           } else if (["degree"].includes(name)) {
             value = value.replace(/[^A-Za-z0-9\s\W]/g, "");
+          } else if (["employee_id"].includes(name)) {
+            value = value.replace((/[^A-Za-z0-9]/g, ""));
           } else if (["institute_name"].includes(name)) {
             value = value.replace(/[^A-Za-z0-9\s,-]/g, "");
           } else if (
@@ -60,7 +62,7 @@ export const FunctionContextProvider = ({ children }) => {
               "uan",
             ].includes(name)
           ) {
-            value = value.replace(/[^A-Za-z0-9,-]/g, ""); // Alphanumeric for PAN and Passport
+            value = value.replace(/[^A-Za-z0-9\s,-]/g, ""); // Alphanumeric for PAN and Passport
           } else if (
             !["uan", "longitude", "latitude", "employee_id"].includes(name)
           ) {
