@@ -495,7 +495,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
                           <p>Reason: {item.reason}</p>
                         </div>
                         <div className="leave-card-data">
-                          <p>Applyed At:</p>
+                          <p>Applieded At:</p>
                           <p>{item.createdAt}</p>
                         </div>
 
@@ -620,7 +620,11 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
                       {console.log(adminGettingLeaveApplications, "leave")}
                       <td>{renderLeaveStatusButtons(item)}</td>
                       {/* <td>{item.createdAt}</td> */}
-                      <td>{format(new Date(item.createdAt), "dd-MM-yyyy")}</td>
+                      {/* <td>{format(new Date(item.createdAt), "dd-MM-yyyy")}</td> */}
+                      <td>
+                        {format(new Date(item.createdAt), "EEE, dd-MM-yyyy")}
+                      </td>
+
                       {console.log(item.createdAt, "at")}
                       <td>
                         {item.employee_name}
