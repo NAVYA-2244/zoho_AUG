@@ -513,8 +513,8 @@ console.log(orgDetails,"navya")
   schema={schema.reporting_manager}
   setForm={setFormData}
   options={filteredEmployees.map((employee) => ({
-    displayName: `${employee.basic_info.first_name}`, // Display email
-    email: employee.email, // Store employee ID for payload
+    displayName: `${employee.basic_info.first_name} ${employee.basic_info.last_name}`,
+        email: employee.email, // Store employee ID for payload
     email: employee.basic_info.email, // Store email for payload
   }))}
   property={"displayName"} // Display email

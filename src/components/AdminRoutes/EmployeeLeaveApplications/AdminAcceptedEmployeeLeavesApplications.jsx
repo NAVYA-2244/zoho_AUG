@@ -15,6 +15,7 @@ import moment from "moment-timezone";
 import { FcLeave } from "react-icons/fc";
 import CircularLoader from "../../SVGCircler/Circular";
 import { format } from "date-fns";
+import Selectinputimg from "../../EmployeeRoutes/EmployeeAttendance/Selectinputimg";
 
 const AdminAcceptedEmployeeLeavesApplications = () => {
   const {
@@ -304,7 +305,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
       <form onSubmit={handleSubmit}>
         <div className="row row-gap-4">
           <div className="col-lg-3 col-md-3 col-sm-6 admin-leave-filters">
-            <label>Employee ID</label>
+            <label>Employee </label>
 
             <select
               name="employee_id"
@@ -319,6 +320,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
                 </option>
               ))}
             </select>
+            <Selectinputimg/>
           </div>
           <div className="col-lg-3 col-md-3 col-sm-6 admin-leave-filters">
             <label>Status</label>

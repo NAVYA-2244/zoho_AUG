@@ -11,10 +11,12 @@ import { makeNetworkCall } from "../../../HttpServices/HttpService";
 import { useFunctionContext } from "../../Contexts/FunctionContext";
 import { backEndCallObjNothing } from "../../../services/mainService";
 import { format } from "date-fns";
+import EmployeeList from "../EmployeeList/EmployeeList";
 
 const AddEmployee = () => {
-  const { setOrgData2, setLoadingTerm, setLoading, orgDetails } =
+  const { setOrgData2, setLoadingTerm, setLoading, orgDetails , setEmployeelist,EmployeeList} =
     useStateContext();
+    const navigate = useNavigate()
   // console.log(orgDetails, "orgDetails");
 
   console.log(orgDetails.organisation_id
@@ -22,6 +24,7 @@ const AddEmployee = () => {
   const [redirect, setRedirect] = useState(false);
   const { checkErrors } = useFunctionContext();
   const[btndisabled,setButtonDisabled]=useState(false)
+
   const handleSubmit = async (formData, setFormData) => {
     // console.log(formData.educational_details, "del");
     console.log(
@@ -126,6 +129,9 @@ const AddEmployee = () => {
       setLoadingTerm("");
       setLoading(false);
       setButtonDisabled(false)
+
+      window.location.reload("/admin/employee_list");
+      navigate("/admin/employee_list")
     } catch (error) {
       setLoading(false);
       setLoadingTerm("");

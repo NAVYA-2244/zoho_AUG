@@ -35,7 +35,7 @@ function Selectinputimg() {
     const fetchingData = async () => {
       try {
         let { all_emps } = await backEndCallObjNothing(
-          "/user_get/get_emp_list"
+          "/org/get_team_for_task"
         );
         console.log(all_emps, "data");
         setEmployeesList(all_emps);
