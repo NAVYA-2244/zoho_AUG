@@ -27,7 +27,7 @@ const Dashbord = () => {
     //        {employeeDetails.admin_type === "1" && employeeDetails.organisation_id.lenght >=9 ?
     //        <Companydetails/> :
 
-    //       <section className="row-1">
+    //       <section className="">
 
     //         <OnlyBirthDaysAndNewHires />
 

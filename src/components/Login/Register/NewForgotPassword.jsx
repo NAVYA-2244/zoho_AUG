@@ -291,13 +291,23 @@ const NewForgotPassword = () => {
                       src={logolg}
                       alt="company-logo"
                       width="100"
-                      style={{ position: "absolute", top: "100px" }}
+                      style={{
+                        position: "absolute",
+                        bottom: "280px",
+                        left: "300px",
+                      }}
                     />
                   </div>
-                  <h3 className="welcome mb-2">Forgot Password</h3>
-                  <p className="mb-8">
-                    Lost your password? Please enter your email address, then
-                    you can create a new password.
+                  <h3 className="welcome mb-5 ">Forgot Password</h3>
+                  <p
+                    className="mb-8"
+                    style={{
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                      color: "#333",
+                    }}
+                  >
+                    Please Enter your Email Address to create password
                   </p>
                   <InputEmail
                     type="email"
@@ -339,7 +349,7 @@ const NewForgotPassword = () => {
                   <div className="logo-wrapper mb-4">
                     <img src={logolg} alt="company-logo" width="100" />
                   </div>
-                  <h1 className="welcome mb-1">OTP Verification</h1>
+                  {/* <h1 className="welcome mb-1">OTP Verification</h1> */}
                   <p className="text-primary mb-4">{formData.email}</p>
                   <label htmlFor="Email">Email</label>
                   <InputEmail

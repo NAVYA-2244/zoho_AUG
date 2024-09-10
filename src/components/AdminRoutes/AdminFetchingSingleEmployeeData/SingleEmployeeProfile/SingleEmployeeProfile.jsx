@@ -251,10 +251,9 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
     loadingTerm,
     employeedata,
     loading,
-    employeeDetails
-    
+    employeeDetails,
   } = useStateContext();
-  console.log(employeedata,"navya")
+
   // profile tabs stored in array of objects and rendering dynamically in tab section views
   const tabs = [{ name: "profile", label: "Profile" }];
 
@@ -288,14 +287,18 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
   //   navigate("/profile_Edit", { state: { employeeProfileData } });
   // }
   const handleEdit = () => {
-    if (employeeDetails.admin_type === "1" || employeeDetails.admin_type === "2") {
-      navigate(`/admin/update_employee/${employeeProfileData.profile.employee_id}`);
+    if (
+      employeeDetails.admin_type === "1" ||
+      employeeDetails.admin_type === "2"
+    ) {
+      navigate(
+        `/admin/update_employee/${employeeProfileData.profile.employee_id}`
+      );
     }
     //  else {
     //   // navigate("/profile_Edit", { state: { employeeProfileData } });
     //   ""
     // }
-  
   };
   const {
     basic_info,
@@ -305,17 +308,17 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
     personal_details,
   } = employeeProfileData?.profile;
 
-   const workExperiences = employeeProfileData.profile.work_experience;
+  const workExperiences = employeeProfileData.profile.work_experience;
   const educational_details = employeeProfileData.profile.educational_details;
   const dependent_details = employeeProfileData.profile.dependent_details;
   const workInfoArray = [work_info];
   const contactDetailsArray = [contact_details];
   const identityInfoArray =
-  // [{uan:employeeProfileData.profile.uan,aadhaar:employeeProfileData.profile.aadhaar}]
-  [identity_info]
+    // [{uan:employeeProfileData.profile.uan,aadhaar:employeeProfileData.profile.aadhaar}]
+    [identity_info];
   const personalDetailsArray = [personal_details];
 
-  console.log(workInfoArray,"work_info");
+  console.log(workInfoArray, "work_info");
 
   return (
     <div className="row">
@@ -329,8 +332,8 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
             color: applicationColor.readColor1,
           }}
         >
-                 <ProfilePhoto />
-                 
+          <ProfilePhoto />
+
           {/* tabs section */}
           <section
             className="tab-buttons"
@@ -339,7 +342,6 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
               color: applicationColor.readColor2,
             }}
           >
-           
             {tabs.map((tab) => (
               <button
                 key={tab.name}
@@ -383,12 +385,12 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
                     <div className="d-flex align-items-center justify-content-between">
                       <h4 className="profile-heading">Profile</h4>
                       {/* {employeeDetails.admin_type=== "1"?"": */}
-                      
+
                       <button className="btn btn-primary" onClick={handleEdit}>
                         Edit
-                      </button> 
+                      </button>
 
-                    {/* } */}
+                      {/* } */}
                     </div>
                     <div className="basic-information">
                       <div className="basic-info-left">
@@ -404,7 +406,11 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
                         <div className="info detail">
                           <MdOutlineMail />
                           {/* <p>{basic_info.email.toLowerCase()  || "no data"}</p> */}
-                          <p>{basic_info.email ? basic_info.email.toLowerCase() : "no data"}</p>
+                          <p>
+                            {basic_info.email
+                              ? basic_info.email.toLowerCase()
+                              : "no data"}
+                          </p>
                         </div>
                       </div>
                       <div className="basic-info-right">

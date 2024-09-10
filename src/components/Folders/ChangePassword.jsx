@@ -916,7 +916,12 @@ import { backEndCallObjNothing } from "../../services/mainService";
 import { useNavigate } from "react-router-dom";
 import { toastOptions } from "../../Utils/FakeRoutes";
 import { useThemeContext } from "../Contexts/ThemesContext";
-
+import { MdOutlineKey } from "react-icons/md";
+import {
+  Input_password,
+  InputEmail,
+  InputPassword,
+} from "../../components/common/ALLINPUTS/AllInputs";
 const Modal = ({ onLogout }) => (
   <div className="modal fade show d-block" tabIndex="-1" role="dialog">
     <div className="modal-dialog modal-dialog-centered" role="document">
@@ -947,8 +952,13 @@ const ChangePassword = () => {
     oldPassword: "",
     newPassword: "",
     confirmPassword: "",
+    email: "",
+    new_password: "",
   });
-
+  // const [EmployeData, setEmployeData] = useState({
+  //   email: "",
+  //   new_password: "",
+  // });
   const [errors, setErrors] = useState({});
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
@@ -958,6 +968,28 @@ const ChangePassword = () => {
   const [btndisabled, setBtndisabled] = useState(false);
   // Define Joi schemas
   const schema = Joi.object({
+    email: Joi.string()
+      .email({ tlds: { allow: ["com", "net", "org", "io"] } })
+      .max(50)
+      .required()
+      .messages({
+        "string.email": "Please enter a valid employee email address.",
+        "string.max": "Employee email must be less than 50 characters.",
+        "any.required": "Employee email is required.",
+      }),
+    new_password: Joi.string()
+      .min(8)
+      .max(15)
+      .required()
+      .pattern(
+        /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\|\-=])/
+      )
+      .messages({
+        "string.pattern.base":
+          '"Password" needs 1 uppercase, and 1 special character',
+        "any.required": '"Password" is required',
+      })
+      .label("Password"),
     oldPassword: Joi.string()
       .min(6)
       .max(10)
@@ -990,6 +1022,15 @@ const ChangePassword = () => {
         "any.required": "Confirm Password is required",
       }),
   });
+  // const EmployeSchema = {
+  //   email: Joi.string().required().email().max(55),
+  //   new_password: Joi.string()
+  //     .required()
+  //     .min(8)
+  //     .max(15)
+  //     .pattern(/(?=.*[A-Z])/, "uppercase") // At least one uppercase letter
+  //     .pattern(/(?=.*[@$!%*?&])/, "special"), //atleast one special character
+  // };
 
   const validateForm = () => {
     const { error } = schema.validate(formData, { abortEarly: false });
@@ -1007,7 +1048,11 @@ const ChangePassword = () => {
     setErrors(newErrors);
     return newErrors;
   };
-
+  // const validateField = (name, value) => {
+  //   const schema = Joi.object(otpSchema, ResetPasswordSchema);
+  //   const { error } = schema.extract(name).validate(value);
+  //   return !error;
+  // };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -1053,173 +1098,116 @@ const ChangePassword = () => {
   };
 
   return (
-    <section
-      className="company-details p-3"
-      style={{ background: applicationColor.cardBg1 }}
-    >
-      <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-md-6">
-            <div className="card p-4">
+    <>
+      <div className="row">
+        <div className="col-lg-4">
+          <div
+            className="d_card m-2 p-3"
+            style={{ background: applicationColor.cardItem }}
+          >
+            <div>
               <h5 className="text-center mb-4">Change Password</h5>
               <form onSubmit={handleSubmit}>
-                <div className="form-group mb-3">
-                  <label htmlFor="oldPassword">Old Password</label>
-                  <div className="input-group" style={{ position: "relative" }}>
-                    <input
-                      type={showOldPassword ? "text" : "password"}
-                      id="oldPassword"
-                      name="oldPassword"
-                      placeholder="Old Password"
-                      value={formData.oldPassword}
-                      style={{
-                        borderRadius: "10px",
-                        width: "450px",
-                        height: "50px",
-                      }}
-                      onChange={handleInputChange}
-                      maxLength={10}
-                    />
-                    <span
-                      onClick={() => setShowOldPassword(!showOldPassword)}
-                      style={{
-                        position: "absolute",
-                        top: "40%",
-                        left: "420px",
-                        transform: "translateY(-50%)",
-                        cursor: "pointer",
-                        fontSize: "1.25rem",
-                      }}
-                    >
-                      {showOldPassword ? <FaRegEye /> : <FaRegEyeSlash />}
-                    </span>
-                    {errors.oldPassword && (
-                      <small className="form-text text-danger">
-                        {errors.oldPassword}
-                      </small>
-                    )}
-                  </div>
-                </div>
-                <div className="form-group mb-3">
-                  <label htmlFor="newPassword">New Password</label>
-                  <div className="input-group" style={{ position: "relative" }}>
-                    {/* <input
-                      type={showNewPassword ? "text" : "password"}
-                      id="newPassword"
-                      name="newPassword"
-                      placeholder="New Password"
-                      value={formData.newPassword}
-                      style={{
-                        borderRadius: "10px",
-                        width: "450px",
-                        height: "50px",
-                      }}
-                      onChange={handleInputChange}
-                      maxLength={10}
-                    /> */}
-                    <input
-                      type={showNewPassword ? "text" : "password"}
-                      id="newPassword"
-                      name="newPassword"
-                      placeholder="New Password"
-                      value={formData.newPassword}
-                      style={{
-                        borderRadius: "10px",
-                        width: "450px",
-                        height: "50px",
-                      }}
-                      onChange={handleInputChange}
-                      maxLength={10}
-                      autoCapitalize="none"
-                    />
-                    <span
-                      onClick={() => setShowNewPassword(!showNewPassword)}
-                      style={{
-                        position: "absolute",
-                        top: "40%",
-                        left: "420px",
-                        transform: "translateY(-50%)",
-                        cursor: "pointer",
-                        fontSize: "1.25rem",
-                      }}
-                    >
-                      {showNewPassword ? <FaRegEye /> : <FaRegEyeSlash />}
-                    </span>
-                    {errors.newPassword && (
-                      <small className="form-text text-danger">
-                        {errors.newPassword}
-                      </small>
-                    )}
-                  </div>
-                </div>
-                <div className="form-group mb-3">
-                  <label htmlFor="confirmPassword">Confirm Password</label>
-                  <div className="input-group" style={{ position: "relative" }}>
-                    {/* <input
-                      type={showConfirmPassword ? "text" : "password"}
-                      id="confirmPassword"
-                      name="confirmPassword"
-                      placeholder="Confirm Password"
-                      value={formData.confirmPassword}
-                      style={{
-                        borderRadius: "10px",
-                        width: "450px",
-                        height: "50px",
-                      }}
-                      onChange={handleInputChange}
-                      maxLength={10}
-                    /> */}
-                    <input
-                      type={showConfirmPassword ? "text" : "password"}
-                      id="confirmPassword"
-                      name="confirmPassword"
-                      placeholder="Confirm Password"
-                      value={formData.confirmPassword}
-                      style={{
-                        borderRadius: "10px",
-                        width: "450px",
-                        height: "50px",
-                      }}
-                      onChange={handleInputChange}
-                      maxLength={10}
-                      autoCapitalize="none"
-                    />
-                    <span
-                      onClick={() =>
-                        setShowConfirmPassword(!showConfirmPassword)
-                      }
-                      style={{
-                        position: "absolute",
-                        top: "40%",
-                        left: "420px",
-                        transform: "translateY(-50%)",
-                        cursor: "pointer",
-                        fontSize: "1.25rem",
-                      }}
-                    >
-                      {showConfirmPassword ? <FaRegEye /> : <FaRegEyeSlash />}
-                    </span>
-                    {errors.confirmPassword && (
-                      <small className="form-text text-danger">
-                        {errors.confirmPassword}
-                      </small>
-                    )}
-                  </div>
-                </div>
+                <InputPassword
+                  type={"password"}
+                  id="oldPassword"
+                  name="oldPassword"
+                  placeholder="Old Password"
+                  value={formData.oldPassword}
+                  onChange={handleInputChange}
+                  maxLength={10}
+                />
+
+                {errors.oldPassword && (
+                  <small className="form-text text-danger">
+                    {errors.oldPassword}
+                  </small>
+                )}
+
+                <InputPassword
+                  type={"password"}
+                  id="newPassword"
+                  name="newPassword"
+                  placeholder="New Password"
+                  value={formData.newPassword}
+                  onChange={handleInputChange}
+                  maxLength={10}
+                  autoCapitalize="none"
+                />
+
+                {errors.newPassword && (
+                  <small className="form-text text-danger">
+                    {errors.newPassword}
+                  </small>
+                )}
+
+                <InputPassword
+                  type={"password"}
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  placeholder="Confirm Password"
+                  value={formData.confirmPassword}
+                  onChange={handleInputChange}
+                  maxLength={10}
+                  autoCapitalize="none"
+                />
+
+                {errors.confirmPassword && (
+                  <small className="form-text text-danger">
+                    {errors.confirmPassword}
+                  </small>
+                )}
+              </form>
+              <button
+                type="submit"
+                className="btn btn-primary w-100"
+                disabled={btndisabled}
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="col-lg-4">
+          <div
+            className="d_card m-2 p-4"
+            style={{ background: applicationColor.cardItem }}
+          >
+            <div>
+              <h5 className="text-center mb-4">Employee Reset Password</h5>
+              <div className="form-group p-3">
+                <InputEmail
+                  type="email"
+                  placeholder="Email Address"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  // Add other props if needed
+                />
+                <InputPassword
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  value={formData.new_password}
+                  onChange={handleInputChange}
+                  // Add other props if needed
+                  imp
+                  icon={<MdOutlineKey />}
+                />
                 <button
                   type="submit"
-                  className="btn btn-primary"
-                  disabled={btndisabled}
+                  className="btn btn-primary w-100"
+                  // onClick={EmployeSubmit}
                 >
                   Submit
                 </button>
-              </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      {showModal && <Modal onLogout={handleLogout} />}
-    </section>
+    </>
   );
 };
 
