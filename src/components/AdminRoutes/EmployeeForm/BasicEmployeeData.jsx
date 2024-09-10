@@ -122,7 +122,7 @@ console.log(orgDetails,"navya")
             // readOnly={isAdmin || type === "Update Employee"}
             inputRef={(el) => (refs.current.employee_id = el)}
           /> 
-          {console.log(employeeDetails.employees,"navya")}
+         
 
           {/* {employeeDetails.admin_type === "1"|| employeeDetails.admin_type === "2"&& */}
           
@@ -429,16 +429,16 @@ console.log(orgDetails,"navya")
             // readOnly={isAdmin}
             imp
             inputRef={(el) => (refs.current.date_of_join = el)}
-            min={
-              new Date(
-                new Date().getFullYear() - 55,
-                new Date().getMonth(),
-                new Date().getDate()
-              )
-                .toISOString()
-                .split("T")[0]
-            }
-            max={new Date().toISOString().split("T")[0]}
+            // min={
+            //   new Date(
+            //     new Date().getFullYear() - 55,
+            //     new Date().getMonth(),
+            //     new Date().getDate()
+            //   )
+            //     .toISOString()
+            //     .split("T")[0]
+            // }
+            // max={new Date().toISOString().split("T")[0]}
           />
         </div>
 

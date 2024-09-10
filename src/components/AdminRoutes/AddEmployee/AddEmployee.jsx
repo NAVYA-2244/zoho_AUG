@@ -145,6 +145,7 @@ const AddEmployee = () => {
     }
   };
   if (redirect) {
+    console.log("")
     return <Navigate to="/admin/employee_list" />;
   }
   

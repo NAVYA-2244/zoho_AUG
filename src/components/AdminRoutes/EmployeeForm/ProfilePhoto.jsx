@@ -626,7 +626,7 @@ const ProfilePhoto = () => {
   const fileInputRef = useRef(null);
 
   const [formData, setFormData] = useState({ image: "", about_me: "" });
-
+const[btndisable,setBtndisabled]=useState(false)
   const [showOverlay, setShowOverlay] = useState(false);
   const [error, setError] = useState("");
   const {
@@ -674,12 +674,15 @@ console.log(formData,"formdata")
   }, [formData.image]);
 
   const handleSubmit = async () => {
+    
     try {
+      setBtndisabled(true)
       await schema.validateAsync(formData, { abortEarly: false });
       const response = await backEndCallObjNothing("/emp/update_dp", {
         image: formData.image,
         about_me: formData.about_me,
       });
+      console.log(response)
       const res = await backEndCallObjNothing("/emp_get/get_profile");
       console.log(res, "employeeeeeeee");
       setProfilePhoto(response?.profile?.images?.dp);
@@ -694,9 +697,11 @@ console.log(formData,"formdata")
       }));
       
       setError("");
-      toastOptions.success("Profile updated successfully.");
+      setBtndisabled(false)
+      toastOptions.success(response.success);
     } catch (error) {
-      console.error("Error updating profile:", error);
+      setBtndisabled(false)
+      console.error("Error updating profile:", error?.response?.data);
       setError(error.message);
       toastOptions.error(error.message);
     }
@@ -783,6 +788,7 @@ console.log(aboutme,"about")
         <div className="col-12 text-center">
           <button
             className="btn btn-primary"
+            disabled={btndisable}
             onClick={handleSubmit}
             style={{
               backgroundColor: applicationColor,

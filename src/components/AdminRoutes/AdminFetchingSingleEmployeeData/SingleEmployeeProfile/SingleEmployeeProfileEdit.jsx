@@ -567,24 +567,24 @@ console.log(formattedData,"cleanData")
               value={formData.dependent_date_of_birth}
               setForm={setFormData}
               schema={schema.dependent_date_of_birth}
-              min={
-                new Date(
-                  new Date().getFullYear() - 60,
-                  new Date().getMonth(),
-                  new Date().getDate()
-                )
-                  .toISOString()
-                  .split("T")[0]
-              }
-              max={
-                new Date(
-                  new Date().getFullYear() - 21,
-                  new Date().getMonth(),
-                  new Date().getDate()
-                )
-                  .toISOString()
-                  .split("T")[0]
-              }
+              // min={
+              //   new Date(
+              //     new Date().getFullYear() - 60,
+              //     new Date().getMonth(),
+              //     new Date().getDate()
+              //   )
+              //     .toISOString()
+              //     .split("T")[0]
+              // }
+              // max={
+              //   new Date(
+              //     new Date().getFullYear() - 21,
+              //     new Date().getMonth(),
+              //     new Date().getDate()
+              //   )
+              //     .toISOString()
+              //     .split("T")[0]
+              // }
             />
           </div>
           <button

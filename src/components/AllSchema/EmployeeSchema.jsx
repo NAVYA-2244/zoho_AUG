@@ -1307,9 +1307,9 @@ export const ExpirementSchema = {
     .pattern(/^[6-9]\d{9}$/)
     .messages({
       "string.pattern.base":
-        '"Phone Number" should start with digits 6-9 and not include special characters',
+        '"Mobile Number" should start with digits 6-9 and not include special characters',
     })
-    .label("Phone Number"),
+    .label("Mobile Number"),
 
   personal_mobile_number: Joi.string()
     .min(10)
@@ -1318,10 +1318,10 @@ export const ExpirementSchema = {
     .pattern(/^[6-9]\d{9}$/)
     .messages({
       "string.pattern.base":
-        '"Personal Phone Number" should start with digits 6-9 and not include special characters',
-      "any.required": '"Personal Phone Number" is required',
+        '"Personal Mobile Number" should start with digits 6-9 and not include special characters',
+      "any.required": '"Personal Mobile Number" is required',
     })
-    .label("Personal Phone Number"),
+    .label("Personal Mobile Number"),
 
   personal_email_address: Joi.string()
     .min(10)
@@ -1530,10 +1530,10 @@ export const EditShema = Joi.object({
     .pattern(/^[6-9]\d{9}$/)
     .messages({
       "string.pattern.base":
-        '"Phone Number" should start with digits 6-9 and consist of 10 digits',
-      "string.length": '"Phone Number" should be exactly 10 digits long',
+        '"Mobile Number" should start with digits 6-9 and consist of 10 digits',
+      "string.length": '"mobile Number" should be exactly 10 digits long',
     })
-    .label("Phone Number"),
+    .label("Mobile Number"),
 
   personal_mobile_number: Joi.string()
     .length(10)

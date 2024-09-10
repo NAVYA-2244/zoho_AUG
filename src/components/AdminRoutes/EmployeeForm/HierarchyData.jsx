@@ -186,7 +186,7 @@ const HierarchyData = ({ formData, setFormData }) => {
             >
              
               <div className="row w-100">
-              <div className="col-lg-4 col-md-4 col-sm-6">
+              <div className="col-lg-3 col-md-3 col-sm-6">
                 <Input_text
                   type={"text"}
                   name={"company_name"}
@@ -201,7 +201,7 @@ const HierarchyData = ({ formData, setFormData }) => {
                 />
               </div>
 
-              <div className="col-lg-4 col-md-4 col-sm-6">
+              <div className="col-lg-3 col-md-3 col-sm-6">
                 <Input_text
                   type={"text"}
                   name={"job_title"}
@@ -216,7 +216,7 @@ const HierarchyData = ({ formData, setFormData }) => {
                 />
               </div>
               <div
-                className="col-lg-4 col-md-4 col-sm-6"
+                className="col-lg-3 col-md-3 col-sm-6"
                 style={{
                   color: applicationColor.readColor2,
                 }}
@@ -244,7 +244,7 @@ const HierarchyData = ({ formData, setFormData }) => {
                 />
               </div>
               <div
-                className="col-lg-4 col-md-4 col-sm-6"
+                className="col-lg-3 col-md-3 col-sm-6"
                 style={{
                   color: applicationColor.readColor2,
                 }}
@@ -271,7 +271,7 @@ const HierarchyData = ({ formData, setFormData }) => {
                 />
               </div>
 
-              <div className="col-lg-4 col-md-4 col-sm-6">
+              <div className="col-lg-3 col-md-3 col-sm-6">
                 <Input_text
                   type={"text"}
                   name={"experience"}
@@ -286,7 +286,7 @@ const HierarchyData = ({ formData, setFormData }) => {
                   fieldName="work_experience"
                 />
               </div>
-              <div className="col-lg-4 col-md-4 col-sm-6">
+              <div className="col-lg-3 col-md-3 col-sm-6">
                 <Input_area
                   index={index}
                   type={"textarea"}
@@ -301,8 +301,7 @@ const HierarchyData = ({ formData, setFormData }) => {
                   // readOnly={isAdmin}
                 />
               </div>
-              </div>
-              <div className="text-end">
+              <div className="col-lg-2 col-md-2 col-sm-6 mt-5">
                 {formData.work_experience.length > 1 ? (
                   <button
                     className="btn btn-danger btn-sm ms-2"
@@ -316,6 +315,8 @@ const HierarchyData = ({ formData, setFormData }) => {
                   ""
                 )}
               </div>
+              </div>
+              
              </div>
           );
         })}

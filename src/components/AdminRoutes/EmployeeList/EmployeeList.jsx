@@ -722,13 +722,13 @@ const debouncedSearchHandler = useCallback(
                                 )}
                             </div>
         </div> 
-        <div className="tables">
+        <div className="tables text-center">
           <table className="table table-bordered table-responsive rounded-1">
             <thead>
               <tr>
                 <th>Employee ID</th>
                 <th>Employee Name</th>
-             
+                <th>Email</th>
                 <th>Department</th>
                 <th>Designation</th>
                 <th>Date of Join</th>
@@ -740,11 +740,11 @@ const debouncedSearchHandler = useCallback(
               {employeesList.length > 0 ? (
                 kk.map((employee, index) => {
                   if (index === employeesList.length - 1) {
-                    // Attach ref to the last element for the observer
+                   
                     return (
                       <tr
                         key={employee.employee_id}
-                        ref={handleRef} // Attach observer to last row
+                        ref={handleRef} 
                       >
                         <td
                           style={{
@@ -760,17 +760,32 @@ const debouncedSearchHandler = useCallback(
                           {employee.employee_id}
                         </td>
                         <td>{employee.basic_info.first_name}{employee.basic_info.last_name}</td>
-                        
+                        <td>{employee.basic_info.email}</td>
                         <td>{employee.work_info.department_name}</td>
                         <td>{employee.work_info.designation_name}</td>
+                        
+                      
                         <td>{employee.work_info.date_of_join}</td>
-                        <td>{employee.work_info.employee_status}</td>
+                        {/* <td>{employee.work_info.employee_status}</td> */}
+                        <td>
+                        <span
+    className={`badge ${
+      employee.work_info.employee_status === "active"
+        ? "bg-success":"bg-danger"
+      
+    }`}
+  >
+    {employee.work_info.employee_status}
+  </span>
+</td>
+
                         <td>
                           <UpdateEmployeeAction id={employee.employee_id} />
                         </td>
                       </tr>
                     );
-                  } else {
+                  } 
+                  else {
                     return (
                       <tr key={employee.employee_id}>
                         <td
@@ -787,11 +802,24 @@ const debouncedSearchHandler = useCallback(
                           {employee.employee_id}
                         </td>
                         <td>{employee.basic_info.first_name}{" "}{employee.basic_info.last_name}</td>
-                        {/* <td>{employee.basic_info.last_name}</td> */}
+                        
+                        <td>{employee.basic_info.email}</td>
                         <td>{employee.work_info.department_name}</td>
                         <td>{employee.work_info.designation_name}</td>
                         <td>{employee.work_info.date_of_join}</td>
-                        <td>{employee.work_info.employee_status}</td>
+                        {/* <td>{employee.work_info.employee_status}</td> */}
+                        <td>
+  <span
+    className={`badge ${
+      employee.work_info.employee_status === "active"
+        ? "bg-success":"bg-danger"
+      
+    }`}
+  >
+    {employee.work_info.employee_status}
+  </span>
+</td>
+
                         <td>
                           <UpdateEmployeeAction id={employee.employee_id} />
                         </td>
@@ -808,7 +836,7 @@ const debouncedSearchHandler = useCallback(
               )}
             </tbody>
           </table>
-          {loading && <Loader />} {/* Show loader when fetching more data */}
+          {loading && <Loader />}
         </div>
       </div>
     </section>
@@ -820,18 +848,19 @@ export const UpdateEmployeeAction = ({ id }) => {
   const { applicationColor } = useThemeContext();
   return (
     <section
-      className="actions"
-      style={{
-        color: applicationColor.readColor1,
-      }}
-    >
-      <button
-        className="edit btn btn-sm btn-success-light"
-        onClick={() => navigate(`/admin/update_employee/${id}`)}
-      >
-        <AiOutlineEdit />
-      </button>
-    </section>
+  className="actions"
+  style={{
+    color: applicationColor.readColor1,
+  }}
+>
+  <button
+    className="btn btn-primary rounded-circle p-2 d-flex justify-content-center align-items-center"
+    onClick={() => navigate(`/admin/update_employee/${id}`)}
+  >
+    <AiOutlineEdit className="fs-5" />
+  </button>
+</section>
+
   );
 };
 
