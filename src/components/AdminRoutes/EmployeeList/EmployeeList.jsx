@@ -727,11 +727,12 @@ const debouncedSearchHandler = useCallback(
             <thead>
               <tr>
                 <th>Employee ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
+                <th>Employee Name</th>
+             
                 <th>Department</th>
                 <th>Designation</th>
                 <th>Date of Join</th>
+                <th>Employee Status</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -758,11 +759,12 @@ const debouncedSearchHandler = useCallback(
                         >
                           {employee.employee_id}
                         </td>
-                        <td>{employee.basic_info.first_name}</td>
-                        <td>{employee.basic_info.last_name}</td>
+                        <td>{employee.basic_info.first_name}{employee.basic_info.last_name}</td>
+                        
                         <td>{employee.work_info.department_name}</td>
                         <td>{employee.work_info.designation_name}</td>
                         <td>{employee.work_info.date_of_join}</td>
+                        <td>{employee.work_info.employee_status}</td>
                         <td>
                           <UpdateEmployeeAction id={employee.employee_id} />
                         </td>
@@ -784,11 +786,12 @@ const debouncedSearchHandler = useCallback(
                         >
                           {employee.employee_id}
                         </td>
-                        <td>{employee.basic_info.first_name}</td>
-                        <td>{employee.basic_info.last_name}</td>
+                        <td>{employee.basic_info.first_name}{" "}{employee.basic_info.last_name}</td>
+                        {/* <td>{employee.basic_info.last_name}</td> */}
                         <td>{employee.work_info.department_name}</td>
                         <td>{employee.work_info.designation_name}</td>
                         <td>{employee.work_info.date_of_join}</td>
+                        <td>{employee.work_info.employee_status}</td>
                         <td>
                           <UpdateEmployeeAction id={employee.employee_id} />
                         </td>

@@ -618,11 +618,15 @@ import "./ProfilePhoto.scss"; // Assuming you have custom styles here
 import { Input_area } from "../../common/ALLINPUTS/AllInputs";
 
 const ProfilePhoto = () => {
-  const { setProfilePhoto, profilePhoto } = useStateContext();
+  const { setProfilePhoto, profilePhoto , employeedata,setEmployeedata,aboutme, setAboutme} = useStateContext();
+  console.log(aboutme,"about meeeeeeee")
+  console.log(employeedata?.profile?.personal_details?.about_me,"profilePhoto")
+
   const { applicationColor } = useThemeContext();
   const fileInputRef = useRef(null);
 
   const [formData, setFormData] = useState({ image: "", about_me: "" });
+
   const [showOverlay, setShowOverlay] = useState(false);
   const [error, setError] = useState("");
   const {
@@ -638,6 +642,8 @@ const ProfilePhoto = () => {
       "string.max": "About Me cannot exceed 250 characters.",
     }),
   });
+  
+console.log(formData,"formdata")
 
   const handleProfilePhotoSelection = () => {
     fileInputRef.current.click(); // Trigger file input click
@@ -674,13 +680,19 @@ const ProfilePhoto = () => {
         image: formData.image,
         about_me: formData.about_me,
       });
-
+      const res = await backEndCallObjNothing("/emp_get/get_profile");
+      console.log(res, "employeeeeeeee");
+      setProfilePhoto(response?.profile?.images?.dp);
+      // setEmployeedata(res); // Update state correctly
+      // formData({about_me:profile?.personal_details?.about_me},)
       // Update profile photo and about_me with response data
+      setAboutme(res?.profile?.personal_details?.about_me )
       setProfilePhoto(response?.data?.dp || "");
       setFormData((prevData) => ({
         ...prevData,
-        about_me: response?.data?.about_me || prevData.about_me,
+        about_me: aboutme 
       }));
+      
       setError("");
       toastOptions.success("Profile updated successfully.");
     } catch (error) {
@@ -689,6 +701,7 @@ const ProfilePhoto = () => {
       toastOptions.error(error.message);
     }
   };
+console.log(aboutme,"about")
 
   const handleInputChange = (e) => {
     if (e && e.target && e.target.name) {

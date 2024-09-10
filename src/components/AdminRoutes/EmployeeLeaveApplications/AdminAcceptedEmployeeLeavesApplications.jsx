@@ -50,11 +50,14 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
   const observer = useRef();
   console.log(adminGettingLeaveApplications, "response");
   const fetchLeaveApplications = useCallback(async () => {
+    console.log("admingadminGettingLeaveApplicationset",adminGettingLeaveApplications );
     setLoading(true);
+
     try {
       console.log("formData.status", formData.status);
-
+      console.log("admingadminGettingLeaveApplicationset",adminGettingLeaveApplications );
       if (!adminGettingLeaveApplications) {
+        console.log("admingadminGettingLeaveApplicationset",adminGettingLeaveApplications );
         const response = await backEndCallObjNothing(
           "/admin_get/all_leave_applications",
           {
@@ -81,10 +84,13 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
 
   useEffect(() => {
     fetchLeaveApplications();
+
   }, [skip, fetchLeaveApplications]);
+
   // console.log(adminGettingLeaveApplications,"adminGettingLeaveApplications")
 
-  const handleFormChange = (e) => {
+  const handleFormChange = async(e) => {
+    await setAdminGettingLeaveApplications(null)
     console.log(e, "e");
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -92,21 +98,26 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
       [name]: value,
     }));
   };
-  const handleYearChange = (e) => {
+  const handleYearChange = async(e) => {
+    await setAdminGettingLeaveApplications(null)
     const selectedYear = new Date(e.target.value).getFullYear().toString();
     setFormData((prev) => ({
       ...prev,
       year: selectedYear, // Update year in formData
     }));
   };
-  const handleSubmit = (e) => {
-    if (moment(formData.end_date).isBefore(formData.start_date)) {
-      toastOptions.error("End Date cannot be less than Start Date");
-      return;
-    }
+  const handleSubmit =async (e) => {
+    console.log("enter")
+    await setAdminGettingLeaveApplications(null)
+    console.log("enter",adminGettingLeaveApplications)
+    // if (moment(formData.end_date).isBefore(formData.start_date)) {
+    //   toastOptions.error("End Date cannot be less than Start Date");
+    //   return;
+    // }
     e.preventDefault();
     setSkip(0);
     setHasMore(true);
+   
     fetchLeaveApplications(); // fetch with updated filters
   };
 
@@ -320,7 +331,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
                 </option>
               ))}
             </select>
-            <Selectinputimg/>
+            {/* <Selectinputimg/> */}
           </div>
           <div className="col-lg-3 col-md-3 col-sm-6 admin-leave-filters">
             <label>Status</label>
@@ -497,7 +508,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
                           <p>Reason: {item.reason}</p>
                         </div>
                         <div className="leave-card-data">
-                          <p>Applieded At:</p>
+                          <p>Applied on:</p>
                           <p>{item.createdAt}</p>
                         </div>
 

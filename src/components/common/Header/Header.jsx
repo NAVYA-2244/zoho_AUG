@@ -127,7 +127,7 @@ const Headers = () => {
       setOrgDetails(res?.organisation_details);
       setreportingmangers(res?.reporting_managers)
       setOrgLogo(res?.organisation_details.images?.logo);
-      console.log(res?.organisation_details.images?.logo,"logooooooooooooooo")
+      // console.log(res?.organisation_details.images?.logo,"logooooooooooooooo")
       // setLocations(res.organisation_details?.locations);
       // setTodayAttendance(res?.organisation_details?.today_attendance);
 

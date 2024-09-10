@@ -130,8 +130,10 @@ const AddEmployee = () => {
       setLoading(false);
       setButtonDisabled(false)
 
-      window.location.reload("/admin/employee_list");
+      // window.location.reload("/admin/employee_list");
+
       navigate("/admin/employee_list")
+
     } catch (error) {
       setLoading(false);
       setLoadingTerm("");

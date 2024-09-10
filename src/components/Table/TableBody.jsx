@@ -442,9 +442,10 @@ const TableBody = ({
                         style={{
                           background: applicationColor.cardBg1,
                           color: applicationColor.readColor1,
-                          textTransform: `${
-                            propName === "email" ? "none" : "capitalize"
-                          } `,
+                          textTransform:"lowercase"
+                          // textTransform: `${
+                          //   propName === "email" ? "none" : "capitalize"
+                          // } `,
                         }}
                       >
                         {propName === ""
@@ -469,9 +470,7 @@ const TableBody = ({
                         style={{
                           background: applicationColor.cardBg1,
                           color: applicationColor.readColor1,
-                          textTransform: `${
-                            propName === "email" ? "none" : "capitalize"
-                          } `,
+                          textTransform:"lowercase"
                         }}
                       >
                         {propName === ""

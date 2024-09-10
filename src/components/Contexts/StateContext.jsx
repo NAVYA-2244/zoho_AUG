@@ -93,6 +93,8 @@ export const StateContextProvider = ({ children }) => {
   const [files, setFiles] = useState([]);
   const [editingFile, setEditingFile] = useState({});
   const [employeedata, setEmployeedata] = useState(null);
+  const [aboutme, setAboutme] = useState(null);
+  const [employeeProfile, setEmployeeProfile ] = useState({});
   const [stats, setStats] = useState(null);
 
   return (
@@ -111,6 +113,7 @@ export const StateContextProvider = ({ children }) => {
         setProfileTask,
         employeeData,
         setEmployeeData,
+        aboutme, setAboutme,
         recentHire,
         setrecentHire,
         checkInTime,

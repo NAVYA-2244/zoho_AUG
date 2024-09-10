@@ -128,7 +128,7 @@ let contactDetailsProperties = [
   },
   {
     name: "Personal Email",
-    property: "personal_email_address",
+    property: "personal_email_address".toLowerCase(),
     type: "string",
   },
   {

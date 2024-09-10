@@ -495,7 +495,7 @@ const Projects = () => {
   // Handle team removal
   const handleRemoveTeam = (project) => {
     // Extract employee IDs from the team array
-    const employeeIds = project.team.map((member) =>
+    const employeeIds = project?.team.map((member) =>
       typeof member === "object" ? member.employee_id : member
     );
 
@@ -591,7 +591,7 @@ const Projects = () => {
             {loading ? (
               <Loader />
             ) : EmployProject?.length > 0 ? (
-              EmployProject.map((project, index) => (
+              EmployProject?.map((project, index) => (
                 <div
                   className="col-xl-4 col-md-6 mb-3"
                   key={project.project_id}

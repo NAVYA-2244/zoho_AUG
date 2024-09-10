@@ -39,6 +39,7 @@ const AdminSingleEmployeeData = ({ employeeProfileData, employeesList }) => {
   );
   const [employeeProfile, setEmployeeProfile] = useState({});
   console.log(employeeProfile, "ewwe");
+  
   const [status, setStatus] = useState("");
   const [newClass, setNewClass] = useState("");
   const [isStatusChanged, setIsStatusChanged] = useState(false);
