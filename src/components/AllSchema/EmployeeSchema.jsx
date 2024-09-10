@@ -1031,7 +1031,7 @@ export const addEmployeeForm = {
   // profilePhoto: "",
   // organisation_id:"",
   employee_id: "",
-  password:"",
+  password: "",
   first_name: "",
   last_name: "",
   nick_name: "",
@@ -1113,19 +1113,19 @@ export const ExpirementSchema = {
       "any.required": '"Employee Id" is required',
     })
     .label("Employee Id"),
-    password: Joi.string()
-      .min(8)
-      // .max(50)
-      // .required()
-      .pattern(
-        /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\|\-=])/
-      )
-      .messages({
-        "string.pattern.base":
-          '"Password" needs 1 uppercase, and 1 special character',
-        "any.required": '"Password" is required',
-      })
-      .label("Password"),
+  password: Joi.string()
+    .min(8)
+    // .max(50)
+    // .required()
+    .pattern(
+      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\|\-=])/
+    )
+    .messages({
+      "string.pattern.base":
+        '"Password" needs 1 uppercase, and 1 special character',
+      "any.required": '"Password" is required',
+    })
+    .label("Password"),
   email: Joi.string()
     .min(10)
     .max(55)
@@ -1299,7 +1299,7 @@ export const ExpirementSchema = {
       "string.pattern.base": '"Passport" should not include special characters',
       "any.required": '"Passport" is required',
     })
-    .label("Passport"),
+    .label("Passport Number"),
 
   work_phone_number: Joi.string()
     .min(10)
@@ -1500,7 +1500,7 @@ export const identityInfoSchema = Joi.object({
       "string.length": '"Passport" should be exactly 12 characters long',
       "any.required": '"Passport" is required',
     })
-    .label("Passport"),
+    .label("Passport Number"),
 });
 
 // Main Schema
@@ -1716,25 +1716,25 @@ const EmployeeDataSchema = {
       "any.required": '"Employee Id" is required',
     })
     .label("Employee Id"),
-    password: Joi.string()
-      .min(8)
-      .max(15)
-      // .required()
-      .allow("")
-      .optional()
-      .pattern(
-        /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\|\-=])/
-      )
-      .messages({
-        "string.pattern.base":
-          '"Password" needs 1 uppercase, and 1 special character',
-        "any.required": '"Password" is required',
-      })
-      .label("Password"),
+  password: Joi.string()
+    .min(8)
+    .max(15)
+    // .required()
+    .allow("")
+    .optional()
+    .pattern(
+      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\|\-=])/
+    )
+    .messages({
+      "string.pattern.base":
+        '"Password" needs 1 uppercase, and 1 special character',
+      "any.required": '"Password" is required',
+    })
+    .label("Password"),
   email: Joi.string()
     .min(10)
     .max(55)
-    // .email({ tlds: { allow: ["com", "net", "org"] } }) 
+    // .email({ tlds: { allow: ["com", "net", "org"] } })
     .email({ tlds: { allow: ["com", "net", "org", "io"] } })
     .required()
     .messages({
@@ -1886,10 +1886,11 @@ const EmployeeDataSchema = {
     .max(12)
     .allow("")
     .messages({
-      "string.pattern.base": '"Passport" should not include special characters',
-      "any.required": '"Passport" is required',
+      "string.pattern.base":
+        '"Passport Number" should not include special characters',
+      "any.required": '"Passport Number" is required',
     })
-    .label("Passport"),
+    .label("Passport Number"),
 
   //identity infp ending
   work_phone_number: Joi.string()
@@ -1955,16 +1956,16 @@ const EmployeeDataSchema = {
   // }),
 
   permanent_address: Joi.string()
-  .min(10)
-  .max(100)
-  .required()
+    .min(10)
+    .max(100)
+    .required()
 
-  .messages({
-    "string.pattern.base":
-      '"Permanent Address" should not include special characters',
-    "any.required": '"Permanent Address" is required',
-  })
-  .label("Permanent Address"),
+    .messages({
+      "string.pattern.base":
+        '"Permanent Address" should not include special characters',
+      "any.required": '"Permanent Address" is required',
+    })
+    .label("Permanent Address"),
 
   company_name: Joi.string()
     .min(3)

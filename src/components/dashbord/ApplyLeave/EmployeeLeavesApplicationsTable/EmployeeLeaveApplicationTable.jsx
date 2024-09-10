@@ -207,7 +207,7 @@ const EmployeeLeaveApplicationsTable = ({ leaveApplications }) => {
             ))}
           </tbody> */}
           <tbody className="text-center">
-            {leaveApplications.map((application, index) => (
+            {leaveApplications?.map((application, index) => (
               <tr key={index}>
                 {tableHeadProperties.map((head, i) => {
                   const value =
@@ -231,13 +231,14 @@ const EmployeeLeaveApplicationsTable = ({ leaveApplications }) => {
             ))}
 
             {leaveApplications.length == 0 && (
-    <p className="justify-content-center align-items-center m-2">There is no leave applications</p>
-  )}
+              <p className="justify-content-center align-items-center m-2">
+                There is no leave applications
+              </p>
+            )}
           </tbody>
           {/* <div className="d-flex justify-content-center align-items-center m-2"> */}
-  
-{/* </div> */}
 
+          {/* </div> */}
         </table>
       </section>
     </>

@@ -135,7 +135,7 @@ const WorkInformationData = ({ formData, setFormData }) => {
           <Input_text
             type={"text"}
             name={"passport"}
-            placeholder={"Passport"}
+            placeholder={"Passport Number"}
             value={formData.passport}
             setForm={setFormData}
             schema={schema.passport}

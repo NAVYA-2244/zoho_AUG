@@ -165,7 +165,7 @@ let identityInfoProperties = [
     type: "string",
   },
   {
-    name: "Passport",
+    name: "Passport Number",
     property: "passport",
     type: "string",
   },
