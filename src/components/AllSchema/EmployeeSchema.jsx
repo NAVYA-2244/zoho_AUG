@@ -1053,10 +1053,11 @@ export const addEmployeeForm = {
   about_me: "",
   uan: "",
   pan: "",
-  passport: "",
+  passport_number: "",
   aadhaar: "",
-  work_phone_number: "",
-  personal_mobile_number: "",
+  mobile_number: "",
+  // personal_mobile_number: "",
+  
   personal_email_address: "",
   seating_location: "",
 
@@ -1085,7 +1086,7 @@ export const addEmployeeForm = {
     {
       name: "",
       relation: "",
-      dependent_date_of_birth: "",
+      dependent_mobile_number: "",
     },
   ],
 };
@@ -1291,19 +1292,21 @@ export const ExpirementSchema = {
     })
     .label("Aadhaar"),
 
-  passport: Joi.string()
+    passport_number: Joi.string()
     .min(12)
     .max(12)
     .allow("")
     .messages({
-      "string.pattern.base": '"Passport" should not include special characters',
+      "string.pattern.base": '"Passport Number" should not include special characters',
       "any.required": '"Passport" is required',
     })
     .label("Passport Number"),
+    
 
-  work_phone_number: Joi.string()
+    mobile_number: Joi.string()
     .min(10)
     .max(10)
+    .required()
     .pattern(/^[6-9]\d{9}$/)
     .messages({
       "string.pattern.base":
@@ -1311,17 +1314,17 @@ export const ExpirementSchema = {
     })
     .label("Mobile Number"),
 
-  personal_mobile_number: Joi.string()
-    .min(10)
-    .max(10)
-    .required()
-    .pattern(/^[6-9]\d{9}$/)
-    .messages({
-      "string.pattern.base":
-        '"Personal Mobile Number" should start with digits 6-9 and not include special characters',
-      "any.required": '"Personal Mobile Number" is required',
-    })
-    .label("Personal Mobile Number"),
+    // dependent_mobile_number: Joi.string()
+    // .min(10)
+    // .max(10)
+    // .required()
+    // .pattern(/^[6-9]\d{9}$/)
+    // .messages({
+    //   "string.pattern.base":
+    //     '"dependent Mobile Number" should start with digits 6-9 and not include special characters',
+    //   "any.required": '"dependent Mobile Number" is required',
+    // })
+    // .label("dependent Mobile Number"),
 
   personal_email_address: Joi.string()
     .min(10)
@@ -1451,16 +1454,48 @@ export const ExpirementSchema = {
           })
           .label("Dependent Name")
           .label("Relation"),
-        dependent_date_of_birth: Joi.date()
-          .max("now")
-          // .less(eighteenYearsAgo)
-          .allow("")
-          .messages({
-            "date.base": `"Date Of Birth" should be a valid date`,
-            "date.max": `"Date Of Birth" cannot be in the future`,
-            "date.less": `"Date Of Birth" must be at least 18 years ago`,
-            "any.required": `"Date Of Birth" is a required field`,
-          }),
+        // dependent_date_of_birth: Joi.date()
+        //   .max("now")
+        //   // .less(eighteenYearsAgo)
+        //   .allow("")
+        //   .messages({
+        //     "date.base": `"Date Of Birth" should be a valid date`,
+        //     "date.max": `"Date Of Birth" cannot be in the future`,
+        //     "date.less": `"Date Of Birth" must be at least 18 years ago`,
+        //     "any.required": `"Date Of Birth" is a required field`,
+        //   }),
+        // dependent_mobile_number: Joi.string()
+        // .min(10)
+        // .max(10)
+        
+        // .allow("")
+        // .optional()
+        // .pattern(/^[6-9]\d{9}$/)
+        // .messages({
+        //   "string.pattern.base":
+        //     '"dependent Mobile Number" should start with digits 6-9 and not include special characters',
+        
+        // })
+        // .label("dependent Mobile Number"),
+  //       dependent_mobile_number: Joi.string()
+  // .min(10)
+  // .max(10)
+  // .allow(null, "")  // Allow null or an empty string
+  // .optional()       // Make the field optional
+  // .pattern(/^[6-9]\d{9}$/)
+  // .messages({
+  //   "string.pattern.base": '"dependent Mobile Number" should start with digits 6-9 and not include special characters',
+  // })
+  // .label("dependent Mobile Number"),
+  dependent_mobile_number: Joi.string()
+  .min(12)
+  .max(12)
+  .allow("",null)
+  .messages({
+      "string.pattern.base": '"dependent Mobile Number" should start with digits 6-9 and not include special characters',
+    })
+ 
+  .label("Dependent Mobile Number"),
       })
     )
     .label("Education Details"),
@@ -1493,12 +1528,12 @@ export const identityInfoSchema = Joi.object({
     })
     .label("Aadhaar"),
 
-  passport: Joi.string()
+    passport_number: Joi.string()
     .length(12)
     .allow("")
     .messages({
-      "string.length": '"Passport" should be exactly 12 characters long',
-      "any.required": '"Passport" is required',
+      "string.length": '"Passport Number" should be exactly 12 characters long',
+      "any.required": '"Passport Number" is required',
     })
     .label("Passport Number"),
 });
@@ -1525,9 +1560,10 @@ export const EditShema = Joi.object({
     })
     .label("About Me"),
 
-  work_phone_number: Joi.string()
+    mobile_number: Joi.string()
     .length(10)
     .pattern(/^[6-9]\d{9}$/)
+    .required()
     .messages({
       "string.pattern.base":
         '"Mobile Number" should start with digits 6-9 and consist of 10 digits',
@@ -1535,18 +1571,40 @@ export const EditShema = Joi.object({
     })
     .label("Mobile Number"),
 
-  personal_mobile_number: Joi.string()
-    .length(10)
-    .pattern(/^[6-9]\d{9}$/)
-    .required()
-    .messages({
-      "string.pattern.base":
-        '"Personal Phone Number" should start with digits 6-9 and consist of 10 digits',
-      "string.length":
-        '"Personal Phone Number" should be exactly 10 digits long',
-      "any.required": '"Personal Phone Number" is required',
+    // dependent_mobile_number: Joi.string()
+    // .length(10)
+    // .pattern(/^[6-9]\d{9}$/)
+  
+    // .allow("")
+    // .optional()
+    // .messages({
+    //   "string.pattern.base":
+    //     '"dependent Mobile Number" should start with digits 6-9 and consist of 10 digits',
+    //   "string.length":
+    //     '"dependent Mobile Number" should be exactly 10 digits long',
+    
+    // })
+    // .label("dependent Mobile Number"),
+  //   dependent_mobile_number: Joi.string()
+  // .min(10)
+  // .max(10)
+  // .allow(null, "")  // Allow null or an empty string
+  // .optional()       // Make the field optional
+  // .pattern(/^[6-9]\d{9}$/)
+  // .messages({
+  //   "string.pattern.base": '"dependent Mobile Number" should start with digits 6-9 and not include special characters',
+  // })
+  // .label("dependent Mobile Number"),
+
+  dependent_mobile_number: Joi.string()
+  .min(12)
+  .max(12)
+  .allow("",null)
+  .messages({
+      "string.pattern.base": '"dependent Mobile Number" should start with digits 6-9 and not include special characters',
     })
-    .label("Personal Phone Number"),
+ 
+  .label("Dependent Mobile Number"),
 
   nick_name: Joi.string()
     .max(15)
@@ -1594,14 +1652,46 @@ export const EditShema = Joi.object({
           })
           .label("Relation"),
 
-        dependent_date_of_birth: Joi.date()
-          .max("now")
-          .allow("")
-          .messages({
-            "date.base": `"Date Of Birth" should be a valid date`,
-            "date.max": `"Date Of Birth" cannot be in the future`,
-          })
-          .label("Date Of Birth"),
+        // dependent_date_of_birth: Joi.date()
+        //   .max("now")
+        //   .allow("")
+        //   .messages({
+        //     "date.base": `"Date Of Birth" should be a valid date`,
+        //     "date.max": `"Date Of Birth" cannot be in the future`,
+        //   })
+        //   .label("Date Of Birth"),
+        // dependent_mobile_number: Joi.string()
+        // .min(10)
+        // .max(10)
+       
+        // .allow("")
+        // .optional()
+        // .pattern(/^[6-9]\d{9}$/)
+        // .messages({
+        //   "string.pattern.base":
+        //     '"dependent Mobile Number" should start with digits 6-9 and not include special characters',
+        
+        // })
+        // .label("dependent Mobile Number"),
+  //       dependent_mobile_number: Joi.string()
+  // .min(10)
+  // .max(10)
+  // .allow(null, "")  // Allow null or an empty string
+  // .optional()       // Make the field optional
+  // .pattern(/^[6-9]\d{9}$/)
+  // .messages({
+  //   "string.pattern.base": '"dependent Mobile Number" should start with digits 6-9 and not include special characters',
+  // })
+  // .label("dependent Mobile Number"),
+  dependent_mobile_number: Joi.string()
+  .min(12)
+  .max(12)
+  .allow("",null)
+  .messages({
+      "string.pattern.base": '"dependent Mobile Number" should start with digits 6-9 and not include special characters',
+    })
+ 
+  .label("Dependent Mobile Number"),
       })
     )
     .label("Dependent Details"),
@@ -1881,21 +1971,21 @@ const EmployeeDataSchema = {
     })
     .label("Aadhaar"),
 
-  passport: Joi.string()
+    passport_number: Joi.string()
     .min(12)
     .max(12)
     .allow("")
     .messages({
-      "string.pattern.base":
-        '"Passport Number" should not include special characters',
-      "any.required": '"Passport Number" is required',
+      "string.pattern.base": '"Passport" should not include special characters',
+      "any.required": '"Passport" is required',
     })
     .label("Passport Number"),
 
   //identity infp ending
-  work_phone_number: Joi.string()
+  mobile_number: Joi.string()
     .min(10)
     .max(10)
+    .required()
     .pattern(/^[6-9]\d{9}$/)
     .messages({
       "string.pattern.base":
@@ -1903,17 +1993,38 @@ const EmployeeDataSchema = {
     })
     .label("Phone Number"),
 
-  personal_mobile_number: Joi.string()
-    .min(10)
-    .max(10)
-    .required()
-    .pattern(/^[6-9]\d{9}$/)
-    .messages({
-      "string.pattern.base":
-        '"Personal Phone Number" should start with digits 6-9 and not include special characters',
-      "any.required": '"Personal Phone Number" is required',
+    // dependent_mobile_number: Joi.string()
+    // .min(10)
+    // .max(10)
+  
+    // .allow("")
+    // .optional()
+    // .pattern(/^[6-9]\d{9}$/)
+    // .messages({
+    //   "string.pattern.base":
+    //     '"dependent Mobile Number" should start with digits 6-9 and not include special characters',
+     
+    // })
+    // .label("dependent Mobile Number"),
+  //   dependent_mobile_number: Joi.string()
+  // .min(10)
+  // .max(10)
+  // .allow(null, "")  // Allow null or an empty string
+  // .optional()       // Make the field optional
+  // .pattern(/^[6-9]\d{9}$/)
+  // .messages({
+  //   "string.pattern.base": '"dependent Mobile Number" should start with digits 6-9 and not include special characters',
+  // })
+  // .label("dependent Mobile Number"),
+  dependent_mobile_number: Joi.string()
+  .min(12)
+  .max(12)
+  .allow("")
+  .messages({
+      "string.pattern.base": '"dependent Mobile Number" should start with digits 6-9 and not include special characters',
     })
-    .label("Personal Phone Number"),
+ 
+  .label("Dependent Mobile Number"),
 
   personal_email_address: Joi.string()
     .min(10)
@@ -2050,16 +2161,48 @@ const EmployeeDataSchema = {
     })
     .label("Dependent Name")
     .label("Relation"),
-  dependent_date_of_birth: Joi.date()
-    .max("now")
-    // .less(eighteenYearsAgo)
-    .required()
-    .messages({
-      "date.base": `"Date Of Birth" should be a valid date`,
-      "date.max": `"Date Of Birth" cannot be in the future`,
-      "date.less": `"Date Of Birth" must be at least 18 years ago`,
-      "any.required": `"Date Of Birth" is a required field`,
-    }),
+  // dependent_date_of_birth: Joi.date()
+  //   .max("now")
+  //   // .less(eighteenYearsAgo)
+  //   .required()
+  //   .messages({
+  //     "date.base": `"Date Of Birth" should be a valid date`,
+  //     "date.max": `"Date Of Birth" cannot be in the future`,
+  //     "date.less": `"Date Of Birth" must be at least 18 years ago`,
+  //     "any.required": `"Date Of Birth" is a required field`,
+  //   }),
+  // dependent_mobile_number: Joi.string()
+  // .min(10)
+  // .max(10)
+
+  // .allow("")
+  // .optional()
+  // .pattern(/^[6-9]\d{9}$/)
+  // .messages({
+  //   "string.pattern.base":
+  //     '"dependent Mobile Number" should start with digits 6-9 and not include special characters',
+   
+  // })
+  // .label("dependent Mobile Number"),
+  // dependent_mobile_number: Joi.string()
+  // .min(10)
+  // .max(10)
+  // .allow(null, "")  // Allow null or an empty string
+  // .optional()       // Make the field optional
+  // .pattern(/^[6-9]\d{9}$/)
+  // .messages({
+  //   "string.pattern.base": '"dependent Mobile Number" should start with digits 6-9 and not include special characters',
+  // })
+  // .label("dependent Mobile Number"),
+  dependent_mobile_number: Joi.string()
+  .min(12)
+  .max(12)
+  .allow("")
+  .messages({
+      "string.pattern.base": '"dependent Mobile Number" should start with digits 6-9 and not include special characters',
+    })
+ 
+  .label("Dependent Mobile Number"),
 };
 
 export default EmployeeDataSchema;

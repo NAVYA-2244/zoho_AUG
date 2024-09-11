@@ -19,7 +19,7 @@
 //   const [allEmployeeIds, setAllEmployeeIds] = useState([]);
 //   const [filteredEmployeeIds, setFilteredEmployeeIds] = useState([]);
 //   const { employeeDetails, adminData2 } = useStateContext();
-//   const [employeesList, setEmployeesList] = useState([]);
+//   const [EmployeesListforleave, setEmployeesListforleave] = useState([]);
 //   const navigate = useNavigate();
 
 //   console.log(employeesList, "image");
@@ -38,7 +38,7 @@
 //           "/org/get_team_for_task"
 //         );
 //         console.log(all_emps, "data");
-//         setEmployeesList(all_emps);
+//         setEmployeesListforleave(all_emps);
 //       } catch (error) {
 //         toastOptions.error(error?.response?.data || "something went wrong");
 //       }
@@ -84,6 +84,38 @@
 //       setOptions(filtered);
 //     } else return;
 //   };
+//   const fetchLeaveApplications = useCallback(async () => {
+//     console.log("admingadminGettingLeaveApplicationset",adminGettingLeaveApplications );
+//     setLoading(true);
+
+//     try {
+//       setBtndisabled(true);
+//       if (!adminGettingLeaveApplications) {
+       
+//         const response = await backEndCallObjNothing(
+//           "/admin_get/all_leave_applications",
+//           {
+//             skip: 0, // Adjust skip to match API expectations (if needed)
+//             leave_status: formData.status,
+//             year: formData.year,
+//             employee_id: formData.employee_id, // Pass employee_id filter if needed
+//           }
+//         );
+//         setAdminGettingLeaveApplications(response.leaveApplications);
+//         setLeavescount(response.leaves);
+//       }
+
+//       // console.log(response,"response")
+//       // if (response.data.length < limit) {
+//       //   setHasMore(false);
+//       // }
+//       setBtndisabled(false);
+//     } catch (error) {
+//       console.error("Error fetching leave applications:", error);
+//     } finally {
+//       setLoading(false);
+//     }
+//   }, [skip, limit, formData, setAdminGettingLeaveApplications]);
 
 //   const handleSelect = (employee) => {
 //     setSelectedEmployee({
@@ -169,6 +201,165 @@
 //   );
 // }
 // export default Selectinputimg;
+// import React, { Fragment, useEffect, useState } from "react";
+// import { useNavigate } from "react-router-dom";
+// import dummyUser from "../../../assets/Header/dummy-user.jpg";
+// import { useThemeContext } from "../../Contexts/ThemesContext";
+// import { toastOptions } from "../../../Utils/FakeRoutes";
+// import { backEndCallObjNothing } from "../../../services/mainService";
+
+// function Selectinputimg() {
+//   const [employeesList, setEmployeesList] = useState([]);
+//   const [filteredEmployees, setFilteredEmployees] = useState([]);
+//   const [selectedEmployee, setSelectedEmployee] = useState({
+//     name: "",
+//     employee_id: "",
+//   });
+//   const [searchQuery, setSearchQuery] = useState("");
+
+//   const { applicationColor } = useThemeContext();
+//   const navigate = useNavigate();
+
+//   // Filter employees based on search input
+//   const handleChange = (event) => {
+//     const query = event.target.value?.toLowerCase();
+//     setSearchQuery(query);
+
+//     // Filter employees based on first or last name
+//     if (Array.isArray(employeesList)) {
+//       const filtered = employeesList.filter((employee) =>
+//         `${employee.basic_info.first_name} ${employee.basic_info.last_name}`
+//           .toLowerCase()
+//           .includes(query)
+//       );
+//       setFilteredEmployees(filtered);
+//     } else {
+//       console.error("employeesList is undefined or not an array");
+//     }
+//   };
+
+//   // Handle employee selection
+//   const handleSelect = async (employee) => {
+//     setSelectedEmployee({
+//       name: `${employee.basic_info.first_name} ${employee.basic_info.last_name}`,
+//       employee_id: employee.employee_id,
+//     });
+
+//     try {
+//       // Send selected employee ID to the backend
+//       const response = await backEndCallObjNothing("/admin_get/all_leave_applications", {
+//         method: "POST",
+//         body: JSON.stringify({ employee_id: employee.employee_id }),
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//       });
+
+//       if (response.success) {
+//         toastOptions.success("Employee selected successfully");
+//       } else {
+//         toastOptions.error("Failed to select employee");
+//       }
+//     } catch (error) {
+//       toastOptions.error("Something went wrong");
+//     }
+//   };
+
+//   // Fetch all employees when the component mounts
+//   useEffect(() => {
+//     const fetchEmployeesData = async () => {
+//       try {
+//         const all_employees = await backEndCallObjNothing("/org/get_team_for_task");
+//         if (Array.isArray(all_employees)) {
+//           setEmployeesList(all_employees);
+//           setFilteredEmployees(all_employees); // Display all employees initially
+//         } else {
+//           console.error("all_employees is undefined or not an array");
+//         }
+//       } catch (error) {
+//         toastOptions.error(error?.response?.data || "something went wrong");
+//       }
+//     };
+//     fetchEmployeesData();
+//   }, []);
+
+//   return (
+//     <Fragment>
+//       <div
+//         style={{
+//           background: applicationColor.cardBg1,
+//           color: applicationColor.readColor1,
+//           width: "300px", // Adjust the width as needed
+//         }}
+//         className="dropdown my-3"
+//       >
+//         <div className="dropdown-header">
+//           <img
+//             src={dummyUser}
+//             alt="userImage"
+//             width="30px"
+//             height="30px"
+//             className="rounded-circle"
+//           />
+//           <div className="details">
+//             <span className="email">
+//               {selectedEmployee.name || "Select Employee"}
+//             </span>
+//             <span className="id">
+//               {selectedEmployee.employee_id || ""}
+//             </span>
+//           </div>
+//         </div>
+
+//         {/* Search input always visible */}
+//         <div className="dropdown-header" style={{ padding: "10px" }}>
+//           <input
+//             type="text"
+//             placeholder="Search employees..."
+//             className="dropdown-input"
+//             id="dropdown-input"
+//             value={searchQuery}
+//             onChange={handleChange}
+//             style={{ width: "100%", padding: "5px" }}
+//           />
+//         </div>
+
+//         {/* Display dropdown list */}
+//         <ul className="dropdown-menu user-dropdown" style={{ maxHeight: "300px", overflowY: "auto" }}>
+//           {filteredEmployees.length === 0 ? (
+//             <div className="no-results" style={{ padding: "10px" }}>
+//               No employees found
+//             </div>
+//           ) : (
+//             filteredEmployees.map((employee) => (
+//               <li
+//                 key={employee.employee_id}
+//                 className="dropdown-item"
+//                 onClick={() => handleSelect(employee)}
+//                 style={{ display: "flex", alignItems: "center", padding: "10px", cursor: "pointer" }}
+//               >
+//                 <img
+//                   src={dummyUser}
+//                   alt="employeeImage"
+//                   width="40px"
+//                   height="40px"
+//                   className="rounded-circle"
+//                 />
+//                 <div style={{ marginLeft: "10px" }}>
+//                   {/* Display first and last name */}
+//                   <h5>{`${employee.basic_info.first_name} ${employee.basic_info.last_name}`}</h5>
+//                   <span>{employee.employee_id}</span>
+//                 </div>
+//               </li>
+//             ))
+//           )}
+//         </ul>
+//       </div>
+//     </Fragment>
+//   );
+// }
+
+// export default Selectinputimg;
 import React, { Fragment, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import dummyUser from "../../../assets/Header/dummy-user.jpg";
@@ -178,65 +369,63 @@ import { useFunctionContext } from "../../Contexts/FunctionContext";
 import { toastOptions } from "../../../Utils/FakeRoutes";
 import { backEndCallObjNothing } from "../../../services/mainService";
 
-function Selectinputimg() {
-  const [tasksList, setTasksList] = useState([]);
-  const [filteredTasks, setFilteredTasks] = useState([]);
+function Selectinputimg({ setSelectedEmployeeId }) {
+  const [employeesList, setEmployeesList] = useState([]);
+  const [selectedEmployee, setSelectedEmployee] = useState({});
   const { employeeDetails } = useStateContext();
   const navigate = useNavigate();
-
-  const [selectedTask, setSelectedTask] = useState({
-    Name: "",
-   
-  });
-console.log(selectedTask,"selectedtask")
- 
   const { applicationColor } = useThemeContext();
   const { mainAdmin } = useFunctionContext();
+  const [options, setOptions] = useState([]);
 
-  const handleChange = (event) => {
-    const searchQuery = event.target.value?.toLowerCase();
-    
-    
-    if (Array.isArray(tasksList)) {
-      const filtered = tasksList.filter((task) =>
-        task.task_name?.toLowerCase().includes(searchQuery)
-      );
-      setFilteredTasks(filtered);
-    } else {
-      console.error("tasksList is undefined or not an array");
-    }
-  };
-  
-  const handleSelect = (task) => {
-    setSelectedTask({
-      name:task.first_name,
-      // taskId: task.employee_id,
-    });
-    console.log(task, "selected task");
-  };
+  // Fetching the list of employees
   useEffect(() => {
-    const fetchTaskData = async () => {
+    const fetchingData = async () => {
       try {
-        // const paylod={
-        //   name:first_name,
-        // }
-        let  all_tasks  = await backEndCallObjNothing("/org/get_team_for_task");
-        
-        // Check if all_tasks is defined and is an array
-        if (Array.isArray(all_tasks)) {
-          console.log(all_tasks, "tasks data");
-          setTasksList(all_tasks);
-          setFilteredTasks(all_tasks); // Initially display all tasks
-        } else {
-          console.error("all_tasks is undefined or not an array");
-        }
+        const all_emps = await backEndCallObjNothing("/org/get_team_for_task");
+        console.log(all_emps, "data");
+        setEmployeesList(all_emps);
       } catch (error) {
-        toastOptions.error(error?.response?.data || "something went wrong");
+        toastOptions.error(error?.response?.data || "Something went wrong");
       }
     };
-    fetchTaskData();
+    fetchingData();
   }, []);
-  
+
+  useEffect(() => {
+    if (mainAdmin) {
+      setOptions(employeesList);
+    } else {
+      setOptions([
+        { label: employeeDetails?.basic_info?.email, value: employeeDetails?.employee_id },
+      ]);
+    }
+  }, [mainAdmin, employeesList, employeeDetails]);
+
+  // Handle search input change
+  const handleChange = (event) => {
+    const searchQuery = event.target.value.toLowerCase();
+    const filtered = employeesList.filter((employee) =>
+      employee.basic_info?.first_name.toLowerCase().includes(searchQuery) 
+      // employee.basic_info?.email.toLowerCase().includes(searchQuery) ||
+      // employee.work_info.role_name.toLowerCase().includes(searchQuery)
+    );
+    setOptions(filtered);
+  };
+
+  // Handle employee selection and pass the selected employee ID to the parent component
+  const handleSelect = (employee) => {
+    setSelectedEmployee({
+      id: employee.employee_id,
+      email: employee?.basic_info?.email,
+      name: `${employee?.basic_info?.first_name} ${employee?.basic_info?.last_name}`,
+    });
+    console.log("Selected employee:", employee);
+
+    // Pass the selected employee ID to the parent component
+    setSelectedEmployeeId(employee.employee_id);
+  };
+console.log(setSelectedEmployee,"setselectedemployee id")
   return (
     <Fragment>
       <div
@@ -247,7 +436,7 @@ console.log(selectedTask,"selectedtask")
         className="dropdown my-3"
       >
         <Link
-          className="user-image dropdown-toggle employye-image"
+          className="user-image dropdown-toggle employee-image"
           role="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
@@ -261,8 +450,8 @@ console.log(selectedTask,"selectedtask")
               className="rounded-circle"
             />
             <div className="details">
-              <span className="email">{`${selectedTask?.basic_info?.first_name || "Select Task"}`}</span>
-              <span className="id">{selectedTask.employee_id}</span>
+              {/* <span className="email">{selectedEmployee.email || "Select Employee"}</span> */}
+              <span className="name">{selectedEmployee.name || ""}</span>
             </div>
           </div>
         </Link>
@@ -271,35 +460,35 @@ console.log(selectedTask,"selectedtask")
           <div className="dropdown-header">
             <input
               type="text"
-              placeholder="Search tasks..."
+              placeholder="Search..."
               className="dropdown-input"
               id="dropdown-input"
               onChange={handleChange}
             />
           </div>
           <li className="dropdown-content" id="dropdown-content">
-            {filteredTasks?.map((task, index) => {
-              return (
-                <div
-                  key={task.task_id}
-                  className="dropdown-item"
-                  onClick={() => handleSelect(task)}
-                >
-                  <img
-                    src={dummyUser}
-                    alt="taskImage"
-                    width="40px"
-                    height="40px"
-                    className="dropdown-item-image rounded-circle"
-                  />
-                  <div>
-                    <h5 onClick={() => navigate(`/admin/task/${task.task_id}`)}>
-                      {task.basic_info.first_name}
-                    </h5>
-                  </div>
+            {options?.map((employee) => (
+              <div
+                key={employee.employee_id}
+                className="dropdown-item"
+                onClick={() => handleSelect(employee)}
+              >
+                <img
+                  src={dummyUser}
+                  alt="employeeImage"
+                  width="40px"
+                  height="40px"
+                  className="dropdown-item-image rounded-circle"
+                />
+                <div>
+                  {/* <h5 onClick={() => navigate(`/admin/employee/${employee?.employee_id}`)}> */}
+                    {employee?.basic_info?.first_name} {employee?.basic_info?.last_name} 
+                {/* </h5> */}
+                  <p>{employee?.basic_info?.email}</p>
+                  {/* <span>{employee?.employee_id}</span> */}
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </li>
         </ul>
       </div>

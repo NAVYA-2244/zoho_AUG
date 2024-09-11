@@ -224,7 +224,7 @@ console.log(currentProject.project_id,"current projectid")
   const handleChange = (selectedOptions) => {
     setFormData((prevData) => ({
       ...prevData,
-      employee_id: selectedOptions ? selectedOptions.map(option => option.value) : [],
+      employee_id: selectedOptions ? selectedOptions?.map(option => option.value) : [],
     }));
   };
   const handleSubmit = async (e) => {
@@ -255,7 +255,7 @@ toastOptions.success(response)
   //   label: `${employee.basic_info.first_name} ${employee.basic_info.last_name}`, 
   //   value: employee.employee_id,
   // }));
-  const options = filteredEmployees.map((employee) => {
+  const options = filteredEmployees?.map((employee) => {
     const fullName = `${employee.basic_info.first_name} ${employee.basic_info.last_name}`;
     const initials = fullName.split(' ').map(name => name[0]).join('').toUpperCase();
     return {

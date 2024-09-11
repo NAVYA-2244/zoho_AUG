@@ -35,7 +35,7 @@ const EmployeeAttendanceCalendar = () => {
 
   // Format the fetched attendance data into events for the calendar
   useEffect(() => {
-    const formattedEvents = employeeAttendance.flatMap((employee) => {
+    const formattedEvents = employeeAttendance?.flatMap((employee) => {
       if (employee.checkin.length > 0) {
         const firstCheckin = employee.checkin[0].in_time;
         const lastCheckout =

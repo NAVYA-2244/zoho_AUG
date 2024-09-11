@@ -149,7 +149,7 @@ console.log("orgDetails",orgDetails.departments)
       </div>
 
       {orgDetails?.departments?.length > 0 ? (
-        orgDetails.departments.map((item, index) => (
+        orgDetails?.departments?.map((item, index) => (
           <div className="col-lg-4 col-md-6 mb-4" key={index}>
             <div
               className="card"

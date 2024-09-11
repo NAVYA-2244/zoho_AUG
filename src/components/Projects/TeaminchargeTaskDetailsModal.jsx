@@ -310,7 +310,7 @@ console.log(task.project_id,"task")
         <div>
           <strong>Assigned To:</strong>
           <ul className="pl-3 mt-2">
-            {task.team.map((member) => (
+            {task?.team?.map((member) => (
               <li key={member.employee_id} className="mb-2">
                 {member.employee_name} (ID: {member.employee_id})
               </li>

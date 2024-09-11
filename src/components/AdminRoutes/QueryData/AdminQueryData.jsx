@@ -328,8 +328,8 @@ const AdminQueryData = () => {
         </h2>
       </div> */}
 
-      {adminDashboardData.map((employee, index) => {
-        if (adminDashboardData.length === index + 1) {
+      {adminDashboardData?.map((employee, index) => {
+        if (adminDashboardData?.length === index + 1) {
           return (
             <section
               className="employee-card"

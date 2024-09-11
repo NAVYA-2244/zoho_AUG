@@ -23,7 +23,7 @@ const Stepper = ({ arr }) => {
   };
   return (
     <section className="stepper">
-      {arr.map((item, index) => {
+      {arr?.map((item, index) => {
         if (index === arr.length - 1) {
           return (
             <section className="step-starting" key={item.step}>

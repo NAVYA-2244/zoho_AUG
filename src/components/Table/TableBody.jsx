@@ -429,7 +429,7 @@ const TableBody = ({
             <tbody key={index}>
               {sortedData.length === index + 1 ? (
                 <tr key={item._id} ref={loadMoreRef}>
-                  {tableHeadProperties.map((property, index) => {
+                  {tableHeadProperties?.map((property, index) => {
                     const { property: propName } = property;
                     const keys = propName.split(".");
                     let value = item;
@@ -457,7 +457,7 @@ const TableBody = ({
                 </tr>
               ) : (
                 <tr key={item._id}>
-                  {tableHeadProperties.map((property, index) => {
+                  {tableHeadProperties?.map((property, index) => {
                     const { property: propName } = property;
                     const keys = propName.split(".");
                     let value = item;

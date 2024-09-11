@@ -202,7 +202,7 @@ const AllEmployeeLists = () => {
       </div>
 
       <section className="admin_all_employees">
-        {adminDashboardEmployeelist.map((employee, index) => {
+        {adminDashboardEmployeelist?.map((employee, index) => {
           if (adminDashboardEmployeelist.length === index + 1) {
             return (
               <ReUsableEmployeeCard

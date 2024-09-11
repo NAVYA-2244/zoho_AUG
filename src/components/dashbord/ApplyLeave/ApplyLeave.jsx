@@ -126,7 +126,7 @@ const ApplyLeave = () => {
     <section className="leave-report">
       <section className="leave-types">
         {Object.keys(employeeData).length > 0 ? (
-          employeeData?.leaveReport.map((item) => {
+          employeeData?.leaveReport?.map((item) => {
             return (
               <section
                 className="type"

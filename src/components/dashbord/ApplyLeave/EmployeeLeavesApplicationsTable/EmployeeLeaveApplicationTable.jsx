@@ -189,7 +189,7 @@ const EmployeeLeaveApplicationsTable = ({ leaveApplications }) => {
         <table className="table table-bordered table-responsive">
           <thead>
             <tr>
-              {tableHeadProperties.map((head, index) => (
+              {tableHeadProperties?.map((head, index) => (
                 <th key={index}>{head.name}</th>
               ))}
             </tr>
@@ -209,7 +209,7 @@ const EmployeeLeaveApplicationsTable = ({ leaveApplications }) => {
           <tbody className="text-center">
             {leaveApplications?.map((application, index) => (
               <tr key={index}>
-                {tableHeadProperties.map((head, i) => {
+                {tableHeadProperties?.map((head, i) => {
                   const value =
                     head.property
                       .split(".")
@@ -231,10 +231,8 @@ const EmployeeLeaveApplicationsTable = ({ leaveApplications }) => {
             ))}
 
             {leaveApplications.length == 0 && (
-              <p className="justify-content-center align-items-center m-2">
-                There is no leave applications
-              </p>
-            )}
+    <p className="justify-content-center align-items-center m-2">There is no leave applications</p>
+  )}
           </tbody>
           {/* <div className="d-flex justify-content-center align-items-center m-2"> */}
 

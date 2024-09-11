@@ -19,7 +19,7 @@ const Dashbordstats = ({ data, heading }) => {
     <section className="list-array">
             {statusTrack.length > 0 ? (
         <div className="d-flex flex-column align-items-center">
-          {statusTrack.map((item, index) => (
+          {statusTrack?.map((item, index) => (
             <div className="mb-2" key={index} style={{ width: '100%' }}>
               <div
                 className="card text-center shadow-sm"

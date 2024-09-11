@@ -175,7 +175,7 @@ const LeavesSettings = () => {
    <section className="row">
   {orgDetails?.roles?.length > 0 ? (
     <div className="row">
-      {orgDetails.roles.map((roles, index) => (
+      {orgDetails?.roles?.map((roles, index) => (
         <div className="col-12 col-md-6 col-lg-4 mb-4" key={index}>
           <div
             className="admin-controls-card position-relative"

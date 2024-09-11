@@ -113,7 +113,7 @@ function Totaltasks() {
                   onChange={handleFilterChange}
                 >
                   <option value="">All Statuses</option>
-                  {statusOptions.map((status) => (
+                  {statusOptions?.map((status) => (
                     <option key={status} value={status}>
                       {status.charAt(0).toUpperCase() +
                         status.slice(1).replace("_", " ")}
@@ -168,7 +168,7 @@ function Totaltasks() {
             </thead>
             <tbody>
               {ManagerTask?.length > 0 ? (
-                ManagerTask.map((task, index) => (
+                ManagerTask?.map((task, index) => (
                   <tr key={index}>
                     <td>{new Date(task.createdAt).toLocaleDateString()}</td>
                     <td>{task.task_id}</td>

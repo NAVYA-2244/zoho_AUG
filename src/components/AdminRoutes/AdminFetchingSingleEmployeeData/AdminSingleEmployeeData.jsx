@@ -206,7 +206,7 @@ const AdminSingleEmployeeData = ({ employeeProfileData, employeesList }) => {
           uan: formData.uan,
           pan: formData.pan,
           aadhaar: formData.aadhaar,
-          passport: formData.passport,
+          passport_number: formData.passport_number,
         },
         contactDetails: {
           phoneNumber_work: formData.phoneNumber_work,

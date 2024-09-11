@@ -96,7 +96,7 @@ const Sidebar = () => {
   };
 
   const renderingMenuItems = (items) => {
-    return items.map((item) => {
+    return items?.map((item) => {
       const isActive = location.pathname === item.path;
       const submenuActive =
         item.children &&

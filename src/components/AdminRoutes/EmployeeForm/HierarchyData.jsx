@@ -71,17 +71,17 @@ const HierarchyData = ({ formData, setFormData }) => {
         <div className="col-lg-4 col-md-4 col-sm-6">
           <Input_text
             type={"tel"}
-            name={"work_phone_number"}
+            name={"mobile_number"}
             placeholder={"Mobile Number"}
-            value={formData.work_phone_number}
+            value={formData.mobile_number}
             setForm={setFormData}
-            schema={schema.work_phone_number}
-            inputRef={(el) => (refs.current.work_phone_number = el)}
+            schema={schema.mobile_number}
+            inputRef={(el) => (refs.current.mobile_number = el)}
             imp={true}
             // readOnly={isAdmin}
           />
         </div>
-        <div className="col-lg-4 col-md-4 col-sm-6">
+        {/* <div className="col-lg-4 col-md-4 col-sm-6">
           <Input_text
             type={"tel"}
             name={"personal_mobile_number"}
@@ -92,8 +92,9 @@ const HierarchyData = ({ formData, setFormData }) => {
             inputRef={(el) => (refs.current.personal_mobile_number = el)}
             imp
             // readOnly={isAdmin}
+
           />
-        </div>
+        </div> */}
         <div className="col-lg-4 col-md-4 col-sm-6">
           <Input_email
             type={"email"}

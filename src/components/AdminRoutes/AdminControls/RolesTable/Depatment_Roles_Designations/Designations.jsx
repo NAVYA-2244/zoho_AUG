@@ -193,7 +193,7 @@ console.log("edtitem",editingItem)
       </div>
 
       {orgDetails?.designations?.length > 0 ? (
-        orgDetails.designations.map((item, index) => (
+        orgDetails?.designations?.map((item, index) => (
           <div className="col-lg-4 col-md-6 mb-4" key={index}>
             <div
               className="card"
@@ -337,7 +337,7 @@ console.log("edtitem",editingItem)
                  <form onSubmit={handleSubmit} style={{ width: '100%', textAlign: 'center' }}>
                    <div className="row mb-4">
                      <div className="col-12 "style={{ padding:'0'}}>
-                       {fields.map((field, index) => (
+                       {fields?.map((field, index) => (
                          <div className="form-group mb-3" key={field}>
                            <Input_text
                              type={types[index]}

@@ -134,12 +134,12 @@ const WorkInformationData = ({ formData, setFormData }) => {
         <div className="col-lg-3 col-md-3 col-sm-6">
           <Input_text
             type={"text"}
-            name={"passport"}
+            name={"passport_number"}
             placeholder={"Passport Number"}
-            value={formData.passport}
+            value={formData.passport_number}
             setForm={setFormData}
-            schema={schema.passport}
-            inputRef={(el) => (refs.current.passport = el)}
+            schema={schema.passport_number}
+            inputRef={(el) => (refs.current.passport_number = el)}
           />
         </div>
       </div>

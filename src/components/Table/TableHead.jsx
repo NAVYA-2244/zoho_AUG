@@ -118,7 +118,7 @@ const TableHead = ({
         }}
       >
         <tr>
-          {tableHeadProperties.map((heading, index) => (
+          {tableHeadProperties?.map((heading, index) => (
             <th
               style={{
                 background: applicationColor.tableHeadBg,

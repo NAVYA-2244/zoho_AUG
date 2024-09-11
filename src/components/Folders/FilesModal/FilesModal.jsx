@@ -42,7 +42,7 @@ const FilesModal = () => {
 
   const [formData, setFormData] = useState(
     Object.fromEntries(
-      fileModalData.fields.map((field) => {
+      fileModalData?.fields?.map((field) => {
         if (fileModalData.edit) {
           return [field, fileModalData.editingItem[field]];
         } else if (
@@ -91,7 +91,7 @@ const FilesModal = () => {
             }
           }}
         >
-          {fileModalData.fields.map((field, index) => {
+          {fileModalData?.fields?.map((field, index) => {
             if (field === "file") {
               return (
                 <div className="form-group" key={field}>

@@ -473,7 +473,7 @@ const TaskDetailsModal = ({ task, onUpdate, onClose }) => {
               <div>
                 <strong>Assigned To:</strong>
                 <ul className="pl-3 mt-2">
-                  {formData.team.map((member) => (
+                  {formData?.team?.map((member) => (
                     <li key={member.employee_id} className="mb-2">
                       {member.employee_name} (ID: {member.employee_id})
                     </li>

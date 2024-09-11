@@ -434,8 +434,8 @@ const EmployeeAttendanceTable = () => {
           <TableHead tableHeadProperties={tableHeadProperties} />
           <tbody>
             {console.log(attendanceData, "attendance data in table")}
-            {attendanceData.length > 0 &&
-              attendanceData.map((attendance, index) => (
+            {attendanceData?.length > 0 &&
+              attendanceData?.map((attendance, index) => (
                 <tr key={index}>
                   <td>{attendance.employee_id}</td>
                   <td>{new Date(attendance.createdAt).toLocaleDateString()}</td>

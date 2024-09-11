@@ -41,7 +41,8 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
         {
           name: "",
           relation: "",
-          dependent_date_of_birth: "",
+          dependent_date_of_birth:"",
+          dependent_mobile_number: "",
         },
       ],
     }));
@@ -370,7 +371,7 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                 />
               </div>
 
-              <div className="col-lg-4 col-md-4 col-sm-6">
+              {/* <div className="col-lg-4 col-md-4 col-sm-6">
                 <Date_Input
                   type={"date"}
                   placeholder={"Dependent DOB"}
@@ -399,7 +400,31 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                   index={index}
                   fieldName="dependent_details"
                 />
-              </div>
+              </div> */}
+               <div className="col-lg-4 col-md-4 col-sm-6">
+               <Input_text
+                  type={"tel"}
+                  name={"dependent_mobile_number"}
+                  placeholder={"Dependent Mobile Number"}
+                  value={data?.dependent_mobile_number}
+                  setForm={setFormData}
+                  schema={schema?.dependent_mobile_number}
+                  index={index}
+                  fieldName="dependent_details"
+                />
+          {/* <Input_text
+            type={"tel"}
+            name={"dependent_mobile_number"}
+            placeholder={"Dependent Mobile Number"}
+            value={data?.dependent_mobile_number}
+            setForm={setFormData}
+            schema={schema.dependent_mobile_number}
+            index={index}
+                  maxLength={12}
+                  fieldName="dependent_details"
+          
+          /> */}
+        </div> 
               </div>
               {/* <div className="additional-btns"> */}
                 {formData?.dependent_details?.length > 1 ? (

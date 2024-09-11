@@ -153,7 +153,7 @@ const FileUploadForm = ({ selectedLocation }) => {
     setFormData({
       ...formData,
       supported_file_formats: selectedOptions
-        ? selectedOptions.map((option) => option.value)
+        ? selectedOptions?.map((option) => option.value)
         : [],
     });
   };

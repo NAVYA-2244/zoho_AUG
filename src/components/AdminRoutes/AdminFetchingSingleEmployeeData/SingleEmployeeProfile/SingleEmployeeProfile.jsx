@@ -148,7 +148,7 @@ let contactDetailsProperties = [
   // },
   {
     name: "Work Phone Number",
-    property: "work_phone_number",
+    property: "mobile_number",
     type: "string",
   },
 ];
@@ -166,7 +166,7 @@ let identityInfoProperties = [
   },
   {
     name: "Passport Number",
-    property: "passport",
+    property: "passport_number",
     type: "string",
   },
   {
@@ -420,10 +420,10 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
                         </div>
                         <div className="info detail">
                           <FaPhone />
-                          <p>
+                          {/* <p>
                             {contact_details.personal_mobile_number ||
                               "no data"}
-                          </p>
+                          </p> */}
                         </div>
                       </div>
                     </div>
@@ -607,6 +607,7 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
 };
 
 export default SingleEmployeeProfile;
+
 // export const UpdateEmployeeAction = ({ id }) => {
 //   const navigate = useNavigate();
 //   const { applicationColor } = useThemeContext();

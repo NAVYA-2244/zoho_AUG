@@ -8,7 +8,7 @@ const GetAllEmployeeData = () => {
 
   return (
     <>
-      {adminEmployeeData.map((item, index) => {
+      {adminEmployeeData?.map((item, index) => {
         const { departmentName } = item.workInfo.department;
         const { designationName } = item.workInfo.designation;
 

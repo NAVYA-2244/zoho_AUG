@@ -447,7 +447,7 @@
 //           aadhaar: formData?.aadhaar || "",
 //           passport: formData?.passport || "",
 //         },
-//         work_phone_number: formData?.work_phone_number || "",
+//         mobile_number: formData?.mobile_number || "",
 //         personal_mobile_number: formData?.personal_mobile_number,
 //         personal_email_address: formData?.personal_email_address,
 //         work_experience: formData?.work_experience || [],
@@ -658,7 +658,7 @@ const EmployeeProfileUpdate = ({ form }) => {
           uan: formData?.uan,
           pan: formData?.pan ,
           aadhaar: formData?.aadhaar,
-          passport: formData?.passport ,
+          passport_number: formData?.passport_number ,
         },
         //   identity_info: {
         //   uan: userData?.uan || "",
@@ -667,7 +667,7 @@ const EmployeeProfileUpdate = ({ form }) => {
         //   passport: userData?.passport || "",
         // },
         
-        work_phone_number: userData.work_phone_number,
+        mobile_number: userData.mobile_number,
         personal_mobile_number: userData.personal_mobile_number,
         personal_email_address: userData.personal_email_address,
         last_ip: formData.last_ip,

@@ -97,7 +97,7 @@ const TeaminchargeProjects = () => {
   };
 
   const handleRemoveTeam = (project, task) => {
-    const employeeIds = task.team.map((member) =>
+    const employeeIds = task?.team?.map((member) =>
       typeof member === "object" ? member.employee_id : member
     );
     setCurrentProject({
@@ -178,7 +178,7 @@ const TeaminchargeProjects = () => {
         </div>
         {EmployProject?.length > 0 ? (
           <div className="row">
-            {EmployProject.map((project, index) => (
+            {EmployProject?.map((project, index) => (
               <div
                 className="col-12 col-xl-4 col-lg-6 col-md-12 col-sm-12 mb-4 ps-0 pe-3"
                 style={{ cursor: "pointer" }}

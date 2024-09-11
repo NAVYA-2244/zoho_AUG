@@ -40,7 +40,7 @@ import Companydetails from "../components/AdminRoutes/Companydetails/Companydeta
 import LeavesSettings from "./../components/AdminRoutes/AdminControls/RolesTable/Depatment_Roles_Designations/LeavesSettings";
 import AdminControlesUserDetails from "./../components/AdminRoutes/AdminControls/AdminControlesUserDetails";
 import LoginForm from "../components/Logins/EmployeeLoginPage/LoginForm.jsx";
-import SingleEmployeeProfileEdit from "../components/AdminRoutes/AdminFetchingSingleEmployeeData/SingleEmployeeProfile/SingleEmployeeProfileEdit.jsx";
+
 import ChangePassword from "../components/Folders/ChangePassword.jsx";
 import EmployeeProjects from "../components/Projects/EmployeeProjects.jsx";
 import Totaltasks from "../components/Projects/Totaltasks.jsx";
@@ -247,16 +247,16 @@ export const isEmployeeRouter = [
     element: <Dashboard />,
   },
 
-  {
-    path: "*",
-    element: (
-      <>
-        <div className="text-center">
-          <h3 className="mt-5 text-default-color">Page was not Found...😫</h3>
-        </div>
-      </>
-    ),
-  },
+  // {
+  //   path: "*",
+  //   element: (
+  //     <>
+  //       <div className="text-center">
+  //         <h3 className="mt-5 text-default-color">Page was not Found...😫</h3>
+  //       </div>
+  //     </>
+  //   ),
+  // },
 ];
 
 // Admintype "1" super admin
@@ -509,16 +509,16 @@ export const isSuperAdminRouter = [
     element: <NewForgotPassword />,
   },
 
-  {
-    path: "*",
-    element: (
-      <>
-        <div className="text-center">
-          <h3 className="mt-5 text-default-color">Page was not Found...😫</h3>
-        </div>
-      </>
-    ),
-  },
+  // {
+  //   path: "*",
+  //   element: (
+  //     <>
+  //       <div className="text-center">
+  //         <h3 className="mt-5 text-default-color">Page was not Found...😫</h3>
+  //       </div>
+  //     </>
+  //   ),
+  // },
 ];
 
 // Admintype "2"
@@ -757,16 +757,16 @@ export const isManagerRouter = [
     element: <NewForgotPassword />,
   },
 
-  {
-    path: "*",
-    element: (
-      <>
-        <div className="text-center">
-          <h3 className="mt-5 text-default-color">Page was not Found...😫</h3>
-        </div>
-      </>
-    ),
-  },
+  // {
+  //   path: "*",
+  //   element: (
+  //     <>
+  //       <div className="text-center">
+  //         <h3 className="mt-5 text-default-color">Page was not Found...😫</h3>
+  //       </div>
+  //     </>
+  //   ),
+  // },
 ];
 
 // admin type "3" //teamlead orincharge
@@ -945,14 +945,14 @@ export const isTeamLeadRouter = [
     element: <NewForgotPassword />,
   },
 
-  {
-    path: "*",
-    element: (
-      <>
-        <div className="text-center">
-          <h3 className="mt-5 text-default-color">Page was not Found...😫</h3>
-        </div>
-      </>
-    ),
-  },
+  // {
+  //   path: "*",
+  //   element: (
+  //     <>
+  //       <div className="text-center">
+  //         <h3 className="mt-5 text-default-color">Page was not Found...😫</h3>
+  //       </div>
+  //     </>
+  //   ),
+  // },
 ];

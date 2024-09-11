@@ -158,7 +158,7 @@ const FiltersModal = ({ handleFilterModal, setEmployeesList }) => {
           </div>
         </div>
 
-        {filterModalOptions.map((filter) => (
+        {filterModalOptions?.map((filter) => (
           <div key={filter.id} className="filter-item">
             <div
               onClick={() => toggleExpand(filter.id)}
@@ -185,7 +185,7 @@ const FiltersModal = ({ handleFilterModal, setEmployeesList }) => {
                     damping: 30,
                   }}
                 >
-                  {filter.options.map((option) => (
+                  {filter?.options?.map((option) => (
                     <div
                       key={option}
                       onClick={() => handleOptionSelect(option)}

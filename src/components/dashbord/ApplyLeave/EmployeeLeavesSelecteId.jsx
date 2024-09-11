@@ -19,6 +19,9 @@ function EmployeeLeavesSelecteId() {
     setEmployeedata,
     setEmployeeLeaveApplications,
     employeeLeaveApplications,
+    employeedataleaves,
+    setEmployeedataleave
+    
   } = useStateContext();
   const { applicationColor } = useThemeContext();
   const [selectedEmployeeData, setSelectedEmployeeData] = useState(null);
@@ -26,6 +29,8 @@ function EmployeeLeavesSelecteId() {
   const [leaveApplications, setLeaveApplications] = useState([]);
   const [status, setStatus] = useState("");
   const [year, setYear] = useState("");
+
+  console.log(leaveApplications,"employeeDetails")
   useEffect(() => {
     const fetchLeaveApplications = async () => {
       try {
@@ -137,9 +142,11 @@ function EmployeeLeavesSelecteId() {
 <button onClick={resetFilters} className="btn btn-secondary me-2">
             Reset
           </button>
+          {employeedataleaves&&
           <button onClick={ApplyLeave} className="btn btn-primary">
             Apply Leave
-          </button>
+          </button> 
+          }
           
         </div>
       </div>

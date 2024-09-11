@@ -517,8 +517,8 @@ const BirthdaysAndNewHires = ({
         }}
       >
         <h5 className="heading">{heading}</h5>
-        {recentHiresToDisplay.length > 0 ? (
-          recentHiresToDisplay.map((item) => (
+        {recentHiresToDisplay?.length > 0 ? (
+          recentHiresToDisplay?.map((item) => (
             <section
               className="list-card"
               key={item.employee_id}

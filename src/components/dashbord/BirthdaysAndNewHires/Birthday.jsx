@@ -29,7 +29,7 @@ const Birthday = ({
 
       <section className="list-array">
         {Birthdays?.length > 0 ? (
-          Birthdays.map((item, index) => {
+          Birthdays?.map((item, index) => {
             if (Birthdays.length === index + 1) {
               return (
                 <section

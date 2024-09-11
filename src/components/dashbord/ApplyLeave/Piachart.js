@@ -10,7 +10,7 @@ import { Navigate } from "react-router-dom";
 
 function Piachart() {
   // const [selectedEmployeeDataleave, setEmployeedataleave] = useState(null);
-  const [employeedataleaves, setEmployeedataleave] = useState()
+  // const [employeedataleaves, setEmployeedataleave] = useState()
   // const [Employeedata] = useState([]);
   const {
     setLoading,
@@ -19,6 +19,8 @@ function Piachart() {
     // setEmployeedata,
     setEmployeeLeaveApplications,
     employeeLeaveApplications,
+    employeedataleaves,
+    setEmployeedataleave
   } = useStateContext();
 
   // console.log(selectedEmployeeDataleave, "setEmployeedata");
@@ -31,7 +33,7 @@ function Piachart() {
         });
         console.log("response", response);
         // setEmployeedataleave(response.profile.leaves);
-        setEmployeedataleave(response.profile.leaves);
+        setEmployeedataleave(response?.profile?.leaves);
         console.log(response.profile.leaves, "response.profile.leaves")
       } catch (error) {
         console.error("Error fetching employee data:", error);
@@ -45,8 +47,8 @@ function Piachart() {
   return (
     <div>
       <section className="leave-types">
-        {employeedataleaves && employeedataleaves.length > 0 ? (
-          employeedataleaves.map((item) => (
+        {employeedataleaves && employeedataleaves?.length > 0 ? (
+          employeedataleaves?.map((item) => (
             <section
               className="type"
               key={item.leave_name}

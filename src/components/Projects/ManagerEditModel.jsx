@@ -323,7 +323,7 @@ console.log(project,"project")
                     <div className="assign-track mt-3">
                       <h6>Assigned Team:</h6>
                       <ul>
-                        {project.assign_track.map((assignment, index) => (
+                        {project?.assign_track?.map((assignment, index) => (
                           <li key={index}>
                          
                             {/* <p>

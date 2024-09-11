@@ -108,7 +108,7 @@ const SingleEmployeeLeaves_report = ({
             {" "}
             <section className="total-leaves-wrapper">
               <div className="sick-casual-leaves-wrapper">
-                {leaveReportData.map((eachObj, index) => (
+                {leaveReportData?.map((eachObj, index) => (
                   <div
                     className="sick-leaves"
                     key={index}

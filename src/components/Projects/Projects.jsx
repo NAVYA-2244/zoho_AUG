@@ -495,7 +495,7 @@ const Projects = () => {
   // Handle team removal
   const handleRemoveTeam = (project) => {
     // Extract employee IDs from the team array
-    const employeeIds = project?.team.map((member) =>
+    const employeeIds = project?.team?.map((member) =>
       typeof member === "object" ? member.employee_id : member
     );
 

@@ -31,7 +31,7 @@ function EmployeeAttendance() {
               className="d-flex justify-content-start g-3 fs-5 mb-5"
               style={{ gap: "5px" }}
             >
-              {tabs.map((tab) => (
+              {tabs?.map((tab) => (
                 <button
                   data-toggle="tooltip"
                   data-placement="top"
@@ -58,7 +58,7 @@ function EmployeeAttendance() {
               className="d-flex justify-content-start g-3 fs-5 mb-5"
               style={{ gap: "5px" }}
             >
-              {tabs.map((tab) => (
+              {tabs?.map((tab) => (
                 <button
                   data-toggle="tooltip"
                   data-placement="top"

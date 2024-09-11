@@ -28,6 +28,7 @@ export const StateContextProvider = ({ children }) => {
   const [attendanceData, setAttandanceData] = useState([]);
   const [adminData2, setAdminData2] = useState({});
   const [adminData1, setAdminData1] = useState({});
+  const[employeedataleaves,setEmployeedataleave]=useState(null)
   const [employeesList, setEmployeesList] = useState([]);
   const [recentemployeeid,  Setrecentemployeeid] = useState({});
   const [modalData, setModalData] = useState([]); //for modal .js
@@ -35,6 +36,7 @@ export const StateContextProvider = ({ children }) => {
   const [locations, setLocations] = useState([]);
   const [leaveTypes, setLeaveTypes] = useState([]);
   const [managers, setManagers] = useState([]);
+  
   const [employeeLeaveApplications, setEmployeeLeaveApplications] = useState(
     []
   );
@@ -203,7 +205,9 @@ export const StateContextProvider = ({ children }) => {
         TeamTask,
         setTeamTask,
         recentemployeeid,  
-        Setrecentemployeeid
+        Setrecentemployeeid,
+        employeedataleaves,
+        setEmployeedataleave
       }}
     >
       {children}

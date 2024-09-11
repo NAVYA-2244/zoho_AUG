@@ -28,10 +28,12 @@ function ApplyLeaveForm() {
     setLoadingTerm,
     employeedata,
     setEmployeedata,
+    employeedataleaves,
+    setEmployeedataleave
   } = useStateContext();
   const { checkErrors, employeeDetails } = useFunctionContext();
   const { applicationColor } = useThemeContext();
-  const [employeedataleaves, setEmployeedataleave] = useState()
+  // const [employeedataleaves, setEmployeedataleave] = useState()
   const [formData, setFormData] = useState({
     from_date: "",
     to_date: "",
@@ -40,7 +42,7 @@ function ApplyLeaveForm() {
     // days_taken: '',
     // team_mail_id: "",
   });
-  useEffect(() => {
+ 
     const gettingEmployeeById = async () => {
       try {
         const response = await backEndCallObjNothing("/emp_get/get_profile", {
@@ -53,7 +55,9 @@ function ApplyLeaveForm() {
         console.error("Error fetching employee data:", error);
       }
     };
+ useEffect(() => {
     gettingEmployeeById();
+
   }, [employeeDetails]);
   
 console.log(employeedataleaves)
@@ -140,10 +144,11 @@ console.log(employeedataleaves)
         <h5 className="apply-leave-heading mt-4 mb-3 ms-3 fw-semibold">
           Apply Leave
         </h5>
+
         <form className="leave-form" onSubmit={onLeaveApply}>
           <div className="row">
             <div className="col-lg-6 col-md-6">
-              <section>
+              {/* <section> */}
                 <Select_inputs
                   name="leave_type"
                   placeholder="Leave Type"
@@ -157,15 +162,8 @@ console.log(employeedataleaves)
                   property="leave_type"
                   valueProperty="leave_typeId"
                 />
-                <Date_Input
-                  type="date"
-                  value={formData.from_date}
-                  name="from_date"
-                  placeholder="From Date(MM/DD/YY)"
-                  setForm={setFormData}
-                  schema={leaveFormSchema.from_date}
-                  imp
-                />
+                </div>
+                <div className="col-lg-6 col-md-6">
                 <Input_area
                   value={formData.reason}
                   name="reason"
@@ -175,10 +173,33 @@ console.log(employeedataleaves)
                   length={250}
                   imp
                 />
-              </section>
+
+              {/* </section> */}
             </div>
+                <div className="col-lg-6 col-md-6">
+                {/* <Date_Input
+                  type="date"
+                  value={formData.from_date}
+                  name="from_date"
+                  placeholder="From Date"
+                  setForm={setFormData}
+                  schema={leaveFormSchema.from_date}
+                  imp
+                /> */}
+                <Date_Input
+                  type="date"
+                  value={formData.from_date}
+                  name="from_date"
+                  placeholder="From Date"
+                  setForm={setFormData}
+                  schema={leaveFormSchema.from_date}
+                  imp
+                />
+                </div>
+               
+
             <div className="col-lg-6 col-md-6">
-              <section>
+              {/* <section> */}
                 {/* <Input_email
                   type="email"
                   placeholder="Team Email ID"
@@ -192,7 +213,7 @@ console.log(employeedataleaves)
                   type="date"
                   value={formData.to_date}
                   name="to_date"
-                  placeholder="To Date (MM/DD/YY)"
+                  placeholder="To Date"
                   setForm={setFormData}
                   schema={leaveFormSchema.to_date}
                   imp
@@ -216,7 +237,7 @@ console.log(employeedataleaves)
                   schema={leaveFormSchema.team_mail_id}
                   imp
                 /> */}
-              </section>
+              {/* </section> */}
             </div>
           </div>
           {loading && <Loader />}

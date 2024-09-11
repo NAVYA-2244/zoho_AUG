@@ -75,7 +75,7 @@ const EmployeeTodos = () => {
     >
       <h5 className="todos-heading heading">Todos</h5>
       <div className="employee-todos">
-        {todos.map((item) => {
+        {todos?.map((item) => {
           return (
             <div
               className="todo"

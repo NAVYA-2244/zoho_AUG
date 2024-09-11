@@ -110,7 +110,7 @@ const EmployeeLoginSubmit = async (e) => {
     window.location = "/dashboard";
   } catch (error) {
     setBtndisabled(false);
-    toastOptions.error(error?.response?.data || "Something went wrong");
+    toastOptions.error(error?.response?.data );
   } finally {
     setLoading(false);
     setLoadingTerm("");

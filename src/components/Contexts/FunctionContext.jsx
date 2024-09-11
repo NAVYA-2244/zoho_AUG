@@ -48,14 +48,18 @@ export const FunctionContextProvider = ({ children }) => {
             value = value.replace(/[^A-Za-z0-9.\s,]/g, "");
           } else if (["degree"].includes(name)) {
             value = value.replace(/[^A-Za-z0-9\s\W]/g, "");
-          } else if (["employee_id"].includes(name)) {
-            value = value.replace((/[^A-Za-z0-9]/g, ""));
-          } else if (["institute_name"].includes(name)) {
+          } 
+          // else if (["employee_id"].includes(name)) {
+          //   value = value.replace((/[^A-Za-z0-9]/g, ""));
+
+
+          // }
+           else if (["institute_name"].includes(name)) {
             value = value.replace(/[^A-Za-z0-9\s,-]/g, "");
           } else if (
             [
               "pan",
-              "passport",
+              "passport_number",
               "seating_location",
 
               "company_name",

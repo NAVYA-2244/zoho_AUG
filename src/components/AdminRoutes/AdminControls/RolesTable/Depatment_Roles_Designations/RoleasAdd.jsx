@@ -868,7 +868,7 @@ const RolesAdd = () => {
                  <form onSubmit={handleSubmit} style={{ width: '100%', textAlign: 'center' }}>
                    <div className="row mb-4">
                      <div className="col-12 "style={{ padding:'0'}}>
-                       {fields.map((field, index) => (
+                       {fields?.map((field, index) => (
                          <div className="form-group mb-3" key={field}>
                            <Input_text
                              type={types[index]}

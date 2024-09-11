@@ -337,7 +337,7 @@ const ManagerProjects = () => {
 
   const handleRemoveTeam = (project) => {
     // Extract employee IDs from the team array
-    const employeeIds = project.team.map((member) =>
+    const employeeIds = project?.team?.map((member) =>
       typeof member === "object" ? member.employee_id : member
     );
 
@@ -396,7 +396,7 @@ const ManagerProjects = () => {
     setIsTeamModalVisible(true);
   };
   const handleRemoveTaskTeam = (project, task) => {
-    const employeeIds = task.team.map((member) =>
+    const employeeIds = task?.team?.map((member) =>
       typeof member === "object" ? member.employee_id : member
     );
     setCurrentProject({
@@ -475,7 +475,7 @@ const ManagerProjects = () => {
             {loading ? (
               <Loader />
             ) : EmployProject?.length > 0 ? (
-              EmployProject.map((project, index) => (
+              EmployProject?.map((project, index) => (
                 <div
                   className="col-xl-4 col-md-6 mb-3
                 
@@ -586,7 +586,7 @@ const ManagerProjects = () => {
                         flex: "1 1 auto",
                       }}
                     >
-                      {getTasksByProjectId(project.project_id).map(
+                      {getTasksByProjectId(project.project_id)?.map(
                         (task, index) => (
                           <div
                             className="task-card card mb-3 rounded-2 card-shadow"

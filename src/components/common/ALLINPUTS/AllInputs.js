@@ -889,7 +889,7 @@ export function SelectInputs({
                 -- select --
               </option>
               {options &&
-                options.map((option, index) => (
+                options?.map((option, index) => (
                   <option
                     value={
                       option[valueProperty] ? option[valueProperty] : option
@@ -1169,6 +1169,107 @@ export function Select_inputs({
   );
 }
 
+// export function Date_Input({
+//   type,
+//   name,
+//   placeholder,
+//   value,
+//   setForm,
+//   schema,
+//   readOnly,
+//   imp,
+//   inputRef,
+//   index,
+//   fieldName,
+//   min,
+//   max,
+// }) {
+//   const { errors } = useStateContext();
+//   const { applicationColor } = useThemeContext();
+//   const { handleChange } = useFunctionContext();
+//   const dateInputRef = useRef(null);
+
+//   const dateValue = value ? parseISO(value) : null;
+
+//   const formatedDate = isValid(dateValue)
+//     ? format(new Date(dateValue), "dd-MM-yyyy")
+//     : "";
+
+//   const handleClick = () => {
+//     if (dateInputRef.current) {
+//       dateInputRef.current.showPicker();
+//     }
+//   };
+
+//   return (
+//     <>
+//       <div className="total-form">
+//         <div className="main_label">
+//           <label
+//             htmlFor={name}
+//             style={{
+//               color: applicationColor.readColor2,
+//             }}
+//           >
+//             {imp ? (
+//               <>
+//                 {placeholder}
+//                 <sup style={{ color: "red" }}> *</sup>
+//               </>
+//             ) : (
+//               placeholder
+//             )}
+//           </label>
+//         </div>
+//         <div className="main-input">
+//           <div className="icon-prefix ">
+//             <label htmlFor={name}>$</label>
+//           </div>
+//           <div
+//             className="input date-input"
+//             style={{
+//               color: applicationColor.readColor2,
+//               background: applicationColor.cardBg2,
+//             }}
+//           >
+//             <input
+//               type="date"
+//               // onFocus={handleFocus}
+//               id={name}
+//               name={name}
+//               placeholder={placeholder}
+//               value={formatedDate}
+//               min={min}
+//               max={max}
+//               onChange={(e) =>
+//                 handleChange(e, schema, setForm, index, fieldName)
+//               }
+//               readOnly={readOnly}
+//               className=" custom-date-input"
+//               style={{
+//                 background: applicationColor.cardBg2,
+//                 color: applicationColor.readColor2,
+//               }}
+//               ref={dateInputRef}
+//               onClick={handleClick}
+//             />
+//             <span className="custom-calendar-icon" onClick={handleClick}>
+//               <IoCalendarNumberSharp />
+//             </span>
+//           </div>
+//         </div>
+//         {(errors[name] ||
+//           (errors?.[fieldName] &&
+//             errors?.[fieldName][index] &&
+//             errors?.[fieldName][index][name])) && (
+//             <div className="error-message mt-2">
+//               <span className="m-2">{errors[name] || errors?.[fieldName][index][name]}</span>
+//             </div>
+//           )}
+//       </div>
+//     </>
+//   );
+// }
 export function Date_Input({
   type,
   name,
@@ -1270,7 +1371,6 @@ export function Date_Input({
     </>
   );
 }
-
 export function Time_Input({
   type,
   name,
