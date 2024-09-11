@@ -17,10 +17,9 @@ const AddEmployee = () => {
   const { setOrgData2, setLoadingTerm, setLoading, orgDetails , setEmployeelist,EmployeeList} =
     useStateContext();
     const navigate = useNavigate()
-  // console.log(orgDetails, "orgDetails");
+  
 
-  console.log(orgDetails.organisation_id
-    , "orgdetails");
+ 
   const [redirect, setRedirect] = useState(false);
   const { checkErrors } = useFunctionContext();
   const[btndisabled,setButtonDisabled]=useState(false)

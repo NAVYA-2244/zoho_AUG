@@ -1452,7 +1452,7 @@ export const ExpirementSchema = {
             "string.pattern.base":
               '"dependentName" should not include special characters',
           })
-          .label("Dependent Name")
+          // .label("Dependent Name"),
           .label("Relation"),
         // dependent_date_of_birth: Joi.date()
         //   .max("now")
@@ -1500,6 +1500,7 @@ export const ExpirementSchema = {
     )
     .label("Education Details"),
 };
+
 export const identityInfoSchema = Joi.object({
   uan: Joi.string()
     .length(12)

@@ -701,7 +701,7 @@ const EmployeeList = () => {
             onClick={isFetching ? null : handleRefresh}
             disabled={isFetching}
           >
-            {console.log(isFetching, "fetching")}
+            
             {isFetching ? (
               <div
                 className="spinner-border text-primary"
@@ -753,7 +753,8 @@ const EmployeeList = () => {
                           {employee.basic_info.first_name}
                           {employee.basic_info.last_name}
                         </td>
-                        <td>{employee.basic_info.email}</td>
+                        <td style={{ textTransform: "lowercase"}}>{employee?.basic_info?.email ? employee.basic_info.email.toLowerCase() : ''}</td>
+
                         <td>{employee.work_info.department_name}</td>
                         <td>{employee.work_info.designation_name}</td>
 
@@ -797,7 +798,8 @@ const EmployeeList = () => {
                           {employee.basic_info.last_name}
                         </td>
 
-                        <td>{employee.basic_info.email}</td>
+                        <td style={{ textTransform: "lowercase"}}>{employee?.basic_info?.email ? employee.basic_info.email.toLowerCase() : ''}</td>
+
                         <td>{employee.work_info.department_name}</td>
                         <td>{employee.work_info.designation_name}</td>
                         <td>{employee.work_info.date_of_join}</td>

@@ -108,7 +108,7 @@
 //       setEdit(false);
 //       setShowModal(false);
 //     } catch (error) {
-//       console.log(error,"error")
+//      
 //       toastOptions.error(
 //         error?.response?.data || error[0]?.message || "An error occurred"
 //       );
@@ -606,7 +606,7 @@ const RolesAdd = () => {
       setEdit(false);
       setShowModal(false);
     } catch (error) {
-      console.log(error, "error");
+     
       toastOptions.error(error?.response?.data || error[0]?.message || "An error occurred");
     } finally {
       setLoading(false);

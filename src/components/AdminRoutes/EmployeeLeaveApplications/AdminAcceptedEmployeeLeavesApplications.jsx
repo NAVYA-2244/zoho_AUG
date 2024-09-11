@@ -31,7 +31,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
 
   const { applicationColor } = useThemeContext();
   // const [teamMembers, setTeamMembers] = useState([]);
-  const [currentTab, setCurrentTab] = useState("calendar-view");
+  const [currentTab, setCurrentTab] = useState("table-view");
   // const [employeesList, setEmployeesList] = useState([]);
   const [skip, setSkip] = useState(0);
   const [limit] = useState(2);
@@ -515,96 +515,97 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
         </section>
 
         {currentTab === "calendar-view" ? (
-          <div className="row">
-            {adminGettingLeaveApplications?.length > 0 &&
-              adminGettingLeaveApplications?.map((item) => (
-                <div
-                  key={item.leave_application_id}
-                  className="col-sm-6 col-md-6 col-lg-6 col-xl-4 g-3"
-                >
-                  <div
-                    style={{
-                      background: applicationColor.cardBg1,
-                      color: applicationColor.readColor1,
-                    }}
-                    className="rounded-3"
-                  >
-                    <div className="card">
-                      <div className="card-body employee-leave-cards">
-                        <p
-                          style={{
-                            textTransform: "capitalize",
-                            fontWeight: "bold",
-                          }}
+            
+        <div className="row">
+        {adminGettingLeaveApplications?.length > 0 &&
+          adminGettingLeaveApplications?.map((item) => (
+            <div
+              key={item.leave_application_id}
+              className="col-sm-6 col-md-6 col-lg-6 col-xl-4 g-3"
+            >
+              <div
+                style={{
+                  background: applicationColor.cardBg1,
+                  color: applicationColor.readColor1,
+                }}
+                className="rounded-3"
+              >
+                <div className="card">
+                  <div className="card-body employee-leave-cards">
+                    <p
+                      style={{
+                        textTransform: "capitalize",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {item.employee_name}
+                    </p>
+
+                    <div className="leave-card-data">
+                      <p>Type: {item.leave_type}</p>
+                      <p>
+                        <span className="me-2">Status : </span>
+                        <span
+                          className={`leave-status ${item.leave_status.toLowerCase()}`}
                         >
-                          {item.employee_name}
-                        </p>
-
-                        <div className="leave-card-data">
-                          <p>Type: {item.leave_type}</p>
-                          <p>
-                            <span className="me-2">Status : </span>
-                            <span
-                              className={`leave-status ${item.leave_status.toLowerCase()}`}
-                            >
-                              {item.leave_status === "Pending" && (
-                                <span className="status-pending me-1">
-                                  Pending
-                                </span>
-                              )}
-                              {item.leave_status === "Approved" && (
-                                <span className="status-approved me-1">
-                                  Approved
-                                </span>
-                              )}
-                              {item.leave_status === "Rejected" && (
-                                <span className="status-rejected me-1">
-                                  Rejected
-                                </span>
-                              )}
+                          {item.leave_status === "Pending" && (
+                            <span className="status-pending me-1">
+                              Pending
                             </span>
-                          </p>
-                        </div>
-
-                        <div className="leave-card-data">
-                          <p>From: {item.from_date}</p>
-                          <p>To : {item.to_date}</p>
-                        </div>
-                        <div className="leave-card-data">
-                          <p>Days Taken: {item.days_taken}</p>
-                        </div>
-                        {/* <div className="leave-card-data">
-                          <p>Reason: {item.reason}</p>
-                        </div> */}
-                        <div className="leave-card-data">
-                          <p>Applied on:</p>
-                          <p>
-                            {format(
-                              new Date(item.createdAt),
-                              "EEE, dd-MM-yyyy hh:mm a"
-                            )}
-                          </p>
-                        </div>
-                        <div class="text-wrap p-3 border rounded mb-2">
-                          <p>Reason: {item.reason}</p>
-                        </div>
-
-                        <section className="status g-2">
-                          {renderLeaveStatusButtons(item)}
-                        </section>
-                      </div>
+                          )}
+                          {item.leave_status === "Approved" && (
+                            <span className="status-approved me-1">
+                              Approved
+                            </span>
+                          )}
+                          {item.leave_status === "Rejected" && (
+                            <span className="status-rejected me-1">
+                              Rejected
+                            </span>
+                          )}
+                        </span>
+                      </p>
                     </div>
+
+                    <div className="leave-card-data">
+                      <p>From: {item.from_date}</p>
+                      <p>To : {item.to_date}</p>
+                    </div>
+                    <div className="leave-card-data">
+                      <p>Days Taken: {item.days_taken}</p>
+                    </div>
+                    {/* <div className="leave-card-data">
+                      <p>Reason: {item.reason}</p>
+                    </div> */}
+                    <div className="leave-card-data">
+                      <p>Applied on:</p>
+                      <p>
+                        {format(
+                          new Date(item.createdAt),
+                          "EEE, dd-MM-yyyy hh:mm a"
+                        )}
+                      </p>
+                    </div>
+                    <div class="text-wrap p-3 border rounded mb-2">
+                      <p>Reason: {item.reason}</p>
+                    </div>
+
+                    <section className="status g-2">
+                      {renderLeaveStatusButtons(item)}
+                    </section>
                   </div>
                 </div>
-              ))}
-
-            <div className="d-flex justify-content-center mt-3">
-              {loading && <Loader />}
-              {!loading &&
-                adminGettingLeaveApplications?.length === 0 &&
-                "No Leaves"}
+              </div>
             </div>
-          </div>
+          ))}
+
+        <div className="d-flex justify-content-center mt-3">
+          {loading && <Loader />}
+          {!loading &&
+            adminGettingLeaveApplications?.length === 0 &&
+            "No Leaves"}
+        </div>
+      </div>
         ) : (
           <section className="tables">
             <table className="main-table table-bordered table-responsive admin-employee-leaves-table">
@@ -666,7 +667,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
                           </div>
                         )}
                       </td>
-
+  
                       <td>
                         {format(
                           new Date(item.createdAt),
@@ -712,7 +713,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
                       </td>
                     </tr>
                   ))}
-
+  
                 {!loading && adminGettingLeaveApplications?.length === 0 && (
                   <tr>
                     <td colSpan={10} className="text-center">
@@ -722,13 +723,13 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
                 )}
               </tbody>
             </table>
-
+  
             {loading && (
               <div className="d-flex justify-content-center mt-3">
                 <Loader />
               </div>
             )}
-
+  
             {showModal1 && selectedLeave && (
               <div
                 className="modal show d-flex justify-content-center align-items-center"
@@ -777,7 +778,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
                 </div>
               </div>
             )}
-
+  
             {RejectModel && selectedLeave && (
               <div
                 className="modal show"

@@ -79,7 +79,7 @@ export function Input_password({
         </div>
         {errors[name] && (
           <div className="error-message mt-2">
-            <span className="m-2"> {errors[name]}</span>
+            <span> {errors[name]}</span>
             {/* <span className="exclamatory"></span> */}
           </div>
         )}
@@ -159,7 +159,7 @@ export function InputPassword({
         </div>
         {errors[name] && (
           <div className="error-message mt-2">
-            <span className="m-2"> {errors[name]}</span>
+            <span> {errors[name]}</span>
             {/* <span className="exclamatory"></span> */}
           </div>
         )}
@@ -227,7 +227,7 @@ export function InputOtp({
       </div>
       {errors[name] && (
         <div className="error-message mt-2">
-          <span className="m-2">{errors[name]}</span>
+          <span>{errors[name]}</span>
         </div>
       )}
     </div>
@@ -301,7 +301,7 @@ export function InputText({
             errors?.[fieldName][index] &&
             errors?.[fieldName][index][name])) && (
             <div className="error-message mt-2">
-              <span className="m-2">{errors[name] || errors?.[fieldName][index][name]}</span>
+              <span>{errors[name] || errors?.[fieldName][index][name]}</span>
             </div>
           )}
       </div>
@@ -379,7 +379,7 @@ export function Input_text({
       </div>
       {error && (
         <div className="error-message">
-          <span className="m-2">{error}</span>
+          <span>{error}</span>
         </div>
       )}
     </div>
@@ -536,7 +536,7 @@ export function Input_area({
             errors?.[fieldName][index] &&
             errors?.[fieldName][index][name])) && (
             <div className="error-message mt-2">
-              <span className="m-2">{errors[name] || errors?.[fieldName][index][name]}</span>
+              <span>{errors[name] || errors?.[fieldName][index][name]}</span>
             </div>
           )}
       </div>
@@ -611,7 +611,7 @@ export function InputEmail({
         </div>
         {errors[name] && (
           <div className="error-message mt-2">
-            <span className="m-2">{errors[name]} </span>
+            <span>{errors[name]} </span>
             {/* <span className="exclamatory"></span> */}
           </div>
         )}
@@ -750,7 +750,7 @@ export function Input_email({
       </div>
       {errors[name] && (
         <div className="error-message mt-2">
-          <span className="m-2">{errors[name]}</span>
+          <span>{errors[name]}</span>
         </div>
       )}
     </div>
@@ -816,7 +816,7 @@ export function Input_checkBox({
         </div>
         {errors[name] && (
           <div className="error-message mt-2">
-            <span className="m-2">{errors[name]} </span>
+            <span>{errors[name]} </span>
             {/* <span className="exclamatory"></span> */}
           </div>
         )}
@@ -905,7 +905,7 @@ export function SelectInputs({
         </div>
         {errors[name] && (
           <div className="error-message mt-2">
-            <span className="m-2">{errors[name]} </span>
+            <span>{errors[name]} </span>
             {/* <span className="exclamatory"></span> */}
           </div>
         )}
@@ -1162,7 +1162,7 @@ export function Select_inputs({
       </div>
       {errors[name] && (
         <div className="error-message mt-2">
-          <span className="m-2">{errors[name]}</span>
+          <span>{errors[name]}</span>
         </div>
       )}
     </div>
@@ -1364,7 +1364,7 @@ export function Date_Input({
             errors?.[fieldName][index] &&
             errors?.[fieldName][index][name])) && (
             <div className="error-message mt-2">
-              <span className="m-2">{errors[name] || errors?.[fieldName][index][name]}</span>
+              <span>{errors[name] || errors?.[fieldName][index][name]}</span>
             </div>
           )}
       </div>
@@ -1465,7 +1465,7 @@ export function Time_Input({
         </div>
         {errors[name] && (
           <div className="error-message mt-2">
-            <span className="m-2">{errors[name]} </span>
+            <span>{errors[name]} </span>
           </div>
         )}
       </div>
@@ -1628,7 +1628,7 @@ export const PDFInput = ({
         </div>
         {errors[name] && (
           <div className="error-message mt-2">
-            <span className="m-2"> {errors[name]}</span>
+            <span> {errors[name]}</span>
             {/* <span className="exclamatory"></span> */}
           </div>
         )}

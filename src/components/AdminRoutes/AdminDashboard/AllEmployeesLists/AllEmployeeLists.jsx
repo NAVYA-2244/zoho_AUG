@@ -69,7 +69,7 @@ const AllEmployeeLists = () => {
       setLoading(false);
       setLoadingTerm("");
     } catch (error) {
-      console.log(error, "error while making network call");
+     
       toastOptions.error("no emloyee with the search term");
     } finally {
       setLoading(false);

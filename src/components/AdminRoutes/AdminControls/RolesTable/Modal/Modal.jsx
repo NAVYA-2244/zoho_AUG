@@ -26,7 +26,7 @@ const Modal = ({
   const { loading, setErrors } = useStateContext();
   const { applicationColor } = useThemeContext();
 
-  console.log(editingItem, "editingItem");
+  
 
   const [formData, setFormData] = useState(
     // edit
@@ -52,7 +52,7 @@ const Modal = ({
     //   )
   );
 
-  console.log({ formData });
+ 
 
   const handleSubmit = async (e, property, id) => {
     e.preventDefault();

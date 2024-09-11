@@ -169,10 +169,10 @@ const AdminSingleEmployeeData = ({ employeeProfileData, employeesList }) => {
   //To Update the Employee Data
   const handleSubmit = async (formData) => {
     try {
-      console.log({ formData });
+     
       setLoading(true);
       setLoadingTerm("Edit Details");
-      console.log(formData, "fromData");
+     
       await checkErrors(ExpirementSchema, formData);
 
       const data = {

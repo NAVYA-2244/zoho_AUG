@@ -21,6 +21,7 @@ import {
 } from "../../common/ALLINPUTS/AllInputs";
 import { useThemeContext } from "../../Contexts/ThemesContext";
 import ForgotPassword from "./../ForgotPassword/ForgotPassword";
+import { StateContextProvider } from './../../Contexts/StateContext';
 
 const EmployeeLoginForm = ({ setOtpType }) => {
   const [timeLeft, setTimeLeft] = useState(120);
@@ -34,7 +35,7 @@ const EmployeeLoginForm = ({ setOtpType }) => {
   const [resendDisabled, setResendDisabled] = useState(false);
   const [btndisabled, setBtndisabled] = useState(false);
   const [browserId, setBrowserId] = useState("");
-
+  const { employeeDetails, setOrgLogo, orgDetails } = useStateContext();
   const employeeLoginSchema = {
     email: Joi.string()
       .min(10)
@@ -65,12 +66,16 @@ const EmployeeLoginForm = ({ setOtpType }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    
+    if(employeeDetails){ window.location = "/dashboard"}
+
     const getBrowserId = async () => {
       const fp = await FingerprintJS.load();
       const result = await fp.get();
       setBrowserId(result.visitorId.toString());
     };
     getBrowserId();
+    
   }, []);
  
   
@@ -110,7 +115,9 @@ const EmployeeLoginSubmit = async (e) => {
     window.location = "/dashboard";
   } catch (error) {
     setBtndisabled(false);
+    if(error?.response?.data){
     toastOptions.error(error?.response?.data );
+  }
   } finally {
     setLoading(false);
     setLoadingTerm("");
@@ -178,16 +185,15 @@ const EmployeeLoginSubmit = async (e) => {
             imp
             icon={<MdOutlineKey />}
           />
-          <div className="setPassword-wrapper text-end">
+          {/* <div className="setPassword-wrapper text-end">
          
-               {/* <span>Don't have password?</span> */}
-              <h5
+                             <h5
                 className="forgot-password fw-semibold"
                 onClick={() => navigate("/resetpassword")}
               >
                 Forgot Password
               </h5>
-            </div>
+            </div> */}
         
           <div className="employee-button mt-3">
             <button

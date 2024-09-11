@@ -11,7 +11,7 @@ export const StateContextProvider = ({ children }) => {
   const [employeeDetails, setEmployeeDetails] = useState(
     localStorage.getItem("zohoEmployeeToken")
       ? jwtDecode(settingTokens.gettingEmployeeToken())
-      : {}
+      : {} || null
   );
   // console.log("employeedetails", employeeDetails);
 
