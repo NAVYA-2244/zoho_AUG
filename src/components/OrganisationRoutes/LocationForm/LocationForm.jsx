@@ -60,13 +60,6 @@ const LocationForm = () => {
       value: "IST (GMT+5:30)",
     },
   ];
-
-  // useEffect(() => {
-  //   if (orgDetails) {
-  //     setLocations(orgDetails?.locations);
-  //   }
-  // }, [orgDetails]);
-
   const schema = {
     organisation_id: Joi.string(),
     location_name: Joi.string()
@@ -90,21 +83,15 @@ const LocationForm = () => {
       .required()
       .label("Country Region"),
     time_zone: Joi.string().required().label("Time Zone"),
-    latitude: Joi.string()
-      // .pattern(/^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$/)
-      .required()
-      .messages({
-        "string.pattern.base":
-          '"Latitude " should not include special characters',
-        "any.required": '"Latitude" is required',
-      }),
-    longitude: Joi.string()
-      // .pattern(/^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/)
-      .required()
-      .messages({
-        "string.pattern.base": "{#label} should be a valid longitude value",
-        "any.required": "{#label} is a required field",
-      }),
+    latitude: Joi.string().required().messages({
+      "string.pattern.base":
+        '"Latitude " should not include special characters',
+      "any.required": '"Latitude" is required',
+    }),
+    longitude: Joi.string().required().messages({
+      "string.pattern.base": "{#label} should be a valid longitude value",
+      "any.required": "{#label} is a required field",
+    }),
     radius: Joi.string().required().label("Radius In Meters"),
   };
 
@@ -120,16 +107,12 @@ const LocationForm = () => {
 
       const res = await backEndCallObjNothing("/user/add_location", formData);
 
-      // console.log(res, 'response');
-
-      // console.log(res, 'response');
       setOrgDetails(res.data);
       toastOptions.success(res.success);
       setLoading(false);
       setLoadingTerm("");
       setFormPage(false);
     } catch (error) {
-      console.log(error, "err");
       toastOptions.error(error?.response?.data || "ddd");
       setLoading(false);
       setLoadingTerm("");
@@ -258,11 +241,6 @@ const LocationForm = () => {
             <button
               className="dropdown-item d-flex align-items-center justify-content-end"
               type="button"
-              // onClick={handleAddItems}
-              // disabled={loading}
-              // style={{
-              //   color: applicationColor.readColor1,
-              // }}
             >
               <span className="add-role me-1">Add</span>
               <RiAddCircleFill />
@@ -272,8 +250,6 @@ const LocationForm = () => {
           <div className="">
             <h2>Locations</h2>
           </div>
-          {/* Cards Section  */}
-
           <section className="row">
             {locations?.map((item) => {
               const { _id, time_zone, country_region, location_name } = item;
@@ -305,9 +281,6 @@ const LocationForm = () => {
                       <div className="role-name">
                         <span>Description here..</span>
                       </div>
-                      {/* <div>
-                      <span className="badge bg-primary">4</span>
-                    </div> */}
                     </div>
                   </div>
                 </div>

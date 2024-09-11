@@ -388,82 +388,6 @@ export function Input_text({
   );
 }
 
-// export function Input_text({
-//   type,
-//   name,
-//   placeholder,
-//   value,
-//   setForm,
-//   schema,
-//   icon,
-//   imp,
-//   readOnly,
-//   inputRef,
-//   index = "",
-//   fieldName = "",
-// }) {
-//   const { errors } = useStateContext();
-//   const { handleChange } = useFunctionContext();
-//   const computedPlaceholder = imp ? `${placeholder} *` : placeholder;
-//   const { applicationColor } = useThemeContext();
-//   // const newErrors = flatternObject(errors);
-//   // console.log(errors, index, fieldName);
-//   return (
-//     <>
-//       <div className="total-form">
-//         <div className="main_label">
-//           <label
-//             htmlFor={name}
-//             style={{
-//               color: applicationColor.readColor2,
-//             }}
-//           >
-//             {imp ? (
-//               <>
-//                 {placeholder}
-//                 <sup style={{ color: "red" }}> *</sup>
-//               </>
-//             ) : (
-//               placeholder
-//             )}
-//           </label>
-//         </div>
-//         <div className="main-input">
-//           <div className="icon-prefix">
-//             <label htmlFor={name}>{icon ? icon : "$"}</label>
-//           </div>
-//           <div className="input">
-//             <input
-//               type={type}
-//               id={name}
-//               name={name}
-//               placeholder={placeholder}
-//               value={value}
-//               onChange={(e) =>
-//                 handleChange(e, schema, setForm, index, fieldName)
-//               }
-//               readOnly={readOnly}
-//               ref={inputRef}
-//               style={{
-//                 background: applicationColor.cardBg2,
-//                 color: applicationColor.readColor1,
-//               }}
-//             />
-//           </div>
-//         </div>
-//         {(errors[name] ||
-//           (errors?.[fieldName] &&
-//             errors?.[fieldName][index] &&
-//             errors?.[fieldName][index][name])) && (
-//             <div className="error-message">
-//               <span>{errors[name] || errors?.[fieldName][index][name]}</span>
-//             </div>
-//           )}
-//       </div>
-//     </>
-//   );
-// }
-
 export function Input_area({
   name,
   placeholder,
@@ -623,77 +547,7 @@ export function InputEmail({
   );
 }
 
-// export function Input_email({
-//   type,
-//   name,
-//   id,
-//   placeholder,
-//   value,
-//   setForm,
-//   schema,
-//   imp,
-//   readOnly,
-//   icon,
-//   inputRef,
-// }) {
-//   const { errors } = useStateContext();
-//   const { handleChange } = useFunctionContext();
-//   const computedPlaceholder = imp ? `${placeholder} *` : placeholder;
-//   const { applicationColor } = useThemeContext();
 
-//   return (
-//     <>
-//       <div className="total-form">
-//         <div className="main_label">
-//           <label
-//             htmlFor={name}
-//             style={{
-//               color: applicationColor.readColor2,
-//             }}
-//           >
-//             {imp ? (
-//               <>
-//                 {placeholder}
-//                 <sup style={{ color: "red" }}> *</sup>
-//               </>
-//             ) : (
-//               placeholder
-//             )}
-//           </label>
-//         </div>
-//         <div className="main-input">
-//           <div className="icon-prefix">
-//             <label htmlFor={name}>{icon}</label>
-//           </div>
-//           <div className="input">
-//             <input
-//               type={type}
-//               id={name}
-//               name={name}
-//               placeholder={placeholder}
-//               value={value}
-//               onChange={(e) => handleChange(e, schema, setForm)}
-//               readOnly={readOnly}
-//               ref={inputRef}
-//               style={{
-//                 background: applicationColor.cardBg2,
-//                 color: applicationColor.readColor1,
-//               }}
-
-//             //        onChange={(e) => handleChange(e, schema, setForm)}
-//             />
-//           </div>
-//         </div>
-//         {errors[name] && (
-//           <div className="error-message">
-//             <span>{errors[name]} </span>
-//             {/* <span className="exclamatory"></span> */}
-//           </div>
-//         )}
-//       </div>
-//     </>
-//   );
-// }
 export function Input_email({
   type = "email",
   name,
@@ -1399,7 +1253,7 @@ export function Time_Input({
 
   const handleTimeChange = (e) => {
     const inputValue = e.target.value;
-    console.log(inputValue, "value");
+    
     // Handle manual input by checking if the entered value is a valid time
     // if (/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/.test(inputValue)) {
     //   const formattedValue = format(

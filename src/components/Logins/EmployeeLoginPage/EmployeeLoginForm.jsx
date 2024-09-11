@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MdOutlineKey, MdEmail } from "react-icons/md";
@@ -21,7 +20,7 @@ import {
 } from "../../common/ALLINPUTS/AllInputs";
 import { useThemeContext } from "../../Contexts/ThemesContext";
 import ForgotPassword from "./../ForgotPassword/ForgotPassword";
-import { StateContextProvider } from './../../Contexts/StateContext';
+import { StateContextProvider } from "./../../Contexts/StateContext";
 
 const EmployeeLoginForm = ({ setOtpType }) => {
   const [timeLeft, setTimeLeft] = useState(120);
@@ -40,7 +39,7 @@ const EmployeeLoginForm = ({ setOtpType }) => {
     email: Joi.string()
       .min(10)
       .max(55)
-      .email({ tlds: { allow: ["com", "net", "org","io"] } })
+      .email({ tlds: { allow: ["com", "net", "org", "io"] } })
       .required()
       .label("Email"),
     password: Joi.string()
@@ -66,8 +65,9 @@ const EmployeeLoginForm = ({ setOtpType }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    
-    if(localStorage.getItem("zohoEmployeeToken")){ window.location = "/dashboard"}
+    if (localStorage.getItem("zohoEmployeeToken")) {
+      window.location = "/dashboard";
+    }
 
     const getBrowserId = async () => {
       const fp = await FingerprintJS.load();
@@ -75,10 +75,7 @@ const EmployeeLoginForm = ({ setOtpType }) => {
       setBrowserId(result.visitorId.toString());
     };
     getBrowserId();
-    
   }, []);
- 
-  
 
   const validateField = (name, value) => {
     const schema = Joi.object(employeeLoginSchema);
@@ -87,126 +84,86 @@ const EmployeeLoginForm = ({ setOtpType }) => {
   };
   const tokenKey = "zohoEmployeeToken"; // Define your token key
 
-const EmployeeLoginSubmit = async (e) => {
-  
-  e.preventDefault();
-  setLoadingTerm("login");
-  setLoading(true);
+  const EmployeeLoginSubmit = async (e) => {
+    e.preventDefault();
+    setLoadingTerm("login");
+    setLoading(true);
 
-  try {
-    setBtndisabled(true);
-    formData.email = formData.email.toLowerCase();
-    formData.last_ip = await publicIpv4();
-    formData.device_id = fullBrowserVersion;
-    formData.browserid = browserId;
-    formData.fcm_token = "staging"; // Replace with actual FCM token if needed
+    try {
+      setBtndisabled(true);
+      formData.email = formData.email.toLowerCase();
+      formData.last_ip = await publicIpv4();
+      formData.device_id = fullBrowserVersion;
+      formData.browserid = browserId;
+      formData.fcm_token = "staging"; // Replace with actual FCM token if needed
 
-    // Validate the form data
-    await checkErrors(employeeLoginSchema, formData);
+      // Validate the form data
+      await checkErrors(employeeLoginSchema, formData);
 
-    // Call login API
-    const response = await loginCall("/emp/login", formData);
-    const token = response.token; // Assuming the token is returned in response.token
+      // Call login API
+      const response = await loginCall("/emp/login", formData);
+      const token = response.token; // Assuming the token is returned in response.token
 
-    // Store the token
-    localStorage.setItem(tokenKey, token);
+      // Store the token
+      localStorage.setItem(tokenKey, token);
 
-    // Redirect to dashboard
-    window.location = "/dashboard";
-  } catch (error) {
-    setBtndisabled(false);
-    if(error?.response?.data){
-    toastOptions.error(error?.response?.data );
-  }
-  } finally {
-    setLoading(false);
-    setLoadingTerm("");
-    setBtndisabled(false);
-  }
-};
-
-
- 
-    
-   
-    
-  //   try {
-  //     setBtndisabled(true);
-  //     const obj = {
-  //       otp,
-  //       email: formData.email,
-  //       code2fa: "",
-  //       last_ip: await publicIpv4(),
-  //       device_id: fullBrowserVersion,
-  //       browserid: browserId,
-  //     };
-  //     const response = await loginCall("/emp/login_verify", obj);
-  //     window.location = "/dashboard";
-  //     setBtndisabled(false);
-  //   } catch (error) {
-  //     setBtndisabled(false);
-  //     toastOptions.error(error?.response?.data || "Something went wrong");
-  //   }
-  // };
-
- 
-
+      // Redirect to dashboard
+      window.location = "/dashboard";
+    } catch (error) {
+      setBtndisabled(false);
+      if (error?.response?.data) {
+        toastOptions.error(error?.response?.data);
+      }
+    } finally {
+      setLoading(false);
+      setLoadingTerm("");
+      setBtndisabled(false);
+    }
+  };
   return (
     <form className="employee-login-form" onSubmit={EmployeeLoginSubmit}>
-             <>
-          <div className="greetings mb-1">
-            <div className="logo-wrapper mb-4 text-right">
-              <img src={logolg} alt="company-logo" width="100" />
-            </div>
-            <h2 className="welcome mb-2">Welcome to Login</h2>
-            <h4 className="details mb-2">Please enter your account details</h4>
+      <>
+        <div className="greetings mb-1">
+          <div className="logo-wrapper mb-4 text-right">
+            <img src={logolg} alt="company-logo" width="100" />
           </div>
-          <InputEmail
-            type={"email"}
-            placeholder={"Email Address"}
-            name={"email"}
-            value={formData.email}
-            setForm={setFormData}
-            validateField={validateField}
-            schema={employeeLoginSchema.email}
-            maxLength={50}
-            // error={formData.email && !isValid.email}
-          />
+          <h2 className="welcome mb-2">Welcome to Login</h2>
+          <h4 className="details mb-2">Please enter your account details</h4>
+        </div>
+        <InputEmail
+          type={"email"}
+          placeholder={"Email Address"}
+          name={"email"}
+          value={formData.email}
+          setForm={setFormData}
+          validateField={validateField}
+          schema={employeeLoginSchema.email}
+          maxLength={50}
+        />
 
-          <InputPassword
-            type={"password"}
-            placeholder={"Password"}
-            name={"password"}
-            value={formData["password"]}
-            setForm={setFormData}
-            id={"password"}
-            maxLength={15} 
-            schema={employeeLoginSchema.password}
-            imp
-            icon={<MdOutlineKey />}
-          />
-          {/* <div className="setPassword-wrapper text-end">
-         
-                             <h5
-                className="forgot-password fw-semibold"
-                onClick={() => navigate("/resetpassword")}
-              >
-                Forgot Password
-              </h5>
-            </div> */}
-        
-          <div className="employee-button mt-3">
-            <button
-              type="submit"
-              disabled={btndisabled}
-              className="employee-form-button"
-              onClick={EmployeeLoginSubmit}
-            >
-              Log In
-            </button>
-          </div>
-        </>
-      {/* // )} */}
+        <InputPassword
+          type={"password"}
+          placeholder={"Password"}
+          name={"password"}
+          value={formData["password"]}
+          setForm={setFormData}
+          id={"password"}
+          maxLength={15}
+          schema={employeeLoginSchema.password}
+          imp
+          icon={<MdOutlineKey />}
+        />
+        <div className="employee-button mt-3">
+          <button
+            type="submit"
+            disabled={btndisabled}
+            className="employee-form-button"
+            onClick={EmployeeLoginSubmit}
+          >
+            Log In
+          </button>
+        </div>
+      </>
     </form>
   );
 };

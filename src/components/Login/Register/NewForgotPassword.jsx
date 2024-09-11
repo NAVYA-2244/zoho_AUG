@@ -12,7 +12,7 @@ import { InputEmail, InputPassword } from "../../common/ALLINPUTS/AllInputs";
 import { toastOptions } from "./../../../Utils/FakeRoutes";
 import { useFunctionContext } from "../../Contexts/FunctionContext";
 import { MdOutlineKey } from "react-icons/md";
-import ForgotPassword from './../../Logins/ForgotPassword/ForgotPassword';
+import ForgotPassword from "./../../Logins/ForgotPassword/ForgotPassword";
 const NewForgotPassword = () => {
   const [formData, setFormData] = useState({ email: "" });
   const [otpData, setOtpData] = useState({
@@ -41,18 +41,7 @@ const NewForgotPassword = () => {
         "any.required": "Email is required.",
       }),
   };
-
-  // Joi Schema for OTP and Password Validation
   const otpSchema = {
-    // employee_email: Joi.string()
-    //   .email({ tlds: { allow: ["com", "net", "org", "io"] } })
-    //   .max(50)
-    //   .required()
-    //   .messages({
-    //     "string.email": "Please enter a valid employee email address.",
-    //     "string.max": "Employee email must be less than 50 characters.",
-    //     "any.required": "Employee email is required.",
-    //   }),
     newPassword: Joi.string()
       .min(8)
       .max(15)
@@ -67,24 +56,18 @@ const NewForgotPassword = () => {
       })
       .label("Password"),
 
-    confirmPassword: Joi.string()
-      // .valid(Joi.ref("newPassword"))
-      .required()
-      .messages({
-        "string.pattern.base":
-          "Confirm password doesn't match the new password.",
-        "any.required": "Confirm password is required.",
-      }),
+    confirmPassword: Joi.string().required().messages({
+      "string.pattern.base": "Confirm password doesn't match the new password.",
+      "any.required": "Confirm password is required.",
+    }),
   };
   const { checkErrors } = useFunctionContext();
-  // Function to handle form validation
 
   const validateField = (name, value) => {
     const schema = Joi.object(otpSchema, ResetPasswordSchema);
     const { error } = schema.extract(name).validate(value);
     return !error;
   };
-
 
   const handleEmailSubmit = async (e) => {
     e.preventDefault();
@@ -96,7 +79,7 @@ const NewForgotPassword = () => {
       const response = await backEndCallObjNothing("/emp/forgot_password", {
         email: formData.email,
       });
-      navigate(-1)
+      navigate(-1);
       if (response?.error) {
         toastOptions.error(response.error);
       } else {
@@ -114,8 +97,6 @@ const NewForgotPassword = () => {
     }
   };
 
-  
-
   const handleOtpSubmit = async (e) => {
     e.preventDefault();
     setBtndisabled(true);
@@ -129,24 +110,17 @@ const NewForgotPassword = () => {
         const response = await backEndCallObjNothing(
           "/emp/reset_forgot_password",
           {
-            employee_email:formData.email,
+            employee_email: formData.email,
             new_password: otpData.newPassword,
           }
         );
-        navigate(-2)
-    navigate("/login")
+        navigate(-2);
+        navigate("/login");
 
-        
-          setFormData({email:""})
-        
-          toastOptions.success(response?.success);
-         
+        setFormData({ email: "" });
 
-       
+        toastOptions.success(response?.success);
       }
-
-
-
     } catch (error) {
       if (error.response && error.response.data) {
         toastOptions.error(error.response.data);
@@ -161,10 +135,8 @@ const NewForgotPassword = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    // Dynamically choose schema based on whether OTP fields are shown
     const schema = showOtpFields ? otpSchema : ResetPasswordSchema;
 
-    // Validate the current field
     const { error } = schema.extract(name).validate(value);
 
     if (error) {
@@ -178,8 +150,6 @@ const NewForgotPassword = () => {
         [name]: null,
       }));
     }
-
-    // Update the form data based on the current field being changed
     if (showOtpFields) {
       setOtpData((prev) => ({ ...prev, [name]: value }));
     } else {
@@ -201,7 +171,6 @@ const NewForgotPassword = () => {
           <hr className="vertical-line" />
         </div>
 
-
         <div className="login-right-wrapper">
           <form
             className="employee-login-form"
@@ -209,61 +178,57 @@ const NewForgotPassword = () => {
           >
             {!showOtpFields ? (
               <>
-                 <div className="greetings mb-1">
-                  
-                   <div className="logo-wrapper mb-4 text-right">
+                <div className="greetings mb-1">
+                  <div className="logo-wrapper mb-4 text-right">
                     <img src={logolg} alt="company-logo" width="100" />
                   </div>
                   <h2 className="welcome mb-3 ">Forgot Password</h2>
 
-                  <h4
-                    className=" details mb-2"
-                    
-                  >
+                  <h4 className=" details mb-2">
                     Please Enter your Email Address to create password
                   </h4>
-                  </div>
-                  <InputEmail
-                    type="email"
-                    placeholder="Email Address"
-                    name="email"
-                    value={formData.email}
-                    setForm={setFormData}
-                    required
-                    maxLength={50}
-                    icon={<MdEmail />}
-                    onChange={handleInputChange}
-                  />
-                  {errors.email && (
-                    <small className="form-text text-danger">
-                      {errors.email}
-                    </small>
-                  )}
-                  <div>
-                
-                    <div
-                      className="employee-button mb-5"
-                      // style={{ marginTop: "25px" }}
+                </div>
+                <InputEmail
+                  type="email"
+                  placeholder="Email Address"
+                  name="email"
+                  value={formData.email}
+                  setForm={setFormData}
+                  required
+                  maxLength={50}
+                  icon={<MdEmail />}
+                  onChange={handleInputChange}
+                />
+                {errors.email && (
+                  <small className="form-text text-danger">
+                    {errors.email}
+                  </small>
+                )}
+                <div>
+                  <div
+                    className="employee-button mb-5"
+                    // style={{ marginTop: "25px" }}
+                  >
+                    <button
+                      className="employee-form-button sign-in"
+                      disabled={btndisabled}
+                      style={{
+                        background: applicationColor.buttonColor,
+                      }}
                     >
-                      <button
-                        className="employee-form-button sign-in"
-                        disabled={btndisabled}
-                        style={{
-                          background: applicationColor.buttonColor,
-                        }}
-                      >
-                        Submit
-                      </button>
-                    </div>
-                    <div className="text-end">
-                        <h5
-          className="forgot-password  text-primary m-3"style={{cursor:"pointer"}}
-          onClick={() => navigate("/login")}
-        >
-          Back to login
-        </h5>
-                      </div>
-                    {/* <div className=" text-right m-3 d-flex">
+                      Submit
+                    </button>
+                  </div>
+                  <div className="text-end">
+                    <h5
+                      className="forgot-password  text-primary m-3"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => navigate("/login")}
+                    >
+                      Back to login
+                    </h5>
+                  </div>
+                  {/* <div className=" text-right m-3 d-flex">
          
          <span>Back to </span>
         <h5
@@ -273,8 +238,7 @@ const NewForgotPassword = () => {
           login
         </h5>
       </div> */}
-                  </div>
-            
+                </div>
               </>
             ) : (
               <>
@@ -376,13 +340,14 @@ const NewForgotPassword = () => {
                     </button>
                   </div>
                   <div className="text-end">
-                        <h5
-          className="forgot-password  text-primary m-3"style={{cursor:"pointer"}}
-          onClick={() => navigate("/login")}
-        >
-          Back to login
-        </h5>
-                      </div>
+                    <h5
+                      className="forgot-password  text-primary m-3"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => navigate("/login")}
+                    >
+                      Back to login
+                    </h5>
+                  </div>
                 </div>
               </>
             )}

@@ -20,8 +20,7 @@ function EmployeeLeavesSelecteId() {
     setEmployeeLeaveApplications,
     employeeLeaveApplications,
     employeedataleaves,
-    setEmployeedataleave
-    
+    setEmployeedataleave,
   } = useStateContext();
   const { applicationColor } = useThemeContext();
   const [selectedEmployeeData, setSelectedEmployeeData] = useState(null);
@@ -30,58 +29,29 @@ function EmployeeLeavesSelecteId() {
   const [status, setStatus] = useState("");
   const [year, setYear] = useState("");
 
-  console.log(leaveApplications,"employeeDetails")
   useEffect(() => {
     const fetchLeaveApplications = async () => {
       try {
         const payload = {
           skip: 0,
           leave_status: status || "", // Optional filter for leave_status
-          year: year || "",           // Optional filter for year
+          year: year || "", // Optional filter for year
         };
-        console.log("Payload:", payload); // Log the payload to ensure the year is being sent correctly
+        // Log the payload to ensure the year is being sent correctly
         const response = await backEndCallObjNothing(
           "/emp_get/leave_applications",
           payload
         );
         setLeaveApplications(response);
         setEmployeeLeaveApplications(response.data);
-        console.log("Response", response);
+
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching leave applications:", error);
         setLoading(false);
       }
     };
     fetchLeaveApplications();
   }, [status, year]); // Include `year` as a dependency
-  
- 
-  // useEffect(() => {
-  //   const fetchLeaveApplications = async () => {
-  //     try {
-  //       const payload = {
-  //         skip: 0,
-  //         leave_status: status || "", // Optional filter for leave_status
-  //         year: year || "",           // Optional filter for year
-  //       };
-  //       const response = await backEndCallObjNothing(
-  //         "/emp_get/leave_applications",
-  //         payload
-  //       );  
-
-  //       console.log(response,"leaves")
-  //       setLeaveApplications(response);
-  //       setEmployeeLeaveApplications(response.data);
-  //       console.log("response", response);
-  //       setLoading(false);
-  //     } catch (error) {
-  //       console.error("Error fetching leave applications:", error);
-  //       setLoading(false);
-  //     }
-  //   };
-  //   fetchLeaveApplications();
-  // }, [status]);
 
   const ApplyLeave = () => {
     navigate("/applyleavefrom");
@@ -90,25 +60,20 @@ function EmployeeLeavesSelecteId() {
   const handleStatusChange = (e) => {
     setStatus(e.target.value);
   };
-  // const handleYearChange = (e) => {
-  //   setYear(e.target.value);
-  // };
+
   const handleYearChange = (e) => {
     const selectedYear = new Date(e.target.value).getFullYear().toString(); // Convert to string
     setYear(selectedYear);
   };
 
-  console.log("selectedEmployeeData", selectedEmployeeData);
   const resetFilters = () => {
     setStatus("");
     setYear("");
-    
   };
   return (
     <section className="leave-report">
       <div className="row mb-3">
-       
-         <div className="col-md-4">
+        <div className="col-md-4">
           <select
             value={status}
             onChange={handleStatusChange}
@@ -121,14 +86,12 @@ function EmployeeLeavesSelecteId() {
           </select>
         </div>
         <div className="col-md-4">
-    
           <input
             type="date"
             value={"02-12-2024"}
             // onChange={handleYearChange}
             className="form-control"
           />
-       
         </div>
         {/* <div className="d-flex align-items-end justify-content-end">
          
@@ -139,28 +102,26 @@ function EmployeeLeavesSelecteId() {
         </div>
       </div> */}
 
-<div className="col-md-4 d-flex align-items-end justify-content-end">
-<button onClick={resetFilters} className="btn btn-secondary me-2">
+        <div className="col-md-4 d-flex align-items-end justify-content-end">
+          <button onClick={resetFilters} className="btn btn-secondary me-2">
             Reset
           </button>
-          {employeedataleaves&&
-          <button onClick={ApplyLeave} className="btn btn-primary">
-            Apply Leave
-          </button> 
-          }
-          
+          {employeedataleaves && (
+            <button onClick={ApplyLeave} className="btn btn-primary">
+              Apply Leave
+            </button>
+          )}
         </div>
       </div>
       <Piachart />
 
       <br />
 
-       {!loading ? (
+      {!loading ? (
         <EmployeeLeaveApplicationsTable leaveApplications={leaveApplications} />
       ) : (
         <Loader />
-      )} 
-     
+      )}
     </section>
   );
 }

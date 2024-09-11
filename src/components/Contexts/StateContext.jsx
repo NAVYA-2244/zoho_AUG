@@ -13,7 +13,6 @@ export const StateContextProvider = ({ children }) => {
       ? jwtDecode(settingTokens.gettingEmployeeToken())
       : {} || null
   );
-  // console.log("employeedetails", employeeDetails);
 
   const [isAdmin, setIsAdmin] = useState(
     employeeDetails.role_name === "Director" ? false : true
@@ -28,15 +27,15 @@ export const StateContextProvider = ({ children }) => {
   const [attendanceData, setAttandanceData] = useState([]);
   const [adminData2, setAdminData2] = useState({});
   const [adminData1, setAdminData1] = useState({});
-  const[employeedataleaves,setEmployeedataleave]=useState(null)
+  const [employeedataleaves, setEmployeedataleave] = useState(null);
   const [employeesList, setEmployeesList] = useState([]);
-  const [recentemployeeid,  Setrecentemployeeid] = useState({});
+  const [recentemployeeid, Setrecentemployeeid] = useState({});
   const [modalData, setModalData] = useState([]); //for modal .js
   const [showModal, setshowModal] = useState(false); //This state is only for modal.js not for modal.jsx or any thing else
   const [locations, setLocations] = useState([]);
   const [leaveTypes, setLeaveTypes] = useState([]);
   const [managers, setManagers] = useState([]);
-  
+
   const [employeeLeaveApplications, setEmployeeLeaveApplications] = useState(
     []
   );
@@ -96,7 +95,7 @@ export const StateContextProvider = ({ children }) => {
   const [editingFile, setEditingFile] = useState({});
   const [employeedata, setEmployeedata] = useState(null);
   const [aboutme, setAboutme] = useState(null);
-  const [employeeProfile, setEmployeeProfile ] = useState({});
+  const [employeeProfile, setEmployeeProfile] = useState({});
   const [stats, setStats] = useState(null);
 
   return (
@@ -115,7 +114,8 @@ export const StateContextProvider = ({ children }) => {
         setProfileTask,
         employeeData,
         setEmployeeData,
-        aboutme, setAboutme,
+        aboutme,
+        setAboutme,
         recentHire,
         setrecentHire,
         checkInTime,
@@ -204,10 +204,10 @@ export const StateContextProvider = ({ children }) => {
         setreportingmangers,
         TeamTask,
         setTeamTask,
-        recentemployeeid,  
+        recentemployeeid,
         Setrecentemployeeid,
         employeedataleaves,
-        setEmployeedataleave
+        setEmployeedataleave,
       }}
     >
       {children}

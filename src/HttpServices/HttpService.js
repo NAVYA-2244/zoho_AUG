@@ -70,25 +70,5 @@ export const makeNetworkCall1 = async (type, route, data, headers) => {
     return Promise.reject({ error });
   }
 };
-// export const useNavigating = (path) => {
-//     const navigate = useNavigate();
-//     const navigating = () => {
-//       navigate(path);
-//     };
-//     return navigating;
-//   };
-/*
-export const reApiCall = async (path) => {
-  const response = await axios({
-    method: "post",
-    url: `https://split-wise-jugo.onrender.com/users/${path}`,
-    headers: {
-      "Content-Type": "application/json",
-      "x-auth-token": localStorage.getItem("splitWiseUserToken") || "",
-    },
-    timeout: 5000,
-    responseType: "json",
-  });
-  return Crypto.decryptobj(response.data);
-};
-*/
+
+ 

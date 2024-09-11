@@ -38,9 +38,6 @@ const CircularLoader = ({ max, min }) => {
           }}
         />
       </svg>
-      {/* <div className="progress-text">
-        {value}/{total}
-      </div> */}
     </div>
   );
 };

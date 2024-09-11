@@ -72,11 +72,7 @@ const UpdateEmployee = () => {
         const form = flatternObject(newObj);
         form.date_of_birth = convertDate(personal_details?.date_of_birth);
         form.reporting_manager = work_info.reporting_manager;
-        // form.department_id = work_info.department_id;
-        // form.shift_id =work_info.shift_id;
-        // form.designation_id = work_info.designation_id;
-        // form.role_id = work_info.role_id;
-        // form.location_id = work_info.location_id;
+
         form.work_experience = work_experience;
         form.educational_details = educational_details;
         form.dependent_details = dependent_details;

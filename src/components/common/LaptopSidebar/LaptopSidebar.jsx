@@ -200,7 +200,6 @@ const LaptopSidebar = () => {
       );
     });
   };
-  // console.log(" console.log(orgDetails)",orgDetails.organisation_name)
   return (
     <>
       <nav
@@ -209,7 +208,6 @@ const LaptopSidebar = () => {
         style={{
           background: applicationColor.cardItem,
           color: applicationColor.readColor1,
-          // boxShadow:`0 0 0.3px 0.3px rgba(255, 255, 255, 0.315)`
         }}
         variants={sidebarVariants}
       >
@@ -229,27 +227,7 @@ const LaptopSidebar = () => {
             marginTop: "3px",
           }}
         />
-
         <ul className="menu-list ">{renderingMenuItems(menu)}</ul>
-
-        {/* <section
-          className="user-details"
-          // style={{
-          //   background: applicationColor.cardBg2,
-          // }}
-
-          style={{
-            background: applicationColor.tableHeadBg,
-          }}
-        >
-          <div className="user-image">
-            <img src={dummyUser} alt="user-image" />
-          </div>
-          <div className="details">
-            <span className="email">{employeeDetails?.email || ""}</span>
-            <span className="id">{employeeDetails?.employeeId || ""}</span>
-          </div>
-        </section> */}
       </nav>
     </>
   );

@@ -37,18 +37,7 @@ const LoginForm = () => {
   const [browserId, setBrowserId] = useState("");
   const [isValid, setIsValid] = useState({ email: false, otp: false });
   const LoginSchema = {
-    // email: Joi.string()
-    //   .min(10)
-    //   .max(25)
-    //   .email({ tlds: { allow: ["com", "net", "org"] } })
-    //   .required()
-    //   .messages({
-    //     "string.pattern.base": '"Email" should not include special characters',
-    //     "any.required": '"Email" is required',
-    //   })
-    //   .label("Email"),
     email: Joi.string()
-      // .min(10)
       .max(25)
       .email({ tlds: { allow: ["com", "net", "org"] } })
       .required()
@@ -81,11 +70,6 @@ const LoginForm = () => {
     };
     getBrowserId();
   }, []);
-
-  // useEffect(() => {
-  //     const emailValid = validateField("email", formData.email);
-  //     setIsValid({ email: emailValid });
-  // }, [formData]);
   useEffect(() => {
     const emailValid = validateField("email", formData.email);
     setIsValid((prev) => ({ ...prev, email: emailValid }));
@@ -104,9 +88,8 @@ const LoginForm = () => {
       return;
     }
 
-    
     try {
-      setBtndisabled(true)
+      setBtndisabled(true);
       const obj = {
         otp,
         email: formData.email,
@@ -116,53 +99,17 @@ const LoginForm = () => {
         browserid: browserId,
       };
       const response = await loginCall("/emp/login_verify", obj);
-      console.log(response.success, "response");
+
       window.location = "/dashboard"; // Redirect on success
-      setBtndisabled(false)
+      setBtndisabled(false);
     } catch (error) {
       toastOptions.error(error?.response?.data || "Something went wrong");
-      setBtndisabled(false)
+      setBtndisabled(false);
     } finally {
-     
     }
   };
-  // const handleLogin = async (e) => {
-  //   if (!otp) {
-  //     toastOptions.error("OTP is required");
-  //     return;
-  //   }
-  //   e.preventDefault();
-  //   setLoader(true);
-   
-  //   try {
-  //     setBtndisabled(true);
-  //     const obj = {
-  //       otp,
-  //       email: formData.email,
-  //       code2fa: "",
-  //       last_ip: await publicIpv4(),
-  //       device_id: fullBrowserVersion,
-  //       browserid: browserId,
-  //     };
-  //     const response = await loginCall("/emp/login_verify", obj);
-  //     console.log(response, "login");
-  //     toastOptions.success("Success");
-  //     setLoader(false);
-  //     window.localStorage.getItem("zohoEmployeeToken")
-  //       ? (window.location = "/dashboard")
-  //       : (window.location = "/loginForm");
-  //       setBtndisabled(false)
-  //   } catch (e) {
-  //     setLoader(false);
-  //     setBtndisabled(false)
-  //     toastOptions.error(e?.response?.data || "Something went wrong otp");
-  //   } finally {
-  //     setBtndisabled(false);
-  //   }
-  // };
 
   const handleResendOTP = async () => {
-    // setLoader(true);
     try {
       const obj = {
         email: formData.email,
@@ -171,12 +118,8 @@ const LoginForm = () => {
       setOtp("");
 
       const response = await backEndCallObjNothing("/emp/resend_otp", obj);
-      // toastOptions.success(response.success||"OTP Resent Successfully");
-      // setLoader(false);
-      // Reset timer
       setTimeLeft(120); // Reset timer to 120 seconds after successful resend
     } catch (error) {
-      // setLoader(false);
       toastOptions.error(
         error?.response?.data || "Something went wrong resending OTP"
       );
@@ -185,9 +128,7 @@ const LoginForm = () => {
 
   const EmployeeLoginSubmit = async (e) => {
     e.preventDefault();
-    // setLoadingTerm("login");
-    // setLoading(true);
-    // setBtndisabled(true);
+
     try {
       formData.last_ip = await publicIpv4();
       formData.device_id = fullBrowserVersion;
@@ -195,25 +136,15 @@ const LoginForm = () => {
       formData.fcm_token = "staging";
       await checkErrors(LoginSchema, formData);
       const response = await backEndCallObjNothing("/emp/login", formData);
-      // console.log(response.success);
+
       setResponse(response);
       setTimeLeft(120);
-      // toastOptions.success(response?.success || "");
     } catch (error) {
-      // setLoading(false);
       toastOptions.error(error?.response?.data || "Something went wrong login");
     } finally {
-      // setLoading(false);
-      // setLoadingTerm("");
-      // setBtndisabled(false);
     }
   };
 
-  // const validateField = (name, value) => {
-  //     const schema = Joi.object(LoginSchema);
-  //     const { error } = schema.extract(name).validate(value);
-  //     return !error;
-  // };
   const validateField = (name, value) => {
     if (name === "otp") {
       const otpSchema = Joi.string().min(6).max(6).required().label("OTP");
@@ -243,12 +174,10 @@ const LoginForm = () => {
   const adminLogin = () => {
     localStorage.removeItem("zohoEmployeeToken");
     navigate("/login");
-    // window.location.reload("/login");
   };
 
   return (
     <>
-      {/* <h5>Employee Login</h5> */}
       <div className="sign-wrapper">
         <section className="NewLogin-section">
           {response.success ? (
@@ -286,9 +215,7 @@ const LoginForm = () => {
                         maxLength={6}
                         placeholder="Enter your otp"
                         value={otp}
-                        // onChange={(e) => setOtp(e.target.value)}
                         onChange={(e) => {
-                          // Only set the OTP value if the new value contains only numbers
                           const newValue = e.target.value;
                           if (/^\d*$/.test(newValue)) {
                             setOtp(newValue);
@@ -319,19 +246,16 @@ const LoginForm = () => {
                         </button>
                       </div>
                     )}
-
-<div className="employee-button">
-  <button
-    type="button" // Change to "button" to prevent form submission
-    onClick={handleLogin}
-    className="employee-form-button"
-    disabled={btndisabled}
-    style={{ background: applicationColor.tabColor }}
-  >
-    Verify & Proceed
-  </button>
-{/* </div> */}
-
+                    <div className="employee-button">
+                      <button
+                        type="button" // Change to "button" to prevent form submission
+                        onClick={handleLogin}
+                        className="employee-form-button"
+                        disabled={btndisabled}
+                        style={{ background: applicationColor.tabColor }}
+                      >
+                        Verify & Proceed
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -366,15 +290,6 @@ const LoginForm = () => {
                       <span className="github">
                         <IoLogoGithub />
                       </span>
-                      {/* <span className="linkedIn">
-                        <FaLinkedin />
-                      </span>
-                      <span className="apple">
-                        <FaApple />
-                      </span>
-                      <span className="microsoft">
-                        <FaMicrosoft />
-                      </span> */}
                     </div>
                   </div>
 
@@ -385,29 +300,19 @@ const LoginForm = () => {
                       onClick={EmployeeLoginSubmit}
                       style={{
                         background: applicationColor.buttonColor,
-                        // color: applicationColor.readColor1,
                       }}
                     >
                       Submit
-                      {/* {loading && loadingTerm === "login" ? <Loader /> : "Sign in"} */}
                     </button>
                   </div>
-
                   <div className="isAdminLogin my-4">
                     <span>for Admin access?</span>{" "}
-                    {/* <a className="fw-semibold" onClick={() => adminLogin()}>
-                      Sign in
-                    </a> */}
                   </div>
                 </div>
               )}
             </form>
           </div>
         </section>
-
-        {/* <div className="copyright">
-          <p>© 2024, Codegene Pvt. Ltd. All Rights Reserved.</p>
-        </div> */}
       </div>
     </>
   );

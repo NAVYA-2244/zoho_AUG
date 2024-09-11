@@ -69,7 +69,7 @@ const EmployeChange = () => {
       setBtndisabled(false);
     } catch (error) {
       setBtndisabled(false);
-      console.log(error, "error");
+
       if (error.response?.data) {
         toastOptions.error(error.response?.data || "Error changing password");
       }

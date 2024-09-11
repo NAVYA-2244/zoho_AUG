@@ -123,49 +123,10 @@ const Companydetails = () => {
       setLoading(false);
     }
   };
-  // const orgLogoNameSubmit = async (e) => {
-  //   e.preventDefault();
 
-  //   try {
-  //     setLoading(true);
-  //     setLoadingTerm("orgNameLogo");
-  //     await checkErrors(orgSchema, formData);
-
-  //     console.log(formData, "formData");
-
-  //     const response = await backEndCallObjNothing(
-  //       "/org/add_update_org_details",
-  //       formData
-  //     );
-  //     const res = await loginCall(
-  //       "/org/update_token",
-
-  //     );
-  //     console.log(res,"token")
-  //     const token = res.success; // Assuming the token is returned in response.token
-
-  //     // Store the token
-  //     localStorage.setItem(tokenKey, token);
-  //     console.log(response, "resss");
-
-  //     setOrgLogo(response?.data?.images?.logo);
-  //     setLoading(false);
-  //     setLoadingTerm("");
-
-  //     toastOptions.success(response?.success);
-  //     setLoading(false);
-  //   } catch (error) {
-  //     toastOptions.error(error?.response?.data || error?.[0].message);
-  //     setLoading(false);
-  //     setLoadingTerm("");
-  //   }
-  // };
   const [hovered, setHovered] = useState(false);
   return (
     <>
-      {/* {Object.keys(adminData1).length === 0 ? (
-        <Loader />
-      ) : ( */}
       <section
         className="company-details"
         style={{ background: applicationColor.cardBg1 }}

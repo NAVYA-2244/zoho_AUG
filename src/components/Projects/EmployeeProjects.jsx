@@ -43,8 +43,7 @@ const EmployeeProjects = () => {
       if (!ProfileTask) {
         setLoading(true);
         const response = await backEndCallObjNothing("/emp_get/get_tasks");
-        console.log(response, "response");
-        console.log(response, "response");
+
         setProfileTask(response || []);
       }
     } catch (error) {

@@ -47,7 +47,6 @@ const Register = () => {
       formData.last_ip = await publicIpv4();
       formData.device_id = fullBrowserVersion;
       formData.fcm_token = "staging";
-      console.log(formData, "fjnj");
 
       const response = await backEndCallObjNoEnc(
         "/user/login",
@@ -55,16 +54,6 @@ const Register = () => {
         "loginEmployee"
       );
       console.log(response, "responer");
-      // settingTokens.settingEmployeeToken(response.detail);
-      // setLoadingTerm('');
-      // if (
-      //   Object.keys(employeeDetails).length > 0 ||
-      //   localStorage.getItem('zohoEmployeeToken')
-      // ) {
-      //   setTimeout(() => {
-      //     window.location.href = '/';
-      //   }, 0);
-      // }
 
       toastOptions.success("Successfully Login");
     } catch (error) {

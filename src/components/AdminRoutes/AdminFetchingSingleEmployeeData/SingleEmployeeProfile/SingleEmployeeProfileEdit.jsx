@@ -229,19 +229,6 @@ const SingleEmployeeProfileEdit = () => {
           : [],
       };
 
-      // Clean up redundant properties
-      // const cleanData = {
-      //   ...formattedData,
-      //   identity_info: formattedData.identity_info,
-      //   work_experience: formattedData.work_experience,
-      //   educational_details: formattedData.educational_details,
-      //   dependent_details: formattedData.dependent_details,
-      //   last_ip: formData.last_ip,
-      //   browserid: formData.browserid,
-      //   fcm_token: formData.fcm_token,
-      //   device_id: formData.device_id,
-      // };
-      console.log(formattedData, "cleanData");
       const response = await backEndCallObjNothing(
         `/emp/edit_profile
 `,
@@ -254,7 +241,7 @@ const SingleEmployeeProfileEdit = () => {
       setRedirect(true);
     } catch (error) {
       setLoading(false);
-      console.log(error, "error");
+
       toastOptions.error(error?.response?.data || "samething went wrong");
     }
   };
