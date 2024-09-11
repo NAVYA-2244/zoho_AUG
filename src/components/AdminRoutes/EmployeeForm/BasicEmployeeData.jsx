@@ -60,13 +60,6 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
       });
     }
   }, [orgDetails]);
-  // useEffect(() => {
-  //   const a = locations.filter((item) => {
-  //     return item.location_id === formData.location_id;
-  //   });
-  //   setOptions(settingOptionsByLoications[0]);
-  //   console.log(options, "ee");
-  // }, [formData.location_id]);
 
   useEffect(() => {
     const fetchingData = async () => {
@@ -125,8 +118,6 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
             inputRef={(el) => (refs.current.employee_id = el)}
           />
 
-          {/* {employeeDetails.admin_type === "1"|| employeeDetails.admin_type === "2"&& */}
-
           <p className="note-heading" style={{ color: "green" }}>
             This should be a recent employee Id "{recentemployeeid?.employee_id}
             ".
@@ -177,7 +168,7 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
             inputRef={(el) => (refs.current.nick_name = el)}
           />
         </div>
-        <div className="col-lg-4 col-md-4 col-sm-6">
+        <div className="col-lg-4 col-md-4 col-sm-6  ">
           <Select_inputs
             name={"gender"}
             placeholder={"Gender"}

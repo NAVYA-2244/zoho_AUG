@@ -980,9 +980,9 @@ export function Select_inputs({
           )}
         </label>
       </div>
-      <div className="main-input">
-        <div className="input custom-select">
-          <select
+      <div className="main-input ">
+        <div className="input custom-select " >
+          <select 
             name={name}
             id={name}
             onChange={(e) => handleChange(e, schema, setForm)}
@@ -996,8 +996,9 @@ export function Select_inputs({
               textTransform: "capitalize", // Ensures first letter is capitalized
             }}
             disabled={readOnly}
+           
           >
-            <option value="" hidden>
+            <option value="" hidden >
               -- select --
             </option>
             {options && options.length === 0 ? (
