@@ -41,20 +41,21 @@ export const FunctionContextProvider = ({ children }) => {
       case "text":
         if (id !== "password") {
           if (name === "organisation_name") {
-            value = value.replace(/[^a-zA-Z0-9,. ]/g, ""); // Allow letters, numbers, and punctuation
+            value = value.replace(/[^a-zA-Z0-9,. ]/g, "");
           } else if (
             ["company_name", "experience", "expertise"].includes(name)
           ) {
             value = value.replace(/[^A-Za-z0-9.\s,]/g, "");
+          } else if (["employee_id"].includes(name)) {
+            value = value.replace(/[^A-Z0-9]/g, "").toUpperCase();
           } else if (["degree"].includes(name)) {
             value = value.replace(/[^A-Za-z0-9\s\W]/g, "");
-          } 
+          }
           // else if (["employee_id"].includes(name)) {
           //   value = value.replace((/[^A-Za-z0-9]/g, ""));
 
-
           // }
-           else if (["institute_name"].includes(name)) {
+          else if (["institute_name"].includes(name)) {
             value = value.replace(/[^A-Za-z0-9\s,-]/g, "");
           } else if (
             [

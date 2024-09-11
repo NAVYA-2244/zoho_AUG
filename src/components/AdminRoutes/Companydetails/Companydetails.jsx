@@ -17,7 +17,10 @@ import Loader from "../../Loader/Loader";
 import { makeNetworkCall } from "../../../HttpServices/HttpService";
 import { useFunctionContext } from "../../Contexts/FunctionContext";
 import { toastOptions } from "../../../Utils/FakeRoutes";
-import { backEndCallObjNothing, loginCall } from "../../../services/mainService";
+import {
+  backEndCallObjNothing,
+  loginCall,
+} from "../../../services/mainService";
 import { FaFacebookF, FaTwitter, FaInstagram, FaGoogle } from "react-icons/fa";
 import { FaImage, FaCamera } from "react-icons/fa";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -33,7 +36,7 @@ const Companydetails = () => {
   } = useStateContext();
   const { applicationColor } = useThemeContext();
   const { checkErrors } = useFunctionContext();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     organisation_name: "",
     logo: "",
@@ -66,15 +69,15 @@ const Companydetails = () => {
     //   })
     //   .label("Email Id"),
     org_mail_id: Joi.string()
-  .min(5)
-  .max(55)
-  .email({ tlds: { allow: ["com", "net", "org", "io"] } }) // Allows .io as a valid TLD
-  .required()
-  .messages({
-    "string.pattern.base": '"Email" should not include special characters',
-    "any.required": '"Email" is required',
-  })
-  .label("Email Id"),
+      .min(5)
+      .max(55)
+      .email({ tlds: { allow: ["com", "net", "org", "io"] } }) // Allows .io as a valid TLD
+      .required()
+      .messages({
+        "string.pattern.base": '"Email" should not include special characters',
+        "any.required": '"Email" is required',
+      })
+      .label("Email Id"),
 
     address: Joi.string().required().label("Address"),
   };
@@ -91,23 +94,25 @@ const Companydetails = () => {
 
     setFormData(obj);
   }, [orgDetails]);
- 
+
   const orgLogoNameSubmit = async (e) => {
     e.preventDefault();
     try {
       setLoading(true);
       await checkErrors(orgSchema, formData);
 
-      const response = await backEndCallObjNothing("/org/add_update_org_details", formData);
+      const response = await backEndCallObjNothing(
+        "/org/add_update_org_details",
+        formData
+      );
       localStorage.removeItem(tokenKey);
 
       const res = await loginCall("/org/update_token", {});
-      
 
-      localStorage.setItem(tokenKey, res.success);// Assuming the token is returned in response.success
+      localStorage.setItem(tokenKey, res.success); // Assuming the token is returned in response.success
 
       setOrgLogo(response?.data?.images?.logo);
-      
+
       await backEndCallObjNothing("/org/universal");
       navigate("/admin/admin-controls/roles");
       window.location.reload("/admin/admin-controls/roles");
@@ -134,7 +139,7 @@ const Companydetails = () => {
   //     );
   //     const res = await loginCall(
   //       "/org/update_token",
-        
+
   //     );
   //     console.log(res,"token")
   //     const token = res.success; // Assuming the token is returned in response.token
@@ -142,8 +147,6 @@ const Companydetails = () => {
   //     // Store the token
   //     localStorage.setItem(tokenKey, token);
   //     console.log(response, "resss");
-      
-      
 
   //     setOrgLogo(response?.data?.images?.logo);
   //     setLoading(false);
@@ -269,7 +272,6 @@ const Companydetails = () => {
                         )}
                       </div>
                     </div>
-                  
                   </label>
                   <ImageInput
                     name="logo"
@@ -324,7 +326,6 @@ const Companydetails = () => {
               <div className="org-name">
                 <Input_text
                   type={"text"}
-                  
                   name={"organisation_name"}
                   placeholder={"Organisation Name"}
                   value={formData["organisation_name"]}
@@ -342,14 +343,13 @@ const Companydetails = () => {
                 />
                 <Input_email
                   type={"email"}
-                  placeholder={"Organisation Email Id"}
+                  placeholder={"Organisation Email "}
                   name={"org_mail_id"}
                   value={formData["org_mail_id"]}
                   setForm={setFormData}
                   schema={orgSchema.org_mail_id}
                   maxLength={55}
                 />
-                
               </div>
             </div>
           </div>

@@ -94,16 +94,22 @@ const ChangePassword = () => {
 
     try {
       await checkErrors(schema, formData);
-      setBtndisabled(true);
-      const payload = {
-        old_password: formData.oldPassword,
-        new_password: formData.newPassword,
-      };
+      if (formData.newPassword !== formData.confirmPassword) {
+        toastOptions.error("Password should match with ConfirmPassword ");
+      } else {
+        await checkErrors(schema, formData);
+        setBtndisabled(true);
+        const payload = {
+          old_password: formData.oldPassword,
+          new_password: formData.newPassword,
+        };
 
-      const res = await backEndCallObjNothing("/emp/reset_password", payload);
-      toastOptions.success(res.success || "Password changed successfully");
-      setBtndisabled(false);
-      setShowModal(true);
+        const res = await backEndCallObjNothing("/emp/reset_password", payload);
+        toastOptions.success(res.success || "Password changed successfully");
+        setBtndisabled(false);
+        setShowModal(true);
+        localStorage.removeItem("zohoEmployeeToken");
+      }
     } catch (error) {
       setBtndisabled(false);
       console.log(error, "error");
@@ -124,7 +130,7 @@ const ChangePassword = () => {
         <div className="col-lg-4">
           <div
             className="d_card m-2 p-3"
-            style={{ background: applicationColor.cardItem, height: "450px" }}
+            style={{ background: applicationColor.cardItem, height: "460px" }}
           >
             <h5 className="text-center mb-4">Change Password</h5>
 
@@ -134,42 +140,17 @@ const ChangePassword = () => {
               placeholder="Old Password"
               value={formData.oldPassword}
               validateField={validateField}
-              schema={schema.newPassword}
-              // style={{
-              //   borderRadius: "10px",
-              //   width: "450px",
-              //   height: "50px",
-              // }}
+              schema={schema.oldPassword}
               setForm={setFormData}
               maxLength={10}
               icon={<MdOutlineKey />}
             />
 
-            {/* <input
-                      type={showNewPassword ? "text" : "password"}
-                      id="newPassword"
-                      name="newPassword"
-                      placeholder="New Password"
-                      value={formData.newPassword}
-                      style={{
-                        borderRadius: "10px",
-                        width: "450px",
-                        height: "50px",
-                      }}
-                      onChange={handleInputChange}
-                      maxLength={10}
-                    /> */}
             <InputPassword
               type={"password"}
               name={"newPassword"}
               placeholder="New Password"
               value={formData.newPassword}
-              // style={{
-              //   borderRadius: "10px",
-              //   width: "450px",
-              //   height: "50px",
-              // }}
-
               schema={schema.newPassword}
               setForm={setFormData}
               validateField={validateField}

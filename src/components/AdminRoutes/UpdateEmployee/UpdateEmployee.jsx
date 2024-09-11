@@ -28,7 +28,7 @@ const UpdateEmployee = () => {
   const [updateEmployeedata, setUpdateEmployeeData] = useState({});
   const { checkErrors } = useFunctionContext();
   const [redirect, setRedirect] = useState(false);
-  const[btndisabled,setButtonDisabled]=useState(false)
+  const [btndisabled, setButtonDisabled] = useState(false);
   //This UseEffect Fetches the single user data based on employee id
   useEffect(() => {
     const singleEmployeeData = async () => {
@@ -39,8 +39,7 @@ const UpdateEmployee = () => {
           { employee_id: employeId }
         );
 
-console.log(employee,"employeupdate")
-
+        console.log(employee, "employeupdate");
 
         const {
           basic_info,
@@ -82,11 +81,10 @@ console.log(employee,"employeupdate")
         form.educational_details = educational_details;
         form.dependent_details = dependent_details;
         form.employee_id = employee_id;
-        form.password=password;
+        form.password = password;
         setUpdateEmployeeData(form);
 
         console.log({ updateForm: form });
-
       } catch (error) {
         setLoading(false);
       } finally {
@@ -95,8 +93,8 @@ console.log(employee,"employeupdate")
     };
     singleEmployeeData();
   }, [employeId]);
-  
-// console.log(delete work_info?.reporting_manager,"dfshdfjsdfjkhsdkj")
+
+  // console.log(delete work_info?.reporting_manager,"dfshdfjsdfjkhsdkj")
   // const handleSubmit = async (formData) => {
   //   try {
   //     setButtonDisabled(true)
@@ -231,6 +229,9 @@ console.log(employee,"employeupdate")
         educational_details: filteredFormData?.educational_details,
         dependent_details: filteredFormData?.dependent_details,
       };
+      {
+        console.log(filteredFormData, "data");
+      }
 
       data.organisation_id = orgDetails?.organisation_id;
 
@@ -260,7 +261,7 @@ console.log(employee,"employeupdate")
   if (redirect) {
     return <Navigate to="/admin/employee_list" />;
   }
-console.log(updateEmployeedata,"updateEmployeedata")
+  console.log(updateEmployeedata, "updateEmployeedata");
   return (
     <>
       {/* hello world */}
@@ -270,7 +271,7 @@ console.log(updateEmployeedata,"updateEmployeedata")
           type={"Update Employee"}
           submit={handleSubmit}
           disabled={btndisabled}
-          disableobj={{password:false}}
+          disableobj={{ password: false }}
         />
       ) : (
         <Loader />

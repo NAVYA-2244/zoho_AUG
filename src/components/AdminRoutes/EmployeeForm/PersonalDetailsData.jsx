@@ -41,7 +41,7 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
         {
           name: "",
           relation: "",
-          dependent_date_of_birth: "",
+          // dependent_date_of_birth: "",
           dependent_mobile_number: "",
         },
       ],

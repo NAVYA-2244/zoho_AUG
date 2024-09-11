@@ -145,8 +145,8 @@ const SingleEmployeeProfileEdit = () => {
         employeeProfileData.profile.educational_details?.[0]
           ?.year_of_completion || 0,
       dependent_date_of_birth:
-        employeeProfileData.profile.dependent_details?.[0]
-          ?.dependent_date_of_birth || "",
+        employeeProfileData.profile.dependent_mobile_number?.[0]
+          ?.dependent_mobile_number || "",
 
       name: employeeProfileData.profile.dependent_details?.[0]?.name || "",
       relation:
@@ -221,7 +221,7 @@ const SingleEmployeeProfileEdit = () => {
         dependent_details: formData.name
           ? [
               {
-                dependent_date_of_birth: formData.dependent_date_of_birth,
+                dependent_date_of_birth: formData.dependent_mobile_number,
                 name: formData.name,
                 relation: formData.relation,
               },
@@ -641,4 +641,3 @@ const SingleEmployeeProfileEdit = () => {
 };
 
 export default SingleEmployeeProfileEdit;
-

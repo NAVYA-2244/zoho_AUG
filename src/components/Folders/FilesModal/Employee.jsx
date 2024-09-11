@@ -80,7 +80,7 @@ const EmployeChange = () => {
       <div></div>
       <div
         className="d_card m-2 p-3"
-        style={{ background: applicationColor.cardItem, height: "450px" }}
+        style={{ background: applicationColor.cardItem, height: "460px" }}
       >
         <h5 className="text-center mb-4">Employee Reset Password</h5>
         <div className="form-group p-3">
