@@ -101,7 +101,8 @@ const WorkInformationData = ({ formData, setFormData }) => {
           <Input_text
             type={"text"}
             name={"uan"}
-            placeholder={"UAN Number"}
+            label="Uan Number"
+            placeholder={" Ex: 7738299899"}
             value={formData.uan}
             setForm={setFormData}
             schema={schema.uan}
@@ -112,7 +113,8 @@ const WorkInformationData = ({ formData, setFormData }) => {
           <Input_text
             type={"text"}
             name={"pan"}
-            placeholder={"PAN Number"}
+            label="Pan Number"
+            placeholder={"Ex: AFZPK7190K"}
             value={formData.pan}
             setForm={setFormData}
             maxLength={10}
@@ -124,7 +126,8 @@ const WorkInformationData = ({ formData, setFormData }) => {
           <Input_text
             type={"tel"}
             name={"aadhaar"}
-            placeholder={"Aadhaar Number"}
+            label="Adhar Number"
+            placeholder={"Ex: 2653 8564 4663"}
             value={formData.aadhaar}
             setForm={setFormData}
             schema={schema.aadhaar}
@@ -135,7 +138,8 @@ const WorkInformationData = ({ formData, setFormData }) => {
           <Input_text
             type={"text"}
             name={"passport_number"}
-            placeholder={"Passport Number"}
+            label="Passport Number"
+            placeholder={"Ex: JF887654389"}
             value={formData.passport_number}
             setForm={setFormData}
             schema={schema.passport_number}

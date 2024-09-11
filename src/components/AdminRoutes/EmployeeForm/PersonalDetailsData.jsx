@@ -41,7 +41,7 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
         {
           name: "",
           relation: "",
-          dependent_date_of_birth:"",
+          dependent_date_of_birth: "",
           dependent_mobile_number: "",
         },
       ],
@@ -183,105 +183,102 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
           );
         })}
       </section> */}
-   <section
-  className="row basic-row new-basic-row"
-  style={{
-    background: applicationColor.mainInputBg,
-    color: applicationColor.readColor1,
-  }}
->
-  <div className="d-flex justify-content-between align-items-center mb-2">
-    <h6 className="heading-form">Educational Details</h6>
-    <button
-      className="btn btn-success btn-sm"
-      onClick={addEducationDetails}
-      type="button"
-    >
-      <FaPlus />
-    </button>
-  </div>
+      <section
+        className="row basic-row new-basic-row"
+        style={{
+          background: applicationColor.mainInputBg,
+          color: applicationColor.readColor1,
+        }}
+      >
+        <div className="d-flex justify-content-between align-items-center mb-2">
+          <h6 className="heading-form">Educational Details</h6>
+          <button
+            className="btn btn-success btn-sm"
+            onClick={addEducationDetails}
+            type="button"
+          >
+            <FaPlus />
+          </button>
+        </div>
 
-  {formData?.educational_details?.map((data, index) => (
-    <div
-      key={index}
-      className="d-flex align-items-center"
-      style={{
-        background: applicationColor.mainInputBg,
-        color: applicationColor.readColor1,
-        marginBottom: "1rem",
-      }}
-    >
-      <div className="row w-100">
-        {/* Input Fields for Educational Details */}
-        <div className="col-lg-3 col-md-3 col-sm-6">
-          <Input_text
-            type={"text"}
-            name={"institute_name"}
-            placeholder={"Institute Name"}
-            value={data?.institute_name}
-            setForm={setFormData}
-            schema={schema?.institute_name}
-            index={index}
-            fieldName="educational_details"
-          />
-        </div>
-        <div className="col-lg-3 col-md-3 col-sm-6">
-          <Input_text
-            type={"text"}
-            name={"degree"}
-            placeholder={"Degree"}
-            value={data?.degree}
-            setForm={setFormData}
-            schema={schema?.degree}
-            index={index}
-            fieldName="educational_details"
-          />
-        </div>
-        <div className="col-lg-3 col-md-3 col-sm-6">
-          <Input_text
-            type={"text"}
-            name={"specialization"}
-            placeholder={"Specialization"}
-            value={data?.specialization}
-            setForm={setFormData}
-            schema={schema?.specialization}
-            index={index}
-            maxLength={100}
-            fieldName="educational_details"
-          />
-        </div>
-        <div className="col-lg-3 col-md-3 col-sm-6">
-          <Input_text
-            type={"tel"}
-            name={"year_of_completion"}
-            placeholder={"Year of Completion"}
-            value={data?.year_of_completion}
-            setForm={setFormData}
-            schema={schema?.year_of_completion}
-            maxLength={4}
-            index={index}
-            fieldName="educational_details"
-          />
-        </div>
-      </div>
-      {/* Remove Button */}
-      {formData?.educational_details?.length > 1 && (
-        <button
-          className="btn btn-danger btn-sm ms-2"
-          onClick={() => removeEducationDetails(index)}
-          type="button"
-        >
-          <FaMinus />
-        </button>
-      )}
-    </div>
-  ))}
-</section>
-
+        {formData?.educational_details?.map((data, index) => (
+          <div
+            key={index}
+            className="d-flex align-items-center"
+            style={{
+              background: applicationColor.mainInputBg,
+              color: applicationColor.readColor1,
+              marginBottom: "1rem",
+            }}
+          >
+            <div className="row w-100">
+              {/* Input Fields for Educational Details */}
+              <div className="col-lg-3 col-md-3 col-sm-6">
+                <Input_text
+                  type={"text"}
+                  name={"institute_name"}
+                  placeholder={"Institute Name"}
+                  value={data?.institute_name}
+                  setForm={setFormData}
+                  schema={schema?.institute_name}
+                  index={index}
+                  fieldName="educational_details"
+                />
+              </div>
+              <div className="col-lg-3 col-md-3 col-sm-6">
+                <Input_text
+                  type={"text"}
+                  name={"degree"}
+                  placeholder={"Degree"}
+                  value={data?.degree}
+                  setForm={setFormData}
+                  schema={schema?.degree}
+                  index={index}
+                  fieldName="educational_details"
+                />
+              </div>
+              <div className="col-lg-3 col-md-3 col-sm-6">
+                <Input_text
+                  type={"text"}
+                  name={"specialization"}
+                  placeholder={"Specialization"}
+                  value={data?.specialization}
+                  setForm={setFormData}
+                  schema={schema?.specialization}
+                  index={index}
+                  maxLength={100}
+                  fieldName="educational_details"
+                />
+              </div>
+              <div className="col-lg-3 col-md-3 col-sm-6">
+                <Input_text
+                  type={"tel"}
+                  name={"year_of_completion"}
+                  placeholder={"Year of Completion"}
+                  value={data?.year_of_completion}
+                  setForm={setFormData}
+                  schema={schema?.year_of_completion}
+                  maxLength={4}
+                  index={index}
+                  fieldName="educational_details"
+                />
+              </div>
+            </div>
+            {/* Remove Button */}
+            {formData?.educational_details?.length > 1 && (
+              <button
+                className="btn btn-danger btn-sm ms-2"
+                onClick={() => removeEducationDetails(index)}
+                type="button"
+              >
+                <FaMinus />
+              </button>
+            )}
+          </div>
+        ))}
+      </section>
 
       <hr style={{ marginTop: "20px" }} />
-
-      
 
       <section
         className="row basic-row new-basic-row"
@@ -305,28 +302,27 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
             </div>
           )}
         </div> */}
-         <div className="d-flex justify-content-between align-items-center mb-2">
-    <h6 className="heading-form">Dependent Details</h6>
-    <button
-      className="btn btn-success btn-sm"
-      onClick={addDependentDetails}
-      type="button"
-    >
-      <FaPlus />
-    </button>
-  </div>
+        <div className="d-flex justify-content-between align-items-center mb-2">
+          <h6 className="heading-form">Dependent Details</h6>
+          <button
+            className="btn btn-success btn-sm"
+            onClick={addDependentDetails}
+            type="button"
+          >
+            <FaPlus />
+          </button>
+        </div>
         {formData?.dependent_details?.map((data, index) => {
           return (
-            
             <div
-            key={index}
-            className="d-flex align-items-center"
-            style={{
-              background: applicationColor.mainInputBg,
-              color: applicationColor.readColor1,
-              marginBottom: "1rem",
-            }}
-          >
+              key={index}
+              className="d-flex align-items-center"
+              style={{
+                background: applicationColor.mainInputBg,
+                color: applicationColor.readColor1,
+                marginBottom: "1rem",
+              }}
+            >
               {/* {index >= 1 ? <hr style={{ marginTop: "20px" }} /> : ""}
 
               <div className="additional-btns">
@@ -345,33 +341,35 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                 )}
               </div> */}
               <div className="row w-100">
-              <div className="col-lg-3 col-md-3 col-sm-6">
-                <Input_text
-                  type={"text"}
-                  name={"name"}
-                  placeholder={"Name"}
-                  value={data?.name}
-                  setForm={setFormData}
-                  schema={schema?.name}
-                  index={index}
-                  maxLength={50}
-                  fieldName="dependent_details"
-                />
-              </div>
-              <div className="col-lg-3 col-md-3 col-sm-6">
-                <Input_text
-                  type={"text"}
-                  name={"relation"}
-                  placeholder={"Relation  Ex : (Mother)"}
-                  value={data?.relation}
-                  setForm={setFormData}
-                  schema={schema?.relation}
-                  index={index}
-                  fieldName="dependent_details"
-                />
-              </div>
+                <div className="col-lg-3 col-md-3 col-sm-6">
+                  <Input_text
+                    type={"text"}
+                    name={"name"}
+                    label="Name"
+                    placeholder={"Ex: Jock"}
+                    value={data?.name}
+                    setForm={setFormData}
+                    schema={schema?.name}
+                    index={index}
+                    maxLength={50}
+                    fieldName="dependent_details"
+                  />
+                </div>
+                <div className="col-lg-3 col-md-3 col-sm-6">
+                  <Input_text
+                    type={"text"}
+                    name={"relation"}
+                    label="Relation"
+                    placeholder={" Ex : Mother"}
+                    value={data?.relation}
+                    setForm={setFormData}
+                    schema={schema?.relation}
+                    index={index}
+                    fieldName="dependent_details"
+                  />
+                </div>
 
-              {/* <div className="col-lg-4 col-md-4 col-sm-6">
+                {/* <div className="col-lg-4 col-md-4 col-sm-6">
                 <Date_Input
                   type={"date"}
                   placeholder={"Dependent DOB"}
@@ -401,18 +399,19 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                   fieldName="dependent_details"
                 />
               </div> */}
-               <div className="col-lg-4 col-md-4 col-sm-6">
-               <Input_text
-                  type={"tel"}
-                  name={"dependent_mobile_number"}
-                  placeholder={"Dependent Mobile Number"}
-                  value={data?.dependent_mobile_number}
-                  setForm={setFormData}
-                  schema={schema?.dependent_mobile_number}
-                  index={index}
-                  fieldName="dependent_details"
-                />
-          {/* <Input_text
+                <div className="col-lg-4 col-md-4 col-sm-6">
+                  <Input_text
+                    type={"tel"}
+                    name={"dependent_mobile_number"}
+                    label="Dependent Mobile Number"
+                    placeholder={"Ex: 8765434569"}
+                    value={data?.dependent_mobile_number}
+                    setForm={setFormData}
+                    schema={schema?.dependent_mobile_number}
+                    index={index}
+                    fieldName="dependent_details"
+                  />
+                  {/* <Input_text
             type={"tel"}
             name={"dependent_mobile_number"}
             placeholder={"Dependent Mobile Number"}
@@ -424,28 +423,24 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                   fieldName="dependent_details"
           
           /> */}
-        </div> 
+                </div>
               </div>
               {/* <div className="additional-btns"> */}
-                {formData?.dependent_details?.length > 1 ? (
-                  <button
-                    className="btn btn-danger btn-sm ms-2"
-                    onClick={() => removeDependentDetails(index)}
-                    type="button"
-                  >
-                  
-                    <FaMinus />
-                  </button>
-                ) : (
-                  ""
-                )}
+              {formData?.dependent_details?.length > 1 ? (
+                <button
+                  className="btn btn-danger btn-sm ms-2"
+                  onClick={() => removeDependentDetails(index)}
+                  type="button"
+                >
+                  <FaMinus />
+                </button>
+              ) : (
+                ""
+              )}
               {/* </div> */}
-            
-
             </div>
           );
         })}
-        
       </section>
 
       <hr style={{ marginTop: "20px" }} />

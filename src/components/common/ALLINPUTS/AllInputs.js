@@ -95,6 +95,7 @@ export function InputPassword({
   value,
   setForm,
   schema,
+  label,
   imp,
   readOnly,
   icon,
@@ -123,11 +124,11 @@ export function InputPassword({
           >
             {imp ? (
               <>
-                {placeholder}
+                {label || placeholder}
                 <sup style={{ color: "red" }}> *</sup>
               </>
             ) : (
-              placeholder
+             label || placeholder
             )}
           </label>
         </div>
@@ -319,6 +320,7 @@ export function Input_text({
   icon,
   imp,
   maxLength,
+  label,
   readOnly,
   inputRef,
   index = "",
@@ -347,11 +349,11 @@ export function Input_text({
         >
           {imp ? (
             <>
-              {placeholder}
+              {label || placeholder}
               <sup style={{ color: "red" }}> *</sup>
             </>
           ) : (
-            placeholder
+            label || placeholder
           )}
         </label>
       </div>
@@ -468,6 +470,7 @@ export function Input_area({
   value,
   setForm,
   schema,
+  label,
   icon,
   imp,
   length,
@@ -496,13 +499,13 @@ export function Input_area({
               <>
                 <span>
                   {" "}
-                  {placeholder} <sup style={{ color: "red" }}> *</sup>
+                  {label || placeholder} <sup style={{ color: "red" }}> *</sup>
                 </span>
                 <span>{/* {`${length} / ${value.length}`} */}</span>
               </>
             ) : (
               <>
-                <span> {placeholder} </span>
+                <span> { label || placeholder} </span>
                 <span>{/* {`${length} / ${value.length}`} */}</span>
               </>
             )}
@@ -700,6 +703,7 @@ export function Input_email({
   setForm,
   schema,
   imp,
+  label,
   readOnly,
   icon,
   inputRef,
@@ -717,11 +721,11 @@ export function Input_email({
         <label htmlFor={name} style={{ color: applicationColor.readColor2 }}>
           {imp ? (
             <>
-              {placeholder}
+              { label || placeholder}
               <sup style={{ color: "red" }}> *</sup>
             </>
           ) : (
-            placeholder
+           label || placeholder
           )}
         </label>
       </div>

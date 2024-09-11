@@ -100,14 +100,16 @@ const ChangePassword = () => {
         new_password: formData.newPassword,
       };
 
-      const res = await backEndCallObjNothing("/emp/reset_passwoard", payload);
+      const res = await backEndCallObjNothing("/emp/reset_password", payload);
       toastOptions.success(res.success || "Password changed successfully");
       setBtndisabled(false);
       setShowModal(true);
     } catch (error) {
       setBtndisabled(false);
       console.log(error, "error");
-      toastOptions.error(error?.response?.data || "Error changing password");
+      if (error?.response?.data) {
+        toastOptions.error(error?.response?.data || "Error changing password");
+      }
     }
   };
 
@@ -122,28 +124,28 @@ const ChangePassword = () => {
         <div className="col-lg-4">
           <div
             className="d_card m-2 p-3"
-            style={{ background: applicationColor.cardItem, height: "380px" }}
+            style={{ background: applicationColor.cardItem, height: "450px" }}
           >
             <h5 className="text-center mb-4">Change Password</h5>
-            <form onSubmit={handleSubmit}>
-              <InputPassword
-                type={"password"}
-                name={"oldPassword"}
-                placeholder="Old Password"
-                value={formData.oldPassword}
-                validateField={validateField}
-                schema={schema.newPassword}
-                // style={{
-                //   borderRadius: "10px",
-                //   width: "450px",
-                //   height: "50px",
-                // }}
-                setForm={setFormData}
-                maxLength={10}
-                icon={<MdOutlineKey />}
-              />
 
-              {/* <input
+            <InputPassword
+              type={"password"}
+              name={"oldPassword"}
+              placeholder="Old Password"
+              value={formData.oldPassword}
+              validateField={validateField}
+              schema={schema.newPassword}
+              // style={{
+              //   borderRadius: "10px",
+              //   width: "450px",
+              //   height: "50px",
+              // }}
+              setForm={setFormData}
+              maxLength={10}
+              icon={<MdOutlineKey />}
+            />
+
+            {/* <input
                       type={showNewPassword ? "text" : "password"}
                       id="newPassword"
                       name="newPassword"
@@ -157,26 +159,26 @@ const ChangePassword = () => {
                       onChange={handleInputChange}
                       maxLength={10}
                     /> */}
-              <InputPassword
-                type={"password"}
-                name={"newPassword"}
-                placeholder="New Password"
-                value={formData.newPassword}
-                // style={{
-                //   borderRadius: "10px",
-                //   width: "450px",
-                //   height: "50px",
-                // }}
+            <InputPassword
+              type={"password"}
+              name={"newPassword"}
+              placeholder="New Password"
+              value={formData.newPassword}
+              // style={{
+              //   borderRadius: "10px",
+              //   width: "450px",
+              //   height: "50px",
+              // }}
 
-                schema={schema.newPassword}
-                setForm={setFormData}
-                validateField={validateField}
-                maxLength={10}
-                autoCapitalize="none"
-                icon={<MdOutlineKey />}
-              />
+              schema={schema.newPassword}
+              setForm={setFormData}
+              validateField={validateField}
+              maxLength={10}
+              autoCapitalize="none"
+              icon={<MdOutlineKey />}
+            />
 
-              {/* <input
+            {/* <input
                       type={showConfirmPassword ? "text" : "password"}
                       id="confirmPassword"
                       name="confirmPassword"
@@ -190,28 +192,31 @@ const ChangePassword = () => {
                       onChange={handleInputChange}
                       maxLength={10}
                     /> */}
-              <InputPassword
-                type={"password"}
-                name={"confirmPassword"}
-                placeholder={"Confirm Password"}
-                value={formData.confirmPassword}
-                // style={{
-                //   borderRadius: "10px",
-                //   width: "450px",
-                //   height: "50px",
-                // }}
-                schema={schema.confirmPassword}
-                setForm={setFormData}
-                validateField={validateField}
-                maxLength={10}
-                // autoCapitalize="none"
-                icon={<MdOutlineKey />}
-              />
+            <InputPassword
+              type={"password"}
+              name={"confirmPassword"}
+              placeholder={"Confirm Password"}
+              value={formData.confirmPassword}
+              // style={{
+              //   borderRadius: "10px",
+              //   width: "450px",
+              //   height: "50px",
+              // }}
+              schema={schema.confirmPassword}
+              setForm={setFormData}
+              validateField={validateField}
+              maxLength={10}
+              // autoCapitalize="none"
+              icon={<MdOutlineKey />}
+            />
 
-              <button className="btn btn-primary w-100" disabled={btndisabled}>
-                Submit
-              </button>
-            </form>
+            <button
+              className="btn btn-primary w-100"
+              disabled={btndisabled}
+              onClick={handleSubmit}
+            >
+              Submit
+            </button>
 
             {showModal && <Modal onLogout={handleLogout} />}
           </div>

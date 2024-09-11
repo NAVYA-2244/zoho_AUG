@@ -70,7 +70,9 @@ const EmployeChange = () => {
     } catch (error) {
       setBtndisabled(false);
       console.log(error, "error");
-      toastOptions.error(error.response?.data || "Error changing password");
+      if (error.response?.data) {
+        toastOptions.error(error.response?.data || "Error changing password");
+      }
     }
   };
   return (
@@ -78,7 +80,7 @@ const EmployeChange = () => {
       <div></div>
       <div
         className="d_card m-2 p-3"
-        style={{ background: applicationColor.cardItem, height: "380px" }}
+        style={{ background: applicationColor.cardItem, height: "450px" }}
       >
         <h5 className="text-center mb-4">Employee Reset Password</h5>
         <div className="form-group p-3">

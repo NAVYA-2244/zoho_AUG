@@ -72,7 +72,8 @@ const HierarchyData = ({ formData, setFormData }) => {
           <Input_text
             type={"tel"}
             name={"mobile_number"}
-            placeholder={"Mobile Number"}
+            label="Mobile Number"
+            placeholder={"Ex: 9876543456"}
             value={formData.mobile_number}
             setForm={setFormData}
             schema={schema.mobile_number}
@@ -99,7 +100,8 @@ const HierarchyData = ({ formData, setFormData }) => {
           <Input_email
             type={"email"}
             name={"personal_email_address"}
-            placeholder={"Personal Email"}
+            label="Email"
+            placeholder={"Elgibith@gmail.com"}
             value={formData.personal_email_address}
             setForm={setFormData}
             schema={schema.personal_email_address}
@@ -113,7 +115,8 @@ const HierarchyData = ({ formData, setFormData }) => {
           <Input_text
             type={"text"}
             name={"seating_location"}
-            placeholder={"Seating Location"}
+            label="Seating Location"
+            placeholder={"Ex: Ws-17"}
             value={formData.seating_location}
             setForm={setFormData}
             schema={schema.seating_location}
@@ -127,6 +130,7 @@ const HierarchyData = ({ formData, setFormData }) => {
           <Input_area
             type={"textarea"}
             name={"permanent_address"}
+            label="Permanet Address"
             placeholder={"Permanent Address"}
             value={formData.permanent_address}
             setForm={setFormData}
@@ -141,7 +145,8 @@ const HierarchyData = ({ formData, setFormData }) => {
             permanent_address
             type={"textarea"}
             name={"present_address"}
-            placeholder={"Present Address"}
+            label="Present Address"
+            placeholder={"Preset Address"}
             value={formData.present_address}
             setForm={setFormData}
             schema={schema.present_address}
@@ -160,19 +165,16 @@ const HierarchyData = ({ formData, setFormData }) => {
           color: applicationColor.readColor1,
         }}
       >
-       
-       
         <div className="d-flex justify-content-between align-items-center mb-2">
-    <h6 className="heading-form"> Previous Experience Data</h6>
-    <button
-      className="btn btn-success btn-sm"
-      onClick={addWorkExperience}
-      type="button"
-    >
-      <FaPlus />
-    </button>
-  </div>
-       
+          <h6 className="heading-form"> Previous Experience Data</h6>
+          <button
+            className="btn btn-success btn-sm"
+            onClick={addWorkExperience}
+            type="button"
+          >
+            <FaPlus />
+          </button>
+        </div>
 
         {formData.work_experience?.map((data, index) => {
           return (
@@ -185,140 +187,138 @@ const HierarchyData = ({ formData, setFormData }) => {
                 marginBottom: "1rem",
               }}
             >
-             
               <div className="row w-100">
-              <div className="col-lg-3 col-md-3 col-sm-6">
-                <Input_text
-                  type={"text"}
-                  name={"company_name"}
-                  placeholder={"Company Name"}
-                  value={data?.company_name}
-                  setForm={setFormData}
-                  schema={schema?.company_name}
-                  // readOnly={isAdmin}
-                  // inputRef={(el) => (refs.current.company = el)}
-                  index={index}
-                  fieldName="work_experience"
-                />
-              </div>
+                <div className="col-lg-3 col-md-3 col-sm-6">
+                  <Input_text
+                    type={"text"}
+                    name={"company_name"}
+                    placeholder={"Company Name"}
+                    value={data?.company_name}
+                    setForm={setFormData}
+                    schema={schema?.company_name}
+                    // readOnly={isAdmin}
+                    // inputRef={(el) => (refs.current.company = el)}
+                    index={index}
+                    fieldName="work_experience"
+                  />
+                </div>
 
-              <div className="col-lg-3 col-md-3 col-sm-6">
-                <Input_text
-                  type={"text"}
-                  name={"job_title"}
-                  placeholder={"Job Title"}
-                  value={data?.job_title}
-                  setForm={setFormData}
-                  schema={schema?.job_title}
-                  // readOnly={isAdmin}
-                  // inputRef={(el) => (refs.current.company = el)}
-                  index={index}
-                  fieldName="work_experience"
-                />
-              </div>
-              <div
-                className="col-lg-3 col-md-3 col-sm-6"
-                style={{
-                  color: applicationColor.readColor2,
-                }}
-              >
-                <Date_Input
-                  name={"from_date"}
-                  placeholder={"Start Date"}
-                  value={data?.from_date}
-                  bv
-                  setForm={setFormData}
-                  schema={schema?.from_date}
-                  // readOnly={isAdmin}
-                  index={index}
-                  fieldName="work_experience"
-                  min={
-                    new Date(
-                      new Date().getFullYear() - 55,
-                      new Date().getMonth(),
-                      new Date().getDate()
-                    )
-                      .toISOString()
-                      .split("T")[0]
-                  }
-                  max={new Date().toISOString().split("T")[0]}
-                />
-              </div>
-              <div
-                className="col-lg-3 col-md-3 col-sm-6"
-                style={{
-                  color: applicationColor.readColor2,
-                }}
-              >
-                <Date_Input
-                  name={"to_date"}
-                  placeholder={"End Date"}
-                  value={data?.to_date}
-                  setForm={setFormData}
-                  schema={schema?.to_date}
-                  // readOnly={isAdmin}
-                  index={index}
-                  fieldName="work_experience"
-                  min={
-                    new Date(
-                      new Date().getFullYear() - 55,
-                      new Date().getMonth(),
-                      new Date().getDate()
-                    )
-                      .toISOString()
-                      .split("T")[0]
-                  }
-                  max={new Date().toISOString().split("T")[0]}
-                />
-              </div>
+                <div className="col-lg-3 col-md-3 col-sm-6">
+                  <Input_text
+                    type={"text"}
+                    name={"job_title"}
+                    placeholder={"Job Title"}
+                    value={data?.job_title}
+                    setForm={setFormData}
+                    schema={schema?.job_title}
+                    // readOnly={isAdmin}
+                    // inputRef={(el) => (refs.current.company = el)}
+                    index={index}
+                    fieldName="work_experience"
+                  />
+                </div>
+                <div
+                  className="col-lg-3 col-md-3 col-sm-6"
+                  style={{
+                    color: applicationColor.readColor2,
+                  }}
+                >
+                  <Date_Input
+                    name={"from_date"}
+                    placeholder={"Start Date"}
+                    value={data?.from_date}
+                    bv
+                    setForm={setFormData}
+                    schema={schema?.from_date}
+                    // readOnly={isAdmin}
+                    index={index}
+                    fieldName="work_experience"
+                    min={
+                      new Date(
+                        new Date().getFullYear() - 55,
+                        new Date().getMonth(),
+                        new Date().getDate()
+                      )
+                        .toISOString()
+                        .split("T")[0]
+                    }
+                    max={new Date().toISOString().split("T")[0]}
+                  />
+                </div>
+                <div
+                  className="col-lg-3 col-md-3 col-sm-6"
+                  style={{
+                    color: applicationColor.readColor2,
+                  }}
+                >
+                  <Date_Input
+                    name={"to_date"}
+                    placeholder={"End Date"}
+                    value={data?.to_date}
+                    setForm={setFormData}
+                    schema={schema?.to_date}
+                    // readOnly={isAdmin}
+                    index={index}
+                    fieldName="work_experience"
+                    min={
+                      new Date(
+                        new Date().getFullYear() - 55,
+                        new Date().getMonth(),
+                        new Date().getDate()
+                      )
+                        .toISOString()
+                        .split("T")[0]
+                    }
+                    max={new Date().toISOString().split("T")[0]}
+                  />
+                </div>
 
-              <div className="col-lg-3 col-md-3 col-sm-6">
-                <Input_text
-                  type={"text"}
-                  name={"experience"}
-                  placeholder={"Relavent Experience"}
-                  value={data?.experience}
-                  setForm={setFormData}
-                  schema={schema?.experience}
-                  maxLength={3}
-                  // readOnly={isAdmin}
-                  inputRef={(el) => (refs.current.company = el)}
-                  index={index}
-                  fieldName="work_experience"
-                />
+                <div className="col-lg-3 col-md-3 col-sm-6">
+                  <Input_text
+                    type={"text"}
+                    name={"experience"}
+                    placeholder={"Relavent Experience"}
+                    value={data?.experience}
+                    setForm={setFormData}
+                    schema={schema?.experience}
+                    maxLength={3}
+                    // readOnly={isAdmin}
+                    inputRef={(el) => (refs.current.company = el)}
+                    index={index}
+                    fieldName="work_experience"
+                  />
+                </div>
+                <div className="col-lg-3 col-md-3 col-sm-6">
+                  <Input_area
+                    index={index}
+                    type={"textarea"}
+                    name={"job_description"}
+                    placeholder={"Job Description"}
+                    value={data?.job_description}
+                    setForm={setFormData}
+                    schema={schema?.job_description}
+                    length={250}
+                    maxLength={250}
+                    fieldName="work_experience"
+                    // readOnly={isAdmin}
+                  />
+                </div>
+                <div className="col-lg-2 col-md-2 col-sm-6 mt-5">
+                  {formData.work_experience.length > 1 ? (
+                    <button
+                      className="btn btn-danger btn-sm ms-2"
+                      onClick={() => removeWorkExperience(index)}
+                      type="button"
+                    >
+                      {/* remove */}
+                      <FaMinus />
+                    </button>
+                  ) : (
+                    ""
+                  )}
+                </div>
               </div>
-              <div className="col-lg-3 col-md-3 col-sm-6">
-                <Input_area
-                  index={index}
-                  type={"textarea"}
-                  name={"job_description"}
-                  placeholder={"Job Description"}
-                  value={data?.job_description}
-                  setForm={setFormData}
-                  schema={schema?.job_description}
-                  length={250}
-                  maxLength={250}
-                  fieldName="work_experience"
-                  // readOnly={isAdmin}
-                />
-              </div>
-              <div className="col-lg-2 col-md-2 col-sm-6 mt-5">
-                {formData.work_experience.length > 1 ? (
-                  <button
-                    className="btn btn-danger btn-sm ms-2"
-                    onClick={() => removeWorkExperience(index)}
-                    type="button"
-                  >
-                    {/* remove */}
-                    <FaMinus />
-                  </button>
-                ) : (
-                  ""
-                )}
-              </div>
-              </div>
-              
-             </div>
+            </div>
           );
         })}
       </section>

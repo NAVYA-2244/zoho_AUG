@@ -15,7 +15,7 @@ import { backEndCallObjNothing } from "../../../services/mainService";
 import { toastOptions } from "../../../Utils/FakeRoutes";
 import { MdOutlineKey } from "react-icons/md";
 
-const BasicEmployeeData = ({ formData, setFormData,disableobj,type }) => {
+const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
   const {
     isAdmin,
     refs,
@@ -27,10 +27,10 @@ const BasicEmployeeData = ({ formData, setFormData,disableobj,type }) => {
     setOrgDetails,
     employeeDetails,
     reportingmangers,
-     setreportingmangers,
-     recentemployeeid
+    setreportingmangers,
+    recentemployeeid,
   } = useStateContext();
-  console.log(reportingmangers,"reportingmangers")
+  console.log(reportingmangers, "reportingmangers");
   const { applicationColor } = useThemeContext();
   const [employeesList, setEmployeesList] = useState([]);
   const [filteredEmployees, setFilteredEmployees] = useState([]);
@@ -38,7 +38,7 @@ const BasicEmployeeData = ({ formData, setFormData,disableobj,type }) => {
   const [optionss, setOptionss] = useState({});
   const [optionsss, setoptionsss] = useState({});
 
-  console.log("filteredEmployees",filteredEmployees)
+  console.log("filteredEmployees", filteredEmployees);
   useEffect(() => {
     if (orgDetails.departments) {
       setOptions({
@@ -81,7 +81,6 @@ const BasicEmployeeData = ({ formData, setFormData,disableobj,type }) => {
 
         setFilteredEmployees(managers);
         setEmployeesList(managers); // Assuming this is also needed
-
       } catch (error) {
         toastOptions.error(error?.response?.data || "Something went wrong");
       } finally {
@@ -89,13 +88,16 @@ const BasicEmployeeData = ({ formData, setFormData,disableobj,type }) => {
       }
     };
 
-    if (employeeDetails.admin_type === "1"||employeeDetails.admin_type === "2") {
+    if (
+      employeeDetails.admin_type === "1" ||
+      employeeDetails.admin_type === "2"
+    ) {
       fetchingData();
     }
   }, [employeeDetails.admin_type, reportingmangers, setLoading]);
 
-console.log(orgDetails,"navya")
- 
+  console.log(orgDetails, "navya");
+
   return (
     <>
       <div
@@ -121,23 +123,22 @@ console.log(orgDetails,"navya")
             maxLength={10}
             // readOnly={isAdmin || type === "Update Employee"}
             inputRef={(el) => (refs.current.employee_id = el)}
-          /> 
-         
+          />
 
           {/* {employeeDetails.admin_type === "1"|| employeeDetails.admin_type === "2"&& */}
-          
+
           <p className="note-heading" style={{ color: "green" }}>
-            This should be a recent employee Id "
-           {recentemployeeid?.employee_id}".
+            This should be a recent employee Id "{recentemployeeid?.employee_id}
+            ".
           </p>
           {/* } */}
-          
         </div>
         <div className="col-lg-4 col-md-4 col-sm-6">
           <Input_text
             type={"text"}
             name={"first_name"}
-            placeholder={"First Name"}
+            label={"First Name"}
+            placeholder={"Ex: Marry"}
             value={formData["first_name"]}
             setForm={setFormData}
             schema={schema.first_name}
@@ -151,7 +152,8 @@ console.log(orgDetails,"navya")
           <Input_text
             type={"text"}
             name={"last_name"}
-            placeholder={"Last Name"}
+            label={"Last Name"}
+            placeholder={"Ex: Elgibith"}
             value={formData["last_name"]}
             setForm={setFormData}
             schema={schema["last_name"]}
@@ -166,7 +168,8 @@ console.log(orgDetails,"navya")
           <Input_text
             type={"text"}
             name={"nick_name"}
-            placeholder={"Nick Name"}
+            label={"Nick Name"}
+            placeholder={"Ex: Smith"}
             value={formData["nick_name"]}
             setForm={setFormData}
             schema={schema["nick_name"]}
@@ -191,7 +194,8 @@ console.log(orgDetails,"navya")
           <Input_email
             type={"email"}
             name={"email"}
-            placeholder={"Email"}
+            label="Email"
+            placeholder={"Ex: SmithElgibith@gmail.com"}
             value={formData["email"]}
             setForm={setFormData}
             schema={schema["email"]}
@@ -218,7 +222,7 @@ console.log(orgDetails,"navya")
           <Date_Input
             type={"date"}
             name={"date_of_birth"}
-            placeholder={"Date of Birth"}
+            placeholder={"Date Of Birth"}
             value={formData.date_of_birth}
             setForm={setFormData}
             schema={schema.date_of_birth}
@@ -247,26 +251,29 @@ console.log(orgDetails,"navya")
           />
         </div>
         {disableobj?.password && (
-     <div className="col-lg-4 col-md-4 col-sm-6">
-        <InputPassword
-            type={"password"}
-            placeholder={"Password"}
-            name={"password"}
-            value={formData["password"]}
-            setForm={setFormData}
-            id={"password"}
-            // maxLength={15} 
-            schema={schema.password}
-            imp
-            icon={<MdOutlineKey />}
-            disabled={disableobj?.password} 
-          />
-        </div>)}
+          <div className="col-lg-4 col-md-4 col-sm-6">
+            <InputPassword
+              type={"password"}
+              placeholder={"Emp@1234"}
+              name={"password"}
+              label={"Password"}
+              value={formData["password"]}
+              setForm={setFormData}
+              id={"password"}
+              // maxLength={15}
+              schema={schema.password}
+              imp
+              icon={<MdOutlineKey />}
+              disabled={disableobj?.password}
+            />
+          </div>
+        )}
         <div className="col-lg-12 col-md-4 col-sm-6">
           <Input_area
             type={"textarea"}
             name={"about_me"}
-            placeholder={"About Me"}
+            label={"About Me"}
+            placeholder={"Ex: Good in ..."}
             value={formData.about_me}
             setForm={setFormData}
             schema={schema.about_me}
@@ -289,31 +296,33 @@ console.log(orgDetails,"navya")
       >
         <h6 className="heading-form"> Work Information</h6>
         <div className="col-lg-4 col-md-4 col-sm-6">
-        {employeeDetails.admin_type === "1"||employeeDetails.admin_type === "2"?
-          <Select_inputs
-            name={"role_id"}
-            placeholder={"Role"}
-            value={formData.role_id}
-            schema={schema.role_id}
-            setForm={setFormData}
-            options={optionsss.roles || []}
-            property={"role_name"}
-            valueProperty={"role_id"}
-            // readOnly={isAdmin}
-            imp
-            inputRef={(el) => (refs.currentemployment_typerole_id = el)}
-          />:
-          <Input_text
-            type={"text"}
-            name={"role_name"}
-            placeholder={"role_name"}
-            value={formData.role_name}
-            setForm={setFormData}
-            schema={schema.role_id}
-            property={"role_name"}
-            readOnly={isAdmin}
-          />
-          }
+          {employeeDetails.admin_type === "1" ||
+          employeeDetails.admin_type === "2" ? (
+            <Select_inputs
+              name={"role_id"}
+              placeholder={"Role"}
+              value={formData.role_id}
+              schema={schema.role_id}
+              setForm={setFormData}
+              options={optionsss.roles || []}
+              property={"role_name"}
+              valueProperty={"role_id"}
+              // readOnly={isAdmin}
+              imp
+              inputRef={(el) => (refs.currentemployment_typerole_id = el)}
+            />
+          ) : (
+            <Input_text
+              type={"text"}
+              name={"role_name"}
+              placeholder={"role_name"}
+              value={formData.role_name}
+              setForm={setFormData}
+              schema={schema.role_id}
+              property={"role_name"}
+              readOnly={isAdmin}
+            />
+          )}
         </div>
         {/* 
         <div className="col-lg-4 col-md-4 col-sm-6">
@@ -333,64 +342,65 @@ console.log(orgDetails,"navya")
         {/* </div>  */}
 
         <div className="col-lg-4 col-md-4 col-sm-6">
-        {employeeDetails.admin_type === "1"||employeeDetails.admin_type === "2"
-        ?
-          <Select_inputs
-            name={"department_id"}
-            placeholder={"Department"}
-            value={formData.department_id}
-            schema={schema.department_id}
-            setForm={setFormData}
-            options={options.departments || []}
-            property={"department_name"}
-            valueProperty={"department_id"}
-            // readOnly={isAdmin}
-            imp
-            inputRef={(el) => (refs.current.department_id = el)}
-          />:
-          <Input_text
-            type={"text"}
-            name={"department_name"}
-            placeholder={"department_name"}
-            value={formData.department_name}
-            setForm={setFormData}
-            schema={schema.department_id}
-            property={"department_name"}
-            readOnly={isAdmin}
-          />
-}
-          
+          {employeeDetails.admin_type === "1" ||
+          employeeDetails.admin_type === "2" ? (
+            <Select_inputs
+              name={"department_id"}
+              placeholder={"Department"}
+              value={formData.department_id}
+              schema={schema.department_id}
+              setForm={setFormData}
+              options={options.departments || []}
+              property={"department_name"}
+              valueProperty={"department_id"}
+              // readOnly={isAdmin}
+              imp
+              inputRef={(el) => (refs.current.department_id = el)}
+            />
+          ) : (
+            <Input_text
+              type={"text"}
+              name={"department_name"}
+              placeholder={"department_name"}
+              value={formData.department_name}
+              setForm={setFormData}
+              schema={schema.department_id}
+              property={"department_name"}
+              readOnly={isAdmin}
+            />
+          )}
         </div>
-        
+
         <div className="col-lg-4 col-md-4 col-sm-6">
-        {employeeDetails.admin_type === "1"||employeeDetails.admin_type === "2"?
-          <Select_inputs
-            name={"designation_id"}
-            placeholder={"Designation"}
-            value={formData.designation_id}
-            schema={schema.designation_id}
-            setForm={setFormData}
-            options={optionss.designations || []}
-            property={"designation_name"}
-            valueProperty={"designation_id"}
-            // readOnly={isAdmin}
-            imp
-            inputRef={(el) => (refs.current.designation_id = el)}
-          />:
-          <Input_text
-            type={"text"}
-            name={"designation_name"}
-            placeholder={"designation_name"}
-            value={formData.designation_name}
-            setForm={setFormData}
-            schema={schema.designation_id}
-            property={"designation_name"}
-            readOnly={isAdmin}
-          />
-          }
+          {employeeDetails.admin_type === "1" ||
+          employeeDetails.admin_type === "2" ? (
+            <Select_inputs
+              name={"designation_id"}
+              placeholder={"Designation"}
+              value={formData.designation_id}
+              schema={schema.designation_id}
+              setForm={setFormData}
+              options={optionss.designations || []}
+              property={"designation_name"}
+              valueProperty={"designation_id"}
+              // readOnly={isAdmin}
+              imp
+              inputRef={(el) => (refs.current.designation_id = el)}
+            />
+          ) : (
+            <Input_text
+              type={"text"}
+              name={"designation_name"}
+              placeholder={"designation_name"}
+              value={formData.designation_name}
+              setForm={setFormData}
+              schema={schema.designation_id}
+              property={"designation_name"}
+              readOnly={isAdmin}
+            />
+          )}
         </div>
-       
-        
+
         <div className="col-lg-4 col-md-4 col-sm-6">
           <Select_inputs
             name={"employment_type"}
@@ -487,8 +497,7 @@ console.log(orgDetails,"navya")
         </div>
 
         <div className="col-lg-4 col-md-4 col-sm-6">
-      
-{/* <Select_inputs
+          {/* <Select_inputs
   name={"reporting_manager"}
   placeholder={"Reporting Manager"}
   value={formData.reporting_manager}
@@ -505,38 +514,36 @@ console.log(orgDetails,"navya")
   inputRef={(el) => (refs.current.reporting_manager = el)}
 /> */}
 
-{employeeDetails.admin_type === "1"||employeeDetails.admin_type === "2"?
-<Select_inputs
-  name={"reporting_manager"}
-  placeholder={"Reporting Manager"}
-  value={formData.reporting_manager}
-  schema={schema.reporting_manager}
-  setForm={setFormData}
-  options={filteredEmployees?.map((employee) => ({
-    displayName: `${employee.basic_info.first_name} ${employee.basic_info.last_name}`,
-        email: employee.email, // Store employee ID for payload
-    email: employee.basic_info.email, // Store email for payload
-  }))}
-  property={"displayName"} // Display email
-  valueProperty={"email"} // Store email in the formData
-  imp
-  // readOnly={isAdmin}
-  inputRef={(el) => (refs.current.reporting_manager = el)}
-/>
-:
-<Input_text
-            type={"text"}
-            name={"reporting_manager"}
-            placeholder={"Reporting_manager"}
-            value={formData.reporting_manager}
-            setForm={setFormData}
-            schema={schema.reporting_manager}
-           
-            readOnly={isAdmin}
-          />
-}
-
-
+          {employeeDetails.admin_type === "1" ||
+          employeeDetails.admin_type === "2" ? (
+            <Select_inputs
+              name={"reporting_manager"}
+              placeholder={"Reporting Manager"}
+              value={formData.reporting_manager}
+              schema={schema.reporting_manager}
+              setForm={setFormData}
+              options={filteredEmployees?.map((employee) => ({
+                displayName: `${employee.basic_info.first_name} ${employee.basic_info.last_name}`,
+                email: employee.email, // Store employee ID for payload
+                email: employee.basic_info.email, // Store email for payload
+              }))}
+              property={"displayName"} // Display email
+              valueProperty={"email"} // Store email in the formData
+              imp
+              // readOnly={isAdmin}
+              inputRef={(el) => (refs.current.reporting_manager = el)}
+            />
+          ) : (
+            <Input_text
+              type={"text"}
+              name={"reporting_manager"}
+              placeholder={"Reporting_manager"}
+              value={formData.reporting_manager}
+              setForm={setFormData}
+              schema={schema.reporting_manager}
+              readOnly={isAdmin}
+            />
+          )}
         </div>
       </div>
     </>
