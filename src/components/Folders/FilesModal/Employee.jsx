@@ -62,6 +62,10 @@ const EmployeChange = () => {
         payload
       );
       toastOptions.success(res.success || "Password changed successfully");
+      setFormData({
+        email: "",
+        new_password: "",
+      });
       setBtndisabled(false);
     } catch (error) {
       setBtndisabled(false);
@@ -74,7 +78,7 @@ const EmployeChange = () => {
       <div></div>
       <div
         className="d_card m-2 p-3"
-        style={{ background: applicationColor.cardItem }}
+        style={{ background: applicationColor.cardItem, height: "380px" }}
       >
         <h5 className="text-center mb-4">Employee Reset Password</h5>
         <div className="form-group p-3">

@@ -49,7 +49,7 @@ const ChangePassword = () => {
   const [isFormValid, setIsFormValid] = useState(true);
   const [btndisabled, setBtndisabled] = useState(false);
   // Define Joi schemas
-  const schema = Joi.object({
+  const schema = {
     oldPassword: Joi.string()
       .min(6)
       .max(10)
@@ -81,7 +81,7 @@ const ChangePassword = () => {
         "any.only": "Confirm Password must match New Password",
         "any.required": "Confirm Password is required",
       }),
-  });
+  };
 
   const validateField = (name, value) => {
     const schema = Joi.object(schema);
@@ -100,7 +100,7 @@ const ChangePassword = () => {
         new_password: formData.newPassword,
       };
 
-      const res = await backEndCallObjNothing("/emp/reset_password", payload);
+      const res = await backEndCallObjNothing("/emp/reset_passwoard", payload);
       toastOptions.success(res.success || "Password changed successfully");
       setBtndisabled(false);
       setShowModal(true);
@@ -118,11 +118,11 @@ const ChangePassword = () => {
 
   return (
     <>
-      <div className="row">
+      <div className="row d-flex">
         <div className="col-lg-4">
           <div
             className="d_card m-2 p-3"
-            style={{ background: applicationColor.cardItem }}
+            style={{ background: applicationColor.cardItem, height: "380px" }}
           >
             <h5 className="text-center mb-4">Change Password</h5>
             <form onSubmit={handleSubmit}>

@@ -16,6 +16,7 @@ import { FcLeave } from "react-icons/fc";
 import CircularLoader from "../../SVGCircler/Circular";
 import { format } from "date-fns";
 import Selectinputimg from "../../EmployeeRoutes/EmployeeAttendance/Selectinputimg";
+import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 
 const AdminAcceptedEmployeeLeavesApplications = () => {
   const {
@@ -37,8 +38,14 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
   const [leavescount, setLeavescount] = useState([]);
+  const [RefreshDisable, setRefreshDisable] = useState(false);
+
   const [btndisabled, setBtndisabled] = useState(false);
+
   const [year, setYear] = useState("");
+  const [showModal1, setShowModal] = useState(false);
+  const [RejectModel, setRejectModel] = useState(false);
+  const [selectedLeave, setSelectedLeave] = useState(null);
   const [formData, setFormData] = useState({
     leave_status: "Pending",
     year: year || "",
@@ -50,14 +57,23 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
   const observer = useRef();
   console.log(adminGettingLeaveApplications, "response");
   const fetchLeaveApplications = useCallback(async () => {
-    console.log("admingadminGettingLeaveApplicationset",adminGettingLeaveApplications );
+    console.log(
+      "admingadminGettingLeaveApplicationset",
+      adminGettingLeaveApplications
+    );
     setLoading(true);
 
     try {
       console.log("formData.status", formData.status);
-      console.log("admingadminGettingLeaveApplicationset",adminGettingLeaveApplications );
+      console.log(
+        "admingadminGettingLeaveApplicationset",
+        adminGettingLeaveApplications
+      );
       if (!adminGettingLeaveApplications) {
-        console.log("admingadminGettingLeaveApplicationset",adminGettingLeaveApplications );
+        console.log(
+          "admingadminGettingLeaveApplicationset",
+          adminGettingLeaveApplications
+        );
         const response = await backEndCallObjNothing(
           "/admin_get/all_leave_applications",
           {
@@ -84,32 +100,72 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
 
   useEffect(() => {
     fetchLeaveApplications();
-
   }, [skip, fetchLeaveApplications]);
 
   // console.log(adminGettingLeaveApplications,"adminGettingLeaveApplications")
+  const handleThumbsUpClick = (item) => {
+    setSelectedLeave(item);
+    setShowModal(true);
+  };
+  const handleThubsDownClick = (item) => {
+    setSelectedLeave(item);
+    setRejectModel(true);
+  };
+  useEffect(() => {
+    if (selectedLeave) {
+      console.log(
+        "Selected Leave Application:",
+        selectedLeave.leave_application_id
+      );
+    }
+  }, [selectedLeave]);
+  const handleLeaveAccept = async () => {
+    setBtndisabled(true);
+    if (selectedLeave && selectedLeave.leave_application_id) {
+      onLeaveAccept(selectedLeave.leave_application_id);
+      await fetchLeaveApplications();
+      closeModal();
+      setBtndisabled(false);
+    } else {
+      console.error("Leave application ID is missing or undefined.");
+    }
+  };
+  const handleLeaveReject = async () => {
+    setBtndisabled(true);
+    if (selectedLeave && selectedLeave.leave_application_id) {
+      onLeaveReject(selectedLeave.leave_application_id);
+      closeModal();
+      setBtndisabled(false);
+    } else {
+      console.error("Leave application ID is missing or undefined.");
+    }
+  };
 
-  const handleFormChange = async(e) => {
-    await setAdminGettingLeaveApplications(null)
-    console.log(e, "e");
+  const handleFormChange = (e) => {
     const { name, value } = e.target;
+
+    // First, update formData immediately
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
+
+    // Then perform the asynchronous operation if needed
+    setAdminGettingLeaveApplications(null);
   };
-  const handleYearChange = async(e) => {
-    await setAdminGettingLeaveApplications(null)
+
+  const handleYearChange = async (e) => {
+    await setAdminGettingLeaveApplications(null);
     const selectedYear = new Date(e.target.value).getFullYear().toString();
     setFormData((prev) => ({
       ...prev,
       year: selectedYear, // Update year in formData
     }));
   };
-  const handleSubmit =async (e) => {
-    console.log("enter")
-    await setAdminGettingLeaveApplications(null)
-    console.log("enter",adminGettingLeaveApplications)
+  const handleSubmit = async (e) => {
+    console.log("enter");
+    await setAdminGettingLeaveApplications(null);
+    console.log("enter", adminGettingLeaveApplications);
     // if (moment(formData.end_date).isBefore(formData.start_date)) {
     //   toastOptions.error("End Date cannot be less than Start Date");
     //   return;
@@ -117,13 +173,13 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
     e.preventDefault();
     setSkip(0);
     setHasMore(true);
-   
+
     fetchLeaveApplications(); // fetch with updated filters
   };
 
   const tabs = [
-    { name: "calendar-view", label: <FaCalendarCheck /> },
     { name: "table-view", label: <FaTableCells /> },
+    { name: "calendar-view", label: <FaCalendarCheck /> },
   ];
 
   const onLeaveAccept = async (leave_application_id) => {
@@ -189,7 +245,10 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
       );
     }
   };
-
+  const closeModal = () => {
+    setShowModal(false);
+    setRejectModel(false);
+  };
   useEffect(() => {
     const fetchEmployees = async () => {
       {
@@ -279,7 +338,9 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
   const handleRefresh = () => {
     fetchLeaveApplications();
   };
-
+  useEffect(() => {
+    console.log("Selected employee_id:", formData.employee_id);
+  }, [formData.employee_id]);
   return (
     <section
       className="admin-accepted-leave-applications"
@@ -289,27 +350,33 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
       }}
     >
       <div className="d-flex justify-content-between align-items-center">
-        <div className="employee-leaves-heading">
-          <p className="mb-0">Employee Leave Applications</p>
-        </div>
-
         <div
-          onClick={handleRefresh}
-          style={{
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-          }}
+          className="employee-leaves-heading d-flex
+        "
         >
-          {loading ? (
-            <div
-              className="spinner-border text-primary"
-              role="status"
-              style={{ height: "20px", width: "20px" }}
-            ></div>
-          ) : (
-            <i className="ri-loop-right-line text-primary fs-5 cursor-pointer"></i>
-          )}
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <span className="mb-0">Employee Leave Applications</span>
+            {console.log(loading, "ji")}
+            <span
+              onClick={loading ? null : handleRefresh}
+              style={{
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                marginLeft: "10px",
+              }}
+            >
+              {loading ? (
+                <span
+                  className="spinner-border text-primary"
+                  role="status"
+                  style={{ height: "20px", width: "20px" }}
+                ></span>
+              ) : (
+                <i className="ri-loop-right-line text-primary fs-5 cursor-pointer "></i>
+              )}
+            </span>
+          </div>
         </div>
       </div>
 
@@ -317,7 +384,6 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
         <div className="row row-gap-4">
           <div className="col-lg-3 col-md-3 col-sm-6 admin-leave-filters">
             <label>Employee </label>
-
             <select
               name="employee_id"
               value={formData.employee_id}
@@ -331,6 +397,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
                 </option>
               ))}
             </select>
+
             {/* <Selectinputimg/> */}
           </div>
           <div className="col-lg-3 col-md-3 col-sm-6 admin-leave-filters">
@@ -339,7 +406,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
               name="status"
               value={formData.status}
               className="form-control"
-              onChange={handleFormChange}
+              onChange={loading ? null : handleFormChange}
             >
               {/* <option value="">All</option> */}
               <option value="Pending">Pending</option>
@@ -350,21 +417,23 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
           <div className="col-md-4">
             <label>Year</label>
             <input
-              type="date"
+              type="year"
+              name="year"
               onChange={handleYearChange}
               className="form-control"
               placeholder="Select Year"
             />
           </div>
           <div className="leave-applications-btn">
-            <button type="submit">Submit</button>
-            <button
+            {/* <button type="submit">Submit</button> */}
+
+            {/* <button
               type="button"
               className="btn btn-primary"
               onClick={handleReset}
             >
               Reset
-            </button>
+            </button> */}
           </div>
         </div>
       </form>
@@ -378,7 +447,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
       >
         <div className="row">
           {leavescount?.length > 0
-            ? leavescount.map((item) => {
+            ? leavescount?.map((item) => {
                 console.log("Rendering leave item:", item); // Log each item being rendered
 
                 return (
@@ -428,7 +497,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
 
         <section className="d-flex fs-5 my-3">
           <div className="d-flex align-items-center gap-2">
-            {tabs.map((tab) => (
+            {tabs?.map((tab) => (
               <button
                 key={tab.name}
                 onClick={() => setCurrentTab(tab.name)}
@@ -504,12 +573,20 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
                         <div className="leave-card-data">
                           <p>Days Taken: {item.days_taken}</p>
                         </div>
-                        <div className="leave-card-data">
+                        {/* <div className="leave-card-data">
                           <p>Reason: {item.reason}</p>
-                        </div>
+                        </div> */}
                         <div className="leave-card-data">
                           <p>Applied on:</p>
-                          <p>{item.createdAt}</p>
+                          <p>
+                            {format(
+                              new Date(item.createdAt),
+                              "EEE, dd-MM-yyyy hh:mm a"
+                            )}
+                          </p>
+                        </div>
+                        <div class="text-wrap p-3 border rounded mb-2">
+                          <p>Reason: {item.reason}</p>
                         </div>
 
                         <section className="status g-2">
@@ -529,83 +606,6 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
             </div>
           </div>
         ) : (
-          // <section className="tables">
-          //   <table className="main-table table-bordered table-responsive admin-employee-leaves-table">
-          //     <thead
-          //       className="admin-leaves-table-head"
-          //       style={{
-          //         background: applicationColor.tableHeadBg,
-          //         color: applicationColor.readColor1,
-          //       }}
-          //     >
-          //       <th>Employee IDf</th>
-          //       <th>Applyed At </th>
-          //       <th>Employee Name</th>
-          //       <th>Leave Type</th>
-          //       <th>From Date</th>
-          //       <th>To Date</th>
-          //       <th>Days Taken</th>
-          //       <th>Reason</th>
-          //       <th>Leave Status</th>
-
-          //       <th>Action</th>
-          //     </thead>
-          //     <tbody className="admin-leaves-table-body">
-          //       {adminGettingLeaveApplications.length > 0 &&
-          //         adminGettingLeaveApplications?.map((item) => (
-          //           <tr key={item.id}>
-          //             <td>{item.employee_id}</td>
-          //             <td>{item.createdAt}</td>
-          //             <td>{item.employee_name}</td>
-          //             <td>{item.leave_type}</td>
-          //             <td>{item.from_date}</td>
-          //             <td>{item.to_date}</td>
-          //             <td>{item.days_taken}</td>
-          //             <td
-          //               style={{
-          //                 maxWidth: "200px",
-          //                 wordWrap: "break-word",
-          //                 whiteSpace: "normal",
-          //               }}
-          //             >
-          //               {item.reason}
-          //             </td>
-
-          //             <td>
-          //               <span
-          //                 className={`leave-status ${item.leave_status.toLowerCase()}`}
-          //               >
-          //                 {item.leave_status === "Pending" && (
-          //                   <span className="status-pending">Pending</span>
-          //                 )}
-          //                 {item.leave_status === "Approved" && (
-          //                   <span className="status-approved">Approved</span>
-          //                 )}
-          //                 {item.leave_status === "Rejected" && (
-          //                   <span className="status-rejected">Rejected</span>
-          //                 )}
-          //               </span>
-          //             </td>
-
-          //             <td>{renderLeaveStatusButtons(item)}</td>
-          //           </tr>
-          //         ))}
-          //       {!loading && adminGettingLeaveApplications.length === 0 && (
-          //         <tr>
-          //           <td colSpan={9} className="text-center">
-          //             No Pending leaves
-          //           </td>
-          //         </tr>
-          //       )}
-          //     </tbody>
-          //   </table>
-
-          //   {loading && (
-          //     <div className="d-flex justify-content-center mt-3">
-          //       <Loader />
-          //     </div>
-          //   )}
-          // </section>
           <section className="tables">
             <table className="main-table table-bordered table-responsive admin-employee-leaves-table">
               <thead
@@ -615,30 +615,64 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
                   color: applicationColor.readColor1,
                 }}
               >
-                {/* Removed Employee ID column */}
-                <th>Action</th>
-                <th>Applyed At</th>
+                <th>Approve</th>
+                <th>Reject</th>
+                <th>Applied On</th>
                 <th>Employee Name</th>
                 <th>Leave Type</th>
                 <th>From Date</th>
                 <th>To Date</th>
-                <th>Days Taken</th>
+                {/* <th>Days Taken</th> */}
                 <th>Reason</th>
                 <th>Leave Status</th>
               </thead>
               <tbody className="admin-leaves-table-body">
-                {adminGettingLeaveApplications.length > 0 &&
+                {adminGettingLeaveApplications?.length > 0 &&
                   adminGettingLeaveApplications?.map((item) => (
                     <tr key={item.id}>
-                      {console.log(adminGettingLeaveApplications, "leave")}
-                      <td>{renderLeaveStatusButtons(item)}</td>
-                      {/* <td>{item.createdAt}</td> */}
-                      {/* <td>{format(new Date(item.createdAt), "dd-MM-yyyy")}</td> */}
-                      <td>
-                        {format(new Date(item.createdAt), "EEE, dd-MM-yyyy")}
+                      <td className="text-center">
+                        {item.approved ? (
+                          <FaThumbsUp className="text-success" />
+                        ) : (
+                          <div
+                            className="actions-btn accept"
+                            disabled={btndisabled}
+                            // onClick={() =>
+                            //   onLeaveAccept(item.leave_application_id)
+                            // }
+                          >
+                            <FaThumbsUp
+                              className="text-success"
+                              onClick={() => handleThumbsUpClick(item)}
+                            />
+                          </div>
+                        )}
+                      </td>
+                      <td className="text-center">
+                        {item.rejected ? (
+                          <FaThumbsDown className="text-danger" />
+                        ) : (
+                          <div
+                            className="actions-btn reject"
+                            disabled={btndisabled}
+                            // onClick={() =>
+                            //   onLeaveReject(item.leave_application_id)
+                            // }
+                          >
+                            <FaThumbsDown
+                              className="text-danger"
+                              onClick={() => handleThubsDownClick(item)}
+                            />
+                          </div>
+                        )}
                       </td>
 
-                      {console.log(item.createdAt, "at")}
+                      <td>
+                        {format(
+                          new Date(item.createdAt),
+                          "EEE, dd-MM-yyyy hh:mm a"
+                        )}
+                      </td>
                       <td>
                         {item.employee_name}
                         <br />
@@ -646,10 +680,12 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
                           {item.employee_id}
                         </small>
                       </td>
-                      <td>{item.leave_type}</td>
+                      <td>
+                        {item.leave_type} - {item.days_taken}
+                      </td>
                       <td>{item.from_date}</td>
                       <td>{item.to_date}</td>
-                      <td>{item.days_taken}</td>
+                      {/* <td>{item.days_taken}</td> */}
                       <td
                         style={{
                           maxWidth: "200px",
@@ -659,7 +695,6 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
                       >
                         {item.reason}
                       </td>
-
                       <td>
                         <span
                           className={`leave-status ${item.leave_status.toLowerCase()}`}
@@ -675,13 +710,12 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
                           )}
                         </span>
                       </td>
-                      {/* 
-                      <td>{renderLeaveStatusButtons(item)}</td> */}
                     </tr>
                   ))}
-                {!loading && adminGettingLeaveApplications.length === 0 && (
+
+                {!loading && adminGettingLeaveApplications?.length === 0 && (
                   <tr>
-                    <td colSpan={8} className="text-center">
+                    <td colSpan={10} className="text-center">
                       No Pending leaves
                     </td>
                   </tr>
@@ -692,6 +726,103 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
             {loading && (
               <div className="d-flex justify-content-center mt-3">
                 <Loader />
+              </div>
+            )}
+
+            {showModal1 && selectedLeave && (
+              <div
+                className="modal show d-flex justify-content-center align-items-center"
+                tabIndex="-1"
+                role="dialog"
+                style={{ display: "block" }}
+              >
+                <div className="modal-dialog  " role="document">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h6 className="modal-title">
+                        Confirm Employee Leave Request{" "}
+                      </h6>
+                      {/* <button
+                        type="button"
+                        className="close"
+                        onClick={closeModal}
+                      >
+                        <span aria-hidden="true">&times;</span>
+                      </button> */}
+                    </div>
+                    <div className="modal-body">
+                      <p>
+                        Are you sure want to approve the leave of{" "}
+                        {selectedLeave.employee_name}?
+                      </p>
+                    </div>
+                    <div className="modal-footer">
+                      <button
+                        type="button"
+                        disabled={btndisabled}
+                        className="btn btn-primary"
+                        onClick={handleLeaveAccept}
+                      >
+                        Yes
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-secondary"
+                        onClick={closeModal}
+                      >
+                        No
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {RejectModel && selectedLeave && (
+              <div
+                className="modal show"
+                tabIndex="-1"
+                role="dialog"
+                style={{ display: "block" }}
+              >
+                <div className="modal-dialog" role="document">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h6 className="modal-title">
+                        Confirm Employee Leave Request
+                      </h6>
+                      {/* <button
+                        type="button"
+                        className="close"
+                        onClick={closeModal}
+                      >
+                        <span aria-hidden="true">&times;</span>
+                      </button> */}
+                    </div>
+                    <div className="modal-body">
+                      <p>
+                        Are you sure want to Reject the leave of{" "}
+                        {selectedLeave.employee_name}?
+                      </p>
+                    </div>
+                    <div className="modal-footer">
+                      <button
+                        type="button"
+                        className="btn btn-primary"
+                        onClick={handleLeaveReject}
+                      >
+                        Yes
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-secondary"
+                        onClick={closeModal}
+                      >
+                        No
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
           </section>
