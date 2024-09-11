@@ -16,7 +16,7 @@ const EmployeChange = () => {
   const { checkErrors } = useFunctionContext();
   const [btndisabled, setBtndisabled] = useState(false);
 
-  const Schemas = Joi.object({
+  const Schemas = {
     email: Joi.string()
       .email({ tlds: { allow: ["com", "net", "org", "io"] } })
       .max(50)
@@ -39,7 +39,7 @@ const EmployeChange = () => {
         "any.required": "Password is required",
       })
       .label("Password"),
-  });
+  };
 
   const validateField = (name, value) => {
     const schema = Joi.object(Schemas);
@@ -50,7 +50,7 @@ const EmployeChange = () => {
   const handlingSubmit = async (e) => {
     e.preventDefault();
     try {
-      await checkErrors(Schemas.email, Schemas.new_password, formData);
+      await checkErrors(Schemas, formData);
       setBtndisabled(true);
       const payload = {
         email: formData.email,

@@ -686,7 +686,7 @@ export const isManagerRouter = [
         path: "/profile_Edit",
         element: (
           <IsManagerRoute>
-             <EmployeeProfileUpdate />
+            <EmployeeProfileUpdate />
           </IsManagerRoute>
         ),
       },
@@ -791,7 +791,7 @@ export const isTeamLeadRouter = [
         path: "/profile_Edit",
         element: (
           <IsTeamLeadRoute>
-             <EmployeeProfileUpdate />
+            <EmployeeProfileUpdate />
           </IsTeamLeadRoute>
         ),
       },
