@@ -25,7 +25,7 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
   };
 
   const removeEducationDetails = (index) => {
-    const newFormData = formData?.educational_details.filter((item, i) => {
+    const newFormData = formData?.educational_details?.filter((item, i) => {
       return i !== index;
     });
     setFormData((prevForm) => {
@@ -49,7 +49,7 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
   };
 
   const removeDependentDetails = (index) => {
-    const newFormData = formData?.dependent_details.filter((item, i) => {
+    const newFormData = formData?.dependent_details?.filter((item, i) => {
       return i !== index;
     });
     setFormData((prevForm) => {

@@ -130,7 +130,7 @@ const LeavesSettings = () => {
         organisation_id: orgDetails?.organisation_id,
         role_id: formData.role_id.trim(), // Include designation_id in payload
         leave_name: formData.leave_name.trim(),
-        total_leaves: formData.total_leaves,
+        total_leaves: formData.total_leaves.trim(),
         leave_id: formData.leave_id ? formData.leave_id.trim(): "",
       };
       // const dataToSubmit = {
@@ -156,7 +156,12 @@ const LeavesSettings = () => {
       setBtndisabled(false);
     } catch (error) {
       setBtndisabled(false);
-      toastOptions.error(error?.response?.data || error[0] || "An error occurred");
+      if(error?.response?.data ){
+        
+        toastOptions.error(
+          error?.response?.data 
+        );
+      }
     } finally {
       setLoading(false);
       setBtndisabled(false);

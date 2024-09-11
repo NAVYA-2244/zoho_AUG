@@ -67,7 +67,7 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
         setLoading(true);
 
         // Filter employees with role "Director" or "Manager"
-        const managers = reportingmangers.filter((employee) => {
+        const managers = reportingmangers?.filter((employee) => {
           const roleName = employee?.work_info?.role_name?.toLowerCase();
           return roleName === "admin" || roleName === "manager";
         });

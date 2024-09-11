@@ -589,7 +589,7 @@ const EmployeeList = () => {
   };
 
   useEffect(() => {
-    if (employeesList.length == 0) {
+    if (!employeesList||employeesList?.length == 0) {
       fetchData();
     }
   }, []);
@@ -602,7 +602,7 @@ const EmployeeList = () => {
 
     observer.current = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
-        if (employeesList.length >= 50) {
+        if (employeesList?.length >= 50) {
           fetchData();
         }
       }
@@ -614,7 +614,7 @@ const EmployeeList = () => {
     debounce((term) => {
       if (term.length > 0) {
         const lowerCaseSearchTerm = term.toLowerCase();
-        const filteredItems = employeesList.filter((item) => {
+        const filteredItems = employeesList?.filter((item) => {
           const {
             employee_id,
             basic_info: { first_name, last_name, email },
@@ -731,9 +731,9 @@ const EmployeeList = () => {
               </tr>
             </thead>
             <tbody>
-              {employeesList.length > 0 ? (
+              {employeesList?.length > 0 ? (
                 kk.map((employee, index) => {
-                  if (index === employeesList.length - 1) {
+                  if (index === employeesList?.length - 1) {
                     return (
                       <tr key={employee.employee_id} ref={handleRef}>
                         <td
@@ -744,31 +744,32 @@ const EmployeeList = () => {
                             fontWeight: "bold",
                           }}
                           onClick={() =>
-                            navigate(`/admin/employee/${employee.employee_id}`)
+                            navigate(`/admin/employee/${employee?.employee_id}`)
                           }
                         >
-                          {employee.employee_id}
+                          {employee?.employee_id}
                         </td>
                         <td>
-                          {employee.basic_info.first_name}
-                          {employee.basic_info.last_name}
+                          {employee?.basic_info?.first_name}
+                          {employee?.basic_info?.last_name}
                         </td>
-                        <td style={{ textTransform: "lowercase"}}>{employee?.basic_info?.email ? employee.basic_info.email.toLowerCase() : ''}</td>
+                        <td style={{ textTransform: "lowercase"}}>{employee?.basic_info?.email ? employee?.basic_info?.email.toLowerCase() : ''}</td>
 
-                        <td>{employee.work_info.department_name}</td>
-                        <td>{employee.work_info.designation_name}</td>
+                        <td>{employee?.work_info?.department_name}</td>
+                        <td>{employee?.work_info?.designation_name}</td>
 
-                        <td>{employee.work_info.date_of_join}</td>
+                        <td>{employee?.work_info?.date_of_join ? new Date(employee?.work_info?.date_of_join).toLocaleDateString('en-GB') : 'N/A'}</td>
+
                         {/* <td>{employee.work_info.employee_status}</td> */}
                         <td>
                           <span
                             className={`badge ${
-                              employee.work_info.employee_status === "active"
+                              employee?.work_info?.employee_status === "active"
                                 ? "bg-success"
                                 : "bg-danger"
                             }`}
                           >
-                            {employee.work_info.employee_status}
+                            {employee?.work_info?.employee_status}
                           </span>
                         </td>
 
@@ -794,30 +795,31 @@ const EmployeeList = () => {
                           {employee.employee_id}
                         </td>
                         <td>
-                          {employee.basic_info.first_name}{" "}
-                          {employee.basic_info.last_name}
+                          {employee?.basic_info?.first_name}{" "}
+                          {employee?.basic_info?.last_name}
                         </td>
 
                         <td style={{ textTransform: "lowercase"}}>{employee?.basic_info?.email ? employee.basic_info.email.toLowerCase() : ''}</td>
 
-                        <td>{employee.work_info.department_name}</td>
-                        <td>{employee.work_info.designation_name}</td>
-                        <td>{employee.work_info.date_of_join}</td>
+                        <td>{employee?.work_info?.department_name}</td>
+                        <td>{employee?.work_info?.designation_name}</td>
+                        <td>{employee?.work_info?.date_of_join ? new Date(employee?.work_info?.date_of_join).toLocaleDateString('en-GB') : 'N/A'}</td>
+
                         {/* <td>{employee.work_info.employee_status}</td> */}
                         <td>
                           <span
                             className={`badge ${
-                              employee.work_info.employee_status === "active"
+                              employee?.work_info?.employee_status === "active"
                                 ? "bg-success"
                                 : "bg-danger"
                             }`}
                           >
-                            {employee.work_info.employee_status}
+                            {employee?.work_info?.employee_status}
                           </span>
                         </td>
 
                         <td>
-                          <UpdateEmployeeAction id={employee.employee_id} />
+                          <UpdateEmployeeAction id={employee?.employee_id} />
                         </td>
                       </tr>
                     );

@@ -48,7 +48,7 @@ const HierarchyData = ({ formData, setFormData }) => {
   };
 
   const removeWorkExperience = (index) => {
-    const filterFormData = formData?.work_experience.filter((item, i) => {
+    const filterFormData = formData?.work_experience?.filter((item, i) => {
       return i !== index;
     });
 

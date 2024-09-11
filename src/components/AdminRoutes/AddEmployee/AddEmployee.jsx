@@ -14,8 +14,9 @@ import { format } from "date-fns";
 import EmployeeList from "../EmployeeList/EmployeeList";
 
 const AddEmployee = () => {
-  const { setOrgData2, setLoadingTerm, setLoading, orgDetails , setEmployeelist,EmployeeList} =
+  const { setOrgData2, setLoadingTerm, setLoading, orgDetails ,employeesList, setEmployeesList} =
     useStateContext();
+    
     const navigate = useNavigate()
   
 
@@ -42,8 +43,11 @@ const AddEmployee = () => {
       setButtonDisabled(true)
       setLoading(true);
       setLoadingTerm("Add Employee");
+      setEmployeesList([])
       await checkErrors(ExpirementSchema, formData);
+// const uan =formData.uan.toUpperCase();
 
+// console.log(uan)
       const data = {
         organisation_id: orgDetails?.organisation_id,
         // banner: formData?.banner,
@@ -73,10 +77,10 @@ const AddEmployee = () => {
         marital_status: formData?.marital_status,
         about_me: formData?.about_me,
         identity_info: {
-          uan: formData?.uan.touppecase(),
-          pan: formData?.pan.touppecase(),
+          uan: formData?.uan.toUpperCase(),
+          pan: formData?.pan.toUpperCase(),
           aadhaar: formData?.aadhaar,
-          passport_number: formData?.passport_number.touppecase(),
+          passport_number: formData?.passport_number.toUpperCase(),
         },
         mobile_number: formData?.mobile_number,
         // personal_mobile_number: formData?.personal_mobile_number,

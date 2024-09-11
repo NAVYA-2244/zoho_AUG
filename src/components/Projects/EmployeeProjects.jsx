@@ -91,7 +91,7 @@ const EmployeeProjects = () => {
   }, []);
 
   const getTasksByProjectId = (projectId) => {
-    return ProfileTask.filter((task) => task.project_id === projectId);
+    return ProfileTask?.filter((task) => task.project_id === projectId);
   };
   const handleRefresh = async () => {
     fetchProjects();

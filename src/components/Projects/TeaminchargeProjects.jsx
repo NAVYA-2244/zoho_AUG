@@ -124,7 +124,7 @@ const TeaminchargeProjects = () => {
   };
 
   const getTasksByProjectId = (projectId) => {
-    return ProfileTask.filter((task) => task.project_id === projectId);
+    return ProfileTask?.filter((task) => task.project_id === projectId);
   };
   const handleDragOver = (event) => {
     event.preventDefault();

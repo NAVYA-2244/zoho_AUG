@@ -91,7 +91,7 @@ const Chat = () => {
   };
 
   const handleDelete = (userId) => {
-    const updatedUsers = users.filter((user) => user.id !== userId);
+    const updatedUsers = users?.filter((user) => user.id !== userId);
     setUsers(updatedUsers);
 
     if (currentUser && currentUser.id === userId) {

@@ -106,7 +106,12 @@ const TableHead = ({
       setSort({ property, direction: "asc" });
     }
   };
-
+  const formatDate = (dateString) => {
+    if (!dateString) return "N/A"; // Handle empty or invalid date
+    const [year, month, day] = dateString.split("-");
+    return `${day}-${month}-${year}`;
+  };
+  
   const sortedData = _.orderBy(data, sort.property, sort.direction);
   return (
     <>

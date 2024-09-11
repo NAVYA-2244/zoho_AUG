@@ -22,8 +22,9 @@ const convertDate = (dateString) => {
 };
 
 const UpdateEmployee = () => {
-  const { setLoading, setLoadingTerm, setOrgData2, orgDetails } =
+  const { setLoading, setLoadingTerm, setOrgData2, orgDetails,employeesList, setEmployeesList  } =
     useStateContext();
+   
   const { employeId } = useParams();
   const [updateEmployeedata, setUpdateEmployeeData] = useState({});
   const { checkErrors } = useFunctionContext();
@@ -178,7 +179,7 @@ const UpdateEmployee = () => {
       setButtonDisabled(true);
       setLoading(true);
       setLoadingTerm("Update Employee");
-
+      setEmployeesList([])
       // Remove the `admin_type` field from formData if it exists
       const { admin_type, ...filteredFormData } = formData;
 
@@ -261,7 +262,7 @@ const UpdateEmployee = () => {
   return (
     <>
       {/* hello world */}
-      {Object.keys(updateEmployeedata).length > 0 ? (
+      {Object.keys(updateEmployeedata)?.length > 0 ? (
         <ReusableProfileForm
           form={updateEmployeedata}
           type={"Update Employee"}

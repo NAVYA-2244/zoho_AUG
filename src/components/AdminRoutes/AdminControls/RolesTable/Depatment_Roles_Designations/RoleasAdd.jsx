@@ -607,8 +607,9 @@ const RolesAdd = () => {
       setShowModal(false);
       
     } catch (error) {
-     
+     if(error?.response?.data){
       toastOptions.error(error?.response?.data || error[0]?.message || "An error occurred");
+    }
     } finally {
       setLoading(false);
     }

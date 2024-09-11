@@ -47,18 +47,18 @@ const EmployeeLeaveApplicationStatus = () => {
     if (Object.keys(employeeData).length > 0) {
       totalLeaveApplicationsLength =
         employeeData?.leaveApplications.length || 0;
-      totalApprovedLeaveApplications = employeeData?.leaveApplications.filter(
+      totalApprovedLeaveApplications = employeeData?.leaveApplications?.filter(
         (item) => {
           return item.leaveStatus === "Approved";
         }
       ).length;
-      totalRejectedLeaveApplications = employeeData?.leaveApplications.filter(
+      totalRejectedLeaveApplications = employeeData?.leaveApplications?.filter(
         (item) => {
           return item.leaveStatus === "rejected";
         }
       ).length;
 
-      totalPendingLeaveApplication = employeeData?.leaveApplications.filter(
+      totalPendingLeaveApplication = employeeData?.leaveApplications?.filter(
         (item) => {
           return item.leaveStatus === "pending";
         }

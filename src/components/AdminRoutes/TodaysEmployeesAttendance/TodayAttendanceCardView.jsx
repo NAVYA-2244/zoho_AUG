@@ -827,13 +827,13 @@ function TodayAttendanceCardView() {
     fetchAttendanceData(event.target.value);
   };
 
-  const lateCheckins = todayAttendanceAdmin.filter(
+  const lateCheckins = todayAttendanceAdmin?.filter(
     (employee) => employee.late_checkin === true
   );
-  const allCheckins = todayAttendanceAdmin.filter(
+  const allCheckins = todayAttendanceAdmin?.filter(
     (employee) => employee.late_checkin === false
   );
-  const leaveApplications = todayAttendanceAdmin.filter(
+  const leaveApplications = todayAttendanceAdmin?.filter(
     (employee) => employee.status === "leave"
   );
 

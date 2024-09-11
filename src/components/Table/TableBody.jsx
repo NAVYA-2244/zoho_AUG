@@ -298,7 +298,15 @@ const TableBody = ({
     useStateContext();
   const { handleShowLocation } = useFunctionContext();
 
+  function isValidDate(dateString) {
+    const date = new Date(dateString);
+    return date instanceof Date && !isNaN(date);
+  }
+
   const parsingDate = (date) => {
+
+    if(!isValidDate(date)) return 
+
     const dateObj = parseISO(date);
     const formattedDate = format(dateObj, "dd-MM-yyyy");
     return formattedDate;
@@ -346,7 +354,7 @@ const TableBody = ({
       );
     } else if (["", "0"].includes(value)) {
       return <span>--</span>;
-    } else if (property.name === "Date") {
+    } else if (property.name === "Date" || property.name === "DOB") {
       return parsingDate(value);
     } else if (value?.length > 20) {
       return <span>{value.substring(0, 20) + "..."}</span>;

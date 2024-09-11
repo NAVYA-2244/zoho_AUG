@@ -28,28 +28,28 @@ function EmployeeLeavesSelecteId() {
   const [leaveApplications, setLeaveApplications] = useState([]);
   const [status, setStatus] = useState("");
   const [year, setYear] = useState("");
+  const fetchLeaveApplications = async () => {
+    try {
+      const payload = {
+        skip: 0,
+        leave_status: status || "", // Optional filter for leave_status
+        year: year || "", // Optional filter for year
+      };
+      // Log the payload to ensure the year is being sent correctly
+      const response = await backEndCallObjNothing(
+        "/emp_get/leave_applications",
+        payload
+      );
+      setLeaveApplications(response);
+      setEmployeeLeaveApplications(response.data);
 
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
   useEffect(() => {
-    const fetchLeaveApplications = async () => {
-      try {
-        const payload = {
-          skip: 0,
-          leave_status: status || "", // Optional filter for leave_status
-          year: year || "", // Optional filter for year
-        };
-        // Log the payload to ensure the year is being sent correctly
-        const response = await backEndCallObjNothing(
-          "/emp_get/leave_applications",
-          payload
-        );
-        setLeaveApplications(response);
-        setEmployeeLeaveApplications(response.data);
-
-        setLoading(false);
-      } catch (error) {
-        setLoading(false);
-      }
-    };
+   
     fetchLeaveApplications();
   }, [status, year]); // Include `year` as a dependency
 
@@ -77,7 +77,7 @@ function EmployeeLeavesSelecteId() {
           <select
             value={status}
             onChange={handleStatusChange}
-            className="form-control"
+            className="form-control form-select"
           >
             <option value="">All Status</option>
             <option value="Pending">Pending</option>

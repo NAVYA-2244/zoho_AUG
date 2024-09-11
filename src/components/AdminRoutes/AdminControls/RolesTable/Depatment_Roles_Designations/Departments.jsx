@@ -114,9 +114,12 @@ console.log("orgDetails",orgDetails.departments)
       setShowModal(false);
       // toastOptions(response.success)
     } catch (error) {
-      toastOptions.error(
-        error?.response?.data || error[0]?.message || "An error occurred"
-      );
+      if(error?.response?.data ){
+        
+        toastOptions.error(
+          error?.response?.data 
+        );
+      }
     } finally {
       setLoading(false);
     }

@@ -814,7 +814,7 @@ const TeamAssignmentModal = ({ projectId, setIsTeamModalVisible, fetchProjects, 
                 options={options}
                 isMulti
                 onChange={handleChange}
-                value={options.filter(option => formData.employee_id.includes(option.value))}
+                value={options?.filter(option => formData.employee_id.includes(option.value))}
                 className="react-select-container"
                 classNamePrefix="react-select"
                 styles={{
