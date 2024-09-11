@@ -1,6 +1,7 @@
 import React from "react";
 import { useThemeContext } from "../../../Contexts/ThemesContext";
 import { useStateContext } from "../../../Contexts/StateContext";
+import { formatDate } from "date-fns";
 
 const EmployeeLeaveApplicationsTable = ({ leaveApplications }) => {
   const { applicationColor } = useThemeContext();
@@ -112,7 +113,8 @@ const EmployeeLeaveApplicationsTable = ({ leaveApplications }) => {
                       </td>
                     );
                   }
-
+                  {
+                  }
                   return <td key={i}>{value}</td>;
                 })}
               </tr>

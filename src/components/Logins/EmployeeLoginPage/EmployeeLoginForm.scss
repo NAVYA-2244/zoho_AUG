@@ -272,3 +272,30 @@
   color: #000;
   cursor: pointer;
 }
+.form-group{
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  margin-top: 0;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  transition: 0.3s;
+  position: relative;
+  gap: 13px;
+  .main-input {
+    .input {
+      position: relative;
+      width: 100%;
+
+      .eye {
+        position: absolute;
+        z-index: 1000000;
+        top: 8px;
+        right: 10px;
+        color: #000;
+        cursor: pointer;
+      }
+    }
+  }
+}

@@ -94,12 +94,13 @@ const EmployeChange = () => {
             validateField={validateField}
           />
           <InputPassword
+            id={"password"}
             type={"password"}
             placeholder={"Password"}
             name={"new_password"}
             setForm={setFormData}
             value={formData.new_password}
-            schema={Schemas.newPassword}
+            schema={Schemas.new_password}
             validateField={validateField}
             icon={<MdOutlineKey />}
           />

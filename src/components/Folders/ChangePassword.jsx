@@ -126,79 +126,67 @@ const ChangePassword = () => {
 
   return (
     <>
-      <div className="row d-flex">
-        <div className="col-lg-4">
+      <div className="row d-flex ">
+        <div className="col-lg-4 ">
           <div
             className="d_card m-2 p-3"
             style={{ background: applicationColor.cardItem, height: "460px" }}
           >
             <h5 className="text-center mb-4">Change Password</h5>
+            <form className="form-group" onSubmit={handleSubmit}>
+              <InputPassword
+                id={"password"}
+                type={"password"}
+                name={"oldPassword"}
+                placeholder="Old Password"
+                value={formData.oldPassword}
+                validateField={validateField}
+                schema={schema.oldPassword}
+                setForm={setFormData}
+                maxLength={10}
+                icon={<MdOutlineKey />}
+              />
 
-            <InputPassword
-              type={"password"}
-              name={"oldPassword"}
-              placeholder="Old Password"
-              value={formData.oldPassword}
-              validateField={validateField}
-              schema={schema.oldPassword}
-              setForm={setFormData}
-              maxLength={10}
-              icon={<MdOutlineKey />}
-            />
+              <InputPassword
+                id={"password"}
+                type={"password"}
+                name={"newPassword"}
+                placeholder="New Password"
+                value={formData.newPassword}
+                schema={schema.newPassword}
+                setForm={setFormData}
+                validateField={validateField}
+                maxLength={10}
+                autoCapitalize="none"
+                icon={<MdOutlineKey />}
+              />
+              <InputPassword
+                type={"password"}
+                name={"confirmPassword"}
+                placeholder={"Confirm Password"}
+                value={formData.confirmPassword}
+                // style={{
+                //   borderRadius: "10px",
+                //   width: "450px",
+                //   height: "50px",
+                // }}
+                schema={schema.confirmPassword}
+                e
+                setForm={setFormData}
+                validateField={validateField}
+                maxLength={10}
+                // autoCapitalize="none"
+                icon={<MdOutlineKey />}
+              />
 
-            <InputPassword
-              type={"password"}
-              name={"newPassword"}
-              placeholder="New Password"
-              value={formData.newPassword}
-              schema={schema.newPassword}
-              setForm={setFormData}
-              validateField={validateField}
-              maxLength={10}
-              autoCapitalize="none"
-              icon={<MdOutlineKey />}
-            />
-
-            {/* <input
-                      type={showConfirmPassword ? "text" : "password"}
-                      id="confirmPassword"
-                      name="confirmPassword"
-                      placeholder="Confirm Password"
-                      value={formData.confirmPassword}
-                      style={{
-                        borderRadius: "10px",
-                        width: "450px",
-                        height: "50px",
-                      }}
-                      onChange={handleInputChange}
-                      maxLength={10}
-                    /> */}
-            <InputPassword
-              type={"password"}
-              name={"confirmPassword"}
-              placeholder={"Confirm Password"}
-              value={formData.confirmPassword}
-              // style={{
-              //   borderRadius: "10px",
-              //   width: "450px",
-              //   height: "50px",
-              // }}
-              schema={schema.confirmPassword}
-              setForm={setFormData}
-              validateField={validateField}
-              maxLength={10}
-              // autoCapitalize="none"
-              icon={<MdOutlineKey />}
-            />
-
-            <button
-              className="btn btn-primary w-100"
-              disabled={btndisabled}
-              onClick={handleSubmit}
-            >
-              Submit
-            </button>
-
+              <button
+                className="btn btn-primary w-100"
+                disabled={btndisabled}
+                onClick={handleSubmit}
+              >
+                Submit
+              </button>
+            </form>
             {showModal && <Modal onLogout={handleLogout} />}
           </div>
         </div>
