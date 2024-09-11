@@ -102,7 +102,7 @@ const Headers = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("zohoEmployeeToken");
-    window.location = "/login";
+    navigate("/login")
     // window.localStorage.getItem("zohoEmployeeToken")
     //   ? (window.location = "/dashboard")
     //   : (window.location = "/login");

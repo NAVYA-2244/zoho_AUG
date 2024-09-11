@@ -67,7 +67,7 @@ const EmployeeLoginForm = ({ setOtpType }) => {
 
   useEffect(() => {
     
-    if(employeeDetails){ window.location = "/dashboard"}
+    if(localStorage.getItem("zohoEmployeeToken")){ window.location = "/dashboard"}
 
     const getBrowserId = async () => {
       const fp = await FingerprintJS.load();
