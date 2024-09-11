@@ -28,7 +28,7 @@ console.log("orgDetails",orgDetails.departments)
 
   const departmentSchema ={
     organisation_id: Joi.string().min(10).max(18).required(),
-    department_name: Joi.string().trim().strip().min(5).max(20).required(),
+    department_name: Joi.string().trim().strip().min(5).max(50).required(),
     department_id: Joi.string().allow(null, "").optional(),
   };
 
@@ -290,7 +290,7 @@ console.log("orgDetails",orgDetails.departments)
                              value={formData[field]}
                              placeholder={placeholders[index]}
                              onChange={handleChange}
-                             maxLength={25}
+                             maxLength={50}
                            />
                          </div>
                        ))}

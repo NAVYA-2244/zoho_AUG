@@ -73,10 +73,10 @@ const AddEmployee = () => {
         marital_status: formData?.marital_status,
         about_me: formData?.about_me,
         identity_info: {
-          uan: formData?.uan,
-          pan: formData?.pan,
+          uan: formData?.uan.touppecase(),
+          pan: formData?.pan.touppecase(),
           aadhaar: formData?.aadhaar,
-          passport_number: formData?.passport_number,
+          passport_number: formData?.passport_number.touppecase(),
         },
         mobile_number: formData?.mobile_number,
         // personal_mobile_number: formData?.personal_mobile_number,

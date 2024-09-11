@@ -680,7 +680,7 @@ console.log(formData,"formdata")
       await schema.validateAsync(formData, { abortEarly: false });
       const response = await backEndCallObjNothing("/emp/update_dp", {
         image: formData.image,
-        about_me: formData.about_me,
+        about_me: formData.about_me||"",
       });
       console.log(response)
       const res = await backEndCallObjNothing("/emp_get/get_profile");

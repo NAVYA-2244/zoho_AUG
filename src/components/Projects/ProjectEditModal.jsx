@@ -652,9 +652,11 @@ import { IoArrowBackSharp } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { Date_Input, Input_area, Input_text, Select_inputs } from "../common/ALLINPUTS/AllInputs";
 import { toastOptions } from "../../Utils/FakeRoutes";
+import { useStateContext } from "../Contexts/StateContext";
 
 const ProjectEditModal = ({ project, setIsFormVisible, fetchProjects }) => {
   const [loading, setLoading] = useState(false);
+  const { EmployProject, setEmployeProject } = useStateContext();
   const [formData, setFormData] = useState({
     project_name: "",
     description: "",
@@ -738,7 +740,10 @@ const ProjectEditModal = ({ project, setIsFormVisible, fetchProjects }) => {
     try {
       await checkErrors(projectschema, formData);
       const response = await backEndCallObjNothing("/admin/add_update_project", formData);
+      await setEmployeProject(null)
       toastOptions.success(response);
+     
+     
       fetchProjects();
       setIsFormVisible(false);
     } catch (error) {
