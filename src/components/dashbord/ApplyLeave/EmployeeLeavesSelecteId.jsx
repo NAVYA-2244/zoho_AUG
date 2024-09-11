@@ -97,6 +97,7 @@ function EmployeeLeavesSelecteId() {
     const selectedYear = new Date(e.target.value).getFullYear().toString(); // Convert to string
     setYear(selectedYear);
   };
+
   console.log("selectedEmployeeData", selectedEmployeeData);
   const resetFilters = () => {
     setStatus("");
@@ -120,12 +121,12 @@ function EmployeeLeavesSelecteId() {
           </select>
         </div>
         <div className="col-md-4">
-       
+    
           <input
             type="date"
-            onChange={handleYearChange}
+            value={"02-12-2024"}
+            // onChange={handleYearChange}
             className="form-control"
-            placeholder="Select Year"
           />
        
         </div>

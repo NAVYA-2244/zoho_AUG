@@ -76,8 +76,8 @@ let dependentdetails = [
     type: "string",
   },
   {
-    name: "Dependent DOB",
-    property: "dependent_date_of_birth",
+    name: "Dependent MObile number",
+    property: "dependent_mobile_number",
     type: "string",
   },
   {
@@ -287,14 +287,16 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
   //   navigate("/profile_Edit", { state: { employeeProfileData } });
   // }
   const handleEdit = () => {
-    if (
-      employeeDetails.admin_type === "1" ||
-      employeeDetails.admin_type === "2"
-    ) {
+    // if (
+    //   employeeDetails.admin_type === "1" ||
+    //   employeeDetails.admin_type === "2"
+    // ) {
+
       navigate(
         `/admin/update_employee/${employeeProfileData.profile.employee_id}`
       );
-    }
+      
+    // }
     //  else {
     //   // navigate("/profile_Edit", { state: { employeeProfileData } });
     //   ""
@@ -384,13 +386,13 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
                   <div className="basic-info-wrapper">
                     <div className="d-flex align-items-center justify-content-between">
                       <h4 className="profile-heading">Profile</h4>
-                      {/* {employeeDetails.admin_type=== "1"?"": */}
+                      {employeeDetails.admin_type=== "1"||employeeDetails.admin_type=== "1" ?
 
-                      <button className="btn btn-primary" onClick={handleEdit}>
+                     ( <button className="btn btn-primary" onClick={handleEdit}>
                         Edit
-                      </button>
+                      </button>) : ""
 
-                      {/* } */}
+                       } 
                     </div>
                     <div className="basic-information">
                       <div className="basic-info-left">
@@ -418,13 +420,13 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
                           <PiIdentificationBadgeBold />
                           <p>{employeeProfileData.profile.employee_id}</p>
                         </div>
-                        <div className="info detail">
+                        {/* <div className="info detail">
                           <FaPhone />
-                          {/* <p>
+                          <p>
                             {contact_details.personal_mobile_number ||
                               "no data"}
-                          </p> */}
-                        </div>
+                          </p>
+                        </div> */}
                       </div>
                     </div>
                   </div>

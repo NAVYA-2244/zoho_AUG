@@ -235,7 +235,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
       setAdminGettingLeaveApplications(adminGettingLeaveApplications);
 
       fetchLeaveApplications();
-      toastOptions.error(response || "rejected");
+      toastOptions.success(response || "rejected");
       setBtndisabled(false);
     } catch (error) {
       setBtndisabled(false);
@@ -387,7 +387,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
             <select
               name="employee_id"
               value={formData.employee_id}
-              className="form-control"
+              className="form-control form-select"
               onChange={handleFormChange}
             >
               <option value="">--select--</option>
@@ -405,7 +405,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
             <select
               name="status"
               value={formData.status}
-              className="form-control"
+              className="form-control form-select"
               onChange={loading ? null : handleFormChange}
             >
               {/* <option value="">All</option> */}

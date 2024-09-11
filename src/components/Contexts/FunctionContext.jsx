@@ -14,7 +14,9 @@ export const FunctionContextProvider = ({ children }) => {
   } = useStateContext();
   //  const navigate= useNavigate()
   const handleChange = (e, schema, setForm, index = null, fieldName = null) => {
+
     const { name, type, checked, id, value: inputValue } = e.target;
+    console.log(inputValue,'inputValue')
     let value = inputValue;
 
     // Define max length based on schema

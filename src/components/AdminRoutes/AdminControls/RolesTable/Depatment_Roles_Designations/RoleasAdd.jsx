@@ -596,7 +596,7 @@ const RolesAdd = () => {
       };
       const response = await backEndCallObjNothing("/org/add_update_role", dataToSubmit);
       setOrgDetails(response.data);
-      toastOptions.success(response.success || "Operation Successful");
+      toastOptions.success(response.success );
 
       setFormData({
         role_name: "",
@@ -605,6 +605,7 @@ const RolesAdd = () => {
       });
       setEdit(false);
       setShowModal(false);
+      
     } catch (error) {
      
       toastOptions.error(error?.response?.data || error[0]?.message || "An error occurred");

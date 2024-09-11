@@ -102,7 +102,8 @@ console.log("orgDetails",orgDetails.departments)
       );
 
       setOrgDetails(response.data);
-      toastOptions.success(response.success || "Operation Successful");
+      console.log(response,"response")
+      toastOptions.success(response.success);
 
       setFormData({
         department_name: "",
@@ -111,6 +112,7 @@ console.log("orgDetails",orgDetails.departments)
       });
       setEdit(false);
       setShowModal(false);
+      // toastOptions(response.success)
     } catch (error) {
       toastOptions.error(
         error?.response?.data || error[0]?.message || "An error occurred"

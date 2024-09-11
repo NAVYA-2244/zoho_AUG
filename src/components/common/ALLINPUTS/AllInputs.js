@@ -1166,7 +1166,7 @@ export function Select_inputs({
       </div>
       {errors[name] && (
         <div className="error-message mt-2">
-          <span>{errors[name]}</span>
+          <span className="m-2">{errors[name]}</span>
         </div>
       )}
     </div>
@@ -1295,11 +1295,12 @@ export function Date_Input({
   const dateInputRef = useRef(null);
 
   const dateValue = value ? parseISO(value) : null;
-
+  console.log(value, 'value')
+  console.log(dateValue, 'dateValue')
   const formatedDate = isValid(dateValue)
     ? format(new Date(dateValue), "yyyy-MM-dd")
     : "";
-
+  console.log(formatedDate, 'formatedDate')
   const handleClick = () => {
     if (dateInputRef.current) {
       dateInputRef.current.showPicker();

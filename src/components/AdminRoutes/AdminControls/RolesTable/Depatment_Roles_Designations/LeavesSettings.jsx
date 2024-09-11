@@ -195,7 +195,7 @@ const LeavesSettings = () => {
               <h5 className="mb-3 d-flex justify-content-between align-items-center" style={{ fontWeight: '600' }}>
                 {roles.role_name}
                 <button
-                  className="btn btn-sm btn-primary"
+                  className="btn btn-sm btn-primary me-2"
                   onClick={() => handleAddItems(roles.role_id)}
                 >
                   Add Leaves
@@ -280,12 +280,12 @@ const LeavesSettings = () => {
                     <div className="form-group mb-3">
                       <label htmlFor="total_leaves">Total Leaves:</label>
                       <input
-                        type="number"
+                        type="text"
                         id="total_leaves"
                         className="form-control"
                         value={formData.total_leaves}
                         min={1}
-                        max={100}
+                        maxLength={3}
                         onChange={(e) => handleLeaveChange("total_leaves", e.target.value)}
                       />
                       {errors.total_leaves && <div className="text-danger">{errors.total_leaves}</div>}
@@ -307,7 +307,7 @@ const LeavesSettings = () => {
                       </button>
                       <button
                         type="submit"
-                        className="btn btn-primary"
+                        className="btn btn-primary me-2 p-2"
                         disabled={btndisabled}
                       >
                         {edit ? "Update" : "Add"} Leave

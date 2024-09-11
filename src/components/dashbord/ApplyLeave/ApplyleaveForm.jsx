@@ -95,7 +95,21 @@ console.log(employeedataleaves)
 
   const onLeaveApply = async (e) => {
     e.preventDefault();
+    
+    const today = new Date();
+    const from_dateObj = parse(formData.from_date, 'yyyy-MM-dd', new Date());
+    const to_dateObj = parse(formData.to_date, 'yyyy-MM-dd', new Date());
+    
+    // Check if 'from_date' is greater than today's date
+   
+    
+    
+    
     try {
+      if ((from_dateObj > to_dateObj) ){
+        toastOptions.error("From Date cannot be grater than To Date");
+        return; // Prevent form submission if invalid
+      }
       setLoading(true);
       await checkErrors(leaveFormSchema, formData);
       const response = await backEndCallObjNothing(
@@ -120,7 +134,10 @@ console.log(employeedataleaves)
       setLoading(false);
     } catch (error) {
       console.log(error);
-      toastOptions.error(error?.response?.data || error.message);
+      if(error?.response?.data){
+
+        toastOptions.error(error?.response?.data || error.message);
+      }
       setLoading(false);
       setLoadingTerm("");
     }
