@@ -116,10 +116,11 @@ const TableHead = ({
   return (
     <>
       <thead
-        className="main-thead sticky-top"
+        className="main-thead sticky-top text-center"
         style={{
           background: applicationColor.tableHeadBg,
           color: applicationColor.readColor1,
+          textAlign:"center",
         }}
       >
         <tr>
@@ -128,11 +129,12 @@ const TableHead = ({
               style={{
                 background: applicationColor.tableHeadBg,
                 color: applicationColor.readColor1,
+                textAlign:"center",
               }}
               key={index}
               onClick={() => handleSorting(heading?.property)}
             >
-              <div className="heading">
+              <div className="heading text d-flex justify-content-center align-items-center text-center">
                 <h6>{heading.name}</h6>
                 {/* {console.log(heading, "heading")} */}
                 {heading.property === sort.property && (

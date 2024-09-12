@@ -616,6 +616,7 @@ import { backEndCallObjNothing } from "../../../services/mainService";
 import { toastOptions } from "../../../Utils/FakeRoutes";
 import "./ProfilePhoto.scss"; // Assuming you have custom styles here
 import { Input_area } from "../../common/ALLINPUTS/AllInputs";
+import { IoHandLeft } from "react-icons/io5";
 
 const ProfilePhoto = () => {
   const { setProfilePhoto, profilePhoto , employeedata,setEmployeedata,aboutme, setAboutme} = useStateContext();
@@ -666,13 +667,38 @@ console.log(formData,"formdata")
       reader.readAsDataURL(file);
     }
   };
+  const gettingEmployeeById = async () => {
+    try {
+      const response = await backEndCallObjNothing("/emp_get/get_profile", {
+        employee_id: employeeDetails?.employee_id || "",
+      });
+      console.log("profile", response);
+ 
+      // setSelectedEmployeeData(response.profile.leaves);
+    } catch (error) {
+      console.error("Error fetching employee data:", error);
+    }
+  };
+useEffect(() => {
+  gettingEmployeeById();
 
+}, [employeeDetails]);
   useEffect(() => {
     if (formData.image) {
       handleSubmit();
+    }else if(formData.about_me){
+      handleSubmit()
     }
-  }, [formData.image]);
+  }, [formData.image,formData.image]);
 
+  useEffect(() => {
+    if (employeedata?.profile?.personal_details?.about_me) {
+      setFormData((prevData) => ({
+        ...prevData,
+        about_me: employeedata.profile.personal_details.about_me,
+      }));
+    }
+  }, [employeedata]);
   const handleSubmit = async () => {
     
     try {
@@ -684,17 +710,21 @@ console.log(formData,"formdata")
       });
 
       console.log(response)
-      const res = await backEndCallObjNothing("/emp_get/get_profile");
-      console.log(res, "employeeeeeeee");
-      setProfilePhoto(response?.profile?.images?.dp);
+    //  const res=await backEndCallObjNothing("/emp_get/get_profile")
+
+      // console.log(res, "employeeeeeeee");
+    //  await  setProfilePhoto(res?.profile?.images?.dp);
+     await  setProfilePhoto(response?.data?.dp);
+
+    //  {console.log(res?.profile,"images")}
       // setEmployeedata(res); // Update state correctly
       // formData({about_me:profile?.personal_details?.about_me},)
       // Update profile photo and about_me with response data
-      setAboutme(res?.profile?.personal_details?.about_me )
-      setProfilePhoto(response?.data?.dp || "");
+       setAboutme(response.data.dp )
+      // setProfilePhoto(response?.data?.images?.dp || "");
       setFormData((prevData) => ({
         ...prevData,
-        about_me:res?.profile?.personal_details?.about_me 
+        about_me:response ?.profile?.personal_details?.about_me
       }));
       
       setError("");

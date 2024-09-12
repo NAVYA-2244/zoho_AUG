@@ -399,7 +399,7 @@ const PersonalDetailsData = ({ formData, setFormData }) => {
                   fieldName="dependent_details"
                 />
               </div> */}
-                <div className="col-lg-4 col-md-4 col-sm-6">
+                <div className="col-lg-3 col-md-3 col-sm-6">
                   <Input_text
                     type={"tel"}
                     name={"dependent_mobile_number"}

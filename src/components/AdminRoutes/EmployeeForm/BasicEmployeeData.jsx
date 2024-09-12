@@ -129,7 +129,7 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
             type={"text"}
             name={"first_name"}
             label={"First Name"}
-            placeholder={"Ex: Marry"}
+            placeholder={"Ex: Mary"}
             value={formData["first_name"]}
             setForm={setFormData}
             schema={schema.first_name}
@@ -144,7 +144,7 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
             type={"text"}
             name={"last_name"}
             label={"Last Name"}
-            placeholder={"Ex: Elgibith"}
+            placeholder={"Ex: Jackson"}
             value={formData["last_name"]}
             setForm={setFormData}
             schema={schema["last_name"]}
@@ -186,7 +186,7 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
             type={"email"}
             name={"email"}
             label="Email"
-            placeholder={"Ex: SmithElgibith@gmail.com"}
+            placeholder={"Ex: smithjackson@gmail.com"}
             value={formData["email"]}
             setForm={setFormData}
             schema={schema["email"]}
@@ -259,7 +259,7 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
             />
           </div>
         )}
-        <div className="col-lg-8 col-md-4 col-sm-6">
+        <div className="col-lg-6 col-md-4 col-sm-6">
           <Input_area
             type={"textarea"}
             name={"about_me"}

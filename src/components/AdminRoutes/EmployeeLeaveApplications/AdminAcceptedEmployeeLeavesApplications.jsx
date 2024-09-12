@@ -298,20 +298,20 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
                 disabled={btndisabled}
                 onClick={() => onLeaveAccept(application.leave_application_id)}
               >
-                Approve
+               <FaThumbsUp></FaThumbsUp> Approve
               </button>
               <button
                 className="actions-btn reject"
                 disabled={btndisabled}
                 onClick={() => onLeaveReject(application.leave_application_id)}
               >
-                Reject
+                 <FaThumbsDown></FaThumbsDown> Reject
               </button>
             </>
           ) : roleStatus === "Approved" ? (
-            <button className="actions-btn accept">Approved</button>
+            <button className="actions-btn accept"><FaThumbsUp></FaThumbsUp> Approved</button>
           ) : (
-            <button className="actions-btn reject">Rejected</button>
+            <button className="actions-btn reject"><FaThumbsDown></FaThumbsDown> Rejected</button>
           )}
         </section>
       );
@@ -421,7 +421,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
               name="year"
               onChange={handleYearChange}
               className="form-control"
-              placeholder="Select Year"
+              placeholder="Year"
             />
           </div>
           <div className="leave-applications-btn">
@@ -627,8 +627,8 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
                   color: applicationColor.readColor1,
                 }}
               >
-                <th>Approve</th>
-                <th>Reject</th>
+               
+                {/* <th>Reject</th> */}
                 <th>Applied On</th>
                 <th>Employee Name</th>
                 <th>Leave Type</th>
@@ -636,13 +636,15 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
                 <th>To Date</th>
                 {/* <th>Days Taken</th> */}
                 <th>Reason</th>
-                <th>Leave Status</th>
+
+                <th>Action</th>
+                <th> Leave Status</th>
               </thead>
               <tbody className="admin-leaves-table-body">
                 {adminGettingLeaveApplications?.length > 0 &&
                   adminGettingLeaveApplications?.map((item) => (
                     <tr key={item.id}>
-                      <td className="text-center">
+                      {/* <td className="text-center">
                         {item.approved ? (
                           <FaThumbsUp className="text-success" />
                         ) : (
@@ -659,8 +661,9 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
                             />
                           </div>
                         )}
-                      </td>
-                      <td className="text-center">
+                      </td> */}
+                     
+                      {/* <td className="text-center">
                         {item.rejected ? (
                           <FaThumbsDown className="text-danger " />
                         ) : (
@@ -677,7 +680,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
                             />
                           </div>
                         )}
-                      </td>
+                      </td> */}
 
                       <td>
                         {format(
@@ -710,6 +713,8 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
                         {item.reason}
                       </td>
                       <td>
+                      {renderLeaveStatusButtons(item)}</td>
+                      <td>
                         <span
                           className={`leave-status ${item.leave_status.toLowerCase()}`}
                         >
@@ -724,6 +729,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
                           )}
                         </span>
                       </td>
+                     
                     </tr>
                   ))}
 

@@ -101,7 +101,7 @@ const HierarchyData = ({ formData, setFormData }) => {
             type={"email"}
             name={"personal_email_address"}
             label="Email"
-            placeholder={"Elgibith@gmail.com"}
+            placeholder={"jackson@gmail.com"}
             value={formData.personal_email_address}
             setForm={setFormData}
             schema={schema.personal_email_address}
@@ -130,7 +130,7 @@ const HierarchyData = ({ formData, setFormData }) => {
           <Input_area
             type={"textarea"}
             name={"permanent_address"}
-            label="Permanet Address"
+            label="Permanent Address"
             placeholder={"Permanent Address"}
             value={formData.permanent_address}
             setForm={setFormData}
@@ -146,7 +146,7 @@ const HierarchyData = ({ formData, setFormData }) => {
             type={"textarea"}
             name={"present_address"}
             label="Present Address"
-            placeholder={"Preset Address"}
+            placeholder={"Present Address"}
             value={formData.present_address}
             setForm={setFormData}
             schema={schema.present_address}

@@ -56,13 +56,7 @@ export const employeeSidebar = [
     path: "/dashboard",
   },
 
-  {
-    id: "profile",
-    // icon: <TiUserAddOutline />,
-    icon: <GrUserAdd />,
-    label: "Profile",
-    path: "/profile",
-  },
+  
   // {
   //   id: "ApplyLeave",
   //   icon: <BsCalendar2EventFill />,
@@ -73,17 +67,9 @@ export const employeeSidebar = [
   {
     id: "LeaveApplications",
     icon: <BsCalendar2EventFill />,
-    label: "leave applications emp",
+    label: "leave applications",
     path: "/leaveApplications",
   },
-
-  {
-    id: "Chat",
-    icon: <TbMessageChatbot />,
-    label: "Chat",
-    path: "/employee/chat",
-  },
-
   {
     id: "Projects",
     icon: <AiOutlineFundProjectionScreen />,
@@ -97,6 +83,22 @@ export const employeeSidebar = [
     label: "Total Task",
     path: "/employee/tasks",
   },
+  {
+    id: "profile",
+    // icon: <TiUserAddOutline />,
+    icon: <GrUserAdd />,
+    label: "Profile",
+    path: "/profile",
+  },
+  {
+    id: "Chat",
+    icon: <TbMessageChatbot />,
+    label: "Chat",
+    path: "/employee/chat",
+  },
+
+  
+  
   // {
   //   id: "folers",
   //   icon: <LuFolderClosed />,
@@ -117,7 +119,12 @@ export const superAdminSidebar = [
     label: "Dashboard",
     path: "/dashboard",
   },
-
+  {
+    id: "employee_list",
+    icon: <RiListCheck3 />,
+    label: "Employee List",
+    path: "/admin/employee_list",
+  },
   {
     id: "add_employeee",
     // icon: <TiUserAddOutline />,
@@ -126,17 +133,12 @@ export const superAdminSidebar = [
     path: "/admin/add_employee",
   },
 
-  {
-    id: "employee_list",
-    icon: <RiListCheck3 />,
-    label: "Employee List",
-    path: "/admin/employee_list",
-  },
+ 
 
   {
     id: "leaves list",
     icon: <GrCopy />,
-    label: "Leave Applications",
+    label: " Employee Leave Applications",
     path: "/admin/employee_leave-applications",
   },
 
@@ -172,7 +174,12 @@ export const superAdminSidebar = [
       // },
     ],
   },
-
+  {
+    id: "Projects",
+    icon: <AiOutlineFundProjectionScreen />,
+    label: "Projects",
+    path: "/admin/projects",
+  },
   {
     id: "Chat",
     icon: <TbMessageChatbot />,
@@ -180,12 +187,7 @@ export const superAdminSidebar = [
     path: "/admin/chat",
   },
 
-  {
-    id: "Projects",
-    icon: <AiOutlineFundProjectionScreen />,
-    label: "Projects",
-    path: "/admin/projects",
-  },
+  
 
   // {
   //   id: "Logout",
@@ -203,41 +205,27 @@ export const teamLeadSidebar = [
     label: "Dashboard",
     path: "/dashboard",
   },
-
-  {
-    id: "profile",
-    // icon: <TiUserAddOutline />,
-    icon: <GrUserAdd />,
-    label: "Profile",
-    path: "/profile",
-  },
-
-  {
-    id: "LeaveApplications",
-    icon: <BsCalendar2EventFill />,
-    label: "leave applications emp",
-    path: "/leaveApplications",
-  },
   {
     id: "leaves list",
     icon: <GrCopy />,
-    label: "Leave Applications",
+    label: " Employee Leave Applications",
     path: "/admin/employee_leave-applications",
   },
-
   {
-    id: "Chat",
-    icon: <TbMessageChatbot />,
-    label: "Chat",
-    path: "/employee/chat",
+    id: "LeaveApplications",
+    icon: <BsCalendar2EventFill />,
+    label: "leave applications ",
+    path: "/leaveApplications",
   },
-
+ 
+ 
   {
     id: "Projects",
     icon: <AiOutlineFundProjectionScreen />,
     label: "Projects",
     path: "/employee/projects",
   },
+
   {
     id: "tasks",
     // icon: <TiUserAddOutline />,
@@ -245,6 +233,22 @@ export const teamLeadSidebar = [
     label: "Total Task",
     path: "/employee/tasks",
   },
+  {
+    id: "profile",
+    // icon: <TiUserAddOutline />,
+    icon: <GrUserAdd />,
+    label: "Profile",
+    path: "/profile",
+  },
+  {
+    id: "Chat",
+    icon: <TbMessageChatbot />,
+    label: "Chat",
+    path: "/employee/chat",
+  },
+
+  
+ 
   // {
   //   id: "folers",
   //   icon: <LuFolderClosed />,
@@ -268,12 +272,10 @@ export const mangerSidebar = [
     path: "/dashboard",
   },
   {
-    id: "Profile",
-    // icon: <CiUser />,
-    icon: <FaUser />,
-
-    label: "profile",
-    path: "/profile",
+    id: "employee_list",
+    icon: <RiListCheck3 />,
+    label: "Employee List",
+    path: "/admin/employee_list",
   },
   {
     id: "add_employeee",
@@ -282,20 +284,25 @@ export const mangerSidebar = [
     label: "Add Employee",
     path: "/admin/add_employee",
   },
-
   {
-    id: "employee_list",
-    icon: <RiListCheck3 />,
-    label: "Employee List",
-    path: "/admin/employee_list",
-  },
+    id: "leaves list",
+    icon: <GrCopy />,
+    label: " Employee Leave Applications",
 
-  {
-    id: "Chat",
-    icon: <TbMessageChatbot />,
-    label: "Chat",
-    path: "/admin/chat",
+    path: "/admin/employee_leave-applications",
   },
+  {
+    id: "LeaveApplications",
+    icon: <BsCalendar2EventFill />,
+    label: "leave applications ",
+    path: "/leaveApplications",
+  },
+ 
+  
+
+  
+
+ 
 
   {
     id: "Projects",
@@ -316,14 +323,9 @@ export const mangerSidebar = [
   //   label: "Apply Leave",
   //   path: "/applyleave",
   // },
-
+ 
   
-  {
-    id: "LeaveApplications",
-    icon: <BsCalendar2EventFill />,
-    label: "leave applications  emp",
-    path: "/leaveApplications",
-  },
+ 
   // {
   //   id: "leaves list",
   //   icon: <GrCopy />,
@@ -346,13 +348,7 @@ export const mangerSidebar = [
 
  
  
-  {
-    id: "leaves list",
-    icon: <GrCopy />,
-    label: "Leave Applications",
-
-    path: "/admin/employee_leave-applications",
-  },
+ 
 
   // {
   //   id: "folers",
@@ -382,10 +378,24 @@ export const mangerSidebar = [
   //   ],
   // },
   {
+    id: "Profile",
+    // icon: <CiUser />,
+    icon: <FaUser />,
+
+    label: "profile",
+    path: "/profile",
+  },
+  {
     id: "folers",
     icon: <LuFolderClosed />,
     label: "Change Password",
     path: "/admin/ChangePassword",
+  },
+  {
+    id: "Chat",
+    icon: <TbMessageChatbot />,
+    label: "Chat",
+    path: "/admin/chat",
   },
   // {
   //   id: "Logout",

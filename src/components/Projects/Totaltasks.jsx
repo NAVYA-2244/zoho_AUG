@@ -157,7 +157,7 @@ function Totaltasks() {
                 <th>Task ID</th>
                 <th>Task Name</th>
                 <th>Project Name</th>
-                {/* <th>Description</th> */}
+                <th>Assigned To</th>
                 <th>Status</th>
                 <th>Priority</th>
                 <th>Due Date</th>
@@ -174,6 +174,11 @@ function Totaltasks() {
                     <td>{task.task_id}</td>
                     <td>{task.task_name}</td>
                     <td>{task.project_name}</td>
+                    <td> {task?.team?.map((member) => (
+                    <span key={member.employee_id} className="mb-2">
+                      {member.employee_name}
+                    </span>
+                  ))}</td>
                     {/* <td className="table-description">{task.description}</td>  */}
                     <td>{task.status}</td>
                     <td>{task.priority}</td>

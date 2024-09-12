@@ -24,7 +24,7 @@ const WorkInformationData = ({ formData, setFormData }) => {
           <Input_text
             type={"text"}
             name={"uan"}
-            label="Uan Number"
+            label="UAN Number"
             placeholder={" Ex: 7738299899"}
             value={formData.uan}
             setForm={setFormData}
@@ -36,7 +36,7 @@ const WorkInformationData = ({ formData, setFormData }) => {
           <Input_text
             type={"text"}
             name={"pan"}
-            label="Pan Number"
+            label="PAN Number"
             placeholder={"Ex: AFZPK7190K"}
             value={formData.pan}
             setForm={setFormData}
@@ -49,7 +49,7 @@ const WorkInformationData = ({ formData, setFormData }) => {
           <Input_text
             type={"tel"}
             name={"aadhaar"}
-            label="Adhar Number"
+            label="Aadhaar Number"
             placeholder={"Ex: 2653 8564 4663"}
             value={formData.aadhaar}
             setForm={setFormData}
