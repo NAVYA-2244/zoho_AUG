@@ -162,6 +162,7 @@ const ChangePassword = () => {
               />
               <InputPassword
                 type={"password"}
+                id={"password"}
                 name={"confirmPassword"}
                 placeholder={"Confirm Password"}
                 value={formData.confirmPassword}
