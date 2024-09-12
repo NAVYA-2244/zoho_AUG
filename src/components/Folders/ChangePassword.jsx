@@ -130,7 +130,7 @@ const ChangePassword = () => {
         <div className="col-lg-4 ">
           <div
             className="d_card m-2 p-3"
-            style={{ background: applicationColor.cardItem, height: "460px" }}
+            style={{ background: applicationColor.cardItem, height: "440px" }}
           >
             <h5 className="text-center mb-2">Change Password</h5>
             <form className="form-group" onSubmit={handleSubmit}>

@@ -662,7 +662,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
                       </td>
                       <td className="text-center">
                         {item.rejected ? (
-                          <FaThumbsDown className="text-danger" />
+                          <FaThumbsDown className="text-danger " />
                         ) : (
                           <div
                             className="actions-btn reject"
@@ -695,16 +695,10 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
                       <td>
                         {item.leave_type} - {item.days_taken}
                       </td>
-                      <td> 
-                            {format(
-                              new Date(item.from_date),
-                              " dd-MM-yyyy "
-                            )}</td>
-                      <td> 
-                            {format(
-                              new Date(item.to_date),
-                              " dd-MM-yyyy "
-                            )}</td>
+                      <td>
+                        {format(new Date(item.from_date), " dd-MM-yyyy ")}
+                      </td>
+                      <td>{format(new Date(item.to_date), " dd-MM-yyyy ")}</td>
                       {/* <td>{item.days_taken}</td> */}
                       <td
                         style={{

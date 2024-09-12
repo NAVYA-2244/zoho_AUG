@@ -7,7 +7,7 @@ import { toastOptions } from "../../../../../Utils/FakeRoutes";
 import Loader from "../../../../Loader/Loader";
 import Joi from "joi";
 import { RiEdit2Fill } from "react-icons/ri";
-import Roles from './Roles';
+import Roles from "./Roles";
 
 const LeavesSettings = () => {
   const [showModal, setShowModal] = useState(false);
@@ -35,16 +35,13 @@ const LeavesSettings = () => {
       .max(15)
       .regex(/^[a-zA-Z0-9\s]+$/)
       .messages({
-        "string.pattern.base": "Leave name can only contain alphanumeric characters and spaces.",
+        "string.pattern.base":
+          "Leave name can only contain alphanumeric characters and spaces.",
       }),
-    total_leaves: Joi.number()
-      .required()
-      .min(1)
-      .max(100)
-      .messages({
-        "number.min": "Total leaves must be at least 1.",
-        "number.max": "Total leaves cannot exceed 10.",
-      }),
+    total_leaves: Joi.number().required().min(1).max(100).messages({
+      "number.min": "Total leaves must be at least 1.",
+      "number.max": "Total leaves cannot exceed 10.",
+    }),
     leave_id: Joi.string().optional().allow(""),
   });
 
@@ -64,7 +61,7 @@ const LeavesSettings = () => {
       leave_name: leave.leave_name,
       total_leaves: leave.total_leaves,
       leave_id: leave.leave_id,
-      role_id:role_id, // Pass designation_id directly
+      role_id: role_id, // Pass designation_id directly
     });
     setShowModal(true);
     setEdit(true);
@@ -89,7 +86,10 @@ const LeavesSettings = () => {
       [field]: sanitizedValue,
     }));
 
-    const { error } = schema.validate({ ...formData, [field]: sanitizedValue }, { abortEarly: false });
+    const { error } = schema.validate(
+      { ...formData, [field]: sanitizedValue },
+      { abortEarly: false }
+    );
     if (error) {
       const errorsObj = error.details.reduce((acc, curr) => {
         acc[curr.path[0]] = curr.message;
@@ -108,10 +108,13 @@ const LeavesSettings = () => {
     e.preventDefault();
 
     // Perform full form validation
-    const { error } = schema.validate({
-      ...formData,
-      organisation_id: orgDetails?.organisation_id,
-    }, { abortEarly: false });
+    const { error } = schema.validate(
+      {
+        ...formData,
+        organisation_id: orgDetails?.organisation_id,
+      },
+      { abortEarly: false }
+    );
 
     // if (error) {
     //   const errorsObj = error.details.reduce((acc, curr) => {
@@ -131,7 +134,7 @@ const LeavesSettings = () => {
         role_id: formData.role_id.trim(), // Include designation_id in payload
         leave_name: formData.leave_name.trim(),
         total_leaves: formData.total_leaves.trim(),
-        leave_id: formData.leave_id ? formData.leave_id.trim(): "",
+        leave_id: formData.leave_id ? formData.leave_id.trim() : "",
       };
       // const dataToSubmit = {
       //   ...formData,
@@ -140,7 +143,10 @@ const LeavesSettings = () => {
       //   designation_id: formData.designation_id ? formData.designation_id.trim() : "",
       // };
 
-      const response = await backEndCallObjNothing("/org/add_update_leave", dataToSubmit);
+      const response = await backEndCallObjNothing(
+        "/org/add_update_leave",
+        dataToSubmit
+      );
       setOrgDetails(response.data);
       toastOptions.success(response.success || "Operation Successful");
 
@@ -156,11 +162,8 @@ const LeavesSettings = () => {
       setBtndisabled(false);
     } catch (error) {
       setBtndisabled(false);
-      if(error?.response?.data ){
-        
-        toastOptions.error(
-          error?.response?.data 
-        );
+      if (error?.response?.data) {
+        toastOptions.error(error?.response?.data);
       }
     } finally {
       setLoading(false);
@@ -177,88 +180,106 @@ const LeavesSettings = () => {
           color: applicationColor.readColor1,
         }}
       >
-   <section className="row">
-  {orgDetails?.roles?.length > 0 ? (
-    <div className="row">
-      {orgDetails?.roles?.map((roles, index) => (
-        <div className="col-12 col-md-6 col-lg-4 mb-4" key={index}>
-          <div
-            className="admin-controls-card position-relative"
-            style={{
-              background: '#f8f9fa', // Clean background color
-              color: '#343a40', // Dark text color for readability
-              padding: '20px',
-              borderRadius: '8px',
-              boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-              minHeight: '220px',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-            }}
-          >
-            <div>
-              <h5 className="mb-3 d-flex justify-content-between align-items-center" style={{ fontWeight: '600' }}>
-                {roles.role_name}
-                <button
-                  className="btn btn-sm btn-primary me-2"
-                  onClick={() => handleAddItems(roles.role_id)}
-                >
-                  Add Leaves
-                </button>
-              </h5>
-              <div>
-                {roles.leaves?.length > 0 ? (
-                  roles.leaves.map((item, leaveIndex) => (
-                    <div
-                      className="leave-item d-flex justify-content-between align-items-center mb-2"
-                      key={leaveIndex}
-                      style={{
-                        padding: '10px',
-                        backgroundColor: '#ffffff', // White background for leave items
-                        borderRadius: '5px',
-                        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                        position: 'relative',
-                      }}
-                      onClick={() => handleEditItems(item, roles.role_id)}
-                    >
-                      {/* <h6 className="mb-0" style={{ fontSize: '1rem', marginRight: 'auto' }}>
+        <section className="row">
+          {orgDetails?.roles?.length > 0 ? (
+            <div className="row">
+              {orgDetails?.roles?.map((roles, index) => (
+                <div className="col-12 col-md-6 col-lg-4 mb-4" key={index}>
+                  <div
+                    className="admin-controls-card position-relative"
+                    style={{
+                      background: "#f8f9fa", // Clean background color
+                      color: "#343a40", // Dark text color for readability
+                      padding: "20px",
+                      borderRadius: "8px",
+                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                      minHeight: "220px",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <div>
+                      <h5
+                        className="mb-3 d-flex justify-content-between align-items-center"
+                        style={{ fontWeight: "600" }}
+                      >
+                        {roles.role_name}
+                        <button
+                          className="btn btn-sm btn-primary me-2"
+                          onClick={() => handleAddItems(roles.role_id)}
+                        >
+                          Add Leaves
+                        </button>
+                      </h5>
+                      <div>
+                        {roles.leaves?.length > 0 ? (
+                          roles.leaves.map((item, leaveIndex) => (
+                            <div
+                              className="leave-item d-flex justify-content-between align-items-center mb-2"
+                              key={leaveIndex}
+                              style={{
+                                padding: "10px",
+                                backgroundColor: "#ffffff", // White background for leave items
+                                borderRadius: "5px",
+                                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                                position: "relative",
+                              }}
+                              onClick={() =>
+                                handleEditItems(item, roles.role_id)
+                              }
+                            >
+                              {/* <h6 className="mb-0" style={{ fontSize: '1rem', marginRight: 'auto' }}>
                         {item.leave_name}
                       </h6> */}
-                      <h5 className="mb-0" style={{ fontSize: '1rem', marginRight: 'auto' }}>
-  {item?.leave_name
-    .split(' ') // Split the string into an array of words
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize the first letter of each word
-    .join(' ')}
-</h5>
+                              <h5
+                                className="mb-0"
+                                style={{
+                                  fontSize: "1rem",
+                                  marginRight: "auto",
+                                }}
+                              >
+                                {item?.leave_name
+                                  .split(" ") // Split the string into an array of words
+                                  .map(
+                                    (word) =>
+                                      word.charAt(0).toUpperCase() +
+                                      word.slice(1).toLowerCase()
+                                  ) // Capitalize the first letter of each word
+                                  .join(" ")}
+                              </h5>
 
-                      <span style={{ fontSize: '0.9rem' }}>{item.total_leaves}</span>
-                      {/* <RiEdit2Fill
+                              <span style={{ fontSize: "0.9rem" }}>
+                                {item.total_leaves}
+                              </span>
+                              {/* <RiEdit2Fill
                      
                         
                       /> */}
+                            </div>
+                          ))
+                        ) : (
+                          <p>No leaves data available for this designation</p>
+                        )}
+                      </div>
                     </div>
-                  ))
-                ) : (
-                  <p>No leaves data available for this designation</p>
-                )}
-              </div>
+                  </div>
+                </div>
+              ))}
             </div>
-          </div>
-        </div>
-      ))}
-    </div>
-  ) : (
-    <div className="no-data">No Designations Available</div>
-  )}
-</section>
-
+          ) : (
+            <div className="no-data">No Designations Available</div>
+          )}
+        </section>
 
         {showModal && (
-          <div className="modal fade show" style={{ display: 'block' }}>
+          <div className="modal fade show" style={{ display: "block" }}>
             <div className="modal-dialog modal-dialog-centered">
               <div className="modal-content">
                 <div className="modal-header">
-                  <h5 className="modal-title">{edit ? "Edit Leave" : "Add Leave"}</h5>
+                  <h5 className="modal-title">
+                    {edit ? "Edit Leave" : "Add Leave"}
+                  </h5>
                   <button
                     type="button"
                     className="btn-close"
@@ -270,20 +291,28 @@ const LeavesSettings = () => {
                 </div>
                 <div className="modal-body">
                   <form onSubmit={handleSubmit}>
-                    <div className="form-group mb-3">
-                      <label htmlFor="leave_name">Leave Name:</label>
+                    <div className="mb-1 ">
+                      <label htmlFor="leave_name  " className="mb-2">
+                        Leave Name:
+                      </label>
                       <input
                         type="text"
                         id="leave_name"
                         className="form-control"
                         value={formData.leave_name}
                         maxLength={30}
-                        onChange={(e) => handleLeaveChange("leave_name", e.target.value)}
+                        onChange={(e) =>
+                          handleLeaveChange("leave_name", e.target.value)
+                        }
                       />
-                      {errors.leave_name && <div className="text-danger">{errors.leave_name}</div>}
+                      {errors.leave_name && (
+                        <div className="text-danger">{errors.leave_name}</div>
+                      )}
                     </div>
-                    <div className="form-group mb-3">
-                      <label htmlFor="total_leaves">Total Leaves:</label>
+                    <div className="mb-1 ">
+                      <label htmlFor="total_leaves" className="mb-2">
+                        Total Leaves:
+                      </label>
                       <input
                         type="text"
                         id="total_leaves"
@@ -291,33 +320,43 @@ const LeavesSettings = () => {
                         value={formData.total_leaves}
                         min={1}
                         maxLength={3}
-                        onChange={(e) => handleLeaveChange("total_leaves", e.target.value)}
+                        onChange={(e) =>
+                          handleLeaveChange("total_leaves", e.target.value)
+                        }
                       />
-                      {errors.total_leaves && <div className="text-danger">{errors.total_leaves}</div>}
+                      {errors.total_leaves && (
+                        <div className="text-danger">{errors.total_leaves}</div>
+                      )}
                     </div>
-                    <div className="form-group mb-3">
-                      <input
-                        type="hidden"
-                        id="designation_id"
-                        value={formData.designation_id} // Hidden field
-                      />
-                    </div>
-                    {/* <div className="modal-footer"> */}
+                    <input
+                      type="hidden"
+                      id="designation_id"
+                      value={formData.designation_id} // Hidden field
+                    />
+
+                    <div style={{ display: "flex", flexDirection: "row" }}>
                       <button
-                        type="button"
-                        className="btn btn-secondary"
+                        type="submit"
+                        className="btn btn-secondary mt-2 me-2"
                         onClick={handleCloseModal}
+                        style={{
+                          position: "absolute",
+                          left: "20px",
+                          top: "170px",
+                          padding: "10px",
+                        }}
                       >
                         Close
                       </button>
                       <button
                         type="submit"
-                        className="btn btn-primary me-2 p-2"
+                        className="btn btn-primary me-2 "
                         disabled={btndisabled}
+                        style={{ padding: "10px" }}
                       >
                         {edit ? "Update" : "Add"} Leave
                       </button>
-                    {/* </div> */}
+                    </div>
                   </form>
                 </div>
               </div>
