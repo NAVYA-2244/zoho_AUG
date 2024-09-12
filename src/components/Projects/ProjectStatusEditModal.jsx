@@ -149,31 +149,40 @@ const ProjectStatusEditModal = ({ onClose, project, onSubmit }) => {
               <h6 className="mb-3" style={{ fontWeight: "600" }}>
                 Task Dates
               </h6>
+            
               <div className="row">
-                <div className="col-md-6 mb-3">
-                  <strong>Due Date:</strong>
-                  <span>
-                    {new Date(project.due_date).toLocaleDateString()}
-                  </span>
-                </div>
-                <div className="col-md-6 mb-3">
-                  <strong>Completed Date:</strong>
-                  <span>
-                    {project.completed_date
-                      ? new Date(project.completed_date).toLocaleDateString()
-                      : "Not completed"}
-                  </span>
-                </div>
+              {(project.due_date || project.completed_date) && (
+  <div className="row">
+    {project.due_date && (
+      <div className="col-md-6 mb-3">
+        <strong>Due Date:</strong>
+        <span> {new Date(project?.due_date)?.toLocaleDateString('en-GB')}</span>
+      </div>
+    )}
+    {project.completed_date ? (
+      <div className="col-md-6 mb-3">
+        <strong>Completed Date:</strong>
+        <span> {new Date(project?.completed_date)?.toLocaleDateString('en-GB')}</span>
+      </div>
+    ) : (
+      <div className="col-md-6 mb-3">
+        <strong>Completed Date:</strong>
+        <span> Not completed</span>
+      </div>
+    )}
+  </div>
+)}
+
                 <div className="col-md-6 mb-3">
                   <strong>Created At:</strong>
                   <span>
-                    {new Date(project.createdAt).toLocaleDateString()}
+                    {new Date(project?.createdAt)?.toLocaleDateString('en-GB')}
                   </span>
                 </div>
                 <div className="col-md-6 mb-3">
                   <strong>Updated At:</strong>
                   <span>
-                    {new Date(project.updatedAt).toLocaleDateString()}
+                    {new Date(project?.updatedAt)?.toLocaleDateString('en-GB')}
                   </span>
                 </div>
               </div>

@@ -33,11 +33,11 @@ const TeaminchargeProjects = () => {
 
   const fetchProjects = async () => {
     try {
-      if (!EmployProject) {
+      // if (!EmployProject) {
         setLoading(true);
         const response = await backEndCallObjNothing("/admin_get/get_projects");
         setEmployeProject(response || []);
-      }
+      // }
     } catch (error) {
       console.error("Error fetching projects:", error);
     } finally {
@@ -47,11 +47,11 @@ const TeaminchargeProjects = () => {
 
   const fetchTasks = async () => {
     try {
-      if (!ProfileTask) {
+      // if (!ProfileTask) {
         setLoading(true);
         const response = await backEndCallObjNothing("/emp_get/get_tasks");
         setProfileTask(response || []);
-      }
+      // }
       // toastOptions.success(response)
     } catch (error) {
       toastOptions.success(error.response?.data);
@@ -114,8 +114,11 @@ const TeaminchargeProjects = () => {
   };
 
   useEffect(() => {
-    fetchProjects();
+    if (!EmployProject) {
+    fetchProjects();}
+    if (!ProfileTask) {
     fetchTasks();
+    }
   }, []);
 
   const handleRefresh = () => {
@@ -249,7 +252,7 @@ const TeaminchargeProjects = () => {
                       flex: "1 1 auto",
                     }}
                   >
-                    {getTasksByProjectId(project.project_id).map(
+                    {getTasksByProjectId(project?.project_id)?.map(
                       (task, index) => (
                         <div
                           className="task-card card mb-3 rounded-2 card-shadow mt-2"
@@ -276,7 +279,7 @@ const TeaminchargeProjects = () => {
                             </div>
                             <span className="due-date text-muted ms-auto">
                               Due:{" "}
-                              {new Date(task.due_date).toLocaleDateString()}
+                              {new Date(task?.due_date)?.toLocaleDateString('en-GB')}
                             </span>
                           </div>
 
@@ -316,8 +319,8 @@ const TeaminchargeProjects = () => {
                             <span className="due-date text-muted ms-auto">
                               Assigned on:{" "}
                               {new Date(
-                                task.assign_track[0].assigned_to.date_time
-                              ).toLocaleString()}
+                                task.assign_track[0].assigned_to?.date_time
+                              )?.toLocaleDateString('en-GB')}
                             </span>
                           ) : (
                             <p className=" text-danger ms-auto">
@@ -450,13 +453,14 @@ const TeaminchargeProjects = () => {
               </div>
             ))}
           </div>
-        ) : (
-          !loading && (
+        ) : ("")
+          
+        }
+        {!loading || EmployProject?.length > 0 &&(
             <div className="col-12 text-center">
               <p className="text-muted">No projects found.</p>
             </div>
-          )
-        )}
+          )}
         {loading && <Loader />}
       </div>{" "}
       {showTaskDetailsModal && (

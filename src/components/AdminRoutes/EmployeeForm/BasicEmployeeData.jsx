@@ -104,7 +104,7 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
 
         <h6 className="heading-form mt-4">Basic Information</h6>
 
-        <div className="col-lg-4 col-md-4 col-sm-6">
+        <div className="col-lg-3 col-md-3 col-sm-6">
           <Input_text
             type={"text"}
             name={"employee_id"}
@@ -124,7 +124,7 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
           </p>
           {/* } */}
         </div>
-        <div className="col-lg-4 col-md-4 col-sm-6">
+        <div className="col-lg-3 col-md-3 col-sm-6">
           <Input_text
             type={"text"}
             name={"first_name"}
@@ -139,7 +139,7 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
             inputRef={(el) => (refs.current.first_name = el)}
           />
         </div>
-        <div className="col-lg-4 col-md-4 col-sm-6">
+        <div className="col-lg-3 col-md-3 col-sm-6">
           <Input_text
             type={"text"}
             name={"last_name"}
@@ -154,7 +154,7 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
             inputRef={(el) => (refs.current.last_name = el)}
           />
         </div>
-        <div className="col-lg-4 col-md-4 col-sm-6">
+        <div className="col-lg-3 col-md-3 col-sm-6">
           {" "}
           <Input_text
             type={"text"}
@@ -168,7 +168,7 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
             inputRef={(el) => (refs.current.nick_name = el)}
           />
         </div>
-        <div className="col-lg-4 col-md-4 col-sm-6  ">
+        <div className="col-lg-3 col-md-3 col-sm-6  ">
           <Select_inputs
             name={"gender"}
             placeholder={"Gender"}
@@ -181,7 +181,7 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
             inputRef={(el) => (refs.current.gender = el)}
           />
         </div>
-        <div className="col-lg-4 col-md-4 col-sm-6">
+        <div className="col-lg-3 col-md-3 col-sm-6">
           <Input_email
             type={"email"}
             name={"email"}
@@ -196,7 +196,7 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
             inputRef={(el) => (refs.current.email = el)}
           />
         </div>
-        <div className="col-lg-4 col-md-4 col-sm-6">
+        <div className="col-lg-3 col-md-3 col-sm-6">
           <Select_inputs
             name={"marital_status"}
             placeholder={"Marital Status"}
@@ -209,7 +209,7 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
             inputRef={(el) => (refs.current.marital_status = el)}
           />
         </div>
-        <div className="col-lg-4 col-md-4 col-sm-6">
+        <div className="col-lg-3 col-md-3 col-sm-6">
           <Date_Input
             type={"date"}
             name={"date_of_birth"}
@@ -242,7 +242,7 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
           />
         </div>
         {disableobj?.password && (
-          <div className="col-lg-4 col-md-4 col-sm-6">
+          <div className="col-lg-3 col-md-3 col-sm-6">
             <InputPassword
               type={"password"}
               placeholder={"Emp@1234"}
@@ -259,7 +259,7 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
             />
           </div>
         )}
-        <div className="col-lg-12 col-md-4 col-sm-6">
+        <div className="col-lg-8 col-md-4 col-sm-6">
           <Input_area
             type={"textarea"}
             name={"about_me"}
@@ -286,7 +286,7 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
         }}
       >
         <h6 className="heading-form"> Work Information</h6>
-        <div className="col-lg-4 col-md-4 col-sm-6">
+        <div className="col-lg-3 col-md-3 col-sm-6">
           {employeeDetails.admin_type === "1" ||
           employeeDetails.admin_type === "2" ? (
             <Select_inputs
@@ -332,7 +332,7 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
           /> */}
         {/* </div>  */}
 
-        <div className="col-lg-4 col-md-4 col-sm-6">
+        <div className="col-lg-3 col-md-3 col-sm-6">
           {employeeDetails.admin_type === "1" ||
           employeeDetails.admin_type === "2" ? (
             <Select_inputs
@@ -362,7 +362,7 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
           )}
         </div>
 
-        <div className="col-lg-4 col-md-4 col-sm-6">
+        <div className="col-lg-3 col-md-3 col-sm-6">
           {employeeDetails.admin_type === "1" ||
           employeeDetails.admin_type === "2" ? (
             <Select_inputs
@@ -392,7 +392,7 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
           )}
         </div>
 
-        <div className="col-lg-4 col-md-4 col-sm-6">
+        <div className="col-lg-3 col-md-3 col-sm-6">
           <Select_inputs
             name={"employment_type"}
             placeholder={"Employement Type"}
@@ -405,7 +405,7 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
             imp
           />
         </div>
-        <div className="col-lg-4 col-md-4 col-sm-6">
+        <div className="col-lg-3 col-md-3 col-sm-6">
           <Select_inputs
             name={"source_of_hire"}
             placeholder={"Source of Hire"}
@@ -419,7 +419,7 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
           />
         </div>
 
-        <div className="col-lg-4 col-md-4 col-sm-6">
+        <div className="col-lg-3 col-md-3 col-sm-6">
           <Date_Input
             type={"date"}
             name={"date_of_join"}
@@ -443,7 +443,7 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
           />
         </div>
 
-        <div className="col-lg-4 col-md-4 col-sm-6">
+        <div className="col-lg-3 col-md-3 col-sm-6">
           {" "}
           <Input_text
             type={"text"}
@@ -473,7 +473,7 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
           />
         </div> */}
 
-        <div className="col-lg-4 col-md-4 col-sm-6">
+        <div className="col-lg-3 col-md-3 col-sm-6">
           <Select_inputs
             name={"employee_status"}
             placeholder={"Employee Status"}
@@ -487,7 +487,7 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
           />
         </div>
 
-        <div className="col-lg-4 col-md-4 col-sm-6">
+        <div className="col-lg-3 col-md-3 col-sm-6">
           {/* <Select_inputs
   name={"reporting_manager"}
   placeholder={"Reporting Manager"}

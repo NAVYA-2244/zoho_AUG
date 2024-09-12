@@ -132,7 +132,7 @@ const ChangePassword = () => {
             className="d_card m-2 p-3"
             style={{ background: applicationColor.cardItem, height: "460px" }}
           >
-            <h5 className="text-center mb-4">Change Password</h5>
+            <h5 className="text-center mb-2">Change Password</h5>
             <form className="form-group" onSubmit={handleSubmit}>
               <InputPassword
                 id={"password"}

@@ -326,12 +326,13 @@ const TableBody = ({
       );
     } else if (property.name === "Employee Name") {
       return <span className="fw-semibold">{value}</span>;
+      
     } else if (property.name === "Profile") {
       return (
         <div className="profile-wrapr">
           <div>
             <img
-              src={value || dummyUser}
+              src={value || dummyUser} 
               alt="profile"
               className="profile-img"
               onClick={() =>
@@ -354,7 +355,7 @@ const TableBody = ({
       );
     } else if (["", "0"].includes(value)) {
       return <span>--</span>;
-    } else if (property.name === "Date" || property.name === "DOB") {
+    } else if (property.name === "DOB"||property.name === "Date of Joining"||property.name ==="Start Date"||property.name ==="End Date") {
       return parsingDate(value);
     } else if (value?.length > 20) {
       return <span>{value.substring(0, 20) + "..."}</span>;

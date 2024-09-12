@@ -682,6 +682,7 @@ console.log(formData,"formdata")
         image: formData.image,
         about_me: formData.about_me||"",
       });
+
       console.log(response)
       const res = await backEndCallObjNothing("/emp_get/get_profile");
       console.log(res, "employeeeeeeee");
@@ -693,7 +694,7 @@ console.log(formData,"formdata")
       setProfilePhoto(response?.data?.dp || "");
       setFormData((prevData) => ({
         ...prevData,
-        about_me: aboutme 
+        about_me:res?.profile?.personal_details?.about_me 
       }));
       
       setError("");

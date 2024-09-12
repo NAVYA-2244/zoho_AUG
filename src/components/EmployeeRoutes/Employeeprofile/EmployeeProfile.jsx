@@ -60,12 +60,12 @@ function EmployeeProfile({ employeesList }) {
 
   const gettingEmployeeProfileId = async () => {
     try {
-      if (!employeedata) {
+      // if (!employeedata) {
         const response = await backEndCallObjNothing("/emp_get/get_profile");
         console.log(response, "employeeeeeeee");
         setProfilePhoto(response?.profile?.images?.dp);
         setEmployeedata(response); // Update state correctly
-      }
+      // }
       // Log the response
     } catch (error) {
       console.error("Error fetching employee data:", error);
@@ -76,7 +76,9 @@ function EmployeeProfile({ employeesList }) {
     // if (employeeDetails.collection === "USER") {
     //   gettingEmployeeById();
     // } else {
+      if (!employeedata) {
     gettingEmployeeProfileId();
+      }
     // }
   }, []);
   console.log(employeedata, "eeemployee");

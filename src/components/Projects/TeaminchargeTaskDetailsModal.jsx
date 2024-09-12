@@ -219,76 +219,7 @@ console.log(task.project_id,"task")
                   />
                 </div>
               </div>
-              {/* <div className="row mt-4">
-         
-            <div className="col-md-6 mb-3">
-              <h6 className="mb-3" style={{ fontWeight: "600" }}>
-                Team Information
-              </h6>
-              <div className="mb-3">
-                <strong>Created By:</strong>
-                <ul className="pl-3 mt-2">
-                  <li>
-                    {task?.created_by?.email} (ID:{" "}
-                    {task?.created_by?.employee_id})
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <strong>Assigned To:</strong>
-                <ul className="pl-3 mt-2">
-                  {task?.team?.map((member) => (
-                    <li key={member.employee_id} className="mb-2">
-                      {member.employee_name} (ID: {member.employee_id})
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
 
-            
-            <div className="col-md-6 mb-3">
-              <h6 className="mb-3" style={{ fontWeight: "600" }}>
-                Task Dates
-              </h6>
-              <div className="row">
-                <div className="col-md-6 mb-3">
-                  <strong style={{ display: "block", marginBottom: "0.5rem" }}>
-                    Due Date:
-                  </strong>
-                  <span>
-                    {new Date(task?.due_date).toLocaleDateString()}
-                  </span>
-                </div>
-                <div className="col-md-6 mb-3">
-                  <strong style={{ display: "block", marginBottom: "0.5rem" }}>
-                    Completed Date:
-                  </strong>
-                  <span>
-                    {task.completed_date
-                      ? new Date(task?.completed_date).toLocaleDateString()
-                      : "Not completed"}
-                  </span>
-                </div>
-                <div className="col-md-6 mb-3">
-                  <strong style={{ display: "block", marginBottom: "0.5rem" }}>
-                    Created At:
-                  </strong>
-                  <span>
-                    {new Date(task?.createdAt).toLocaleDateString()}
-                  </span>
-                </div>
-                <div className="col-md-6 mb-3">
-                  <strong style={{ display: "block", marginBottom: "0.5rem" }}>
-                    Updated At:
-                  </strong>
-                  <span>
-                    {new Date(task?.updatedAt).toLocaleDateString()}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div> */}
 <div className="row">
   {/* Team Information Section */}
   {task?.created_by || task?.team?.length > 0 ? (
@@ -333,7 +264,7 @@ console.log(task.project_id,"task")
             <strong style={{ display: "block", marginBottom: "0.5rem" }}>
               Due Date:
             </strong>
-            <span>{new Date(task.due_date).toLocaleDateString()}</span>
+            <span>{new Date(task?.due_date)?.toLocaleDateString('en-GB')}</span>
           </div>
         )}
         {task?.completed_date && (
@@ -343,7 +274,7 @@ console.log(task.project_id,"task")
             </strong>
             <span>
               {task.completed_date
-                ? new Date(task.completed_date).toLocaleDateString()
+                ? new Date(task?.completed_date)?.toLocaleDateString('en-GB')
                 : "Not completed"}
             </span>
           </div>
@@ -351,17 +282,17 @@ console.log(task.project_id,"task")
         {task?.createdAt && (
           <div className="col-md-6 mb-3">
             <strong style={{ display: "block", marginBottom: "0.5rem" }}>
-              Created At:
+              Created On:
             </strong>
-            <span>{new Date(task.createdAt).toLocaleDateString()}</span>
+            <span>{new Date(task?.createdAt)?.toLocaleDateString('en-GB')}</span>
           </div>
         )}
         {task?.updatedAt && (
           <div className="col-md-6 mb-3">
             <strong style={{ display: "block", marginBottom: "0.5rem" }}>
-              Updated At:
+              Updated On:
             </strong>
-            <span>{new Date(task.updatedAt).toLocaleDateString()}</span>
+            <span>{new Date(task?.updatedAt)?.toLocaleDateString('en-GB')}</span>
           </div>
         )}
       </div>

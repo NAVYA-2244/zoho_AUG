@@ -758,7 +758,7 @@ const EmployeeList = () => {
                         <td>{employee?.work_info?.department_name}</td>
                         <td>{employee?.work_info?.designation_name}</td>
 
-                        <td>{employee?.work_info?.date_of_join ? new Date(employee?.work_info?.date_of_join).toLocaleDateString('en-GB') : 'N/A'}</td>
+                        <td>{employee?.work_info?.date_of_join ? new Date(employee?.work_info?.date_of_join)?.toLocaleDateString('en-GB') : 'N/A'}</td>
 
                         {/* <td>{employee.work_info.employee_status}</td> */}
                         <td>
@@ -799,11 +799,11 @@ const EmployeeList = () => {
                           {employee?.basic_info?.last_name}
                         </td>
 
-                        <td style={{ textTransform: "lowercase"}}>{employee?.basic_info?.email ? employee.basic_info.email.toLowerCase() : ''}</td>
+                        <td style={{ textTransform: "lowercase"}}>{employee?.basic_info?.email ? employee?.basic_info?.email?.toLowerCase() : ''}</td>
 
                         <td>{employee?.work_info?.department_name}</td>
                         <td>{employee?.work_info?.designation_name}</td>
-                        <td>{employee?.work_info?.date_of_join ? new Date(employee?.work_info?.date_of_join).toLocaleDateString('en-GB') : 'N/A'}</td>
+                        <td>{employee?.work_info?.date_of_join ? new Date(employee?.work_info?.date_of_join)?.toLocaleDateString('en-GB') : 'N/A'}</td>
 
                         {/* <td>{employee.work_info.employee_status}</td> */}
                         <td>

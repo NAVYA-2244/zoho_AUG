@@ -26,11 +26,11 @@ const EmployeeProjects = () => {
       console.log(EmployProject, "projects");
     }
     try {
-      if (!EmployProject) {
+      // if (!EmployProject) {
         setLoading(true);
         const response = await backEndCallObjNothing("/admin_get/get_projects");
         setEmployeProject(response);
-      }
+      // }
     } catch (error) {
       console.error("Error fetching projects:", error);
     } finally {
@@ -40,12 +40,12 @@ const EmployeeProjects = () => {
 
   const fetchTasks = async () => {
     try {
-      if (!ProfileTask) {
+      // if (!ProfileTask) {
         setLoading(true);
         const response = await backEndCallObjNothing("/emp_get/get_tasks");
 
         setProfileTask(response || []);
-      }
+      // }
     } catch (error) {
       console.error("Error fetching tasks:", error);
     } finally {
@@ -86,8 +86,11 @@ const EmployeeProjects = () => {
   };
 
   useEffect(() => {
+    if (!EmployProject) {
     fetchProjects();
-    fetchTasks();
+    }
+    if (!ProfileTask) {
+    fetchTasks();}
   }, []);
 
   const getTasksByProjectId = (projectId) => {
@@ -251,8 +254,8 @@ const EmployeeProjects = () => {
                   </div>
                 ))
               ):( <div className="text-center text-muted">No tasks found.</div>)} */}
-                    {getTasksByProjectId(project.project_id).length > 0 ? (
-                      getTasksByProjectId(project.project_id).map(
+                    {getTasksByProjectId(project?.project_id)?.length > 0 ? (
+                      getTasksByProjectId(project?.project_id)?.map(
                         (task, index) => (
                           <div
                             className="task-card card mb-3 rounded-2 card-shadow"
@@ -271,7 +274,7 @@ const EmployeeProjects = () => {
                               </span>
                               <span className="due-date text-muted">
                                 Due Date:{" "}
-                                {new Date(task.due_date).toLocaleDateString()}
+                                {new Date(task?.due_date)?.toLocaleDateString('en-GB')}
                               </span>
                             </div>
                             <h6 className="mt-2">
@@ -314,18 +317,18 @@ const EmployeeProjects = () => {
                                   }}
                                 >
                                   <p>
-                                    <strong>Assigned at: </strong>
+                                    <strong>Assigned On: </strong>
                                     {new Date(
                                       task?.assign_track[0]?.assigned_to?.date_time
-                                    ).toLocaleString()}
+                                    )?.toLocaleDateString('en-GB')}
                                   </p>
                                   {task?.modified_by?.length > 0 && (
                                     <span>
                                       {" "}
-                                      <strong>Updated at: </strong>{" "}
+                                      <strong>Updated On: </strong>{" "}
                                       {new Date(
                                         task?.updatedAt
-                                      ).toLocaleString()}
+                                      )?.toLocaleDateString('en-GB')}
                                     </span>
                                   )}
                                 </div>
@@ -333,11 +336,11 @@ const EmployeeProjects = () => {
                             </div>
                             <div className="text-end">
                               <span
-                                className={`status-badge priority-${task.status}`}
+                                className={`status-badge priority-${task?.status}`}
                               >
                                 Status:{" "}
-                                {task.status.charAt(0).toUpperCase() +
-                                  task.status.slice(1)}
+                                {task?.status?.charAt(0).toUpperCase() +
+                                  task?.status?.slice(1)}
                               </span>
                             </div>
                           </div>

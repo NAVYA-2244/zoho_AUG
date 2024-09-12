@@ -257,10 +257,10 @@ export const ExpirementSchema = {
       "string.pattern.base":
         '"PAN" should consist of 5 letters followed by 4 digits and 1 letter, and should not include special characters',
 
-      "any.required": '"PAN" is required',
+     
     })
 
-    .label("PAN"),
+    .label("pan"),
 
   aadhaar: Joi.string()
     .min(12)

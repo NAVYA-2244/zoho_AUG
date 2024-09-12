@@ -26,24 +26,27 @@ const Projects = () => {
 
   // Fetch all projects
   const fetchProjects = async () => {
-    console.log(EmployProject)
+   
     try {
-      if (!EmployProject) {
+      // if (!EmployProject) {
         setLoading(true);
         const response = await backEndCallObjNothing("/admin_get/get_projects");
         setEmployeProject(response || []);
       }
-    } catch (error) {
-      // console.error("Error fetching projects:", error);
-      toastOptions.error(error?.response?.data)
-      toastOptions.error()
-    } finally {
+    // } catch (error) {
+    //   // console.error("Error fetching projects:", error);
+    //   toastOptions.error(error?.response?.data)
+    //   toastOptions.error()
+    // } 
+    finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
+    if (!EmployProject) {
     fetchProjects();
+    }
   }, []);
 
   // Handle project edit
@@ -219,8 +222,8 @@ const Projects = () => {
                       {project.description}
                     </p>
                     <p>
-                      {new Date(project.start_date).toLocaleDateString()} -{" "}
-                      {new Date(project.end_date).toLocaleDateString()}
+                      {new Date(project?.start_date)?.toLocaleDateString('en-GB')} -{" "}
+                      {new Date(project?.end_date)?.toLocaleDateString('en-GB')}
                     </p>
                     <p className="card-text mb-2">
                       Status: <span className="fw-bold">{project.status}</span>
