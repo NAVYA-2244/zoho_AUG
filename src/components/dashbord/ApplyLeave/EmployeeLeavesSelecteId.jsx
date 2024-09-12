@@ -28,8 +28,10 @@ function EmployeeLeavesSelecteId() {
   const [leaveApplications, setLeaveApplications] = useState([]);
   const [status, setStatus] = useState("");
   const [year, setYear] = useState("");
+
   const fetchLeaveApplications = async () => {
     try {
+      setLoading(true);
       const payload = {
         skip: 0,
         leave_status: status || "", // Optional filter for leave_status
@@ -49,7 +51,6 @@ function EmployeeLeavesSelecteId() {
     }
   };
   useEffect(() => {
-   
     fetchLeaveApplications();
   }, [status, year]); // Include `year` as a dependency
 
@@ -74,6 +75,7 @@ function EmployeeLeavesSelecteId() {
     <section className="leave-report">
       <div className="row mb-3">
         <div className="col-md-4">
+          <label>status</label>
           <select
             value={status}
             onChange={handleStatusChange}
@@ -86,6 +88,7 @@ function EmployeeLeavesSelecteId() {
           </select>
         </div>
         <div className="col-md-4">
+          <label>Year</label>
           <input
             type="date"
             value={"02-12-2024"}
@@ -118,7 +121,10 @@ function EmployeeLeavesSelecteId() {
       <br />
 
       {!loading ? (
-        <EmployeeLeaveApplicationsTable leaveApplications={leaveApplications} />
+        <EmployeeLeaveApplicationsTable
+          leaveApplications={leaveApplications}
+          loading={loading}
+        />
       ) : (
         <Loader />
       )}

@@ -69,20 +69,21 @@ function Piachart() {
                     <FcLeave />
                   )}
                 </i>
-                <h5 className={`leave-type-${item.leave_name}`}>{item.leave_name}</h5>
+                <h5>{item.leave_name}</h5>
               </div>
-              <div className="leave-availability">
+              
+              <div className="leave-availability mt-2ß">
                 <div className="available">
 
                   <span className="leaves-available">
-                    Total Leaves: &nbsp;{" "}
+                    Total Leaves : {" "}&nbsp;{" "}
                     <b>
                       {item.total_leaves == "" ? "0" : item.total_leaves}
                     </b>
                   </span>
                   <br />
                   <span className="leave-used">
-                    Remaining : &nbsp;
+                    Remaining  : {"  "} &nbsp;
                     <b>{item.remaining_leaves == "" ? "0" : item.remaining_leaves}</b>
                     {console.log(item.remaining_leaves)}
                   </span>

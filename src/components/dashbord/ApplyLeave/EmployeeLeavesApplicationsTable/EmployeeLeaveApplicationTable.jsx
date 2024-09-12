@@ -89,7 +89,7 @@
 //                 {tableHeadProperties.map((head, i) => (
 //                   <td key={i}>
 //                     {head.property.split('.').reduce((obj, key) => obj && obj[key], application) || 'N/A'}
-                    
+
 //                   </td>
 //                 ))}
 //               </tr>
@@ -140,44 +140,9 @@ import React from "react";
 import { useThemeContext } from "../../../Contexts/ThemesContext";
 import { useStateContext } from "../../../Contexts/StateContext";
 
-const EmployeeLeaveApplicationsTable = ({ leaveApplications }) => {
+const EmployeeLeaveApplicationsTable = ({ leaveApplications, loading }) => {
   const { applicationColor } = useThemeContext();
   const { employeeDetails } = useStateContext();
-
-  const baseTableHeadProperties = [
-    { name: "Employee Id", property: "employee_id" },
-    { name: "Employee Name", property: "employee_name" }, // Employee Name appears only once here
-    { name: "Leave Type", property: "leave_type" },
-    { name: "From Date", property: "from_date" },
-    { name: "To Date", property: "to_date" },
-    { name: "Days Taken", property: "days_taken" },
-    { name: "Reason", property: "reason" },
-    { name: "Leave Status", property: "leave_status" },
-  ];
-
-  let dynamicTableHeadProperties = [];
-  if (leaveApplications.length > 0) {
-    const firstApplication = leaveApplications[0];
-    const { admin_type } = employeeDetails;
-
-    if (admin_type !== "2" && firstApplication.approved_by?.manager) {
-      dynamicTableHeadProperties.push({
-        name: "Manager Status",
-        property: "approved_by.manager.leave_status",
-      });
-    }
-    if (admin_type !== "3" && firstApplication.approved_by?.team_incharge) {
-      dynamicTableHeadProperties.push({
-        name: "Team Incharge Status",
-        property: "approved_by.team_incharge.leave_status",
-      });
-    }
-  }
-
-  const tableHeadProperties = [
-    ...baseTableHeadProperties,
-    ...dynamicTableHeadProperties,
-  ];
 
   const getLeaveStatusStyle = (status) => {
     switch (status) {
@@ -193,7 +158,7 @@ const EmployeeLeaveApplicationsTable = ({ leaveApplications }) => {
   };
 
   const formatDate = (date) => {
-    if (!date) return "N/A"; 
+    if (!date) return "N/A";
     const formattedDate = new Date(date).toLocaleDateString("en-GB");
     return formattedDate;
   };
@@ -207,59 +172,79 @@ const EmployeeLeaveApplicationsTable = ({ leaveApplications }) => {
         Leave Applications
       </h5>
       <section
-        className="tables table-wrapper py-2 px-3"
+        className="table-wrapper py-2 px-3 text-center"
         style={{
           background: applicationColor.cardBg1,
           color: applicationColor.readColor1,
         }}
       >
-        <table className="table table-bordered table-responsive">
-          <thead>
-            <tr>
-              {tableHeadProperties?.map((head, index) => (
-                <th key={index}>{head.name}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className="text-center">
-            {leaveApplications?.map((application, index) => (
-              <tr key={index}>
-                {tableHeadProperties?.map((head, i) => {
-                  const value =
-                    head.property
-                      .split(".")
-                      .reduce((obj, key) => obj && obj[key], application) ||
-                    "N/A";
-
-                  if (head.property === "from_date" || head.property === "to_date") {
-                    return <td key={i}>{formatDate(value)}</td>;
-                  }
-
-                  if (head.property.includes("leave_status")) {
-                    return (
-                      <td key={i} style={getLeaveStatusStyle(value)}>
-                        {value}
-                      </td>
-                    );
-                  }
-
-                  // Log to check if employee_name is being duplicated
-                  if (head.property === "employee_name") {
-                    console.log("Employee Name: ", value);
-                  }
-
-                  return <td key={i}>{value}</td>;
-                })}
+        {/* Loader when loading state is true */}
+        {loading ? (
+          <div className="d-flex justify-content-center align-items-center py-5">
+            <div className="spinner-border text-primary" role="status">
+              <span className="sr-only">Loading...</span>
+            </div>
+          </div>
+        ) : (
+          <table className="table ">
+            <thead>
+              <tr>
+                <th>Employee Id</th>
+                <th>Employee Name</th>
+                <th>Leave Type</th>
+                <th>From Date</th>
+                <th>To Date</th>
+                <th>Days Taken</th>
+                <th>Reason</th>
+                <th>Leave Status</th>
+                {employeeDetails?.admin_type !== "2" && <th>Manager Status</th>}
+                {employeeDetails?.admin_type !== "3" ||
+                  (employeeDetails?.admin_type !== "2" && (
+                    <th>Team Incharge Status</th>
+                  ))}
               </tr>
-            ))}
+            </thead>
+            <tbody>
+              {leaveApplications.length > 0 ? (
+                leaveApplications.map((application, index) => (
+                  <tr key={index}>
+                    <td>{application.employee_id || "N/A"}</td>
+                    <td>{application.employee_name || "N/A"}</td>
+                    <td>{application.leave_type || "N/A"}</td>
+                    <td>{formatDate(application.from_date)}</td>
+                    <td>{formatDate(application.to_date)}</td>
+                    <td>{application.days_taken || "N/A"}</td>
+                    <td>{application.reason || "N/A"}</td>
 
-            {leaveApplications.length === 0 && (
-              <p className=" d-flex justify-content-center align-items-center m-2">
-                There are no leave applications
-              </p>
-            )}
-          </tbody>
-        </table>
+                    <td style={getLeaveStatusStyle(application.leave_status)}>
+                      {application.leave_status || "N/A"}
+                    </td>
+
+                    {employeeDetails?.admin_type !== "2" && (
+                      <td>
+                        {application.approved_by?.manager?.leave_status ||
+                          "N/A"}
+                      </td>
+                    )}
+
+                    {employeeDetails?.admin_type === "3" ||
+                      (employeeDetails?.admin_type !== "2" && (
+                        <td>
+                          {application.approved_by?.team_incharge?.leave_status}
+                        </td>
+                      ))}
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="9" className="text-center">
+                    There are no leave applications
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        )}
       </section>
     </>
   );
