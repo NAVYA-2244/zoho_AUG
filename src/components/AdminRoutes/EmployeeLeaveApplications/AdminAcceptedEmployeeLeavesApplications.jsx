@@ -69,7 +69,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
         "admingadminGettingLeaveApplicationset",
         adminGettingLeaveApplications
       );
-      if (!adminGettingLeaveApplications) {
+      // if (!adminGettingLeaveApplications) {
         console.log(
           "admingadminGettingLeaveApplicationset",
           adminGettingLeaveApplications
@@ -85,7 +85,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
         );
         setAdminGettingLeaveApplications(response.leaveApplications);
         setLeavescount(response.leaves);
-      }
+      // }
 
       // console.log(response,"response")
       // if (response.data.length < limit) {
@@ -99,7 +99,9 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
   }, [skip, limit, formData, setAdminGettingLeaveApplications]);
 
   useEffect(() => {
+    if (!adminGettingLeaveApplications) {
     fetchLeaveApplications();
+    }
   }, [skip, fetchLeaveApplications]);
 
   // console.log(adminGettingLeaveApplications,"adminGettingLeaveApplications")
@@ -123,8 +125,10 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
     setBtndisabled(true);
     if (selectedLeave && selectedLeave.leave_application_id) {
       onLeaveAccept(selectedLeave.leave_application_id);
-      await fetchLeaveApplications();
-      closeModal();
+      // await fetchLeaveApplications();
+
+      // closeModal();
+
       setBtndisabled(false);
     } else {
       console.error("Leave application ID is missing or undefined.");
@@ -134,7 +138,9 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
     setBtndisabled(true);
     if (selectedLeave && selectedLeave.leave_application_id) {
       onLeaveReject(selectedLeave.leave_application_id);
-      closeModal();
+
+      // closeModal();
+
       setBtndisabled(false);
     } else {
       console.error("Leave application ID is missing or undefined.");
@@ -193,24 +199,29 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
           "/admin/update_leave_status",
           data
         );
+
       } else {
         response = await backEndCallObjNothing(
           "/admin/update_leave_application",
           data
         );
       }
-
+       closeModal()
       setAdminGettingLeaveApplications(adminGettingLeaveApplications);
-
-      toastOptions.success(response || "Success");
-      fetchLeaveApplications();
+       toastOptions.success(response || "Success");
+     await fetchLeaveApplications();
       setBtndisabled(false);
+      
     } catch (error) {
       setBtndisabled(false);
+      closeModal()
       toastOptions.error(
         error?.response?.data?.detail ||
           "Error while Accepting Leave Application"
       );
+    }
+    finally{
+      setBtndisabled(false);
     }
   };
 
@@ -233,16 +244,22 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
 
       // const updatedApplication = response.data;
       setAdminGettingLeaveApplications(adminGettingLeaveApplications);
+      closeModal()
+     await fetchLeaveApplications();
 
-      fetchLeaveApplications();
       toastOptions.success(response || "rejected");
       setBtndisabled(false);
+      
     } catch (error) {
-      setBtndisabled(false);
+      closeModal()
       toastOptions.error(
         error?.response?.data?.detail ||
           "Error While Rejecting Leave Application"
       );
+
+    }
+    finally{
+      setBtndisabled(false);
     }
   };
   const closeModal = () => {
@@ -296,22 +313,25 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
               <button
                 className="actions-btn accept"
                 disabled={btndisabled}
-                onClick={() => onLeaveAccept(application.leave_application_id)}
+                
+                // onClick={() => onLeaveAccept(application.leave_application_id)}
+                onClick={() => handleThumbsUpClick(application)}
               >
-               <FaThumbsUp></FaThumbsUp> Approve
+               Approve {" "}<FaThumbsUp></FaThumbsUp> 
               </button>
               <button
                 className="actions-btn reject"
                 disabled={btndisabled}
-                onClick={() => onLeaveReject(application.leave_application_id)}
+                // onClick={() => onLeaveReject(application.leave_application_id)}
+                onClick={() => handleThubsDownClick(application)}
               >
-                 <FaThumbsDown></FaThumbsDown> Reject
+                Reject {" "}<FaThumbsDown></FaThumbsDown> 
               </button>
             </>
           ) : roleStatus === "Approved" ? (
-            <button className="actions-btn accept"><FaThumbsUp></FaThumbsUp> Approved</button>
+            <button className="actions-btn accept">Approved {" "}<FaThumbsUp></FaThumbsUp> </button>
           ) : (
-            <button className="actions-btn reject"><FaThumbsDown></FaThumbsDown> Rejected</button>
+            <button className="actions-btn reject">  Rejected {" "}<FaThumbsDown></FaThumbsDown></button>
           )}
         </section>
       );
@@ -336,8 +356,11 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
     fetchLeaveApplications();
   };
   const handleRefresh = () => {
+setAdminGettingLeaveApplications(null)
     fetchLeaveApplications();
   };
+
+
   useEffect(() => {
     console.log("Selected employee_id:", formData.employee_id);
   }, [formData.employee_id]);
@@ -414,7 +437,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
               <option value="Rejected">Rejected</option>
             </select>
           </div>
-          <div className="col-md-4">
+          <div className="col-lg-3 col-md-3 col-sm-6 admin-leave-filters">
             <label>Year</label>
             <input
               type="year"
@@ -800,7 +823,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
 
             {RejectModel && selectedLeave && (
               <div
-                className="modal show"
+                className="modal show d-flex justify-content-center align-items-center"
                 tabIndex="-1"
                 role="dialog"
                 style={{ display: "block" }}
@@ -828,6 +851,7 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
                     <div className="modal-footer">
                       <button
                         type="button"
+                        disabled={btndisabled}
                         className="btn btn-primary"
                         onClick={handleLeaveReject}
                       >
