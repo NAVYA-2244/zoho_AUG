@@ -91,8 +91,8 @@ function EmployeeLeavesSelecteId() {
           <label>Year</label>
           <input
             type="date"
-            value={"02-12-2024"}
-            // onChange={handleYearChange}
+            // value={"02-12-2024"}
+            onChange={handleYearChange}
             className="form-control"
           />
         </div>

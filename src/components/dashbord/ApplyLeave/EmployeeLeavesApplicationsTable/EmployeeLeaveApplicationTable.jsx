@@ -198,10 +198,9 @@ const EmployeeLeaveApplicationsTable = ({ leaveApplications, loading }) => {
                 <th>Reason</th>
                 <th>Leave Status</th>
                 {employeeDetails?.admin_type !== "2" && <th>Manager Status</th>}
-                {employeeDetails?.admin_type !== "3" ||
-                  (employeeDetails?.admin_type !== "2" && (
-                    <th>Team Incharge Status</th>
-                  ))}
+                {employeeDetails?.admin_type === "4" && (
+                  <th>Team Incharge Status</th>
+                )}
               </tr>
             </thead>
             <tbody>

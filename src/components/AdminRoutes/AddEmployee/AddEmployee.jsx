@@ -14,16 +14,20 @@ import { format } from "date-fns";
 import EmployeeList from "../EmployeeList/EmployeeList";
 
 const AddEmployee = () => {
-  const { setOrgData2, setLoadingTerm, setLoading, orgDetails ,employeesList, setEmployeesList} =
-    useStateContext();
-    
-    const navigate = useNavigate()
-  
+  const {
+    setOrgData2,
+    setLoadingTerm,
+    setLoading,
+    orgDetails,
+    employeesList,
+    setEmployeesList,
+  } = useStateContext();
 
- 
+  const navigate = useNavigate();
+
   const [redirect, setRedirect] = useState(false);
   const { checkErrors } = useFunctionContext();
-  const[btndisabled,setButtonDisabled]=useState(false)
+  const [btndisabled, setButtonDisabled] = useState(false);
 
   const handleSubmit = async (formData, setFormData) => {
     // console.log(formData.educational_details, "del");
@@ -39,20 +43,17 @@ const AddEmployee = () => {
     );
 
     try {
-      // console.log(formData, "formData");
-      setButtonDisabled(true)
+      setButtonDisabled(true);
       setLoading(true);
       setLoadingTerm("Add Employee");
-      setEmployeesList([])
+      setEmployeesList([]);
       await checkErrors(ExpirementSchema, formData);
-// const uan =formData.uan.toUpperCase();
 
-// console.log(uan)
       const data = {
         organisation_id: orgDetails?.organisation_id,
         // banner: formData?.banner,
         employee_id: formData?.employee_id,
-        password:formData?.password,
+        password: formData?.password,
         // location_id: formData?.location_id,
         // profilePhoto: formData?.profilePhoto,
         first_name: formData?.first_name,
@@ -70,7 +71,7 @@ const AddEmployee = () => {
         source_of_hire: formData?.source_of_hire,
         date_of_join: formData?.date_of_join,
 
-        reporting_manager: formData?.reporting_manager ,
+        reporting_manager: formData?.reporting_manager,
         employee_status: formData.employee_status,
         reportingManager: formData?.reportingManager,
         date_of_birth: format(new Date(formData?.date_of_birth), "ddMMyyyy"),
@@ -116,27 +117,24 @@ const AddEmployee = () => {
             : [],
       };
 
-    //  data=orgDetails?.organisation_id;
+      //  data=orgDetails?.organisation_id;
 
       console.log(data, "datatas");
 
-      
-      const response = await backEndCallObjNothing("/admin/add_employee", data,);
-     
+      const response = await backEndCallObjNothing("/admin/add_employee", data);
 
       setRedirect(true);
-     
+
       setFormData({});
       toastOptions.success("Employee Added successfully");
 
       setLoadingTerm("");
       setLoading(false);
-      setButtonDisabled(false)
+      setButtonDisabled(false);
 
       // window.location.reload("/admin/employee_list");
 
-      navigate("/admin/employee_list")
-
+      navigate("/admin/employee_list");
     } catch (error) {
       setLoading(false);
       setLoadingTerm("");
@@ -148,11 +146,11 @@ const AddEmployee = () => {
     }
   };
   if (redirect) {
-    console.log("")
+    console.log("");
     return <Navigate to="/admin/employee_list" />;
   }
-  
-  console.log(addEmployeeForm,"navya")
+
+  console.log(addEmployeeForm, "navya");
   return (
     <>
       <ReusableProfileForm
@@ -160,7 +158,7 @@ const AddEmployee = () => {
         type={"Add Employee"}
         submit={handleSubmit}
         btndisabled={btndisabled}
-        disableobj={{password:true}}
+        disableobj={{ password: true }}
       />
     </>
   );
