@@ -51,15 +51,18 @@ const ChangePassword = () => {
   // Define Joi schemas
   const schema = {
     oldPassword: Joi.string()
-      .min(6)
-      .max(10)
-      .required()
-      .label("Old Password")
-      .messages({
-        "string.min": "Old Password must be at least 6 characters long",
-        "string.max": "Old Password must be less than 11 characters long",
-        "any.required": "Old Password is required",
-      }),
+    .min(8)
+    .max(10)
+    .pattern(new RegExp("^(?=.*[A-Z])(?=.*[!@#$%^&*])"))
+    .required()
+    .label("Old Password")
+    .messages({
+      "string.min": "Old Password must be at least 8 characters long",
+      "string.max": "Old Password must be less than 11 characters long",
+      "string.pattern.base":
+        "Old Password must contain at least one capital letter and one special character",
+      "any.required": "Old Password is required",
+    }),
     newPassword: Joi.string()
       .min(8)
       .max(10)

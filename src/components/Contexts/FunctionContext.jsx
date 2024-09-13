@@ -59,12 +59,13 @@ export const FunctionContextProvider = ({ children }) => {
               "pan",
               "passport_number",
               "seating_location",
-
+              "department_name",
+              "designation_name",
               "company_name",
               "uan",
             ].includes(name)
           ) {
-            value = value.replace(/[^A-Za-z0-9\s,-]/g, ""); // Alphanumeric for PAN and Passport
+            value = value.replace(/[^A-Za-z0-9\s&-,-]/g, ""); // Alphanumeric for PAN and Passport
           } else if (
             !["uan", "longitude", "latitude", "employee_id"].includes(name)
           ) {

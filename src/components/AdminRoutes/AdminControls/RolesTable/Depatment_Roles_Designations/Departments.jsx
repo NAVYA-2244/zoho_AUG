@@ -193,7 +193,7 @@ console.log("orgDetails",orgDetails.departments)
         ))
       ) : (
         <div className="col-12 text-center">
-          No roles available.
+          No data available.
         </div>
       )}
     </section>
@@ -288,7 +288,7 @@ console.log("orgDetails",orgDetails.departments)
                          <div className="form-group mb-3" key={field}>
                            <Input_text
                              type={types[index]}
-                             name={field}
+                             name="department_name"
                              setForm={setFormData}
                              value={formData[field]}
                              placeholder={placeholders[index]}

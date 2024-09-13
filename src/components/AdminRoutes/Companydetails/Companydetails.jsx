@@ -297,7 +297,7 @@ const Companydetails = () => {
                 <Select_inputs
                   name={"organisation_type"}
                   placeholder={"Organisation Type"}
-                  options={["IT", "Services", "Mancf"]}
+                  options={["IT", "Services", "Management"]}
                   value={formData.organisation_type}
                   schema={orgSchema.organisation_type}
                   setForm={setFormData}

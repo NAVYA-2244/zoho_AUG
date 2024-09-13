@@ -122,26 +122,26 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
     }
   }, [selectedLeave]);
   const handleLeaveAccept = async () => {
-    setBtndisabled(true);
+    // setBtndisabled(true);
     if (selectedLeave && selectedLeave.leave_application_id) {
       onLeaveAccept(selectedLeave.leave_application_id);
       // await fetchLeaveApplications();
 
       // closeModal();
 
-      setBtndisabled(false);
+      // setBtndisabled(false);
     } else {
       console.error("Leave application ID is missing or undefined.");
     }
   };
   const handleLeaveReject = async () => {
-    setBtndisabled(true);
+    // setBtndisabled(true);
     if (selectedLeave && selectedLeave.leave_application_id) {
       onLeaveReject(selectedLeave.leave_application_id);
 
       // closeModal();
 
-      setBtndisabled(false);
+      // setBtndisabled(false);
     } else {
       console.error("Leave application ID is missing or undefined.");
     }
@@ -246,9 +246,9 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
       setAdminGettingLeaveApplications(adminGettingLeaveApplications);
       closeModal()
      await fetchLeaveApplications();
-
+     setBtndisabled(false);
       toastOptions.success(response || "rejected");
-      setBtndisabled(false);
+   
       
     } catch (error) {
       closeModal()

@@ -10,6 +10,7 @@ import { backEndCallObjNothing } from "../../../../../services/mainService";
 import Joi from "joi";
 import { IoArrowBackSharp } from "react-icons/io5";
 
+
 const Designations = () => {
   const [showModal, setShowModal] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -26,7 +27,7 @@ const Designations = () => {
   const designationSchema = {
     _id: Joi.string().optional(),
     organisation_id: Joi.string().min(10).max(18).required(),
-    designation_name: Joi.string().trim().strip().min(5).max(20).required(),
+    designation_name: Joi.string().trim().strip().min(5).max(40).required(),
     designation_id: Joi.string().allow(null, "").optional(),
   };
 
@@ -143,46 +144,7 @@ console.log("edtitem",editingItem)
           }}
         >
           <div className={`department-cards ${showModal ? "d-none" : "d-block"}`}>
-            {/* <section className="row">
-              <div className="mb-4 text-end">
-                <button
-                  className="btn btn-primary d-flex align-items-center justify-content-end"
-                  type="button"
-                  onClick={handleAddItems}
-                >
-                  <span className="me-1">Add </span>
-                  <RiAddCircleFill />
-                </button>
-              </div>
-              {orgDetails?.designations?.length > 0 ? (
-                orgDetails?.designations.map((item, index) => (
-                  <div className="col-xl-4 mb-3" key={index}>
-                    <div
-                      className="admin-controls-card"
-                      style={{
-                        background: applicationColor.cardBg1,
-                        color: applicationColor.readColor1,
-                      }}
-                    >
-                      <div
-                        onClick={() => handleEditItems(item.designation_id, item)}
-                      >
-                        <h5 className="mt-1 mb-4">
-                          Designation Name:&nbsp;
-                          <span className="text-primary fw-semi-bold">
-                            {item.designation_name}
-                          </span>
-                        </h5>
-                      </div>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <div className="col-12 text-center">
-                  There is no data in your location
-                </div>
-              )}
-            </section> */}
+
                <section className="row">
       <div className="mb-4 d-flex justify-content-end">
         <button
@@ -235,7 +197,7 @@ console.log("edtitem",editingItem)
         ))
       ) : (
         <div className="col-12 text-center">
-          No roles available.
+          No Designations available.
         </div>
       )}
     </section>
@@ -244,73 +206,7 @@ console.log("edtitem",editingItem)
           <div className={`role-form ${showModal ? "d-block" : "d-none"}`}>
             {showModal && (
               <>
-                {/* <div className="fs-3 mb-3">
-                  <IoArrowBackSharp
-                    onClick={handleGoBack}
-                    style={{ cursor: "pointer" }}
-                  />
-                </div>
-                <div
-                  className="admin-controls-card col-lg-6 mx-auto"
-                  style={{
-                    background: applicationColor.cardBg1,
-                    color: applicationColor.readColor1,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    padding: "20px",
-                    borderRadius: "10px",
-                  }}
-                >
-                  <h3 className="mb-4">
-                    {edit ? "Edit Designation Details" : "Add New Designation"}
-                  </h3>
-                  <p className="text-muted mb-4">
-                    Please fill out the form below to{" "}
-                    {edit ? "update the designation" : "add a new designation"}.
-                  </p>
-                  <form
-                    onSubmit={handleSubmit}
-                    style={{ width: "100%", textAlign: "center" }}
-                  >
-                    <div className="row mb-4">
-                      <div className="col-12">
-                        {fields.map((field, index) => (
-                          <div className="form-group mb-3" key={field}>
-                            <Input_text
-                              type={types[index]}
-                              name={field}
-                              setForm={setFormData}
-                              value={formData[field]}
-                              placeholder={placeholders[index]}
-                              onChange={handleChange}
-                              maxLength={25}
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="form-button">
-                      <button
-                        className="py-2 px-3 w-100"
-                        type="submit"
-                        disabled={loading}
-                        style={{
-                          background: applicationColor.buttonColor,
-                          color: "white",
-                        }}
-                      >
-                        {loading ? (
-                          <Loader />
-                        ) : edit ? (
-                          "Update Designation"
-                        ) : (
-                          "Add Designation"
-                        )}
-                      </button>
-                    </div>
-                  </form>
-                </div> */}
+
                 <div className="modal fade show" style={{ display: 'block' }}>
            <div className="modal-dialog modal-dialog-centered">
              <div
@@ -344,12 +240,14 @@ console.log("edtitem",editingItem)
                          <div className="form-group mb-3" key={field}>
                            <Input_text
                              type={types[index]}
-                             name={field}
+                             name="designation_name"
+                             
                              setForm={setFormData}
                              value={formData[field]}
                              placeholder={placeholders[index]}
                              onChange={handleChange}
-                             maxLength={25}
+                             maxLength={40}
+                             autofocus
                            />
                          </div>
                        ))}
