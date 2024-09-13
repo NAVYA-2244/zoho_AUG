@@ -457,8 +457,8 @@ export const ExpirementSchema = {
         // })
         // .label("dependent Mobile Number"),
         dependent_mobile_number: Joi.string()
-          .min(12)
-          .max(12)
+          .min(10)
+          .max(10)
           .allow("", null)
           .messages({
             "string.pattern.base":
@@ -568,8 +568,8 @@ export const EditShema = Joi.object({
   // .label("dependent Mobile Number"),
 
   dependent_mobile_number: Joi.string()
-    .min(12)
-    .max(12)
+    .min(10)
+    .max(10)
     .allow("", null)
     .messages({
       "string.pattern.base":
@@ -656,8 +656,8 @@ export const EditShema = Joi.object({
         // })
         // .label("dependent Mobile Number"),
         dependent_mobile_number: Joi.string()
-          .min(12)
-          .max(12)
+          .min(10)
+          .max(10)
           .allow("", null)
           .messages({
             "string.pattern.base":
@@ -990,8 +990,8 @@ const EmployeeDataSchema = {
   // })
   // .label("dependent Mobile Number"),
   dependent_mobile_number: Joi.string()
-    .min(12)
-    .max(12)
+    .min(10)
+    .max(10)
     .allow("")
     .messages({
       "string.pattern.base":
@@ -1169,8 +1169,8 @@ const EmployeeDataSchema = {
   // })
   // .label("dependent Mobile Number"),
   dependent_mobile_number: Joi.string()
-    .min(12)
-    .max(12)
+    .min(10)
+    .max(10)
     .allow("")
     .messages({
       "string.pattern.base":

@@ -65,7 +65,15 @@ const UpdateEmployee = () => {
         delete work_info?.role_name;
         // delete work_info?.reporting_manager;
         // delete work_info.location_name;
-
+        const updatedWorkExperience = work_experience.map(
+          ({ _id, ...rest }) => rest
+        );
+        const updatedEducationlaDetails = educational_details.map(
+          ({ _id, ...rest }) => rest
+        );
+        const updatedDependentDetails = dependent_details.map(
+          ({ _id, ...rest }) => rest
+        );
         const newObj = {
           basic_info,
           work_info,
@@ -77,6 +85,10 @@ const UpdateEmployee = () => {
         const form = flatternObject(newObj);
         // form.date_of_birth = convertDate(personal_details?.date_of_birth);
         form.reporting_manager = work_info.reporting_manager;
+
+        form.work_experience = updatedWorkExperience;
+        form.educational_details = updatedEducationlaDetails;
+        form.dependent_details = updatedDependentDetails;
 
         form.work_experience = work_experience;
         form.educational_details = educational_details;
