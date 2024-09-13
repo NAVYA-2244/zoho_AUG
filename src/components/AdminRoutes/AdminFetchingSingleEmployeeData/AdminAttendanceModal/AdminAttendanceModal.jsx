@@ -20,8 +20,6 @@ const AdminAttendanceModal = () => {
   } = useStateContext();
   const { applicationColor } = useThemeContext();
 
-  console.log(attendanceModalData.editingItem, "editingItem");
-
   const [formData, setFormData] = useState(
     Object.fromEntries(
       attendanceModalData.fields.map((item) => {
@@ -53,7 +51,8 @@ const AdminAttendanceModal = () => {
           </span>
         </div>
 
-        <form style={{maxHeight:"300px"}}
+        <form
+          style={{ maxHeight: "300px" }}
           onSubmit={async (e) => {
             try {
               await attendanceModalData.handleSubmit(e, formData);
@@ -118,7 +117,7 @@ const AdminAttendanceModal = () => {
               type="submit"
               disabled={loading}
               style={{
-                background: applicationColor.   buttonColor,
+                background: applicationColor.buttonColor,
                 color: "white",
                 width: "fit-content",
                 padding: "5px 20px",

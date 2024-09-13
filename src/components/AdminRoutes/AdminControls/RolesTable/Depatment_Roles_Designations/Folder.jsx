@@ -104,8 +104,6 @@ const FileUploadForm = ({ selectedLocation }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(e);
-
     try {
       setLoading(true);
       const dataToSubmit = {
@@ -149,7 +147,6 @@ const FileUploadForm = ({ selectedLocation }) => {
   };
 
   const handleSelectChange = (selectedOptions) => {
-    // console.log(selectedOptions, "aa");
     setFormData({
       ...formData,
       supported_file_formats: selectedOptions

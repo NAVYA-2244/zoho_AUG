@@ -23,7 +23,7 @@ function Piachart() {
     setEmployeedataleave
   } = useStateContext();
 
-  // console.log(selectedEmployeeDataleave, "setEmployeedata");
+
 
   useEffect(() => {
     const gettingEmployeeById = async () => {
@@ -31,10 +31,10 @@ function Piachart() {
         const response = await backEndCallObjNothing("/emp_get/get_profile", {
           employee_id: employeeDetails?.employee_id || "",
         });
-        console.log("response", response);
+       
         // setEmployeedataleave(response.profile.leaves);
         setEmployeedataleave(response?.profile?.leaves);
-        console.log(response.profile.leaves, "response.profile.leaves")
+       
       } catch (error) {
         console.error("Error fetching employee data:", error);
       }
@@ -57,8 +57,7 @@ function Piachart() {
                 color: applicationColor.readColor1,
               }}
             >
-              {/* {console.log(item, "item")} */}
-              {/* {console.log("items", leave_name)} */}
+             
               <div className="leave-img d-flex flex-column">
                 <i className={`${item.leave_name}`} alt={item.leave_name}>
                   {item.leave_name === "sick leave" ? (
@@ -85,7 +84,7 @@ function Piachart() {
                   <span className="leave-used">
                     Remaining  : {"  "} &nbsp;
                     <b>{item.remaining_leaves == "" ? "0" : item.remaining_leaves}</b>
-                    {console.log(item.remaining_leaves)}
+                 
                   </span>
                 </div>
               </div>

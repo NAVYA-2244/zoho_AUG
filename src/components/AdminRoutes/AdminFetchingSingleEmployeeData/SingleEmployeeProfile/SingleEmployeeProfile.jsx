@@ -103,16 +103,7 @@ let workInformationProperties = [
     property: "employee_status",
     type: "string",
   },
-  // {
-  //   name: "Location",
-  //   property: "location_name",
-  //   type: "string",
-  // },
-  // {
-  //   name: "Shift",
-  //   property: "shift_name",
-  //   type: "string",
-  // },
+
   {
     name: "Source of Hire",
     property: "source_of_hire",
@@ -141,11 +132,7 @@ let contactDetailsProperties = [
     property: "seating_location",
     type: "string",
   },
-  // {
-  //   name: "Tags",
-  //   property: "tags",
-  //   type: "string",
-  // },
+
   {
     name: "Work Phone Number",
     property: "mobile_number",
@@ -204,38 +191,7 @@ let personalDetailsProperties = [
   },
 ];
 
-//   return (
-//     <>
-//       {Object.keys(data).map((key, index) => (
-//         <div
-//           key={index}
-//           className="detail"
-//           style={{
-//             color: applicationColor.readColor2,
-//             borderBottom: `1px solid ${applicationColor.borderLine}`,
-//           }}
-//         >
-//           <p>{formatCamelCaseString(key)}</p>
-//           <p>
-//             {typeof data[key] === "object" && data[key] !== null ? (
-//               <RenderNestedProperties data={data[key]} />
-//             ) : data[key] !== null &&
-//               data[key] !== undefined &&
-//               data[key] !== "" ? (
-//               data[key]
-//             ) : (
-//               "--"
-//             )}
-//           </p>
-//         </div>
-//       ))}
-//     </>
-//   );
-// };
-
 const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
-  console.log(employeesLists, "employeesListss");
-  console.log(employeeProfileData, "employeeProfileData");
   const [status, setStatus] = useState("");
   const [newClass, setNewClass] = useState("");
   const [isStatusChanged, setIsStatusChanged] = useState(false);
@@ -281,26 +237,10 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
     setIsStatusChanged(true);
   };
 
-  // const handleEdit = () => {
-  // {  employeeDetails.admin_type=== "1"|employeeDetails.admin_type=== "2"?
-  //   navigate("/admin/employee/:id"):
-  //   navigate("/profile_Edit", { state: { employeeProfileData } });
-  // }
   const handleEdit = () => {
-    // if (
-    //   employeeDetails.admin_type === "1" ||
-    //   employeeDetails.admin_type === "2"
-    // ) {
-
-      navigate(
-        `/admin/update_employee/${employeeProfileData.profile.employee_id}`
-      );
-      
-    // }
-    //  else {
-    //   // navigate("/profile_Edit", { state: { employeeProfileData } });
-    //   ""
-    // }
+    navigate(
+      `/admin/update_employee/${employeeProfileData.profile.employee_id}`
+    );
   };
   const {
     basic_info,
@@ -386,13 +326,17 @@ const SingleEmployeeProfile = ({ employeeProfileData, employeesLists }) => {
                   <div className="basic-info-wrapper">
                     <div className="d-flex align-items-center justify-content-between">
                       <h4 className="profile-heading">Profile</h4>
-                      {employeeDetails.admin_type=== "1"||employeeDetails.admin_type=== "1" ?
-
-                     ( <button className="btn btn-primary" onClick={handleEdit}>
-                        Edit
-                      </button>) : ""
-
-                       } 
+                      {employeeDetails.admin_type === "1" ||
+                      employeeDetails.admin_type === "1" ? (
+                        <button
+                          className="btn btn-primary"
+                          onClick={handleEdit}
+                        >
+                          Edit
+                        </button>
+                      ) : (
+                        ""
+                      )}
                     </div>
                     <div className="basic-information">
                       <div className="basic-info-left">

@@ -53,9 +53,9 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
   });
 
   const navigate = useNavigate();
-  console.log(adminGettingLeaveApplications, "adminGettingLeaveApplications");
+
   const observer = useRef();
-  console.log(adminGettingLeaveApplications, "response");
+
   const fetchLeaveApplications = useCallback(async () => {
     console.log(
       "admingadminGettingLeaveApplicationset",
@@ -64,32 +64,26 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
     setLoading(true);
 
     try {
-      console.log("formData.status", formData.status);
       console.log(
         "admingadminGettingLeaveApplicationset",
         adminGettingLeaveApplications
       );
       // if (!adminGettingLeaveApplications) {
-        console.log(
-          "admingadminGettingLeaveApplicationset",
-          adminGettingLeaveApplications
-        );
-        const response = await backEndCallObjNothing(
-          "/admin_get/all_leave_applications",
-          {
-            skip: 0, // Adjust skip to match API expectations (if needed)
-            leave_status: formData.status,
-            year: formData.year,
-            employee_id: formData.employee_id, // Pass employee_id filter if needed
-          }
-        );
-        setAdminGettingLeaveApplications(response.leaveApplications);
-        setLeavescount(response.leaves);
-      // }
-
-      // console.log(response,"response")
-      // if (response.data.length < limit) {
-      //   setHasMore(false);
+      console.log(
+        "admingadminGettingLeaveApplicationset",
+        adminGettingLeaveApplications
+      );
+      const response = await backEndCallObjNothing(
+        "/admin_get/all_leave_applications",
+        {
+          skip: 0, // Adjust skip to match API expectations (if needed)
+          leave_status: formData.status,
+          year: formData.year,
+          employee_id: formData.employee_id, // Pass employee_id filter if needed
+        }
+      );
+      setAdminGettingLeaveApplications(response.leaveApplications);
+      setLeavescount(response.leaves);
       // }
     } catch (error) {
       console.error("Error fetching leave applications:", error);
@@ -100,11 +94,10 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
 
   useEffect(() => {
     if (!adminGettingLeaveApplications) {
-    fetchLeaveApplications();
+      fetchLeaveApplications();
     }
   }, [skip, fetchLeaveApplications]);
 
-  // console.log(adminGettingLeaveApplications,"adminGettingLeaveApplications")
   const handleThumbsUpClick = (item) => {
     setSelectedLeave(item);
     setShowModal(true);
@@ -138,10 +131,6 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
     // setBtndisabled(true);
     if (selectedLeave && selectedLeave.leave_application_id) {
       onLeaveReject(selectedLeave.leave_application_id);
-
-      // closeModal();
-
-      // setBtndisabled(false);
     } else {
       console.error("Leave application ID is missing or undefined.");
     }
@@ -169,9 +158,8 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
     }));
   };
   const handleSubmit = async (e) => {
-    console.log("enter");
     await setAdminGettingLeaveApplications(null);
-    console.log("enter", adminGettingLeaveApplications);
+
     // if (moment(formData.end_date).isBefore(formData.start_date)) {
     //   toastOptions.error("End Date cannot be less than Start Date");
     //   return;
@@ -199,28 +187,25 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
           "/admin/update_leave_status",
           data
         );
-
       } else {
         response = await backEndCallObjNothing(
           "/admin/update_leave_application",
           data
         );
       }
-       closeModal()
+      closeModal();
       setAdminGettingLeaveApplications(adminGettingLeaveApplications);
-       toastOptions.success(response || "Success");
-     await fetchLeaveApplications();
+      toastOptions.success(response || "Success");
+      await fetchLeaveApplications();
       setBtndisabled(false);
-      
     } catch (error) {
       setBtndisabled(false);
-      closeModal()
+      closeModal();
       toastOptions.error(
         error?.response?.data?.detail ||
           "Error while Accepting Leave Application"
       );
-    }
-    finally{
+    } finally {
       setBtndisabled(false);
     }
   };
@@ -244,21 +229,17 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
 
       // const updatedApplication = response.data;
       setAdminGettingLeaveApplications(adminGettingLeaveApplications);
-      closeModal()
-     await fetchLeaveApplications();
-     setBtndisabled(false);
+      closeModal();
+      await fetchLeaveApplications();
+      setBtndisabled(false);
       toastOptions.success(response || "rejected");
-   
-      
     } catch (error) {
-      closeModal()
+      closeModal();
       toastOptions.error(
         error?.response?.data?.detail ||
           "Error While Rejecting Leave Application"
       );
-
-    }
-    finally{
+    } finally {
       setBtndisabled(false);
     }
   };
@@ -268,15 +249,12 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
   };
   useEffect(() => {
     const fetchEmployees = async () => {
-      {
-        console.log(TeamTask, "task");
-      }
       try {
         if (!TeamTask) {
           const response = await backEndCallObjNothing(
             "/org/get_team_for_task"
           );
-          console.log(response, "jdjjdjjdj");
+
           setTeamTask(response); // Assuming response contains the employee list
         }
       } catch (error) {
@@ -289,7 +267,6 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
 
   const renderLeaveStatusButtons = useCallback(
     (application) => {
-      console.log(application, "application");
       const { hr, manager, team_incharge } = application.approved_by;
       const employeeRole = employeeDetails?.admin_type || "";
 
@@ -313,11 +290,10 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
               <button
                 className="actions-btn accept"
                 disabled={btndisabled}
-                
                 // onClick={() => onLeaveAccept(application.leave_application_id)}
                 onClick={() => handleThumbsUpClick(application)}
               >
-               Approve {" "}<FaThumbsUp></FaThumbsUp> 
+                Approve <FaThumbsUp></FaThumbsUp>
               </button>
               <button
                 className="actions-btn reject"
@@ -325,20 +301,24 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
                 // onClick={() => onLeaveReject(application.leave_application_id)}
                 onClick={() => handleThubsDownClick(application)}
               >
-                Reject {" "}<FaThumbsDown></FaThumbsDown> 
+                Reject <FaThumbsDown></FaThumbsDown>
               </button>
             </>
           ) : roleStatus === "Approved" ? (
-            <button className="actions-btn accept">Approved {" "}<FaThumbsUp></FaThumbsUp> </button>
+            <button className="actions-btn accept">
+              Approved <FaThumbsUp></FaThumbsUp>{" "}
+            </button>
           ) : (
-            <button className="actions-btn reject">  Rejected {" "}<FaThumbsDown></FaThumbsDown></button>
+            <button className="actions-btn reject">
+              {" "}
+              Rejected <FaThumbsDown></FaThumbsDown>
+            </button>
           )}
         </section>
       );
     },
     [employeeDetails]
   );
-  console.log(adminGettingLeaveApplications, "Admin");
 
   // const handleYearChange = (e) => {
   //   const selectedYear = new Date(e.target.value).getFullYear().toString(); // Convert to string
@@ -356,14 +336,11 @@ const AdminAcceptedEmployeeLeavesApplications = () => {
     fetchLeaveApplications();
   };
   const handleRefresh = () => {
-setAdminGettingLeaveApplications(null)
+    setAdminGettingLeaveApplications(null);
     fetchLeaveApplications();
   };
 
-
-  useEffect(() => {
-    console.log("Selected employee_id:", formData.employee_id);
-  }, [formData.employee_id]);
+  useEffect(() => {}, [formData.employee_id]);
   return (
     <section
       className="admin-accepted-leave-applications"
@@ -379,7 +356,7 @@ setAdminGettingLeaveApplications(null)
         >
           <div style={{ display: "flex", alignItems: "center" }}>
             <span className="mb-0">Employee Leave Applications</span>
-            {console.log(loading, "ji")}
+
             <span
               onClick={loading ? null : handleRefresh}
               style={{
@@ -471,8 +448,6 @@ setAdminGettingLeaveApplications(null)
         <div className="row">
           {leavescount?.length > 0
             ? leavescount?.map((item) => {
-                console.log("Rendering leave item:", item); // Log each item being rendered
-
                 return (
                   <div
                     key={item.leave_id}
@@ -501,7 +476,6 @@ setAdminGettingLeaveApplications(null)
                           <br />
                           <span className="leave-used">
                             Remaining: <b>{item.remaining_leaves || "0"}</b>
-                            {console.log(item.remaining_leaves)}
                           </span>
                         </div>
 
@@ -650,7 +624,6 @@ setAdminGettingLeaveApplications(null)
                   color: applicationColor.readColor1,
                 }}
               >
-               
                 {/* <th>Reject</th> */}
                 <th>Applied On</th>
                 <th>Employee Name</th>
@@ -685,7 +658,7 @@ setAdminGettingLeaveApplications(null)
                           </div>
                         )}
                       </td> */}
-                     
+
                       {/* <td className="text-center">
                         {item.rejected ? (
                           <FaThumbsDown className="text-danger " />
@@ -735,8 +708,7 @@ setAdminGettingLeaveApplications(null)
                       >
                         {item.reason}
                       </td>
-                      <td>
-                      {renderLeaveStatusButtons(item)}</td>
+                      <td>{renderLeaveStatusButtons(item)}</td>
                       <td>
                         <span
                           className={`leave-status ${item.leave_status.toLowerCase()}`}
@@ -752,7 +724,6 @@ setAdminGettingLeaveApplications(null)
                           )}
                         </span>
                       </td>
-                     
                     </tr>
                   ))}
 

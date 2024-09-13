@@ -111,7 +111,6 @@ const ApplyLeave = () => {
       setLoadingTerm("");
       setLoading(false);
     } catch (error) {
-      console.log("errors", error);
       toastOptions.error(
         error?.error?.response?.data?.detail || error[0].message
       );

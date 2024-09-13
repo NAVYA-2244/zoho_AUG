@@ -69,7 +69,6 @@ const AllEmployeeLists = () => {
       setLoading(false);
       setLoadingTerm("");
     } catch (error) {
-     
       toastOptions.error("no emloyee with the search term");
     } finally {
       setLoading(false);
@@ -104,7 +103,7 @@ const AllEmployeeLists = () => {
       setLoadingTerm("");
     } catch (error) {
       setLoading(false);
-      console.log("error while fetching more data", error);
+
       setLoadingTerm("");
     } finally {
       setLoading(false);

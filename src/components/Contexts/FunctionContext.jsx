@@ -14,9 +14,8 @@ export const FunctionContextProvider = ({ children }) => {
   } = useStateContext();
   //  const navigate= useNavigate()
   const handleChange = (e, schema, setForm, index = null, fieldName = null) => {
-
     const { name, type, checked, id, value: inputValue } = e.target;
-    console.log(inputValue,'inputValue')
+
     let value = inputValue;
 
     // Define max length based on schema
@@ -82,9 +81,7 @@ export const FunctionContextProvider = ({ children }) => {
     }
 
     // Update form state
-    {
-      console.log(setForm, "form");
-    }
+
     setForm((prevForm) => {
       const newForm = { ...prevForm };
       if (index !== null && fieldName) {
@@ -115,9 +112,8 @@ export const FunctionContextProvider = ({ children }) => {
   };
 
   const checkErrors = async (schema, formData) => {
-    console.log("hello");
     const mainSchema = Joi.object(schema);
-    // console.log(mainSchema, "mainschema")
+
     const { error } = mainSchema.validate(formData, { abortEarly: false });
 
     if (error) {
@@ -161,7 +157,6 @@ export const FunctionContextProvider = ({ children }) => {
   };
   // Function to trigger the map when needed
   const handleShowLocation = (item, type) => {
-    console.log(item, type);
     if (type === "Check In Location") {
       let lat = item.checkIn.latitude;
       let lng = item.checkIn.longitude;
@@ -178,8 +173,6 @@ export const FunctionContextProvider = ({ children }) => {
     setCheckInModal(true);
   };
 
-  // console.log(employeeDetails);
-
   const employeeTypeCheck = () => {
     let employeeType;
     if (employeeDetails.collection === "USER") {
@@ -193,8 +186,6 @@ export const FunctionContextProvider = ({ children }) => {
   const [mainAdmin, setMainAdmin] = useState(employeeTypeCheck());
 
   const checkingDataThere = async (data, navigate) => {
-    console.log(data, "data");
-
     // Check if either condition is not met
     if (!data?.images?.logo) {
       setTimeout(() => {

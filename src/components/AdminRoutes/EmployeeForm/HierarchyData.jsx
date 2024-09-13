@@ -35,16 +35,6 @@ const HierarchyData = ({ formData, setFormData }) => {
         },
       ],
     }));
-
-    // setTimeout(() => {
-    //   window.scrollBy(0, 500);
-    // }, 500);
-
-    // document.getElementById(`workExperience${index}`).scrollIntoView({
-    //   behavior: "smooth",
-    //   block: "center",
-    //   inline: "center",
-    // });
   };
 
   const removeWorkExperience = (index) => {
@@ -82,20 +72,7 @@ const HierarchyData = ({ formData, setFormData }) => {
             // readOnly={isAdmin}
           />
         </div>
-        {/* <div className="col-lg-4 col-md-4 col-sm-6">
-          <Input_text
-            type={"tel"}
-            name={"personal_mobile_number"}
-            placeholder={"Personal Mobile Number"}
-            value={formData.personal_mobile_number}
-            setForm={setFormData}
-            schema={schema.personal_mobile_number}
-            inputRef={(el) => (refs.current.personal_mobile_number = el)}
-            imp
-            // readOnly={isAdmin}
 
-          />
-        </div> */}
         <div className="col-lg-4 col-md-4 col-sm-6">
           <Input_email
             type={"email"}

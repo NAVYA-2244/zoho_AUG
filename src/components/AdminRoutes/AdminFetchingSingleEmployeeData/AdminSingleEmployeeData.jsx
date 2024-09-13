@@ -38,8 +38,7 @@ const AdminSingleEmployeeData = ({ employeeProfileData, employeesList }) => {
     []
   );
   const [employeeProfile, setEmployeeProfile] = useState({});
-  console.log(employeeProfile, "ewwe");
-  
+
   const [status, setStatus] = useState("");
   const [newClass, setNewClass] = useState("");
   const [isStatusChanged, setIsStatusChanged] = useState(false);
@@ -169,10 +168,9 @@ const AdminSingleEmployeeData = ({ employeeProfileData, employeesList }) => {
   //To Update the Employee Data
   const handleSubmit = async (formData) => {
     try {
-     
       setLoading(true);
       setLoadingTerm("Edit Details");
-     
+
       await checkErrors(ExpirementSchema, formData);
 
       const data = {

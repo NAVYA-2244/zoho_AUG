@@ -29,7 +29,7 @@ function ApplyLeaveForm() {
     employeedata,
     setEmployeedata,
     employeedataleaves,
-    setEmployeedataleave
+    setEmployeedataleave,
   } = useStateContext();
   const { checkErrors, employeeDetails } = useFunctionContext();
   const { applicationColor } = useThemeContext();
@@ -42,36 +42,22 @@ function ApplyLeaveForm() {
     // days_taken: '',
     // team_mail_id: "",
   });
- 
-    const gettingEmployeeById = async () => {
-      try {
-        const response = await backEndCallObjNothing("/emp_get/get_profile", {
-          employee_id: employeeDetails?.employee_id || "",
-        });
-        console.log("profile", response);
-        setEmployeedataleave(response.profile.leaves);
-        // setSelectedEmployeeData(response.profile.leaves);
-      } catch (error) {
-        console.error("Error fetching employee data:", error);
-      }
-    };
- useEffect(() => {
-    gettingEmployeeById();
 
+  const gettingEmployeeById = async () => {
+    try {
+      const response = await backEndCallObjNothing("/emp_get/get_profile", {
+        employee_id: employeeDetails?.employee_id || "",
+      });
+
+      setEmployeedataleave(response.profile.leaves);
+      // setSelectedEmployeeData(response.profile.leaves);
+    } catch (error) {
+      console.error("Error fetching employee data:", error);
+    }
+  };
+  useEffect(() => {
+    gettingEmployeeById();
   }, [employeeDetails]);
-  
-console.log(employeedataleaves)
-  // useEffect(() => {
-  //   if (formData.from_date && formData.to_date) {
-  //     const from_dateObj = parse(formData.from_date, 'yyyy-MM-dd', new Date());
-  //     const to_dateObj = parse(formData.to_date, 'yyyy-MM-dd', new Date());
-  //     const days_taken = Math.max(differenceInDays(to_dateObj, from_dateObj) + 1, 1);
-  //     setFormData((prevFormData) => ({
-  //       ...prevFormData,
-  //       days_taken: days_taken.toString(),
-  //     }));
-  //   }
-  // }, [formData.from_date, formData.to_date]);
 
   const leaveFormSchema = {
     from_date: Joi.date().required().label("From Date"),
@@ -95,18 +81,15 @@ console.log(employeedataleaves)
 
   const onLeaveApply = async (e) => {
     e.preventDefault();
-    
+
     const today = new Date();
-    const from_dateObj = parse(formData.from_date, 'yyyy-MM-dd', new Date());
-    const to_dateObj = parse(formData.to_date, 'yyyy-MM-dd', new Date());
-    
+    const from_dateObj = parse(formData.from_date, "yyyy-MM-dd", new Date());
+    const to_dateObj = parse(formData.to_date, "yyyy-MM-dd", new Date());
+
     // Check if 'from_date' is greater than today's date
-   
-    
-    
-    
+
     try {
-      if ((from_dateObj > to_dateObj) ){
+      if (from_dateObj > to_dateObj) {
         toastOptions.error("From Date cannot be grater than To Date");
         return; // Prevent form submission if invalid
       }
@@ -133,9 +116,7 @@ console.log(employeedataleaves)
       );
       setLoading(false);
     } catch (error) {
-      console.log(error);
-      if(error?.response?.data){
-
+      if (error?.response?.data) {
         toastOptions.error(error?.response?.data || error.message);
       }
       setLoading(false);
@@ -166,35 +147,35 @@ console.log(employeedataleaves)
           <div className="row">
             <div className="col-lg-6 col-md-6">
               {/* <section> */}
-                <Select_inputs
-                  name="leave_type"
-                  placeholder="Leave Type"
-                  options={employeedataleaves?.map((leave) => ({
-                    leave_typeId: leave.leave_id,
-                    leave_type: leave.leave_name,
-                  }))}
-                  value={formData.leave_type}
-                  setForm={setFormData}
-                  schema={leaveFormSchema.leave_type}
-                  property="leave_type"
-                  valueProperty="leave_typeId"
-                />
-                </div>
-                <div className="col-lg-6 col-md-6">
-                <Input_area
-                  value={formData.reason}
-                  name="reason"
-                  placeholder="Reason"
-                  schema={leaveFormSchema.reason}
-                  setForm={setFormData}
-                  length={250}
-                  imp
-                />
+              <Select_inputs
+                name="leave_type"
+                placeholder="Leave Type"
+                options={employeedataleaves?.map((leave) => ({
+                  leave_typeId: leave.leave_id,
+                  leave_type: leave.leave_name,
+                }))}
+                value={formData.leave_type}
+                setForm={setFormData}
+                schema={leaveFormSchema.leave_type}
+                property="leave_type"
+                valueProperty="leave_typeId"
+              />
+            </div>
+            <div className="col-lg-6 col-md-6">
+              <Input_area
+                value={formData.reason}
+                name="reason"
+                placeholder="Reason"
+                schema={leaveFormSchema.reason}
+                setForm={setFormData}
+                length={250}
+                imp
+              />
 
               {/* </section> */}
             </div>
-                <div className="col-lg-6 col-md-6">
-                {/* <Date_Input
+            <div className="col-lg-6 col-md-6">
+              {/* <Date_Input
                   type="date"
                   value={formData.from_date}
                   name="from_date"
@@ -203,21 +184,20 @@ console.log(employeedataleaves)
                   schema={leaveFormSchema.from_date}
                   imp
                 /> */}
-                <Date_Input
-                  type="date"
-                  value={formData.from_date}
-                  name="from_date"
-                  placeholder="From Date"
-                  setForm={setFormData}
-                  schema={leaveFormSchema.from_date}
-                  imp
-                />
-                </div>
-               
+              <Date_Input
+                type="date"
+                value={formData.from_date}
+                name="from_date"
+                placeholder="From Date"
+                setForm={setFormData}
+                schema={leaveFormSchema.from_date}
+                imp
+              />
+            </div>
 
             <div className="col-lg-6 col-md-6">
               {/* <section> */}
-                {/* <Input_email
+              {/* <Input_email
                   type="email"
                   placeholder="Team Email ID"
                   name="team_mail_id"
@@ -226,17 +206,17 @@ console.log(employeedataleaves)
                   schema={leaveFormSchema.team_mail_id}
                   imp
                 /> */}
-                <Date_Input
-                  type="date"
-                  value={formData.to_date}
-                  name="to_date"
-                  placeholder="To Date"
-                  setForm={setFormData}
-                  schema={leaveFormSchema.to_date}
-                  imp
-                />
+              <Date_Input
+                type="date"
+                value={formData.to_date}
+                name="to_date"
+                placeholder="To Date"
+                setForm={setFormData}
+                schema={leaveFormSchema.to_date}
+                imp
+              />
 
-                {/* <Input_text
+              {/* <Input_text
                   value={formData.days_taken}
                   name="days_taken"
                   placeholder="Days Taken"
@@ -245,7 +225,7 @@ console.log(employeedataleaves)
                   imp
                   readOnly
                 /> */}
-                {/* <Input_email
+              {/* <Input_email
                   type="email"
                   placeholder="Team Email ID"
                   name="team_mail_id"

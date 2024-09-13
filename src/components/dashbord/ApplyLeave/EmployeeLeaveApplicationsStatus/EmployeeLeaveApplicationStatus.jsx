@@ -41,8 +41,6 @@ const EmployeeLeaveApplicationStatus = () => {
   let totalRejectedLeaveApplications;
   let totalPendingLeaveApplication;
 
-  // console.log("adminGettingLeaveApplications", adminGettingLeaveApplications);
-
   useEffect(() => {
     if (Object.keys(employeeData).length > 0) {
       totalLeaveApplicationsLength =

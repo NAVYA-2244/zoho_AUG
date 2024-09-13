@@ -48,17 +48,18 @@ const Headers = () => {
     setBirthdays,
     stats,
     setStats,
-    recentemployeeid,  
+    recentemployeeid,
     Setrecentemployeeid,
     reportingmangers,
     setreportingmangers,
-    setProfilePhoto, profilePhoto 
+    setProfilePhoto,
+    profilePhoto,
   } = useStateContext();
   const { checkingDataThere } = useFunctionContext();
   const { applicationColor } = useThemeContext();
   const [pageTerm, setPageTerm] = useState("");
   const [newss, setNews] = useState(false);
-  
+
   // const [recentemployeeid,Setrecentemployeeid] = useState([]);
   const navigate = useNavigate();
 
@@ -102,7 +103,7 @@ const Headers = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("zohoEmployeeToken");
-    navigate("/login")
+    navigate("/login");
     // window.localStorage.getItem("zohoEmployeeToken")
     //   ? (window.location = "/dashboard")
     //   : (window.location = "/login");
@@ -119,17 +120,14 @@ const Headers = () => {
       } else {
         res = await backEndCallObjNothing("/emp_get/universal");
       }
-      console.log(res,"recent employe id")
+
       setStats(res?.stats);
 
       Setrecentemployeeid(res.employee_id);
 
       setOrgDetails(res?.organisation_details);
-      setreportingmangers(res?.reporting_managers)
+      setreportingmangers(res?.reporting_managers);
       setOrgLogo(res?.organisation_details.images?.logo);
-      // console.log(res?.organisation_details.images?.logo,"logooooooooooooooo")
-      // setLocations(res.organisation_details?.locations);
-      // setTodayAttendance(res?.organisation_details?.today_attendance);
 
       setOrgDetails(res?.organisation_details);
       setOrgLogo(res?.organisation_details?.images?.logo);
@@ -142,25 +140,11 @@ const Headers = () => {
       console.log(error, "eroor");
     }
   };
-  
+
   useEffect(() => {
     // IsAdmin()
     fetchData();
   }, []);
-  console.log(recentemployeeid?.employee_id,"recentemployeeid")
-  // if (locations.length === 0) {
-  //   return <Navigate to="/location" />;
-  // } else if (!Object.keys(orgLogo).length) {
-  //   return <Navigate to="/admin/company" />;
-  // }
-
-  // useEffect(() => {
-  // checkingDataThere();
-  // }, []);
-
-  // if (!newss) {
-  //   return <Navigate to="/location" />;
-  // }
 
   return (
     <>
@@ -234,11 +218,9 @@ const Headers = () => {
             <span className="email">{employeeDetails?.email || ""}</span>
             <span className="id">{employeeDetails?.employeeId || ""}</span>
 
-           <span style={{ textTransform: 'capitalize' }}>
-  {employeeDetails?.role_name}
-</span>
-
-            {console.log(employeeDetails.role_name, "nameee")}
+            <span style={{ textTransform: "capitalize" }}>
+              {employeeDetails?.role_name}
+            </span>
           </div>
 
           <div className="dropdown">
@@ -248,16 +230,14 @@ const Headers = () => {
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-            
               {/* <img src={dummyUser} alt="userimage" />
 
               <img src={profilePhoto} alt="userimage" />
                */}
-               <img 
-  src={profilePhoto ? profilePhoto : dummyUser} 
-  alt="userimage" 
-/>
-
+              <img
+                src={profilePhoto ? profilePhoto : dummyUser}
+                alt="userimage"
+              />
             </Link>
 
             <ul className="dropdown-menu user-dropdown">

@@ -115,9 +115,6 @@ export const OnlyBirthDaysAndNewHires = () => {
       setLoadingTerm("");
     }
   };
-  // console.log("setrecentHire", recentHire);
-  // console.log("birthdays",Birthdays)
-  // This call back function will responsible to obeserve the last item in the todayBirthdays Array and make the network call based on some condtions
   const birthdayListRef = useCallback(
     (node) => {
       if (loading) return;
@@ -158,74 +155,6 @@ export const OnlyBirthDaysAndNewHires = () => {
       setBirthdayListSkip,
     ]
   );
-
-  //This funtion will make the network when the last item in   newHires list come into the view
-  // const fetchMoreNewHiresList = async () => {
-  //   try {
-  //     setLoading(true);
-  //     setLoadingTerm("getMoreNewHires");
-  //     const response = await makeNetworkCall(
-  //       {
-  //         employeesSearch: "",
-  //         newHiresFilters: { skip: newHiresSkip * 5, limit: 5 },
-  //       },
-  //       "getOrgData1",
-  //       "headers"
-  //     );
-
-  //     if (response.detail.newHires.length > 0) {
-  //       setNewHires((prevList) => {
-  //         return [...prevList, ...response.detail.newHires];
-  //       });
-  //     } else {
-  //       setNewHiresExist(true);
-  //     }
-
-  //     setLoading(false);
-  //     setLoadingTerm("");
-  //   } catch (error) {
-  //     setLoading(false);
-  //     setLoadingTerm("");
-  //   } finally {
-  //     setLoading(false);
-  //     setLoadingTerm("");
-  //   }
-  // };
-
-  // This call back function will responsible to obeserve the last item in the newHires Array and make the network call based on some condtions
-  // const newHiresRef = useCallback(
-  //   (node) => {
-  //     if (loading) return;
-  //     if (newHiresListObserver.current)
-  //       newHiresListObserver.current.disconnect();
-  //     newHiresListObserver.current = new IntersectionObserver(
-  //       async (entries) => {
-  //         if (
-  //           entries[0].isIntersecting &&
-  //           !newHiresExist &&
-  //           newHires.length >= 5
-  //         ) {
-  //           setNewHiresSkip((prevSkip) => prevSkip + 1);
-  //           if (newHiresSkip) {
-  //             await fetchMoreNewHiresList();
-  //           }
-  //         }
-  //       }
-  //     );
-
-  //     if (node) newHiresListObserver.current.observe(node);
-  //   },
-  //   [
-  //     newHiresExist,
-  //     newHires,
-  //     setNewHires,
-  //     newHiresSkip,
-  //     loading,
-  //     newHiresSkip,
-  //     setNewHiresSkip,
-  //   ]
-  // );
-  // console.log(stats,"navyaa")
   return (
     <>
       <div className="col-lg-4">
@@ -233,13 +162,6 @@ export const OnlyBirthDaysAndNewHires = () => {
           className="d_card"
           style={{ background: applicationColor.cardItem }}
         >
-          {/* <BirthdaysAndNewHires
-        data={todayBirthdays}
-        heading={"Today Birthdays"}
-        img={randomPic}
-        // loadMoreRef={birthdayListRef}
-        getMoreDataType="getMoreBirthdayList" */}
-          {/* /> */}
           <Birthday
             img={randomPic}
             data={todayBirthdays}

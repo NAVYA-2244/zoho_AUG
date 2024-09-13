@@ -30,7 +30,6 @@ const AddEmployee = () => {
   const [btndisabled, setButtonDisabled] = useState(false);
 
   const handleSubmit = async (formData, setFormData) => {
-    // console.log(formData.educational_details, "del");
     console.log(
       Array.isArray(formData?.dependent_details) &&
         formData.dependent_details.length > 0 &&
@@ -51,22 +50,21 @@ const AddEmployee = () => {
 
       const data = {
         organisation_id: orgDetails?.organisation_id,
-        // banner: formData?.banner,
+
         employee_id: formData?.employee_id,
         password: formData?.password,
-        // location_id: formData?.location_id,
-        // profilePhoto: formData?.profilePhoto,
+
         first_name: formData?.first_name,
         last_name: formData?.last_name,
         nick_name: formData?.nick_name,
         email: formData?.email,
         gender: formData?.gender,
         expertise: formData.expertise,
-        // tags: formData?.tags,
+
         department_id: formData?.department_id,
         designation_id: formData?.designation_id,
         role_id: formData?.role_id,
-        // location: formData?.location,
+
         employment_type: formData?.employment_type,
         source_of_hire: formData?.source_of_hire,
         date_of_join: formData?.date_of_join,
@@ -84,7 +82,7 @@ const AddEmployee = () => {
           passport_number: formData?.passport_number.toUpperCase(),
         },
         mobile_number: formData?.mobile_number,
-        // personal_mobile_number: formData?.personal_mobile_number,
+
         personal_email_address: formData?.personal_email_address,
         seating_location: formData?.seating_location,
         permanent_address: formData?.permanent_address,
@@ -117,10 +115,6 @@ const AddEmployee = () => {
             : [],
       };
 
-      //  data=orgDetails?.organisation_id;
-
-      console.log(data, "datatas");
-
       const response = await backEndCallObjNothing("/admin/add_employee", data);
 
       setRedirect(true);
@@ -131,8 +125,6 @@ const AddEmployee = () => {
       setLoadingTerm("");
       setLoading(false);
       setButtonDisabled(false);
-
-      // window.location.reload("/admin/employee_list");
 
       navigate("/admin/employee_list");
     } catch (error) {
@@ -146,11 +138,9 @@ const AddEmployee = () => {
     }
   };
   if (redirect) {
-    console.log("");
     return <Navigate to="/admin/employee_list" />;
   }
 
-  console.log(addEmployeeForm, "navya");
   return (
     <>
       <ReusableProfileForm

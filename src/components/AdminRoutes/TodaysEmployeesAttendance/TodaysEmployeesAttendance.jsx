@@ -34,7 +34,7 @@ const TodaysEmployeesAttendance = () => {
   const todayAttendanceObserver = useRef();
   const [todayAttendanceExist, settodayAttendanceExist] = useState(false);
   // const[loader,setLoader]=useState(false)
-  const[btndisabled,setBtndisabled]=useState(false)
+  const [btndisabled, setBtndisabled] = useState(false);
   const navigate = useNavigate();
 
   let [currentTab, setCurrentTab] = useState("table-view");
@@ -95,9 +95,8 @@ const TodaysEmployeesAttendance = () => {
   };
 
   const fetchAttendanceData = async (date) => {
-
     try {
-      setBtndisabled(true)
+      setBtndisabled(true);
       setLoading(true);
       const response = await backEndCallObjNothing(
         "/user_get/today_attendance",
@@ -106,15 +105,14 @@ const TodaysEmployeesAttendance = () => {
           date: date || form.dateTime,
         }
       );
-      console.log("todayAttendance", response);
+
       setTodayAttendanceAdmin(response.today_attendance);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching attendance data:", error);
       setLoading(false);
-    }
-    finally{
-      setBtndisabled(false)
+    } finally {
+      setBtndisabled(false);
     }
   };
 
@@ -149,11 +147,9 @@ const TodaysEmployeesAttendance = () => {
       return "Present";
     } else if (time.checkin.length > 0 && time.checkout.length === 0) {
       return "Checkin";
-    } 
-   
-    else if (time.status === "leave")
-      { return "leave";}
-   
+    } else if (time.status === "leave") {
+      return "leave";
+    }
   };
 
   return (
@@ -197,9 +193,11 @@ const TodaysEmployeesAttendance = () => {
                   disabled={loading}
                   onClick={() => fetchAttendanceData(form.dateTime)}
                 >
-                  {loading && loadingTerm === "gettingAttendanceByDate"
-                    ? <Loader></Loader>
-                    : "Submit"}
+                  {loading && loadingTerm === "gettingAttendanceByDate" ? (
+                    <Loader></Loader>
+                  ) : (
+                    "Submit"
+                  )}
                 </button>
               )}
             </div>
@@ -226,9 +224,11 @@ const TodaysEmployeesAttendance = () => {
                   disabled={loading}
                   onClick={() => fetchAttendanceData(form.dateTime)}
                 >
-                  {loading && loadingTerm === "gettingAttendanceByDate"
-                    ? <Loader></Loader>
-                    : "Submit"}
+                  {loading && loadingTerm === "gettingAttendanceByDate" ? (
+                    <Loader></Loader>
+                  ) : (
+                    "Submit"
+                  )}
                 </button>
               )}
             </div>
@@ -320,7 +320,6 @@ const TodaysEmployeesAttendance = () => {
                     </tr>
                   )}
                 </tbody>
-                
               </table>
               {loading && <Loader></Loader>}
             </div>
@@ -416,7 +415,7 @@ export const UpdateTodayAttendance = ({ attendanceItem }) => {
     todayAttendanceAdmin,
     setTodayAttendanceAdmin,
   } = useStateContext();
-  console.log(todayAttendanceAdmin, " todayAttendance");
+
   const [editingItem, setEditingItem] = useState({});
 
   useEffect(() => {
@@ -436,7 +435,7 @@ export const UpdateTodayAttendance = ({ attendanceItem }) => {
     try {
       setLoading(true);
       setLoadingTerm("updatingEmployeeAttendance");
-      console.log(attendanceModalData);
+
       if (attendanceModalData.edit) {
         data.attendanceId = attendanceItem.attendanceId;
       }
@@ -447,7 +446,7 @@ export const UpdateTodayAttendance = ({ attendanceItem }) => {
       );
 
       const response = await makeNetworkCall({}, "getAdminData", "headers");
-      console.log({ response });
+
       setTodayAttendanceAdmin(response.detail.totalAttendance);
       toastOptions.success(
         typeof detail === "object" ? "Attendance Updated Successfully" : detail
@@ -469,7 +468,7 @@ export const UpdateTodayAttendance = ({ attendanceItem }) => {
 
   let attendanceDataUpdate = () => {
     try {
-    setLoading(true);
+      setLoading(true);
       setLoadingTerm("updatingEmployeeAttendance");
       setAttendanceModal(!attendanceModal);
       setAttendanceModalData({
@@ -496,16 +495,13 @@ export const UpdateTodayAttendance = ({ attendanceItem }) => {
         edit: true,
       });
     } catch (error) {
-      console.log("error", error);
-      toastOptions.error(error)
-       setLoading(false);
+      toastOptions.error(error);
+      setLoading(false);
       setLoadingTerm("");
-    }
-     finally {
+    } finally {
       setLoading(false);
       setLoadingTerm("");
     }
-  
   };
 
   return (

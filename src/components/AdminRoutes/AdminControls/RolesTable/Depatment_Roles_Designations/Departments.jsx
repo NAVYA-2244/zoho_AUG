@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import { RiAddCircleFill } from "react-icons/ri";
 import { useStateContext } from "../../../../Contexts/StateContext";
 import { useThemeContext } from "../../../../Contexts/ThemesContext";
-import {
-  Input_text,
-} from "../../../../common/ALLINPUTS/AllInputs";
+import { Input_text } from "../../../../common/ALLINPUTS/AllInputs";
 import Loader from "../../../../Loader/Loader";
 import { useFunctionContext } from "../../../../Contexts/FunctionContext";
 import { toastOptions } from "../../../../../Utils/FakeRoutes";
@@ -21,12 +19,12 @@ const Departments = ({ selectedLocation }) => {
   const { loading, setErrors, setLoading, orgDetails, setOrgDetails } =
     useStateContext();
   const { checkErrors } = useFunctionContext();
-console.log("orgDetails",orgDetails.departments)
+
   const fields = ["department_name"];
   const placeholders = ["Department Name"];
   const types = ["text"];
 
-  const departmentSchema ={
+  const departmentSchema = {
     organisation_id: Joi.string().min(10).max(18).required(),
     department_name: Joi.string().trim().strip().min(5).max(50).required(),
     department_id: Joi.string().allow(null, "").optional(),
@@ -88,12 +86,14 @@ console.log("orgDetails",orgDetails.departments)
     try {
       setLoading(true);
       await checkErrors(departmentSchema, formData);
-      
+
       const dataToSubmit = {
         ...formData,
         department_name: formData.department_name.trim(),
         organisation_id: formData.organisation_id.trim(),
-        department_id: formData.department_id ? formData.department_id.trim() : "",
+        department_id: formData.department_id
+          ? formData.department_id.trim()
+          : "",
       };
 
       const response = await backEndCallObjNothing(
@@ -102,7 +102,7 @@ console.log("orgDetails",orgDetails.departments)
       );
 
       setOrgDetails(response.data);
-      console.log(response,"response")
+
       toastOptions.success(response.success);
 
       setFormData({
@@ -114,11 +114,8 @@ console.log("orgDetails",orgDetails.departments)
       setShowModal(false);
       // toastOptions(response.success)
     } catch (error) {
-      if(error?.response?.data ){
-        
-        toastOptions.error(
-          error?.response?.data 
-        );
+      if (error?.response?.data) {
+        toastOptions.error(error?.response?.data);
       }
     } finally {
       setLoading(false);
@@ -139,64 +136,72 @@ console.log("orgDetails",orgDetails.departments)
             color: applicationColor.readColor1,
           }}
         >
-          <div className={`department-cards ${showModal ? "d-none" : "d-block"}`}>
-            
+          <div
+            className={`department-cards ${showModal ? "d-none" : "d-block"}`}
+          >
             <section className="row">
-      <div className="mb-4 d-flex justify-content-end">
-        <button
-          className="btn btn-primary d-flex align-items-center"
-          type="button"
-          onClick={handleAddItems}
-        >
-          <RiAddCircleFill size={24} className="me-2" />
-          <span>Add  Departments</span>
-        </button>
-      </div>
-
-      {orgDetails?.departments?.length > 0 ? (
-        orgDetails?.departments?.map((item, index) => (
-          <div className="col-lg-4 col-md-6 mb-4" key={index}>
-            <div
-              className="card"
-              style={{
-                background: applicationColor.cardBg1,
-                color: applicationColor.readColor1,
-                borderRadius: '12px',
-                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-                transition: 'transform 0.2s, box-shadow 0.2s',
-                cursor: 'pointer'
-              }}
-              // onClick={() => handleEditItems(item.role_id, item)}
-            >
-              <div className="card-body d-flex flex-column p-4">
-              {/* <h5 className="card-title mb-3" style={{ fontSize: '1.25rem' }}>
-                  {item.department_name}
-                </h5> */}
-                <h5 className="card-title mb-3" style={{ fontSize: '1.25rem' }}>
-  {item?.department_name
-    .split(' ') // Split the string into an array of words
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize the first letter of each word
-    .join(' ')}
-</h5>
-                <p className="card-text text-muted mb-4">
-                Department ID: {item.department_id}
-                </p>
+              <div className="mb-4 d-flex justify-content-end">
                 <button
-                  className="btn btn-outline-primary mt-auto"
-                  onClick={() => handleEditItems(item.department_id, item)}
+                  className="btn btn-primary d-flex align-items-center"
+                  type="button"
+                  onClick={handleAddItems}
                 >
-                  Edit  Department
+                  <RiAddCircleFill size={24} className="me-2" />
+                  <span>Add Departments</span>
                 </button>
               </div>
-            </div>
-          </div>
-        ))
-      ) : (
-        <div className="col-12 text-center">
-          No data available.
-        </div>
-      )}
-    </section>
+
+              {orgDetails?.departments?.length > 0 ? (
+                orgDetails?.departments?.map((item, index) => (
+                  <div className="col-lg-4 col-md-6 mb-4" key={index}>
+                    <div
+                      className="card"
+                      style={{
+                        background: applicationColor.cardBg1,
+                        color: applicationColor.readColor1,
+                        borderRadius: "12px",
+                        boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+                        transition: "transform 0.2s, box-shadow 0.2s",
+                        cursor: "pointer",
+                      }}
+                      // onClick={() => handleEditItems(item.role_id, item)}
+                    >
+                      <div className="card-body d-flex flex-column p-4">
+                        {/* <h5 className="card-title mb-3" style={{ fontSize: '1.25rem' }}>
+                  {item.department_name}
+                </h5> */}
+                        <h5
+                          className="card-title mb-3"
+                          style={{ fontSize: "1.25rem" }}
+                        >
+                          {item?.department_name
+                            .split(" ") // Split the string into an array of words
+                            .map(
+                              (word) =>
+                                word.charAt(0).toUpperCase() +
+                                word.slice(1).toLowerCase()
+                            ) // Capitalize the first letter of each word
+                            .join(" ")}
+                        </h5>
+                        <p className="card-text text-muted mb-4">
+                          Department ID: {item.department_id}
+                        </p>
+                        <button
+                          className="btn btn-outline-primary mt-auto"
+                          onClick={() =>
+                            handleEditItems(item.department_id, item)
+                          }
+                        >
+                          Edit Department
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="col-12 text-center">No data available.</div>
+              )}
+            </section>
           </div>
 
           {/* <div className={`department-form ${showModal ? "d-block" : "d-none"}`}>
@@ -255,66 +260,75 @@ console.log("orgDetails",orgDetails.departments)
           <div className={`role-form ${showModal ? "d-block" : "d-none"}`}>
             {showModal && (
               <>
-                <div className="modal fade show" style={{ display: 'block' }}>
-           <div className="modal-dialog modal-dialog-centered">
-             <div
-               className="modal-content"
-               style={{
-                 background: applicationColor.cardBg1,
-                 color: applicationColor.readColor1,
-                 borderRadius: '10px',
-                 padding: '20px',
-               }}
-             >
-               <div className="modal-header">
-                 <h5 className="modal-title">{edit ? "Edit Department" : "Add Department"}</h5>
-                 <button
-                   type="button"
-                   className="btn-close"
-                   aria-label="Close"
-                   onClick={handleCloseModal}
-                 >
-                   <span>&times;</span>
-                 </button>
-               </div>
-               <div className="modal-body">
-                 <p className="text-muted mb-4">
-                   Please fill out the form below to {edit ? "Edit Department" : "add Deparment"}.
-                 </p>
-                 <form onSubmit={handleSubmit} >
-                   <div className="row mb-4">
-                     <div className="col-12 "style={{ padding:'0'}}>
-                       {fields.map((field, index) => (
-                         <div className="form-group mb-3" key={field}>
-                           <Input_text
-                             type={types[index]}
-                             name="department_name"
-                             setForm={setFormData}
-                             value={formData[field]}
-                             placeholder={placeholders[index]}
-                             onChange={handleChange}
-                             maxLength={50}
-                           />
-                         </div>
-                       ))}
-                     </div>
-                   </div>
-                   <div className="form-button">
-                     <button
-                       className="py-2 px-3 w-100"
-                       type="submit"
-                       disabled={loading}
-                       style={{
-                         background: applicationColor.buttonColor,
-                         color: 'white',
-                       }}
-                     >
-                       {loading ? <Loader /> : edit ? "Edit Department" : "Add Department"}
-                     </button>
-                   </div>
-                 </form>
-               </div>
-               {/* <div className="modal-footer">
+                <div className="modal fade show" style={{ display: "block" }}>
+                  <div className="modal-dialog modal-dialog-centered">
+                    <div
+                      className="modal-content"
+                      style={{
+                        background: applicationColor.cardBg1,
+                        color: applicationColor.readColor1,
+                        borderRadius: "10px",
+                        padding: "20px",
+                      }}
+                    >
+                      <div className="modal-header">
+                        <h5 className="modal-title">
+                          {edit ? "Edit Department" : "Add Department"}
+                        </h5>
+                        <button
+                          type="button"
+                          className="btn-close"
+                          aria-label="Close"
+                          onClick={handleCloseModal}
+                        >
+                          <span>&times;</span>
+                        </button>
+                      </div>
+                      <div className="modal-body">
+                        <p className="text-muted mb-4">
+                          Please fill out the form below to{" "}
+                          {edit ? "Edit Department" : "add Deparment"}.
+                        </p>
+                        <form onSubmit={handleSubmit}>
+                          <div className="row mb-4">
+                            <div className="col-12 " style={{ padding: "0" }}>
+                              {fields.map((field, index) => (
+                                <div className="form-group mb-3" key={field}>
+                                  <Input_text
+                                    type={types[index]}
+                                    name="department_name"
+                                    setForm={setFormData}
+                                    value={formData[field]}
+                                    placeholder={placeholders[index]}
+                                    onChange={handleChange}
+                                    maxLength={50}
+                                  />
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                          <div className="form-button">
+                            <button
+                              className="py-2 px-3 w-100"
+                              type="submit"
+                              disabled={loading}
+                              style={{
+                                background: applicationColor.buttonColor,
+                                color: "white",
+                              }}
+                            >
+                              {loading ? (
+                                <Loader />
+                              ) : edit ? (
+                                "Edit Department"
+                              ) : (
+                                "Add Department"
+                              )}
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                      {/* <div className="modal-footer">
                  <button
                    type="button"
                    className="btn btn-secondary"
@@ -323,10 +337,9 @@ console.log("orgDetails",orgDetails.departments)
                    Close
                  </button>
                </div> */}
-             </div>
-           </div>
-         </div>
-         
+                    </div>
+                  </div>
+                </div>
               </>
             )}
           </div>

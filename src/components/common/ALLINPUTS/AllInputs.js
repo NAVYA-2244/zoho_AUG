@@ -252,8 +252,7 @@ export function InputText({
   const { handleChange } = useFunctionContext();
   const computedPlaceholder = imp ? `${placeholder} *` : placeholder;
   const { applicationColor } = useThemeContext();
-  // const newErrors = flatternObject(errors);
-  // console.log(errors, index, fieldName);
+  
   return (
     <>
       <div className="total-form">
@@ -656,7 +655,7 @@ export function Input_checkBox({
             <label htmlFor={name}>{icon}</label>
           </div>
           <div className="input">
-            {console.log(checked, "checked")}
+           
             <input
               type="checkbox"
               id={name}
@@ -1150,12 +1149,11 @@ export function Date_Input({
   const dateInputRef = useRef(null);
 
   const dateValue = value ? parseISO(value) : null;
-  console.log(value, 'value')
-  console.log(dateValue, 'dateValue')
+ 
   const formatedDate = isValid(dateValue)
     ? format(new Date(dateValue), "yyyy-MM-dd")
     : "";
-  console.log(formatedDate, 'formatedDate')
+
   const handleClick = () => {
     if (dateInputRef.current) {
       dateInputRef.current.showPicker();

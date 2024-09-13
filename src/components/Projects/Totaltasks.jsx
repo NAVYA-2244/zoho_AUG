@@ -40,7 +40,7 @@ function Totaltasks() {
           "/emp_get/get_all_tasks",
           filters
         );
-        console.log(response);
+
         setManagerTask(response || []);
       } // Adjust based on actual response structure
     } catch (error) {
@@ -80,7 +80,6 @@ function Totaltasks() {
       await fetchingData();
       // Refetch tasks to update the list
     } catch (error) {
-      console.error("Error updating task:", error);
       toastOptions.success(error?.response?.data);
     } finally {
       setLoading(false);
@@ -174,11 +173,14 @@ function Totaltasks() {
                     <td>{task.task_id}</td>
                     <td>{task.task_name}</td>
                     <td>{task.project_name}</td>
-                    <td> {task?.team?.map((member) => (
-                    <span key={member.employee_id} className="mb-2">
-                      {member.employee_name}
-                    </span>
-                  ))}</td>
+                    <td>
+                      {" "}
+                      {task?.team?.map((member) => (
+                        <span key={member.employee_id} className="mb-2">
+                          {member.employee_name}
+                        </span>
+                      ))}
+                    </td>
                     {/* <td className="table-description">{task.description}</td>  */}
                     <td>{task.status}</td>
                     <td>{task.priority}</td>

@@ -21,7 +21,7 @@ const EmployeeAttendanceCalendar = () => {
         skip,
         limit,
       });
-      console.log(response, "");
+
       setEmployeeAttendance(response.attendance);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -45,7 +45,7 @@ const EmployeeAttendanceCalendar = () => {
 
         // Ignore events for today
         const today = moment().startOf("day").toDate();
-        
+
         const checkinDate = moment(firstCheckin).startOf("day").toDate();
         if (checkinDate.getTime() === today.getTime()) {
           return [];

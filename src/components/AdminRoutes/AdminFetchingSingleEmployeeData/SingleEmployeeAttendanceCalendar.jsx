@@ -34,7 +34,6 @@ const SingleEmployeeAttendanceCalendar = ({
     { name: "Actions", property: "", type: "string" },
   ];
 
-  console.log({ employeeAttendanceData });
   const { applicationColor } = useThemeContext();
 
   return (
@@ -160,17 +159,13 @@ export const UpdateAttendance = ({ attendanceItem }) => {
     }
   }, [attendanceItem]);
 
-  // useEffect(() => {
-  //   console.log(editingItem);
-  // }, [editingItem]);
-
   const handleSubmit = async (e, data) => {
     e.preventDefault();
 
     try {
       setLoading(true);
       setLoadingTerm("updatingEmployeeAttendance");
-      console.log(attendanceModalData);
+
       if (attendanceModalData.edit) {
         data.attendanceId = attendanceItem.attendanceId;
       }

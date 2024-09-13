@@ -261,7 +261,6 @@ const AdminQueryData = () => {
       setSkip,
     ]
   );
-  console.log(adminDashboardData, "admindashboardData");
 
   if (loading && loadingTerm === "adminDashboardData") {
     return <Loader />;

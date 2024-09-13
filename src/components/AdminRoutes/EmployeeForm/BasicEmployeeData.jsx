@@ -30,7 +30,7 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
     setreportingmangers,
     recentemployeeid,
   } = useStateContext();
-  console.log(reportingmangers, "reportingmangers");
+
   const { applicationColor } = useThemeContext();
   const [employeesList, setEmployeesList] = useState([]);
   const [filteredEmployees, setFilteredEmployees] = useState([]);
@@ -38,7 +38,6 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
   const [optionss, setOptionss] = useState({});
   const [optionsss, setoptionsss] = useState({});
 
-  console.log("filteredEmployees", filteredEmployees);
   useEffect(() => {
     if (orgDetails.departments) {
       setOptions({
@@ -89,8 +88,6 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
     }
   }, [employeeDetails.admin_type, reportingmangers, setLoading]);
 
-  console.log(orgDetails, "navya");
-
   return (
     <>
       <div
@@ -100,8 +97,6 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
           color: applicationColor.readColor1,
         }}
       >
-        {/* <ProfilePhoto formData={formData} setFormData={setFormData} /> */}
-
         <h6 className="heading-form mt-4">Basic Information</h6>
 
         <div className="col-lg-3 col-md-3 col-sm-6">
@@ -114,7 +109,6 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
             schema={schema?.employee_id}
             imp={true}
             maxLength={10}
-            // readOnly={isAdmin || type === "Update Employee"}
             inputRef={(el) => (refs.current.employee_id = el)}
           />
 
@@ -122,7 +116,6 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
             This should be a recent employee Id "{recentemployeeid?.employee_id}
             ".
           </p>
-          {/* } */}
         </div>
         <div className="col-lg-3 col-md-3 col-sm-6">
           <Input_text
@@ -315,22 +308,6 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
             />
           )}
         </div>
-        {/* 
-        <div className="col-lg-4 col-md-4 col-sm-6">
-          {/* <Select_inputs
-            name={"location_id"}
-            placeholder={"Location"}
-            value={formData?.location_id}
-            schema={schema?.location_id}
-            setForm={setFormData}
-            options={locations}
-            property={"location_name"}
-            valueProperty={"location_id"}
-            // readOnly={isAdmin}
-            imp
-            inputRef={(el) => (refs.current.designation = el)}
-          /> */}
-        {/* </div>  */}
 
         <div className="col-lg-3 col-md-3 col-sm-6">
           {employeeDetails.admin_type === "1" ||
@@ -430,16 +407,6 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
             // readOnly={isAdmin}
             imp
             inputRef={(el) => (refs.current.date_of_join = el)}
-            // min={
-            //   new Date(
-            //     new Date().getFullYear() - 55,
-            //     new Date().getMonth(),
-            //     new Date().getDate()
-            //   )
-            //     .toISOString()
-            //     .split("T")[0]
-            // }
-            // max={new Date().toISOString().split("T")[0]}
           />
         </div>
 
@@ -458,21 +425,6 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
           />
         </div>
 
-        {/* <div className="col-lg-4 col-md-4 col-sm-6">
-        <InputPassword
-            type={"password"}
-            placeholder={"Password"}
-            name={"password"}
-            value={formData["password"]}
-            setForm={setFormData}
-            id={"password"}
-            maxLength={15} 
-            schema={schema.password}
-            imp
-            icon={<MdOutlineKey />}
-          />
-        </div> */}
-
         <div className="col-lg-3 col-md-3 col-sm-6">
           <Select_inputs
             name={"employee_status"}
@@ -488,23 +440,6 @@ const BasicEmployeeData = ({ formData, setFormData, disableobj, type }) => {
         </div>
 
         <div className="col-lg-3 col-md-3 col-sm-6">
-          {/* <Select_inputs
-  name={"reporting_manager"}
-  placeholder={"Reporting Manager"}
-  value={formData.reporting_manager}
-  schema={schema.reporting_manager}
-  setForm={setFormData}
-  options={filteredEmployees.map((employee) => ({
-    displayName: `${employee.basic_info.email} `, // Display email and last name
-    employeeId: employee.employee_id, // Store employee ID for payload
-    email: employee.basic_info.email, // Store email for payload
-  }))}
-  property={"displayName"} // Display email and last name
-  valueProperty={"email"} // Store email in the formData
-  imp
-  inputRef={(el) => (refs.current.reporting_manager = el)}
-/> */}
-
           {employeeDetails.admin_type === "1" ||
           employeeDetails.admin_type === "2" ? (
             <Select_inputs

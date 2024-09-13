@@ -22,9 +22,15 @@ const convertDate = (dateString) => {
 };
 
 const UpdateEmployee = () => {
-  const { setLoading, setLoadingTerm, setOrgData2, orgDetails,employeesList, setEmployeesList  } =
-    useStateContext();
-   
+  const {
+    setLoading,
+    setLoadingTerm,
+    setOrgData2,
+    orgDetails,
+    employeesList,
+    setEmployeesList,
+  } = useStateContext();
+
   const { employeId } = useParams();
   const [updateEmployeedata, setUpdateEmployeeData] = useState({});
   const { checkErrors } = useFunctionContext();
@@ -39,8 +45,6 @@ const UpdateEmployee = () => {
           `/admin_get/get_emp_by_id`,
           { employee_id: employeId }
         );
-
-        console.log({employee}, "employeupdate");
 
         const {
           basic_info,
@@ -80,8 +84,6 @@ const UpdateEmployee = () => {
         form.employee_id = employee_id;
         form.password = password;
         setUpdateEmployeeData(form);
-
-        console.log({ updateForm: form });
       } catch (error) {
         setLoading(false);
       } finally {
@@ -91,17 +93,14 @@ const UpdateEmployee = () => {
     singleEmployeeData();
   }, [employeId]);
 
-
   const handleSubmit = async (formData) => {
     try {
       setButtonDisabled(true);
       setLoading(true);
       setLoadingTerm("Update Employee");
-      setEmployeesList([])
+      setEmployeesList([]);
       // Remove the `admin_type` field from formData if it exists
       const { admin_type, ...filteredFormData } = formData;
-
-      console.log({ filteredFormData }); // Debugging without `admin_type`
 
       await checkErrors(ExpirementSchema, filteredFormData);
 
@@ -144,9 +143,6 @@ const UpdateEmployee = () => {
         educational_details: filteredFormData?.educational_details,
         dependent_details: filteredFormData?.dependent_details,
       };
-      {
-        console.log(filteredFormData, "data");
-      }
 
       data.organisation_id = orgDetails?.organisation_id;
 
@@ -167,7 +163,6 @@ const UpdateEmployee = () => {
       toastOptions.error(
         error?.response?.data || error[0].message || "Something went wrong"
       );
-      console.log(error?.response?.error, "error");
     } finally {
       setLoading(false);
       setButtonDisabled(false);
@@ -176,7 +171,7 @@ const UpdateEmployee = () => {
   if (redirect) {
     return <Navigate to="/admin/employee_list" />;
   }
-  console.log(updateEmployeedata, "updateEmployeedata");
+
   return (
     <>
       {/* hello world */}

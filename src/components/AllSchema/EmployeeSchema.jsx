@@ -75,15 +75,6 @@ const eighteenYearsAgo = new Date();
 eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18);
 
 export const ExpirementSchema = {
-  // profilePhoto: Joi.string()
-  //   .allow("")
-
-  //   .label("Profile Photo"),
-  // banner: Joi.string()
-  //   .allow("")
-
-  //   .label("Banner"),
-
   employee_id: Joi.string()
     .min(5)
     .max(10)
@@ -256,8 +247,6 @@ export const ExpirementSchema = {
     .messages({
       "string.pattern.base":
         '"PAN" should consist of 5 letters followed by 4 digits and 1 letter, and should not include special characters',
-
-     
     })
 
     .label("pan"),
